@@ -11,7 +11,7 @@ import { cardTiles } from '../_data';
 
 export default function CardsSection() {
   return (
-    <section className="w-full py-15">
+    <section className="w-full py-15 bg-grey-bluish-grey">
       <LayoutWrapper>
         <div className="flex w-full flex-col items-start gap-12">
           <div className="flex w-full items-end justify-between">

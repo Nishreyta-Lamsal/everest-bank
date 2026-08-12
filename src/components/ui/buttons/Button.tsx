@@ -17,7 +17,7 @@ export const buttonClasses = tv({
     variant: {
       primary: 'bg-red-500 text-white! hover:bg-red-600',
       secondary:
-        'border border-red-600 bg-transparent text-red-600 hover:bg-red-50',
+        'border border-red-600 bg-transparent text-red-600! hover:bg-red-50',
       'secondary-white':
         'border border-white bg-transparent text-white! hover:bg-white hover:text-red-500!',
       'tertiary-white': 'bg-white text-red-500! hover:bg-red-50',
