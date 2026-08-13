@@ -11,31 +11,32 @@ import { cardTiles } from '../_data';
 
 export default function CardsSection() {
   return (
-    <section className="w-full py-15 bg-grey-bluish-grey">
+    <section className="bg-grey-bluish-grey w-full py-16 xl:py-15">
       <LayoutWrapper>
-        <div className="flex w-full flex-col items-start gap-12">
-          <div className="flex w-full items-end justify-between">
-            <p className="font-heading text-heading-h1-desktop-md text-grey-500 w-145.25">
-              {'Pay Smarter, Earn More, '}
-              <br />
-              Bank Better.
-            </p>
-            <Link href="#">
-              <Button variant="secondary" size="md">
-                Know more about the cards
-              </Button>
-            </Link>
-          </div>
-          <div className="flex w-full items-center gap-10">
+        <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_auto] xl:items-end xl:gap-x-6 xl:gap-y-12">
+          <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
+            {'Pay Smarter, Earn More, '}
+            <br />
+            Bank Better.
+          </p>
+          <Link
+            href="#"
+            className="order-3 block w-full xl:order-0 xl:inline-block xl:w-auto"
+          >
+            <Button variant="secondary" size="md" className="w-full xl:w-auto">
+              Know more about the cards
+            </Button>
+          </Link>
+          <div className="order-2 flex w-full flex-col gap-8 xl:order-0 xl:col-span-2 xl:flex-row xl:items-center xl:gap-10">
             {cardTiles.map((card) => (
               <Link
                 key={card.title}
                 href={card.href}
                 className={cn(
-                  'relative h-81 w-full overflow-hidden rounded-lg',
+                  'relative h-59.75 w-full overflow-hidden rounded-lg md:h-81',
                   card.roundedCorner === 'right'
-                    ? 'rounded-tr-[120px]'
-                    : 'rounded-tl-[120px]',
+                    ? 'xl:rounded-tr-[120px]'
+                    : 'xl:rounded-tl-[120px]',
                 )}
               >
                 <Image
@@ -44,12 +45,12 @@ export default function CardsSection() {
                   fill
                   className="object-cover object-bottom"
                 />
-                <div className="bg-gradient-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)] absolute inset-0" />
-                <div className="absolute inset-x-6 top-60.5 flex items-center justify-between">
-                  <p className="font-heading text-heading-h2-desktop text-white w-91.5">
+                <div className="absolute inset-0 bg-linear-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)]" />
+                <div className="absolute top-45.75 left-4 w-59.5 xl:inset-x-6 xl:top-60.5 xl:flex xl:w-auto xl:items-center xl:justify-between">
+                  <p className="font-heading text-heading-h3-mobile xl:text-heading-h2-desktop text-white xl:w-91.5">
                     {card.title}
                   </p>
-                  <ArrowUpRightIcon className="text-white size-8 shrink-0" />
+                  <ArrowUpRightIcon className="hidden size-8 shrink-0 text-white xl:block" />
                 </div>
               </Link>
             ))}

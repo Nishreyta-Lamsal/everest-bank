@@ -6,7 +6,7 @@ import CsrSection from './_components/CsrSection';
 import HeroSection from './_components/HeroSection';
 import LoansSection from './_components/LoansSection';
 import NewsSection from './_components/NewsSection';
-import ProductsSection from './_components/products/ProductsSection';
+import ProductsSection from './_components/ProductsSection';
 import TrustSection from './_components/TrustSection';
 
 export default function LandingPage() {

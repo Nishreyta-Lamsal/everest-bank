@@ -25,6 +25,7 @@ export * from './MapPinIcon';
 export * from './MenuIcon';
 export * from './MountainOutlineIcon';
 export * from './PartnershipIcon';
+export * from './PauseIcon';
 export * from './PeopleIcon';
 export * from './PhoneCallIcon';
 export * from './PhoneIcon';

@@ -9,14 +9,14 @@ import { csrCards, csrCustomerAvatars } from '../_data';
 
 export default function CsrSection() {
   return (
-    <section className="w-full pt-30 pb-15">
+    <section className="w-full py-16 xl:pt-30 xl:pb-15">
       <LayoutWrapper>
-        <div className="flex items-start gap-12">
-          <div className="flex w-107.25 shrink-0 flex-col items-start gap-12 py-6">
-            <p className="font-heading text-heading-h1-desktop-md text-grey-500 w-106.25">
+        <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
+          <div className="flex flex-col gap-10 xl:w-107.25 xl:shrink-0 xl:gap-12 xl:py-6">
+            <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-106.25">
               Creating positive change beyond banking for a better tomorrow
             </p>
-            <div className="flex flex-col items-start gap-6">
+            <div className="hidden flex-col items-start gap-6 xl:flex">
               <div className="flex items-start">
                 {csrCustomerAvatars.map((avatar, index) => (
                   <Image
@@ -28,7 +28,7 @@ export default function CsrSection() {
                     className={
                       index === 0
                         ? 'size-15 shrink-0 rounded-full'
-                        : 'size-15 shrink-0 -ml-6 rounded-full'
+                        : '-ml-6 size-15 shrink-0 rounded-full'
                     }
                   />
                 ))}
@@ -41,9 +41,9 @@ export default function CsrSection() {
               </p>
             </div>
           </div>
-          <div className="flex flex-1 flex-col items-start gap-12">
-            <div className="flex w-full items-start gap-12">
-              <div className="relative h-71.25 w-107.25 shrink-0 overflow-hidden rounded-3xl rounded-tl-65">
+          <div className="flex flex-1 flex-col gap-10 xl:gap-12">
+            <div className="flex flex-col gap-10 xl:w-full xl:flex-row xl:items-start xl:gap-12">
+              <div className="rounded-tl-65 relative h-59.25 w-full overflow-hidden rounded-3xl md:h-71.25 xl:w-107.25 xl:shrink-0">
                 <Image
                   src="/images/csr/csr-photo.jpg"
                   alt="A barista helping a customer pay with a QR code"
@@ -51,34 +51,40 @@ export default function CsrSection() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex w-77.5 shrink-0 flex-col items-start gap-12">
+              <div className="flex flex-col gap-4 xl:w-77.5 xl:shrink-0 xl:gap-12">
                 <p className="text-body-2-desktop text-grey-400">
                   Explore how Everest Bank contributes to communities through
-                  education, sustainability, and social development
-                  initiatives.
+                  education, sustainability, and social development initiatives.
                 </p>
-                <Link href="#">
-                  <Button variant="secondary" size="md">
+                <Link
+                  href="#"
+                  className="block w-full xl:inline-block xl:w-auto"
+                >
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    className="w-full xl:w-auto"
+                  >
                     Explore CSR activities
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="flex w-full items-start gap-12">
+            <div className="flex flex-col gap-6 xl:w-full xl:flex-row xl:gap-12">
               {csrCards.map((card) => (
                 <div
                   key={card.title}
-                  className="bg-grey-bluish-grey flex h-71.25 flex-1 flex-col justify-between rounded-lg p-6"
+                  className="bg-grey-bluish-grey flex w-full flex-col items-end gap-6 rounded-lg p-4 xl:h-71.25 xl:flex-1 xl:items-start xl:justify-between xl:gap-0 xl:p-6"
                 >
-                  <div className="flex flex-col items-start gap-4">
-                    <card.icon className="text-orange-500 size-12" />
-                    <p className="font-heading text-heading-h3-desktop text-grey-500 w-56.75">
+                  <div className="flex w-full items-center gap-2 xl:flex-col xl:items-start xl:gap-4">
+                    <card.icon className="size-8 shrink-0 text-orange-500 xl:size-12" />
+                    <p className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-56.75">
                       {card.title}
                     </p>
                   </div>
                   <Link
                     href={card.href}
-                    className="text-red-700 inline-flex items-center gap-1 text-body-4-desktop-md font-medium"
+                    className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700"
                   >
                     {card.linkLabel}
                     <ArrowUpRightIcon className="size-4 shrink-0" />

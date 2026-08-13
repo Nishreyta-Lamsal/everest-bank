@@ -49,7 +49,7 @@ export default function NavbarPersonalMenu() {
         </div>
         <Link
           href="#"
-          className="relative flex h-[120px] flex-1 items-end justify-center overflow-hidden rounded-lg rounded-tl-[80px] bg-orange-50 px-10 py-4 transition-opacity hover:opacity-90"
+          className="relative ml-auto flex h-[120px] w-full max-w-[598px] items-end justify-center overflow-hidden rounded-lg rounded-tl-[80px] bg-orange-50 px-10 py-4 transition-opacity hover:opacity-90"
         >
           <MountainOutlineIcon className="pointer-events-none absolute right-0 bottom-0 h-[135px] w-auto text-orange-100" />
           <div className="relative z-10 flex w-full max-w-[518px] items-start justify-between">
