@@ -1,7 +1,10 @@
 import type { ComponentType, SVGProps } from 'react';
 
 import {
+  BankIcon,
+  BanknoteIcon,
   BellIcon,
+  BriefcaseIcon,
   CalendarIcon,
   CardStackIcon,
   GavelIcon,
@@ -31,13 +34,14 @@ export const utilityNavItems: UtilityNavItem[] = [
 export type MainNavItem = {
   label: string;
   href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
 export const mainNavItems: MainNavItem[] = [
-  { label: 'Personal', href: '#' },
-  { label: 'Business', href: '#' },
-  { label: 'Remittance', href: '#' },
-  { label: 'About', href: '#' },
+  { label: 'Personal', href: '#', icon: PeopleIcon },
+  { label: 'Business', href: '#', icon: BriefcaseIcon },
+  { label: 'Remittance', href: '#', icon: BanknoteIcon },
+  { label: 'About', href: '#', icon: BankIcon },
 ];
 
 export type PersonalMenuLink = {

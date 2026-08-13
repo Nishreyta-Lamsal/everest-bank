@@ -3,6 +3,7 @@ import { Inter, Anek_Devanagari } from 'next/font/google';
 
 import Footer from '@/components/layouts/footer/Footer';
 import Navbar from '@/components/layouts/navbar/Navbar';
+import BottomNavigationBar from '@/components/shared/BottomNavigationBar';
 import SideFixedMenu from '@/components/shared/SideFixedMenu';
 
 import './globals.css';
@@ -62,11 +63,12 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       lang="en"
       className={`${inter.variable} ${anekDevanagari.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col pb-14.5 lg:pb-0">
         <Navbar />
         {children}
         <Footer />
         <SideFixedMenu />
+        <BottomNavigationBar />
       </body>
     </html>
   );

@@ -12,9 +12,9 @@ export default function LoansSection() {
     <section className="bg-grey-bluish-grey w-full py-16 xl:py-15">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_auto] xl:items-end xl:gap-x-6 xl:gap-y-12">
-          <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
             Financial support designed around life&rsquo;s biggest milestones.
-          </p>
+          </h2>
           <Link
             href="#"
             className="order-3 block w-full xl:order-0 xl:inline-block xl:w-auto"
@@ -49,9 +49,9 @@ export default function LoansSection() {
                   )}
                 </div>
                 <div className="flex w-full flex-col items-start gap-6 bg-white p-4 xl:h-40 xl:justify-between xl:gap-0 xl:p-6">
-                  <p className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
+                  <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
                     {card.title}
-                  </p>
+                  </h3>
                   <span className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 xl:underline">
                     Apply now
                     <ArrowUpRightIcon className="size-4 shrink-0" />

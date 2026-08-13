@@ -14,9 +14,9 @@ export default function ContactSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-20 rounded-2xl bg-red-600 px-4 py-10 xl:flex-row xl:items-stretch xl:justify-between xl:gap-0 xl:p-10">
           <div className="flex flex-col gap-8 xl:items-start xl:justify-between xl:gap-0 xl:self-stretch">
-            <p className="font-heading text-heading-h1-desktop-md w-76 text-white">
+            <h2 className="font-heading text-heading-h1-desktop-md w-76 text-white">
               Get in touch with us anytime.
-            </p>
+            </h2>
             <div className="flex flex-col gap-4">
               <Link href="#" className="block w-full xl:inline-block xl:w-auto">
                 <Button
@@ -55,9 +55,9 @@ export default function ContactSection() {
                 )}
               >
                 <div className="flex flex-col items-start gap-2">
-                  <p className="font-heading text-title-1-desktop-md text-white">
+                  <h3 className="font-heading text-title-1-desktop-md text-white">
                     {topic.title}
-                  </p>
+                  </h3>
                   <p className="font-heading text-title-3-desktop w-full text-white/90 xl:w-134.5">
                     {topic.description}
                   </p>

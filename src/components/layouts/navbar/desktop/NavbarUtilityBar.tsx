@@ -14,11 +14,14 @@ export default function NavbarUtilityBar() {
         height={36}
         priority
       />
-      <div className="text-body-4-desktop flex items-center gap-4">
+      <nav
+        aria-label="Utility links"
+        className="text-body-4-desktop flex items-center gap-4"
+      >
         {utilityNavItems.map((item) => (
           <NavbarUtilityLink key={item.label} {...item} />
         ))}
-      </div>
+      </nav>
     </div>
   );
 }

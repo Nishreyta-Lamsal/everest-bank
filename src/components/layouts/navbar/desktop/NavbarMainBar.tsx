@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import NavbarMenuItem from './NavbarMenuItem';
 import NavbarPersonalMenu from './NavbarPersonalMenu';
@@ -11,19 +11,40 @@ import { mainNavItems } from '@/data';
 
 export default function NavbarMainBar() {
   const [isPersonalMenuOpen, setIsPersonalMenuOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  function openPersonalMenu() {
+    setIsPersonalMenuOpen(true);
+  }
+
+  function closePersonalMenu() {
+    setIsPersonalMenuOpen(false);
+  }
+
+  function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      closePersonalMenu();
+    }
+  }
 
   return (
-    <div className="relative">
+    <div ref={containerRef} onBlur={handleBlur} className="relative">
       <div className="flex items-center justify-between pr-4 md:pr-10 xl:pr-22">
-        <div className="flex items-center">
+        <nav aria-label="Main navigation" className="flex items-center">
           {mainNavItems.map((item, index) =>
             item.label === 'Personal' ? (
               <div
                 key={item.label}
-                onMouseEnter={() => setIsPersonalMenuOpen(true)}
-                onMouseLeave={() => setIsPersonalMenuOpen(false)}
+                onMouseEnter={openPersonalMenu}
+                onMouseLeave={closePersonalMenu}
               >
-                <NavbarMenuItem {...item} isFirst={index === 0} />
+                <NavbarMenuItem
+                  {...item}
+                  isFirst={index === 0}
+                  hasDropdown
+                  isExpanded={isPersonalMenuOpen}
+                  onFocus={openPersonalMenu}
+                />
               </div>
             ) : (
               <NavbarMenuItem
@@ -33,7 +54,7 @@ export default function NavbarMainBar() {
               />
             ),
           )}
-        </div>
+        </nav>
         <div className="flex items-center gap-2">
           <NavbarSearchInput />
           <Button shape="rectangular" size="sm">
@@ -44,8 +65,8 @@ export default function NavbarMainBar() {
       {isPersonalMenuOpen && (
         <div
           className="absolute top-full left-0 z-50 w-full"
-          onMouseEnter={() => setIsPersonalMenuOpen(true)}
-          onMouseLeave={() => setIsPersonalMenuOpen(false)}
+          onMouseEnter={openPersonalMenu}
+          onMouseLeave={closePersonalMenu}
         >
           <NavbarPersonalMenu />
         </div>

@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
+import HeroImageCarousel from './HeroImageCarousel';
 import HeroVideoPlayer from './HeroVideoPlayer';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { ArrowUpRightIcon } from '@/components/icons';
 import { buttonClasses } from '@/components/ui/buttons/Button';
-import CarouselDots from '@/components/ui/carousel/CarouselDots';
 
 export default function HeroSection() {
   return (
@@ -54,19 +53,7 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="relative h-59.75 w-full lg:h-67.75 lg:w-76 lg:shrink-0 xl:h-138 xl:w-155">
-            <Image
-              src="/images/hero/hero-card-photo.png"
-              alt="A customer holding an Everest Bank card"
-              fill
-              className="rounded-tl-xl rounded-tr-[64px] rounded-br-xl rounded-bl-xl object-cover lg:rounded-tl-2xl lg:rounded-tr-[61px] lg:rounded-br-2xl lg:rounded-bl-2xl xl:rounded-tr-[124px]"
-            />
-            <CarouselDots
-              total={5}
-              activeIndex={0}
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 lg:bottom-6"
-            />
-          </div>
+          <HeroImageCarousel />
         </div>
       </LayoutWrapper>
     </section>

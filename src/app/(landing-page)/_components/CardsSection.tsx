@@ -14,11 +14,11 @@ export default function CardsSection() {
     <section className="bg-grey-bluish-grey w-full py-16 xl:py-15">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_auto] xl:items-end xl:gap-x-6 xl:gap-y-12">
-          <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
             {'Pay Smarter, Earn More, '}
             <br />
             Bank Better.
-          </p>
+          </h2>
           <Link
             href="#"
             className="order-3 block w-full xl:order-0 xl:inline-block xl:w-auto"
@@ -47,9 +47,9 @@ export default function CardsSection() {
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)]" />
                 <div className="absolute top-45.75 left-4 w-59.5 xl:inset-x-6 xl:top-60.5 xl:flex xl:w-auto xl:items-center xl:justify-between">
-                  <p className="font-heading text-heading-h3-mobile xl:text-heading-h2-desktop text-white xl:w-91.5">
+                  <h3 className="font-heading text-heading-h3-mobile xl:text-heading-h2-desktop text-white xl:w-91.5">
                     {card.title}
-                  </p>
+                  </h3>
                   <ArrowUpRightIcon className="hidden size-8 shrink-0 text-white xl:block" />
                 </div>
               </Link>
