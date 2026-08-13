@@ -5,7 +5,7 @@ import { footerOfficers } from '@/data';
 
 export default function FooterSupportSection() {
   return (
-    <div className="flex w-full items-center gap-6">
+    <div className="flex w-full flex-col gap-6 lg:flex-row xl:items-center">
       {footerOfficers.map((officer) => (
         <FooterOfficerCard key={officer.email} {...officer} />
       ))}

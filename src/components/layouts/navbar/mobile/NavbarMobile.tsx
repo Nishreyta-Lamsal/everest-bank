@@ -7,7 +7,7 @@ import Button from '@/components/ui/buttons/Button';
 
 export default function NavbarMobile() {
   return (
-    <div className="flex flex-col xl:hidden">
+    <div className="flex flex-col lg:hidden">
       <div className="flex items-center justify-between px-4 py-3">
         <Link href="/" className="shrink-0">
           <Image
