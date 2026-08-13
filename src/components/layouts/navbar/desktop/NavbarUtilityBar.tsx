@@ -14,7 +14,7 @@ export default function NavbarUtilityBar() {
         height={36}
         priority
       />
-      <div className="flex items-center gap-4 text-body-4-desktop">
+      <div className="text-body-4-desktop flex items-center gap-4">
         {utilityNavItems.map((item) => (
           <NavbarUtilityLink key={item.label} {...item} />
         ))}

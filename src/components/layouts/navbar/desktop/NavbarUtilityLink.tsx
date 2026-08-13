@@ -15,7 +15,7 @@ export default function NavbarUtilityLink({
   return (
     <Link
       href={href}
-      className="text-red-500 hover:text-red-600 flex items-center gap-1 rounded py-2 text-body-4-desktop transition-colors"
+      className="text-body-4-desktop flex items-center gap-1 rounded py-2 text-red-500 transition-colors hover:text-red-600"
     >
       <Icon className="size-4 shrink-0" />
       {label}

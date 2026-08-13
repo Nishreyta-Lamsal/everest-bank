@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import NavbarMenuItem from './NavbarMenuItem';
 import NavbarPersonalMenu from './NavbarPersonalMenu';
-import NavbarSearchInput from './NavbarSearchInput';
+import NavbarSearchInput from '../NavbarSearchInput';
 import Button from '@/components/ui/buttons/Button';
 
 import { mainNavItems } from '@/data';

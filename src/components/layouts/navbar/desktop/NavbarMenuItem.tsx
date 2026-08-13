@@ -19,7 +19,7 @@ export default function NavbarMenuItem({
     <Link
       href={href}
       className={cn(
-        'text-red-500! hover:bg-red-500 hover:text-white! flex items-center gap-1 py-3 pr-6 text-body-3-desktop transition-colors',
+        'text-body-3-desktop flex items-center gap-1 py-3 pr-6 text-red-500! transition-colors hover:bg-red-500 hover:text-white!',
         isFirst ? 'pl-22' : 'pl-6',
       )}
     >

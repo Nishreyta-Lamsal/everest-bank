@@ -22,6 +22,7 @@ export * from './LanguageIcon';
 export * from './LinkedinIcon';
 export * from './MailIcon';
 export * from './MapPinIcon';
+export * from './MenuIcon';
 export * from './MountainOutlineIcon';
 export * from './PartnershipIcon';
 export * from './PeopleIcon';
