@@ -3,6 +3,7 @@ import { Inter, Anek_Devanagari } from 'next/font/google';
 
 import Footer from '@/components/layouts/footer/Footer';
 import Navbar from '@/components/layouts/navbar/Navbar';
+import SideFixedMenu from '@/components/shared/SideFixedMenu';
 
 import './globals.css';
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <Navbar />
         {children}
         <Footer />
+        <SideFixedMenu />
       </body>
     </html>
   );
