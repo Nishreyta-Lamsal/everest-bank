@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 import { ArrowUpRightIcon, MountainOutlineIcon } from '@/components/icons';
 
-import { personalMenuColumns, type PersonalMenuColumn } from '@/data';
+import { personalMenuColumns } from '@/data';
+import type { PersonalMenuColumn } from '@/types';
 
 function NavbarPersonalMenuColumn({
   label,
@@ -35,7 +36,11 @@ export default function NavbarPersonalMenu() {
     personalMenuColumns;
 
   return (
-    <div className="border-grey-50 w-full border-t bg-white pt-6 pr-8 pb-12 pl-22 shadow-lg">
+    <div
+      role="region"
+      aria-label="Personal banking menu"
+      className="border-grey-50 w-full border-t bg-white pt-6 pr-8 pb-12 pl-22 shadow-lg"
+    >
       <div className="flex w-full items-start justify-between">
         <NavbarPersonalMenuColumn {...accounts} />
         <NavbarPersonalMenuColumn {...cards} />

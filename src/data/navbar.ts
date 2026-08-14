@@ -1,7 +1,8 @@
-import type { ComponentType, SVGProps } from 'react';
-
 import {
+  BankIcon,
+  BanknoteIcon,
   BellIcon,
+  BriefcaseIcon,
   CalendarIcon,
   CardStackIcon,
   GavelIcon,
@@ -12,11 +13,9 @@ import {
   TrendingUpIcon,
 } from '@/components/icons';
 
-export type UtilityNavItem = {
-  label: string;
-  href: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
+import { ROUTE } from '@/constants/route';
+
+import type { MainNavItem, PersonalMenuColumn, UtilityNavItem } from '@/types';
 
 export const utilityNavItems: UtilityNavItem[] = [
   { label: 'Notice', href: '#', icon: BellIcon },
@@ -28,28 +27,12 @@ export const utilityNavItems: UtilityNavItem[] = [
   { label: 'English', href: '#', icon: LanguageIcon },
 ];
 
-export type MainNavItem = {
-  label: string;
-  href: string;
-};
-
 export const mainNavItems: MainNavItem[] = [
-  { label: 'Personal', href: '#' },
-  { label: 'Business', href: '#' },
-  { label: 'Remittance', href: '#' },
-  { label: 'About', href: '#' },
+  { label: 'Personal', href: ROUTE.PERSONAL_PAGE, icon: PeopleIcon },
+  { label: 'Business', href: ROUTE.BUSINESS_PAGE, icon: BriefcaseIcon },
+  { label: 'Remittance', href: ROUTE.REMITTANCE_PAGE, icon: BanknoteIcon },
+  { label: 'About', href: ROUTE.ABOUT, icon: BankIcon },
 ];
-
-export type PersonalMenuLink = {
-  label: string;
-  href: string;
-};
-
-export type PersonalMenuColumn = {
-  label: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-  links: PersonalMenuLink[];
-};
 
 export const personalMenuColumns: PersonalMenuColumn[] = [
   {
@@ -58,7 +41,7 @@ export const personalMenuColumns: PersonalMenuColumn[] = [
     links: [
       { label: 'Savings Account', href: '#' },
       { label: 'FCY Deposit Account', href: '#' },
-      { label: 'Fixed Deposite Account', href: '#' },
+      { label: 'Fixed Deposit Account', href: '#' },
       { label: 'Recurring Deposit Accounts', href: '#' },
     ],
   },

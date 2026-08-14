@@ -1,13 +1,8 @@
 import Link from 'next/link';
 
-import type { FooterLinkColumn as FooterLinkColumnData } from '@/data';
-
 import { cn } from '@/lib/utils';
 
-type FooterLinkColumnProps = {
-  column: FooterLinkColumnData;
-  className?: string;
-};
+import type { FooterLinkColumnProps } from '@/types';
 
 export default function FooterLinkColumn({
   column,

@@ -11,7 +11,7 @@ type ButtonProps = {
   rightIcon?: ReactNode;
 } & ComponentPropsWithoutRef<'button'>;
 
-export const buttonClasses = tv({
+const buttonClasses = tv({
   base: 'inline-flex cursor-pointer items-center justify-center gap-2 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     variant: {

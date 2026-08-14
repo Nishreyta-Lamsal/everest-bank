@@ -13,9 +13,9 @@ export default function CsrSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
           <div className="flex flex-col gap-10 xl:w-107.25 xl:shrink-0 xl:gap-12 xl:py-6">
-            <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-106.25">
+            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-106.25">
               Creating positive change beyond banking for a better tomorrow
-            </p>
+            </h2>
             <div className="hidden flex-col items-start gap-6 xl:flex">
               <div className="flex items-start">
                 {csrCustomerAvatars.map((avatar, index) => (
@@ -78,9 +78,9 @@ export default function CsrSection() {
                 >
                   <div className="flex w-full items-center gap-2 xl:flex-col xl:items-start xl:gap-4">
                     <card.icon className="size-8 shrink-0 text-orange-500 xl:size-12" />
-                    <p className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-56.75">
+                    <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-56.75">
                       {card.title}
-                    </p>
+                    </h3>
                   </div>
                   <Link
                     href={card.href}

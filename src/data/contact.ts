@@ -1,9 +1,4 @@
-export type ContactHelpTopic = {
-  title: string;
-  description: string;
-  linkLabel: string;
-  href: string;
-};
+import type { ContactHelpTopic } from '@/types';
 
 export const contactHelpTopics: ContactHelpTopic[] = [
   {

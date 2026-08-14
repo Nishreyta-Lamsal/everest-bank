@@ -38,9 +38,9 @@ export default function FeatureCard({
             'flex-row items-center justify-between xl:flex-col xl:items-start',
         )}
       >
-        <p className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
+        <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
           {title}
-        </p>
+        </h3>
         <p
           className={cn(
             'text-body-3-mobile text-grey-400 xl:text-body-3-desktop',

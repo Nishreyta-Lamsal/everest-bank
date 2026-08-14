@@ -12,9 +12,9 @@ export default function NewsSection() {
     <section className="w-full py-16 xl:py-30">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-10 xl:grid xl:grid-cols-[1fr_auto] xl:items-center xl:gap-x-6 xl:gap-y-12">
-          <p className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0">
             Stay updated With Everest Bank
-          </p>
+          </h2>
           <Link
             href="#"
             className="order-3 block w-full xl:order-0 xl:inline-block xl:w-auto"
@@ -34,13 +34,13 @@ export default function NewsSection() {
                 )}
               >
                 <div className="flex w-full flex-col items-start gap-4">
-                  <p className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
+                  <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h4-desktop">
                     {card.headline.split('\n').map((line, lineIndex) => (
                       <span key={lineIndex} className="block">
                         {line}
                       </span>
                     ))}
-                  </p>
+                  </h3>
                   <p className="text-body-2-mobile text-grey-400 xl:text-body-2-desktop line-clamp-2 xl:line-clamp-none xl:w-130.25">
                     {card.description}
                   </p>

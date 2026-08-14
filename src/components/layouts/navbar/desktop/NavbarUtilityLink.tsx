@@ -1,11 +1,6 @@
 import Link from 'next/link';
-import type { ComponentType, SVGProps } from 'react';
 
-type NavbarUtilityLinkProps = {
-  label: string;
-  href: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
+import type { NavbarUtilityLinkProps } from '@/types';
 
 export default function NavbarUtilityLink({
   label,
