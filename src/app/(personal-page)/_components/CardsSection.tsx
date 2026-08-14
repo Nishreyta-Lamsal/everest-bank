@@ -11,23 +11,23 @@ import { cardTiles } from '../_data';
 
 export default function CardsSection() {
   return (
-    <section className="bg-grey-bluish-grey w-full py-16 xl:py-15">
+    <section className="bg-grey-bluish-grey w-full py-16 lg:py-15">
       <LayoutWrapper>
-        <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_auto] xl:items-end xl:gap-x-6 xl:gap-y-12">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md order-1 xl:order-0 xl:w-145.25">
+        <div className="flex w-full flex-col gap-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-6 lg:gap-y-12">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 lg:order-0 lg:w-145.25">
             {'Pay Smarter, Earn More, '}
             <br />
             Bank Better.
           </h2>
           <Link
             href="#"
-            className="order-3 block w-full xl:order-0 xl:inline-block xl:w-auto"
+            className="order-3 block w-full lg:order-0 lg:inline-block lg:w-auto"
           >
-            <Button variant="secondary" size="md" className="w-full xl:w-auto">
+            <Button variant="secondary" size="md" className="w-full lg:w-auto">
               Know more about the cards
             </Button>
           </Link>
-          <div className="order-2 flex w-full flex-col gap-8 xl:order-0 xl:col-span-2 xl:flex-row xl:items-center xl:gap-10">
+          <div className="order-2 flex w-full flex-col gap-8 lg:order-0 lg:col-span-2 lg:flex-row lg:items-center lg:gap-10">
             {cardTiles.map((card) => (
               <Link
                 key={card.title}
@@ -35,8 +35,8 @@ export default function CardsSection() {
                 className={cn(
                   'relative h-59.75 w-full overflow-hidden rounded-lg md:h-81',
                   card.roundedCorner === 'right'
-                    ? 'xl:rounded-tr-[120px]'
-                    : 'xl:rounded-tl-[120px]',
+                    ? 'lg:rounded-tr-[120px]'
+                    : 'lg:rounded-tl-[120px]',
                 )}
               >
                 <Image
@@ -46,11 +46,11 @@ export default function CardsSection() {
                   className="object-cover object-bottom"
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)]" />
-                <div className="absolute top-45.75 left-4 w-59.5 xl:inset-x-6 xl:top-60.5 xl:flex xl:w-auto xl:items-center xl:justify-between">
-                  <h3 className="font-heading text-heading-h3-mobile xl:text-heading-h2-desktop text-white xl:w-91.5">
+                <div className="absolute top-45.75 left-4 w-59.5 lg:inset-x-6 lg:top-60.5 lg:flex lg:w-auto lg:items-center lg:justify-between">
+                  <h3 className="font-heading text-heading-h3-mobile lg:text-heading-h3-desktop text-white lg:w-91.5">
                     {card.title}
                   </h3>
-                  <ArrowUpRightIcon className="hidden size-8 shrink-0 text-white xl:block" />
+                  <ArrowUpRightIcon className="hidden size-8 shrink-0 text-white lg:block" />
                 </div>
               </Link>
             ))}
