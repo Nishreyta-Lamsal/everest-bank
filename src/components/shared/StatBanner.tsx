@@ -98,7 +98,7 @@ export default function StatBanner({
             <p className="font-heading text-display-0-mobile-md xl:text-display-0-desktop-md absolute top-0 left-0 text-white uppercase">
               {title}
             </p>
-            <p className="font-heading text-display-2-mobile-md xl:text-display-2-desktop-md absolute top-28.75 left-4 whitespace-nowrap text-white xl:top-[93.77%] xl:left-63">
+            <p className="font-heading text-display-2-mobile-md xl:text-display-3-desktop-md absolute top-28.75 left-4 whitespace-nowrap text-white xl:top-[93.77%] xl:left-24">
               {description}
             </p>
           </div>
