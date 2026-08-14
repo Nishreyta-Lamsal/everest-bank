@@ -7,10 +7,10 @@ import { actionBadges } from '../_data';
 
 export default function AppPromoSection() {
   return (
-    <section className="bg-grey-bluish-grey relative w-full overflow-hidden py-16 xl:py-15">
+    <section className="bg-grey-bluish-grey relative w-full overflow-hidden py-16 lg:py-15">
       <LayoutWrapper>
-        <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:justify-between xl:gap-22">
-          <div className="rounded-tr-22 relative h-59.75 w-full overflow-hidden rounded-lg md:h-101 xl:w-155 xl:shrink-0">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-22">
+          <div className="rounded-tr-22 relative h-59.75 w-full overflow-hidden rounded-lg md:h-101 lg:max-w-155">
             <Image
               src="/images/app-promo/woman-with-card-photo.png"
               alt="A woman checking her balance on her phone while holding an Everest Bank card"
@@ -18,12 +18,12 @@ export default function AppPromoSection() {
               className="object-cover"
             />
           </div>
-          <div className="flex flex-col gap-4 xl:h-101 xl:gap-18">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-117.25">
+          <div className="flex flex-col gap-4 lg:h-101 lg:gap-18">
+            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-117.25">
               Save smarter, stay connected, and achieve more with modern
               banking.
             </h2>
-            <div className="flex items-center gap-4 xl:hidden">
+            <div className="flex items-center gap-4 lg:hidden">
               <Image
                 src="/images/app-promo/google-play-badge.png"
                 alt="Get it on Google Play"
@@ -37,7 +37,7 @@ export default function AppPromoSection() {
                 height={40}
               />
             </div>
-            <div className="hidden w-34 flex-col items-center gap-6 xl:flex">
+            <div className="hidden w-34 flex-col items-center gap-6 lg:flex">
               <Image
                 src="/images/footer/ebl-touch-app-qr.png"
                 alt="Scan to download the Everest Bank App"
@@ -53,7 +53,7 @@ export default function AppPromoSection() {
             </div>
           </div>
         </div>
-        <div className="scrollbar-hidden mt-10 flex gap-4 overflow-x-auto xl:mt-8 xl:gap-8 xl:overflow-visible">
+        <div className="scrollbar-hidden mt-10 flex gap-4 overflow-x-auto lg:mt-8 lg:gap-8 lg:overflow-visible">
           {actionBadges.map((badge) => (
             <Link
               key={badge.label}
@@ -71,7 +71,7 @@ export default function AppPromoSection() {
         alt="Phone mockup"
         width={713}
         height={825}
-        className="pointer-events-none absolute top-70.75 right-22 hidden w-77.75 xl:block"
+        className="pointer-events-none absolute top-70.75 right-22 hidden w-65 lg:block xl:w-77.75"
       />
     </section>
   );
