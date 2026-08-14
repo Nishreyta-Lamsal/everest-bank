@@ -1,15 +1,15 @@
-import ContactSection from '@/components/shared/ContactSection';
-import MountainDivider from '@/components/shared/MountainDivider';
-import AppPromoSection from './_components/AppPromoSection';
-import CardsSection from './_components/CardsSection';
-import CsrSection from './_components/CsrSection';
 import HeroSection from './_components/HeroSection';
-import LoansSection from './_components/LoansSection';
-import NewsSection from './_components/NewsSection';
 import ProductsSection from './_components/ProductsSection';
+import MountainDivider from '@/components/shared/MountainDivider';
+import LoansSection from './_components/LoansSection';
+import CardsSection from './_components/CardsSection';
+import AppPromoSection from './_components/AppPromoSection';
+import CsrSection from './_components/CsrSection';
 import TrustSection from './_components/TrustSection';
+import NewsSection from './_components/NewsSection';
+import ContactSection from '@/components/shared/ContactSection';
 
-export default function LandingPage() {
+export default function PersonalPage() {
   return (
     <main>
       <HeroSection />
