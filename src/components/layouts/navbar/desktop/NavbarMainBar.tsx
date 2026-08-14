@@ -8,6 +8,8 @@ import NavbarPersonalMenu from './NavbarPersonalMenu';
 import NavbarSearchInput from '../NavbarSearchInput';
 import Button from '@/components/ui/buttons/Button';
 
+import { isNavItemActive } from '@/lib/utils';
+
 import { mainNavItems } from '@/data';
 
 export default function NavbarMainBar() {
@@ -45,7 +47,7 @@ export default function NavbarMainBar() {
                   isFirst={index === 0}
                   hasDropdown
                   isExpanded={isPersonalMenuOpen}
-                  isActive={pathname === item.href}
+                  isActive={isNavItemActive(pathname, item.href)}
                   onFocus={openPersonalMenu}
                 />
               </div>
@@ -54,7 +56,7 @@ export default function NavbarMainBar() {
                 key={item.label}
                 {...item}
                 isFirst={index === 0}
-                isActive={pathname === item.href}
+                isActive={isNavItemActive(pathname, item.href)}
               />
             ),
           )}

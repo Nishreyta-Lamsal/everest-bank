@@ -88,36 +88,38 @@ export default function BusinessIndustriesSection() {
             </div>
           </div>
         </div>
-        <div
-          ref={rowRef}
-          className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto lg:mt-12 lg:overflow-hidden"
-        >
-          <div ref={trackRef} className="flex gap-4 lg:gap-6">
-            {businessIndustryCards.map((card) => (
-              <div
-                key={card.title}
-                className="bg-grey-bluish-grey flex w-83 shrink-0 flex-col items-start justify-between gap-8 rounded-lg px-4 py-6 lg:min-h-71.25 lg:w-100 lg:p-6"
-              >
-                <div className="flex flex-col items-start gap-4">
-                  <card.icon className="size-8 shrink-0 text-orange-500 lg:size-12" />
-                  <h3 className="font-heading text-heading-h4-desktop text-grey-500">
-                    {card.title}
-                  </h3>
-                  <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop">
-                    {card.description}
-                  </p>
-                </div>
-                <Link
-                  href={card.href}
-                  className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline"
-                >
-                  {card.linkLabel}
-                  <ArrowUpRightIcon className="size-4 shrink-0" />
-                </Link>
+      </LayoutWrapper>
+      <div
+        ref={rowRef}
+        className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-12 lg:w-full lg:max-w-350 lg:overflow-hidden lg:px-8 xl:mx-auto"
+      >
+        <div ref={trackRef} className="flex gap-4 lg:gap-6">
+          {businessIndustryCards.map((card) => (
+            <div
+              key={card.title}
+              className="bg-grey-bluish-grey flex w-83 shrink-0 flex-col items-start justify-between gap-8 rounded-lg px-4 py-6 lg:min-h-71.25 lg:w-100 lg:p-6"
+            >
+              <div className="flex flex-col items-start gap-4">
+                <card.icon className="size-8 shrink-0 text-orange-500 lg:size-12" />
+                <h3 className="font-heading text-heading-h4-desktop text-grey-500">
+                  {card.title}
+                </h3>
+                <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop">
+                  {card.description}
+                </p>
               </div>
-            ))}
-          </div>
+              <Link
+                href={card.href}
+                className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline"
+              >
+                {card.linkLabel}
+                <ArrowUpRightIcon className="size-4 shrink-0" />
+              </Link>
+            </div>
+          ))}
         </div>
+      </div>
+      <LayoutWrapper>
         <Link href="#" className="mt-8 block w-full lg:hidden">
           <Button variant="secondary" size="sm" className="w-full">
             Explore Industry Solutions

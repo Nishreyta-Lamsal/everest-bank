@@ -29,6 +29,7 @@ export * from './LinkedinIcon';
 export * from './MailIcon';
 export * from './MapPinIcon';
 export * from './MenuIcon';
+export * from './MinusIcon';
 export * from './MoneyBagIcon';
 export * from './MountainOutlineIcon';
 export * from './PartnershipIcon';

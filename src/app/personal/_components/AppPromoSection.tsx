@@ -53,19 +53,19 @@ export default function AppPromoSection() {
             </div>
           </div>
         </div>
-        <div className="scrollbar-hidden mt-10 flex gap-4 overflow-x-auto lg:mt-8 lg:gap-8 lg:overflow-visible">
-          {actionBadges.map((badge) => (
-            <Link
-              key={badge.label}
-              href={badge.href}
-              className="flex h-22.75 w-46.25 shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-2xl bg-red-500 p-4 text-white transition-colors hover:bg-red-700"
-            >
-              <badge.icon className="size-8" />
-              <p className="font-heading text-title-2-desktop">{badge.label}</p>
-            </Link>
-          ))}
-        </div>
       </LayoutWrapper>
+      <div className="scrollbar-hidden mt-10 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-8 lg:w-full lg:max-w-350 lg:gap-8 lg:overflow-visible lg:px-8 xl:mx-auto">
+        {actionBadges.map((badge) => (
+          <Link
+            key={badge.label}
+            href={badge.href}
+            className="flex h-22.75 w-46.25 shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-2xl bg-red-500 p-4 text-white transition-colors hover:bg-red-700"
+          >
+            <badge.icon className="size-8" />
+            <p className="font-heading text-title-2-desktop">{badge.label}</p>
+          </Link>
+        ))}
+      </div>
       <Image
         src="/images/app-promo/phone-mockup.png"
         alt="Phone mockup"
