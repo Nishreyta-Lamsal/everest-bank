@@ -13,7 +13,7 @@ export default function CsrSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
           <div className="flex flex-col gap-10 xl:w-107.25 xl:shrink-0 xl:gap-12 xl:py-6">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-106.25">
+            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-106.25">
               Creating positive change beyond banking for a better tomorrow
             </h2>
             <div className="hidden flex-col items-start gap-6 xl:flex">

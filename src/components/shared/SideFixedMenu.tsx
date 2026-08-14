@@ -14,7 +14,7 @@ export default function SideFixedMenu() {
           key={label}
           type="button"
           aria-label={label}
-          className="text-grey- flex size-6 cursor-pointer items-center justify-center transition-colors hover:text-red-500 lg:size-7"
+          className="text-grey-500 flex size-6 cursor-pointer items-center justify-center transition-colors hover:text-red-500 lg:size-7"
         >
           <Icon className="size-6 lg:size-7" />
         </button>

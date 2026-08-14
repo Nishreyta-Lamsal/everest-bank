@@ -14,7 +14,7 @@ export default function ContactSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-20 rounded-2xl bg-red-600 px-4 py-10 xl:flex-row xl:items-stretch xl:justify-between xl:gap-0 xl:p-10">
           <div className="flex flex-col gap-8 xl:items-start xl:justify-between xl:gap-0 xl:self-stretch">
-            <h2 className="font-heading text-heading-h1-desktop-md w-76 text-white">
+            <h2 className="font-heading text-heading-h3-desktop-md w-76 text-white">
               Get in touch with us anytime.
             </h2>
             <div className="flex flex-col gap-4">

@@ -19,7 +19,7 @@ export default function AppPromoSection() {
             />
           </div>
           <div className="flex flex-col gap-4 xl:h-101 xl:gap-18">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md w-full xl:w-117.25">
+            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-117.25">
               Save smarter, stay connected, and achieve more with modern
               banking.
             </h2>

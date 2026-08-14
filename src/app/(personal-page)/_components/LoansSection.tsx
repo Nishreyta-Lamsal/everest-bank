@@ -12,7 +12,7 @@ export default function LoansSection() {
     <section className="bg-grey-bluish-grey w-full py-16 xl:py-15">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-8 xl:grid xl:grid-cols-[1fr_auto] xl:items-end xl:gap-x-6 xl:gap-y-12">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h1-desktop-md order-1 xl:order-0 xl:w-145.25">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md order-1 xl:order-0 xl:w-145.25">
             Financial support designed around life&rsquo;s biggest milestones.
           </h2>
           <Link
