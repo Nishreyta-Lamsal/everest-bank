@@ -2,9 +2,7 @@ import Image from 'next/image';
 
 import { MailIcon, PhoneIcon } from '@/components/icons';
 
-import type { FooterOfficer } from '@/data';
-
-type FooterOfficerCardProps = FooterOfficer;
+import type { FooterOfficerCardProps } from '@/types';
 
 export default function FooterOfficerCard({
   title,

@@ -1,3 +1,6 @@
 export const ROUTE = {
-  LANDING_PAGE: '/',
+  PERSONAL_PAGE: '/',
+  BUSINESS_PAGE: '/business',
+  REMITTANCE_PAGE: '/remittance',
+  ABOUT: '/about',
 };

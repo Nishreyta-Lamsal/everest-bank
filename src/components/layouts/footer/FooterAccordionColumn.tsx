@@ -5,14 +5,9 @@ import Link from 'next/link';
 
 import { ChevronDownIcon } from '@/components/icons';
 
-import type { FooterLinkColumn as FooterLinkColumnData } from '@/data';
-
 import { cn } from '@/lib/utils';
 
-type FooterAccordionColumnProps = {
-  column: FooterLinkColumnData;
-  isLast?: boolean;
-};
+import type { FooterAccordionColumnProps } from '@/types';
 
 export default function FooterAccordionColumn({
   column,

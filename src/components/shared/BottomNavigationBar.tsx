@@ -1,17 +1,22 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { mainNavItems } from '@/data';
 
 import { cn } from '@/lib/utils';
 
 export default function BottomNavigationBar() {
+  const pathname = usePathname();
+
   return (
     <nav
       aria-label="Primary"
       className="fixed inset-x-0 bottom-0 z-40 flex w-full items-center bg-white shadow-[0px_-1px_5px_rgba(0,0,0,0.08)] lg:hidden"
     >
       {mainNavItems.map((item, index) => {
-        const isActive = index === 0;
+        const isActive = pathname === item.href;
 
         return (
           <Link

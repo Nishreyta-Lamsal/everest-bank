@@ -1,5 +1,3 @@
-import type { ComponentType, SVGProps } from 'react';
-
 import {
   FacebookIcon,
   InstagramIcon,
@@ -8,15 +6,11 @@ import {
 } from '@/components/icons';
 
 import { EXTERNAL_LINK } from '@/constants';
-
-export type FooterOfficer = {
-  title: string;
-  name: string;
-  photo: string;
-  phone: string;
-  extension: string;
-  email: string;
-};
+import type {
+  FooterLinkColumn,
+  FooterOfficer,
+  FooterSocialLink,
+} from '@/types';
 
 export const footerOfficers: FooterOfficer[] = [
   {
@@ -36,16 +30,6 @@ export const footerOfficers: FooterOfficer[] = [
     email: 'keshab@ebl.com.np',
   },
 ];
-
-export type FooterLink = {
-  label: string;
-  href: string;
-};
-
-export type FooterLinkColumn = {
-  title: string;
-  links: FooterLink[];
-};
 
 export const footerLinkColumns: FooterLinkColumn[] = [
   {
@@ -94,12 +78,6 @@ export const footerLinkColumns: FooterLinkColumn[] = [
     ],
   },
 ];
-
-export type FooterSocialLink = {
-  label: string;
-  href: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
 
 export const footerSocialLinks: FooterSocialLink[] = [
   { label: 'Facebook', href: EXTERNAL_LINK.FACEBOOK, icon: FacebookIcon },

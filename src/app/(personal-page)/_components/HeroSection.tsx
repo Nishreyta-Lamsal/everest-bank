@@ -3,8 +3,8 @@ import Link from 'next/link';
 import HeroImageCarousel from './HeroImageCarousel';
 import HeroVideoPlayer from './HeroVideoPlayer';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import Button from '@/components/ui/buttons/Button';
 import { ArrowUpRightIcon } from '@/components/icons';
-import { buttonClasses } from '@/components/ui/buttons/Button';
 
 export default function HeroSection() {
   return (
@@ -23,16 +23,10 @@ export default function HeroSection() {
                   Trusted banking solutions designed to help you save, grow, and
                   achieve your financial goals with confidence.
                 </p>
-                <Link
-                  href="#"
-                  className={buttonClasses({
-                    variant: 'primary',
-                    size: 'lg',
-                    className: 'h-[42px] lg:h-[46px]',
-                  })}
-                >
-                  Open Your Account in 3 Minutes
-                  <ArrowUpRightIcon className="size-4 shrink-0" />
+                <Link href="#">
+                  <Button size="lg" rightIcon={<ArrowUpRightIcon />}>
+                    Open Your Account in 3 Minutes
+                  </Button>
                 </Link>
               </div>
             </div>

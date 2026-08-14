@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 import NavbarMenuItem from './NavbarMenuItem';
 import NavbarPersonalMenu from './NavbarPersonalMenu';
@@ -12,6 +13,7 @@ import { mainNavItems } from '@/data';
 export default function NavbarMainBar() {
   const [isPersonalMenuOpen, setIsPersonalMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   function openPersonalMenu() {
     setIsPersonalMenuOpen(true);
@@ -43,6 +45,7 @@ export default function NavbarMainBar() {
                   isFirst={index === 0}
                   hasDropdown
                   isExpanded={isPersonalMenuOpen}
+                  isActive={pathname === item.href}
                   onFocus={openPersonalMenu}
                 />
               </div>
@@ -51,6 +54,7 @@ export default function NavbarMainBar() {
                 key={item.label}
                 {...item}
                 isFirst={index === 0}
+                isActive={pathname === item.href}
               />
             ),
           )}

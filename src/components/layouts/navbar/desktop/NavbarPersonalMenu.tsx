@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 import { ArrowUpRightIcon, MountainOutlineIcon } from '@/components/icons';
 
-import { personalMenuColumns, type PersonalMenuColumn } from '@/data';
+import { personalMenuColumns } from '@/data';
+import type { PersonalMenuColumn } from '@/types';
 
 function NavbarPersonalMenuColumn({
   label,

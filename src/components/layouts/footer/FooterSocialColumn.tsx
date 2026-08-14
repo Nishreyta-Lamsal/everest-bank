@@ -4,9 +4,7 @@ import { footerSocialLinks } from '@/data';
 
 import { cn } from '@/lib/utils';
 
-type FooterSocialColumnProps = {
-  className?: string;
-};
+import type { FooterSocialColumnProps } from '@/types';
 
 export default function FooterSocialColumn({
   className,
