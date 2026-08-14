@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
-import HeroImageCarousel from './HeroImageCarousel';
 import HeroVideoPlayer from './HeroVideoPlayer';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import HeroImageCarousel from '@/components/shared/HeroImageCarousel';
 import Button from '@/components/ui/buttons/Button';
 import { ArrowUpRightIcon } from '@/components/icons';
+
+import { heroSlides } from '../_data';
 
 export default function HeroSection() {
   return (
@@ -47,7 +49,10 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          <HeroImageCarousel />
+          <HeroImageCarousel
+            slides={heroSlides}
+            ariaLabel="Everest Bank customer highlights"
+          />
         </div>
       </LayoutWrapper>
     </section>

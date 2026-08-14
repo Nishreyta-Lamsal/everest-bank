@@ -85,10 +85,24 @@
   --text-display-2-mobile-md--letter-spacing: 0%;
   --text-display-2-mobile-md--font-weight: 500;
 
+  --text-display-2-desktop-sb: 60px;
+  --text-display-2-desktop-sb--line-height: 92%;
+  --text-display-2-desktop-sb--letter-spacing: 0%;
+  --text-display-2-desktop-sb--font-weight: 600;
+  --text-display-2-mobile-sb: 28px;
+  --text-display-2-mobile-sb--line-height: 92%;
+  --text-display-2-mobile-sb--letter-spacing: 0%;
+  --text-display-2-mobile-sb--font-weight: 600;
+
   --text-display-3-desktop-md: 48px;
   --text-display-3-desktop-md--line-height: 92%;
   --text-display-3-desktop-md--letter-spacing: 0%;
   --text-display-3-desktop-md--font-weight: 500;
+
+  --text-heading-h0-desktop-md: 60px;
+  --text-heading-h0-desktop-md--line-height: 92%;
+  --text-heading-h0-desktop-md--letter-spacing: 0%;
+  --text-heading-h0-desktop-md--font-weight: 500;
 
   --text-heading-h1-desktop: 40px;
   --text-heading-h1-desktop--line-height: 100%;
@@ -99,8 +113,8 @@
   --text-heading-h1-mobile--letter-spacing: 0%;
   --text-heading-h1-mobile--font-weight: 400;
 
-  --text-heading-h1-desktop-md: 40px;
-  --text-heading-h1-desktop-md--line-height: 100%;
+  --text-heading-h1-desktop-md: 54px;
+  --text-heading-h1-desktop-md--line-height: 120%;
   --text-heading-h1-desktop-md--letter-spacing: 0%;
   --text-heading-h1-desktop-md--font-weight: 500;
   --text-heading-h1-mobile-md: 40px;
@@ -108,7 +122,7 @@
   --text-heading-h1-mobile-md--letter-spacing: 0%;
   --text-heading-h1-mobile-md--font-weight: 500;
 
-  --text-heading-h2-desktop: 32px;
+  --text-heading-h2-desktop: 40px;
   --text-heading-h2-desktop--line-height: 100%;
   --text-heading-h2-desktop--letter-spacing: 0%;
   --text-heading-h2-desktop--font-weight: 400;
@@ -117,7 +131,7 @@
   --text-heading-h2-mobile--letter-spacing: 0%;
   --text-heading-h2-mobile--font-weight: 400;
 
-  --text-heading-h2-desktop-md: 32px;
+  --text-heading-h2-desktop-md: 40px;
   --text-heading-h2-desktop-md--line-height: 100%;
   --text-heading-h2-desktop-md--letter-spacing: 0%;
   --text-heading-h2-desktop-md--font-weight: 500;
@@ -144,6 +158,15 @@
   --text-heading-h3-mobile-md--letter-spacing: 0%;
   --text-heading-h3-mobile-md--font-weight: 500;
 
+  --text-heading-h3-desktop-sb: 32px;
+  --text-heading-h3-desktop-sb--line-height: 92%;
+  --text-heading-h3-desktop-sb--letter-spacing: 0%;
+  --text-heading-h3-desktop-sb--font-weight: 600;
+  --text-heading-h3-mobile-sb: 20px;
+  --text-heading-h3-mobile-sb--line-height: 100%;
+  --text-heading-h3-mobile-sb--letter-spacing: 0%;
+  --text-heading-h3-mobile-sb--font-weight: 600;
+
   --text-heading-h4-desktop: 24px;
   --text-heading-h4-desktop--line-height: 100%;
   --text-heading-h4-desktop--letter-spacing: 0%;
@@ -163,17 +186,26 @@
   --text-heading-h4-mobile-md--font-weight: 500;
 
   /* Title */
-  --text-title-0-mobile-md: 20px;
+  --text-title-0-desktop: 24px;
+  --text-title-0-desktop--line-height: 108%;
+  --text-title-0-desktop--letter-spacing: 0%;
+  --text-title-0-desktop--font-weight: 400;
+  --text-title-0-mobile: 24px;
+  --text-title-0-mobile--line-height: 100%;
+  --text-title-0-mobile--letter-spacing: 0%;
+  --text-title-0-mobile--font-weight: 400;
+
+  --text-title-0-mobile-md: 24px;
   --text-title-0-mobile-md--line-height: 100%;
   --text-title-0-mobile-md--letter-spacing: 0%;
   --text-title-0-mobile-md--font-weight: 500;
 
-  --text-title-1-desktop: 20px;
-  --text-title-1-desktop--line-height: 100%;
+  --text-title-1-desktop: 22px;
+  --text-title-1-desktop--line-height: 92%;
   --text-title-1-desktop--letter-spacing: 0%;
   --text-title-1-desktop--font-weight: 400;
-  --text-title-1-mobile: 18px;
-  --text-title-1-mobile--line-height: 100%;
+  --text-title-1-mobile: 20px;
+  --text-title-1-mobile--line-height: 108%;
   --text-title-1-mobile--letter-spacing: 0%;
   --text-title-1-mobile--font-weight: 400;
 
@@ -213,6 +245,11 @@
   --text-title-3-desktop-md--line-height: 100%;
   --text-title-3-desktop-md--letter-spacing: 0%;
   --text-title-3-desktop-md--font-weight: 500;
+
+  --text-title-4-mobile: 14px;
+  --text-title-4-mobile--line-height: 120%;
+  --text-title-4-mobile--letter-spacing: 0%;
+  --text-title-4-mobile--font-weight: 400;
 
   /* Body */
   --text-body-1-desktop: 20px;

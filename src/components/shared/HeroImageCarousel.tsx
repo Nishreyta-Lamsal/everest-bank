@@ -7,32 +7,24 @@ import CarouselDots from '@/components/ui/carousel/CarouselDots';
 
 import { cn } from '@/lib/utils';
 
-const SLIDES = [
-  {
-    src: '/images/hero/hero-card-photo.png',
-    alt: 'A customer holding an Everest Bank card',
-  },
-  {
-    src: '/images/hero/hero-card-photo.png',
-    alt: 'A customer holding an Everest Bank card',
-  },
-  {
-    src: '/images/hero/hero-card-photo.png',
-    alt: 'A customer holding an Everest Bank card',
-  },
-  {
-    src: '/images/hero/hero-card-photo.png',
-    alt: 'A customer holding an Everest Bank card',
-  },
-  {
-    src: '/images/hero/hero-card-photo.png',
-    alt: 'A customer holding an Everest Bank card',
-  },
-];
+type HeroImageCarouselSlide = {
+  src: string;
+  alt: string;
+};
+
+type HeroImageCarouselProps = {
+  slides: HeroImageCarouselSlide[];
+  ariaLabel: string;
+  className?: string;
+};
 
 const AUTO_ADVANCE_DELAY = 5000;
 
-export default function HeroImageCarousel() {
+export default function HeroImageCarousel({
+  slides,
+  ariaLabel,
+  className,
+}: HeroImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -47,22 +39,16 @@ export default function HeroImageCarousel() {
     stopAutoAdvance();
 
     intervalRef.current = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % SLIDES.length);
+      setActiveIndex((current) => (current + 1) % slides.length);
     }, AUTO_ADVANCE_DELAY);
   }
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % SLIDES.length);
-    }, AUTO_ADVANCE_DELAY);
+    startAutoAdvance();
 
-    return function cleanup() {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, []);
+    return stopAutoAdvance;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slides.length]);
 
   function goToSlide(index: number) {
     setActiveIndex(index);
@@ -72,10 +58,13 @@ export default function HeroImageCarousel() {
   return (
     <div
       role="region"
-      aria-label="Everest Bank customer highlights"
-      className="relative h-59.75 w-full overflow-hidden lg:h-67.75 lg:w-76 lg:shrink-0 xl:h-138 xl:w-155"
+      aria-label={ariaLabel}
+      className={cn(
+        'relative h-59.75 w-full overflow-hidden lg:h-67.75 lg:w-76 lg:shrink-0 xl:h-138 xl:w-155',
+        className,
+      )}
     >
-      {SLIDES.map((slide, index) => (
+      {slides.map((slide, index) => (
         <Image
           key={index}
           src={slide.src}
@@ -89,7 +78,7 @@ export default function HeroImageCarousel() {
         />
       ))}
       <CarouselDots
-        total={SLIDES.length}
+        total={slides.length}
         activeIndex={activeIndex}
         onSelect={goToSlide}
         className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 lg:bottom-6"

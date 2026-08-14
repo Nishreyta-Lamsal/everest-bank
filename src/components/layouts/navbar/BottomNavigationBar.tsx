@@ -24,7 +24,7 @@ export default function BottomNavigationBar() {
             href={item.href}
             aria-current={isActive ? 'page' : undefined}
             className={cn(
-              'flex flex-1 flex-col items-center gap-1 py-2 transition-colors',
+              'flex flex-1 flex-col items-center gap-1 py-2.5 transition-colors',
               isActive ? 'bg-red-500 text-white' : 'text-red-500',
               index === 0 && 'pl-4',
               index === mainNavItems.length - 1 && 'pr-4',
