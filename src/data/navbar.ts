@@ -28,9 +28,9 @@ export const utilityNavItems: UtilityNavItem[] = [
 ];
 
 export const mainNavItems: MainNavItem[] = [
-  { label: 'Personal', href: ROUTE.PERSONAL_PAGE, icon: PeopleIcon },
-  { label: 'Business', href: ROUTE.BUSINESS_PAGE, icon: BriefcaseIcon },
-  { label: 'Remittance', href: ROUTE.REMITTANCE_PAGE, icon: BanknoteIcon },
+  { label: 'Personal', href: ROUTE.PERSONAL, icon: PeopleIcon },
+  { label: 'Business', href: ROUTE.BUSINESS, icon: BriefcaseIcon },
+  { label: 'Remittance', href: ROUTE.REMITTANCE, icon: BanknoteIcon },
   { label: 'About', href: ROUTE.ABOUT, icon: BankIcon },
 ];
 
@@ -60,11 +60,14 @@ export const personalMenuColumns: PersonalMenuColumn[] = [
     label: 'Loans',
     icon: CardStackIcon,
     links: [
-      { label: 'Home Loans', href: '#' },
-      { label: 'Personal Loans', href: '#' },
-      { label: 'Education Loans', href: '#' },
-      { label: 'Vehicle Loans', href: '#' },
-      { label: 'Retail Loans', href: '#' },
+      { label: 'Home Loans', href: `${ROUTE.LOANS}/home-loans` },
+      {
+        label: 'Agricultural Loans',
+        href: `${ROUTE.LOANS}/agricultural-loans`,
+      },
+      { label: 'Education Loans', href: `${ROUTE.LOANS}/education-loans` },
+      { label: 'Vehicle Loans', href: `${ROUTE.LOANS}/vehicle-loans` },
+      { label: 'Retail Loans', href: `${ROUTE.LOANS}/retail-loans` },
     ],
   },
   {

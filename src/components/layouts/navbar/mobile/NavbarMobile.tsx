@@ -11,7 +11,7 @@ export default function NavbarMobile() {
   return (
     <div className="flex flex-col lg:hidden">
       <div className="flex items-center justify-between px-4 py-3">
-        <Link href={ROUTE.PERSONAL_PAGE} className="shrink-0">
+        <Link href={ROUTE.PERSONAL} className="shrink-0">
           <Image
             src="/icons/everest-bank-logo.svg"
             alt="Everest Bank"
