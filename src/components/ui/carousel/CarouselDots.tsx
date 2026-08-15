@@ -17,8 +17,8 @@ export default function CarouselDots({
     <div className={cn('flex items-center gap-2', className)}>
       {Array.from({ length: total }).map((_, index) => {
         const dotClassName = cn(
-          'bg-grey-25 h-1.25 rounded-full transition-all',
-          index === activeIndex ? 'w-6 bg-white' : 'w-1.25',
+          'bg-grey-25 h-[5px] rounded-full transition-all',
+          index === activeIndex ? 'w-[24px] bg-white' : 'w-[5px]',
         );
 
         if (!onSelect) {

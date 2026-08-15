@@ -60,7 +60,7 @@ export default function HeroImageCarousel({
       role="region"
       aria-label={ariaLabel}
       className={cn(
-        'relative h-59.75 w-full overflow-hidden md:h-67.75 lg:w-76 lg:shrink-0 xl:h-138 xl:w-155',
+        'relative h-[239px] w-full overflow-hidden md:h-[271px] lg:w-[304px] lg:shrink-0 xl:h-[552px] xl:w-[620px]',
         className,
       )}
     >

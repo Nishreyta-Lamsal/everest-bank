@@ -23,9 +23,9 @@ export default function NavbarMobile() {
         <button
           type="button"
           aria-label="Open menu"
-          className="flex size-6 shrink-0 items-center justify-center text-red-500"
+          className="flex size-[24px] shrink-0 items-center justify-center text-red-500"
         >
-          <MenuIcon className="size-6" />
+          <MenuIcon className="size-[24px]" />
         </button>
       </div>
       <div className="flex items-center gap-2 px-4 py-2">

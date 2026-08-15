@@ -17,7 +17,7 @@ export default function BusinessHeroSection() {
             ariaLabel="Everest Bank business banking highlights"
             className="lg:order-2"
           />
-          <div className="flex flex-col items-start lg:order-1 lg:h-127.5 lg:w-136 lg:shrink-0">
+          <div className="flex flex-col items-start lg:order-1 lg:h-[510px] lg:w-[544px] lg:shrink-0">
             <h1 className="font-heading text-grey-500 lg:text-display-1-desktop-md text-[36px] leading-[0.92] font-medium lg:order-1">
               Banking that grows
               <br />
@@ -31,7 +31,7 @@ export default function BusinessHeroSection() {
             <div className="order-2 mt-4 flex flex-col items-start gap-3 lg:order-4 lg:mt-auto lg:gap-4">
               {businessHeroHighlights.map((highlight) => (
                 <div key={highlight} className="flex items-center gap-2">
-                  <VerifiedIcon className="size-4.5 shrink-0 text-red-500 lg:size-6" />
+                  <VerifiedIcon className="size-[18px] shrink-0 text-red-500 lg:size-[24px]" />
                   <p className="text-body-4-desktop text-grey-400 lg:text-body-2-desktop">
                     {highlight}
                   </p>
@@ -42,7 +42,7 @@ export default function BusinessHeroSection() {
               <Link href="#" className="w-full lg:w-auto">
                 <Button
                   size="sm"
-                  className="lg:text-body-3-desktop-md w-full lg:h-11.5 lg:w-auto"
+                  className="lg:text-body-3-desktop-md w-full lg:h-[46px] lg:w-auto"
                 >
                   Open a Business Account
                 </Button>
@@ -51,7 +51,7 @@ export default function BusinessHeroSection() {
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="lg:text-body-3-desktop-md w-full lg:h-11.5 lg:w-auto"
+                  className="lg:text-body-3-desktop-md w-full lg:h-[46px] lg:w-auto"
                 >
                   Talk to Relationship Manager
                 </Button>

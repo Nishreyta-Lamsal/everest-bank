@@ -19,9 +19,9 @@ export default function FooterSocialColumn({
           <Link
             key={label}
             href={href}
-            className="text-grey-400 hover:text-red-500 flex items-center gap-2 text-body-4-desktop transition-colors"
+            className="text-grey-400 text-body-4-desktop flex items-center gap-2 transition-colors hover:text-red-500"
           >
-            <Icon className="size-4 shrink-0" />
+            <Icon className="size-[16px] shrink-0" />
             {label}
           </Link>
         ))}

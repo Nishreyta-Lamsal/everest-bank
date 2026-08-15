@@ -14,7 +14,7 @@ export default function CardsSection() {
     <section className="bg-grey-bluish-grey w-full py-16 lg:py-15">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-6 lg:gap-y-12">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 lg:order-0 lg:w-145.25">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 lg:order-0 lg:w-[581px]">
             {'Pay Smarter, Earn More, '}
             <br />
             Bank Better.
@@ -33,7 +33,7 @@ export default function CardsSection() {
                 key={card.title}
                 href={card.href}
                 className={cn(
-                  'relative h-59.75 w-full overflow-hidden rounded-lg md:h-81',
+                  'relative h-[239px] w-full overflow-hidden rounded-lg md:h-[324px]',
                   card.roundedCorner === 'right'
                     ? 'lg:rounded-tr-[120px]'
                     : 'lg:rounded-tl-[120px]',
@@ -46,11 +46,11 @@ export default function CardsSection() {
                   className="object-cover object-bottom"
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)]" />
-                <div className="absolute top-45.75 left-4 w-59.5 lg:inset-x-6 lg:top-60.5 lg:flex lg:w-auto lg:items-center lg:justify-between">
-                  <h3 className="font-heading text-heading-h3-mobile lg:text-heading-h3-desktop text-white lg:w-91.5">
+                <div className="absolute top-45.75 left-4 w-[238px] lg:inset-x-6 lg:top-60.5 lg:flex lg:w-auto lg:items-center lg:justify-between">
+                  <h3 className="font-heading text-heading-h3-mobile lg:text-heading-h3-desktop text-white lg:w-[366px]">
                     {card.title}
                   </h3>
-                  <ArrowUpRightIcon className="hidden size-8 shrink-0 text-white lg:block" />
+                  <ArrowUpRightIcon className="hidden size-[32px] shrink-0 text-white lg:block" />
                 </div>
               </Link>
             ))}

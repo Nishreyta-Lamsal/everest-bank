@@ -49,7 +49,7 @@ export default function HeroVideoPlayer() {
 
   return (
     <div
-      className="relative size-20 shrink-0 lg:size-41.5"
+      className="relative size-[80px] shrink-0 lg:size-[166px]"
       onMouseEnter={revealControls}
       onMouseMove={revealControls}
     >
@@ -78,14 +78,14 @@ export default function HeroVideoPlayer() {
         onClick={togglePlayback}
         aria-label={isPlaying ? 'Pause video' : 'Play video'}
         className={cn(
-          'absolute inset-0 m-auto flex size-4 cursor-pointer items-center justify-center text-white backdrop-blur-xs transition-opacity duration-300 lg:size-8',
+          'absolute inset-0 m-auto flex size-[16px] cursor-pointer items-center justify-center text-white backdrop-blur-xs transition-opacity duration-300 lg:size-[32px]',
           showControls ? 'opacity-100' : 'opacity-0',
         )}
       >
         {isPlaying ? (
-          <PauseIcon className="size-4 lg:size-8" />
+          <PauseIcon className="size-[16px] lg:size-[32px]" />
         ) : (
-          <PlayIcon className="size-4 lg:size-8" />
+          <PlayIcon className="size-[16px] lg:size-[32px]" />
         )}
       </button>
     </div>

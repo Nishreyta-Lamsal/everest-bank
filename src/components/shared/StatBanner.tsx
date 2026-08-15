@@ -58,19 +58,19 @@ export default function StatBanner({
 
   return (
     <section className="relative flex w-full flex-col xl:flex-row">
-      <div className="relative h-99 overflow-hidden bg-[#b41518] xl:h-133 xl:flex-708 xl:bg-red-500">
+      <div className="relative h-[396px] overflow-hidden bg-[#b41518] xl:h-[532px] xl:flex-708 xl:bg-red-500">
         <Image
           src="/icons/trust/mountain-outline.svg"
           alt="Mountain outline"
           width={839}
           height={336}
-          className="absolute -right-1.5 -bottom-1.5 h-40.25 w-auto max-w-none md:h-[63.02%] xl:right-0 xl:bottom-0.5"
+          className="absolute -right-1.5 -bottom-1.5 h-[161px] w-auto max-w-none md:h-[63.02%] xl:right-0 xl:bottom-0.5"
         />
       </div>
       <div
         role="region"
         aria-label={`${title} ${description}`}
-        className="relative h-73.25 overflow-hidden md:h-133 xl:flex-732"
+        className="relative h-[293px] overflow-hidden md:h-[532px] xl:flex-732"
       >
         {images.map((image, index) => (
           <Image
@@ -94,7 +94,7 @@ export default function StatBanner({
       </div>
       <div className="pointer-events-none absolute inset-0">
         <LayoutWrapper>
-          <div className="relative h-99 xl:h-133">
+          <div className="relative h-[396px] xl:h-[532px]">
             <p className="font-heading text-display-0-mobile-md xl:text-display-0-desktop-md absolute top-0 left-0 text-white uppercase">
               {title}
             </p>

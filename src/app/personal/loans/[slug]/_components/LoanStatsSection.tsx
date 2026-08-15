@@ -10,7 +10,7 @@ export default function LoanStatsSection() {
           {loanStats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-start gap-4 lg:w-74.5 lg:gap-1.5"
+              className="flex flex-col items-start gap-4 lg:w-[298px] lg:gap-1.5"
             >
               <p className="font-heading text-heading-h3-mobile-sb lg:text-heading-h3-desktop-sb text-red-500">
                 {stat.value}

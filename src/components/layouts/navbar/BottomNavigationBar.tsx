@@ -30,7 +30,7 @@ export default function BottomNavigationBar() {
               index === mainNavItems.length - 1 && 'pr-4',
             )}
           >
-            <item.icon className="size-4.5 shrink-0" />
+            <item.icon className="size-[18px] shrink-0" />
             <span className="text-body-4-desktop">{item.label}</span>
           </Link>
         );

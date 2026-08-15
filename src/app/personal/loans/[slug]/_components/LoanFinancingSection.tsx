@@ -12,7 +12,7 @@ export default function LoanFinancingSection() {
     <section className="w-full py-16 lg:pt-15 lg:pb-30">
       <LayoutWrapper>
         <div className="flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-139.5">
+          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[558px]">
             Financing built around every stage of agriculture.
           </h2>
           <Link href="#" className="hidden lg:inline-block">
@@ -22,12 +22,12 @@ export default function LoanFinancingSection() {
           </Link>
         </div>
       </LayoutWrapper>
-      <div className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-6 lg:w-full lg:max-w-350 lg:gap-6 lg:overflow-visible lg:px-8 xl:mx-auto">
+      <div className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-6 lg:w-full lg:max-w-[1400px] lg:gap-6 lg:overflow-visible lg:px-8 xl:mx-auto">
         {financingCards.map((card) => (
           <Link
             key={card.title}
             href={card.href}
-            className="group relative h-50.25 w-77 shrink-0 overflow-hidden rounded-lg lg:h-81 lg:w-auto lg:flex-1"
+            className="group relative h-[201px] w-[308px] shrink-0 overflow-hidden rounded-lg lg:h-[324px] lg:w-auto lg:flex-1"
           >
             <Image
               src={card.image}
@@ -40,7 +40,7 @@ export default function LoanFinancingSection() {
               <p className="font-heading text-heading-h3-mobile lg:text-heading-h3-desktop text-white">
                 {card.title}
               </p>
-              <ArrowUpRightIcon className="size-5 shrink-0 text-white lg:size-8" />
+              <ArrowUpRightIcon className="size-[20px] shrink-0 text-white lg:size-[32px]" />
             </div>
           </Link>
         ))}

@@ -17,7 +17,7 @@ export default function NewsItem({
     <Link
       href={card.href}
       className={cn(
-        'lg:border-grey-25 flex w-full flex-col items-start gap-6 rounded-lg border border-[#f4f4f4] bg-white p-4 lg:h-50 lg:justify-between lg:gap-0',
+        'lg:border-grey-25 flex w-full flex-col items-start gap-6 rounded-lg border border-[#f4f4f4] bg-white p-4 lg:h-[200px] lg:justify-between lg:gap-0',
         hideOnMobile && 'hidden lg:flex',
       )}
     >
@@ -29,7 +29,7 @@ export default function NewsItem({
             </span>
           ))}
         </h3>
-        <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop line-clamp-2 lg:line-clamp-none lg:max-w-130.25">
+        <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop line-clamp-2 lg:line-clamp-none lg:max-w-[521px]">
           {card.description}
         </p>
       </div>
