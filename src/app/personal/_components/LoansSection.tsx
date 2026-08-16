@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
+import ProductCard from '@/components/ui/cards/ProductCard';
 
 import { loanCards } from '../_data';
 
@@ -25,39 +24,13 @@ export default function LoansSection() {
           </Link>
           <div className="order-2 flex w-full flex-col gap-8 lg:order-0 lg:col-span-2 lg:flex-row lg:items-start lg:gap-10">
             {loanCards.map((card) => (
-              <Link
+              <ProductCard
                 key={card.title}
                 href={card.href}
-                className="flex flex-col items-start overflow-hidden rounded-lg lg:flex-1 lg:first:rounded-tl-[88px] lg:last:rounded-tr-[88px]"
-              >
-                <div className="relative h-[179px] w-full overflow-hidden md:h-[263px]">
-                  {card.zoomed ? (
-                    <Image
-                      src={card.image}
-                      alt={card.alt}
-                      width={card.imageWidth}
-                      height={card.imageHeight}
-                      className="absolute top-[-49.72%] left-0 h-[299.16%] w-full max-w-none lg:top-[-34.5%] lg:h-[225.1%]"
-                    />
-                  ) : (
-                    <Image
-                      src={card.image}
-                      alt={card.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                <div className="flex w-full flex-col items-start gap-6 bg-white p-4 lg:h-[160px] lg:justify-between lg:gap-0 lg:p-6">
-                  <h3 className="font-heading text-heading-h3-mobile text-grey-500 lg:text-heading-h4-desktop">
-                    {card.title}
-                  </h3>
-                  <span className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 lg:underline">
-                    Apply now
-                    <ArrowUpRightIcon className="size-[16px] shrink-0" />
-                  </span>
-                </div>
-              </Link>
+                image={card.image}
+                title={card.title}
+                className="lg:flex-1 lg:first:rounded-tl-[88px] lg:last:rounded-tr-[88px]"
+              />
             ))}
           </div>
         </div>
