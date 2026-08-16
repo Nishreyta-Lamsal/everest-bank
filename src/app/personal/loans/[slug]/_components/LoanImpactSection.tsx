@@ -4,9 +4,13 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { GreenEnergyIcon } from '@/components/icons';
 
-import { loanImpactStats } from '../_data';
+import type { LoanImpact } from '../_data';
 
-export default function LoanImpactSection() {
+type LoanImpactSectionProps = {
+  data: LoanImpact;
+};
+
+export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
   return (
     <section className="relative w-full overflow-hidden bg-red-600 py-16 lg:py-30">
       <LayoutWrapper>
@@ -21,19 +25,16 @@ export default function LoanImpactSection() {
 
           <div className="flex w-full flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h0-desktop-md w-full text-white lg:w-[675px]">
-              Helping Nepal&rsquo;s Agriculture Grow Stronger.
+              {data.heading}
             </h2>
             <p className="text-body-3-mobile lg:text-body-2-desktop text-white-90 w-full lg:w-[410px]">
-              Behind every successful harvest is a vision for growth.
-              We&rsquo;re proud to support the people and businesses driving
-              Nepal&rsquo;s agricultural progress with financing designed for
-              long-term success.
+              {data.description}
             </p>
           </div>
 
           <div className="flex w-full flex-col items-start gap-10 lg:w-auto lg:flex-row lg:items-end lg:gap-18">
             <Link
-              href="#"
+              href={data.applyHref}
               className="order-2 flex h-[154px] w-full shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-[60px] bg-red-700 p-8 transition-colors duration-200 hover:bg-red-800 lg:order-1 lg:h-auto lg:w-[340px] lg:justify-start lg:gap-10"
             >
               <GreenEnergyIcon className="size-[32px] text-white lg:size-[52px]" />
@@ -43,7 +44,7 @@ export default function LoanImpactSection() {
             </Link>
 
             <div className="order-1 flex w-full flex-col items-start gap-12 lg:order-2 lg:w-auto lg:gap-17">
-              {loanImpactStats.map((stat) => (
+              {data.stats.map((stat) => (
                 <div
                   key={stat.label}
                   className="flex flex-col items-start gap-4 lg:gap-5.75"

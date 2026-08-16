@@ -6,9 +6,17 @@ import Button from '@/components/ui/buttons/Button';
 import SelectField from '@/components/ui/inputs/SelectField';
 import TextField from '@/components/ui/inputs/TextField';
 
-import { eligibleApplicantTypes, loanTypeOptions } from '../_data';
+import { loanTypeOptions } from '../_data';
 
-export default function LoanEligibilitySection() {
+import type { LoanEligibility } from '../_data';
+
+type LoanEligibilitySectionProps = {
+  data: LoanEligibility;
+};
+
+export default function LoanEligibilitySection({
+  data,
+}: LoanEligibilitySectionProps) {
   return (
     <section className="w-full py-16 lg:py-15">
       <LayoutWrapper>
@@ -16,10 +24,10 @@ export default function LoanEligibilitySection() {
           <div className="flex flex-col items-start gap-10 lg:gap-12 lg:py-8">
             <div className="flex flex-col gap-10 lg:gap-12">
               <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[528px]">
-                Check Your Eligibility & Financing Potential
+                {data.heading}
               </h2>
               <ul className="flex flex-col items-start gap-4">
-                {eligibleApplicantTypes.map((type) => (
+                {data.applicantTypes.map((type) => (
                   <li key={type} className="flex items-center gap-2">
                     <CircleCheckIcon className="text-grey-400 size-[20px] lg:size-[24px]" />
                     <span className="font-heading text-title-3-mobile lg:text-title-0-desktop text-grey-400">
@@ -29,7 +37,7 @@ export default function LoanEligibilitySection() {
                 ))}
               </ul>
             </div>
-            <Link href="#">
+            <Link href={data.requirementsHref}>
               <Button variant="secondary" size="md">
                 See detailed requirement
               </Button>

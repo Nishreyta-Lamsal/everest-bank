@@ -10,15 +10,19 @@ import LoanProcessList from './LoanProcessList';
 import Button from '@/components/ui/buttons/Button';
 import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
 
-import { loanProcessSteps } from '../../_data';
+import type { LoanProcess } from '../../_data';
 
 const STEP_SCROLL_DISTANCE = 500;
 
-export default function LoanProcessSection() {
+type LoanProcessSectionProps = {
+  data: LoanProcess;
+};
+
+export default function LoanProcessSection({ data }: LoanProcessSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
-  const activeStep = loanProcessSteps[activeIndex];
+  const activeStep = data.steps[activeIndex];
 
   useGSAP(
     () => {
@@ -30,13 +34,13 @@ export default function LoanProcessSection() {
         const trigger = ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top 18%',
-          end: `+=${STEP_SCROLL_DISTANCE * (loanProcessSteps.length - 1)}`,
+          end: `+=${STEP_SCROLL_DISTANCE * (data.steps.length - 1)}`,
           pin: true,
           scrub: true,
-          snap: 1 / (loanProcessSteps.length - 1),
+          snap: 1 / (data.steps.length - 1),
           onUpdate: (self) => {
             setActiveIndex(
-              Math.round(self.progress * (loanProcessSteps.length - 1)),
+              Math.round(self.progress * (data.steps.length - 1)),
             );
           },
         });
@@ -61,7 +65,7 @@ export default function LoanProcessSection() {
       return;
     }
 
-    const progress = index / (loanProcessSteps.length - 1);
+    const progress = index / (data.steps.length - 1);
     trigger.scroll(trigger.start + progress * (trigger.end - trigger.start));
   }
 
@@ -71,9 +75,9 @@ export default function LoanProcessSection() {
         <div className="flex w-full flex-col items-start gap-10 lg:gap-12">
           <div className="flex w-full flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[640px]">
-              From application to cultivation, a simple path forward.
+              {data.heading}
             </h2>
-            <Link href="#" className="hidden lg:inline-block">
+            <Link href={data.applyHref} className="hidden lg:inline-block">
               <Button variant="secondary" size="md">
                 Apply for loan
               </Button>
@@ -82,7 +86,7 @@ export default function LoanProcessSection() {
 
           <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
             <LoanProcessList
-              steps={loanProcessSteps}
+              steps={data.steps}
               activeIndex={activeIndex}
               onSelect={handleSelect}
             />
@@ -97,7 +101,7 @@ export default function LoanProcessSection() {
             </div>
           </div>
 
-          <Link href="#" className="w-full lg:hidden">
+          <Link href={data.applyHref} className="w-full lg:hidden">
             <Button variant="secondary" size="sm" className="w-full">
               Apply for loan
             </Button>

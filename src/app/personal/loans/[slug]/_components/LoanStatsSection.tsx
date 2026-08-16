@@ -1,13 +1,17 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 
-import { loanStats } from '../_data';
+import type { LoanStat } from '../_data';
 
-export default function LoanStatsSection() {
+type LoanStatsSectionProps = {
+  stats: LoanStat[];
+};
+
+export default function LoanStatsSection({ stats }: LoanStatsSectionProps) {
   return (
     <section className="w-full py-8 lg:py-12">
       <LayoutWrapper>
         <div className="grid grid-cols-2 gap-x-6.5 gap-y-6 lg:flex lg:items-start lg:gap-6">
-          {loanStats.map((stat) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="flex flex-col items-start gap-4 lg:w-[298px] lg:gap-1.5"

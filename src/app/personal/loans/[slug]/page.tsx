@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import LoanHeroSection from './_components/LoanHeroSection';
 import LoanStatsSection from './_components/LoanStatsSection';
@@ -9,26 +11,40 @@ import LoanImpactSection from './_components/LoanImpactSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 import LoanGlanceSection from './_components/LoanGlanceSection';
 
-import { loanFaqs } from './_data';
+import { ROUTE } from '@/constants';
 
-const breadcrumbItems = [
-  { label: 'Loans', href: '/personal/loans' },
-  { label: 'Agriculture Loan' },
-];
+import { loans } from './_data';
 
-export default function LoansPage() {
+type LoansPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function LoansPage({ params }: LoansPageProps) {
+  const { slug } = await params;
+
+  const loan = loans.find((item) => item.slug === slug);
+
+  if (!loan) {
+    notFound();
+  }
+
+  const breadcrumbItems = [
+    { label: 'Loans', href: ROUTE.LOANS },
+    { label: loan.name },
+  ];
+
   return (
     <main className="relative">
       <Breadcrumbs items={breadcrumbItems} />
-      <LoanHeroSection />
-      <LoanStatsSection />
-      <LoanEligibilitySection />
-      <LoanApplyChecklistSection />
-      <LoanFinancingSection />
-      <LoanProcessSection />
-      <LoanImpactSection />
-      <FaqSection heading="Quick FAQs for Agriculture Loan" items={loanFaqs} />
-      <LoanGlanceSection />
+      <LoanHeroSection data={loan.hero} />
+      <LoanStatsSection stats={loan.stats} />
+      <LoanEligibilitySection data={loan.eligibility} />
+      <LoanApplyChecklistSection data={loan.applyChecklist} />
+      <LoanFinancingSection data={loan.financing} />
+      <LoanProcessSection data={loan.process} />
+      <LoanImpactSection data={loan.impact} />
+      <FaqSection heading={loan.faqs.heading} items={loan.faqs.items} />
+      <LoanGlanceSection data={loan.glance} />
     </main>
   );
 }

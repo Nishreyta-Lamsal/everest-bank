@@ -5,28 +5,32 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { ArrowUpRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
-import { glanceItems } from '../_data';
+import type { LoanGlance } from '../_data';
 
-export default function LoanGlanceSection() {
+type LoanGlanceSectionProps = {
+  data: LoanGlance;
+};
+
+export default function LoanGlanceSection({ data }: LoanGlanceSectionProps) {
   return (
     <section className="w-full py-16 lg:pt-15 lg:pb-30">
       <LayoutWrapper>
         <div className="flex flex-col items-start gap-10 lg:gap-12">
           <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 lg:w-[620px]">
-            Everything you need to know about our Agriculture Loan at a glance.
+            {data.heading}
           </h2>
           <div className="flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:gap-33">
             <div className="relative order-1 h-[270px] w-full overflow-hidden rounded-lg md:h-[489px] lg:order-2 lg:w-[513px] lg:rounded-3xl lg:rounded-tl-[192px]">
               <Image
-                src="/images/loans/agriculture/glance.jpg"
-                alt="A woman smiling with a group of children in a wheat field"
+                src={data.image}
+                alt={data.imageAlt}
                 fill
                 className="object-cover"
               />
             </div>
             <div className="order-2 flex w-full flex-col items-start gap-10 lg:order-1 lg:w-[620px] lg:gap-12">
               <div className="flex w-full flex-col">
-                {glanceItems.map((item) => (
+                {data.items.map((item) => (
                   <div
                     key={item.label}
                     className="flex items-center justify-between gap-4 border-b border-[#cedce7] py-4 last:border-b-0"
@@ -41,7 +45,7 @@ export default function LoanGlanceSection() {
                 ))}
               </div>
               <div className="flex w-full flex-col gap-4 lg:hidden">
-                <Link href="#" className="w-full">
+                <Link href={data.downloadHref} className="w-full">
                   <Button
                     variant="primary"
                     size="sm"
@@ -51,14 +55,14 @@ export default function LoanGlanceSection() {
                     Download detailed PDF
                   </Button>
                 </Link>
-                <Link href="#" className="w-full">
+                <Link href={data.contactHref} className="w-full">
                   <Button variant="secondary" size="sm" className="w-full">
                     Contact nearest bank
                   </Button>
                 </Link>
               </div>
               <div className="hidden flex-wrap items-start gap-4 lg:flex">
-                <Link href="#">
+                <Link href={data.downloadHref}>
                   <Button
                     variant="primary"
                     size="md"
@@ -67,7 +71,7 @@ export default function LoanGlanceSection() {
                     Download detailed PDF
                   </Button>
                 </Link>
-                <Link href="#">
+                <Link href={data.contactHref}>
                   <Button variant="secondary" size="md">
                     Contact nearest bank
                   </Button>

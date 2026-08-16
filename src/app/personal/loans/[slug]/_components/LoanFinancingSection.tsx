@@ -5,25 +5,31 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { ArrowUpRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
-import { financingCards } from '../_data';
+import type { LoanFinancing } from '../_data';
 
-export default function LoanFinancingSection() {
+type LoanFinancingSectionProps = {
+  data: LoanFinancing;
+};
+
+export default function LoanFinancingSection({
+  data,
+}: LoanFinancingSectionProps) {
   return (
     <section className="w-full py-16 lg:pt-15 lg:pb-30">
       <LayoutWrapper>
         <div className="flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
           <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[558px]">
-            Financing built around every stage of agriculture.
+            {data.heading}
           </h2>
-          <Link href="#" className="hidden lg:inline-block">
+          <Link href={data.ctaHref} className="hidden lg:inline-block">
             <Button variant="secondary" size="md">
-              Start Your Growth Journey
+              {data.ctaLabel}
             </Button>
           </Link>
         </div>
       </LayoutWrapper>
       <div className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-6 lg:w-full lg:max-w-[1400px] lg:gap-6 lg:overflow-visible lg:px-8 xl:mx-auto">
-        {financingCards.map((card) => (
+        {data.cards.map((card) => (
           <Link
             key={card.title}
             href={card.href}
@@ -46,9 +52,9 @@ export default function LoanFinancingSection() {
         ))}
       </div>
       <LayoutWrapper>
-        <Link href="#" className="mt-8 block w-full lg:hidden">
+        <Link href={data.ctaHref} className="mt-8 block w-full lg:hidden">
           <Button variant="secondary" size="sm" className="w-full">
-            Start Your Growth Journey
+            {data.ctaLabel}
           </Button>
         </Link>
       </LayoutWrapper>
