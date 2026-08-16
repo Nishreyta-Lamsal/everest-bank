@@ -24,6 +24,7 @@ export * from './FactoryIcon';
 export * from './FeedbackIcon';
 export * from './GavelIcon';
 export * from './GlobeIcon';
+export * from './GreenEnergyIcon';
 export * from './GrowthIcon';
 export * from './HomeIcon';
 export * from './InstagramIcon';

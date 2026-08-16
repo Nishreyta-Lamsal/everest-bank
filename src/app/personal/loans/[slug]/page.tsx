@@ -2,8 +2,10 @@ import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import LoanHeroSection from './_components/LoanHeroSection';
 import LoanStatsSection from './_components/LoanStatsSection';
 import LoanEligibilitySection from './_components/LoanEligibilitySection';
-import LoanFinancingSection from './_components/LoanFinancingSection';
 import LoanApplyChecklistSection from './_components/apply-checklist/LoanApplyChecklistSection';
+import LoanFinancingSection from './_components/LoanFinancingSection';
+import LoanProcessSection from './_components/process/LoanProcessSection';
+import LoanImpactSection from './_components/LoanImpactSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 import LoanGlanceSection from './_components/LoanGlanceSection';
 
@@ -21,8 +23,10 @@ export default function LoansPage() {
       <LoanHeroSection />
       <LoanStatsSection />
       <LoanEligibilitySection />
-      <LoanFinancingSection />
       <LoanApplyChecklistSection />
+      <LoanFinancingSection />
+      <LoanProcessSection />
+      <LoanImpactSection />
       <FaqSection heading="Quick FAQs for Agriculture Loan" items={loanFaqs} />
       <LoanGlanceSection />
     </main>

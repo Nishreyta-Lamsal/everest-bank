@@ -3,5 +3,7 @@ export * from './eligibility';
 export * from './faqs';
 export * from './financing';
 export * from './glance';
+export * from './impact';
 export * from './loan-types';
+export * from './process';
 export * from './stats';
