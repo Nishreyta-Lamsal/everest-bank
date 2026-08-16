@@ -13,9 +13,15 @@ import { isNavItemActive } from '@/lib/utils';
 import { mainNavItems } from '@/data';
 
 export default function NavbarMainBar() {
-  const [isPersonalMenuOpen, setIsPersonalMenuOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [isPersonalMenuOpen, setIsPersonalMenuOpen] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsPersonalMenuOpen(false);
+  }
 
   function openPersonalMenu() {
     setIsPersonalMenuOpen(true);

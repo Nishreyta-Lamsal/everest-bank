@@ -4,4 +4,5 @@ export const ROUTE = {
   REMITTANCE: '/remittance',
   ABOUT: '/about',
   LOANS: '/personal/loans',
+  CARDS: '/personal/cards',
 };
