@@ -9,10 +9,10 @@ export default function FooterLinksSection() {
     <div className="flex w-full items-start gap-33.5">
       <FooterBrand />
       <div className="flex items-start gap-17.5">
-        <FooterLinkColumn column={footerLinkColumns[0]} className="w-38" />
-        <FooterLinkColumn column={footerLinkColumns[1]} className="w-36" />
-        <FooterLinkColumn column={footerLinkColumns[2]} className="w-44.5" />
-        <FooterSocialColumn className="w-38.25" />
+        <FooterLinkColumn column={footerLinkColumns[0]} className="w-[152px]" />
+        <FooterLinkColumn column={footerLinkColumns[1]} className="w-[144px]" />
+        <FooterLinkColumn column={footerLinkColumns[2]} className="w-[178px]" />
+        <FooterSocialColumn className="w-[153px]" />
       </div>
     </div>
   );

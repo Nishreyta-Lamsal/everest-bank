@@ -36,7 +36,7 @@ export default function FooterAccordionColumn({
           </span>
           <ChevronDownIcon
             className={cn(
-              'text-grey-500 size-4 shrink-0 transition-transform',
+              'text-grey-500 size-[16px] shrink-0 transition-transform',
               isOpen && 'rotate-180',
             )}
           />

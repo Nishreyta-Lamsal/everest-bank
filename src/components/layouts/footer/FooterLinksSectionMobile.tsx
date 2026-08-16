@@ -15,7 +15,7 @@ export default function FooterLinksSectionMobile() {
         alt="Everest Bank Limited — Consistent, Strong, Dependable"
         width={294}
         height={91}
-        className="h-auto w-45.5"
+        className="h-auto w-[182px]"
       />
       <div className="flex w-full flex-col items-start">
         {footerLinkColumns.map((column, index) => (
@@ -27,7 +27,7 @@ export default function FooterLinksSectionMobile() {
         ))}
       </div>
       <div className="flex w-full flex-col gap-3 px-4">
-        <p className="font-heading text-title-1-mobile-md text-grey-500 w-14">
+        <p className="font-heading text-title-1-mobile-md text-grey-500 w-[56px]">
           Socials:
         </p>
         <div className="flex w-full flex-wrap items-start gap-x-8 gap-y-2">
@@ -37,7 +37,7 @@ export default function FooterLinksSectionMobile() {
               href={href}
               className="text-grey-400 text-body-3-mobile flex items-center gap-2 transition-colors hover:text-red-500"
             >
-              <Icon className="size-4 shrink-0" />
+              <Icon className="size-[16px] shrink-0" />
               {label}
             </Link>
           ))}
@@ -77,7 +77,7 @@ export default function FooterLinksSectionMobile() {
         </div>
       </div>
       <div className="text-grey-400 flex w-full flex-col gap-3 px-4">
-        <p className="text-body-3-mobile w-59.5 opacity-80">
+        <p className="text-body-3-mobile w-[238px] opacity-80">
           Copyright © {currentYear} Everest Bank Limited. All Rights Reserved.
         </p>
         <a

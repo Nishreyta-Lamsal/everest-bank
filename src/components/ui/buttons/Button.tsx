@@ -23,7 +23,7 @@ const buttonClasses = tv({
       'tertiary-white': 'bg-white text-red-500! hover:bg-red-50',
     },
     size: {
-      sm: 'h-9 px-6 text-body-4-desktop-md',
+      sm: 'h-[36px] px-6 text-body-4-desktop-md',
       md: 'h-[42px] px-6 text-body-4-desktop-md',
       lg: 'h-[46px] px-6 text-body-3-desktop-md',
     },
@@ -36,7 +36,7 @@ const buttonClasses = tv({
     {
       shape: 'rectangular',
       size: ['sm', 'md', 'lg'],
-      class: 'h-8 px-3 py-1.5 text-body-4-desktop-md',
+      class: 'h-[32px] px-3 py-1.5 text-body-4-desktop-md',
     },
   ],
   defaultVariants: {

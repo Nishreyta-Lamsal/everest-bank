@@ -30,7 +30,7 @@ export default function FeatureCard({
         featured && 'col-span-2',
       )}
     >
-      <Icon className="size-8 text-orange-500 xl:size-13" />
+      <Icon className="size-[32px] text-orange-500 xl:size-[52px]" />
       <div
         className={cn(
           'flex w-full flex-col items-start gap-2',
@@ -56,7 +56,7 @@ export default function FeatureCard({
           alt=""
           width={210}
           height={210}
-          className="pointer-events-none absolute -top-3.75 left-53 size-52.5 opacity-0 transition-opacity group-hover:opacity-100"
+          className="pointer-events-none absolute -top-3.75 left-53 size-[210px] opacity-0 transition-opacity group-hover:opacity-100"
         />
       )}
     </Link>

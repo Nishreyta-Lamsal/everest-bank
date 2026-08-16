@@ -13,7 +13,7 @@ export default function FooterOfficerCard({
   email,
 }: FooterOfficerCardProps) {
   return (
-    <div className=":justify-end flex w-full flex-col items-start gap-2 lg:w-74.25 xl:shrink-0 xl:gap-4">
+    <div className=":justify-end flex w-full flex-col items-start gap-2 lg:w-[297px] xl:shrink-0 xl:gap-4">
       <p className="font-heading text-title-2-desktop-md text-grey-500">
         {title}
       </p>
@@ -23,15 +23,15 @@ export default function FooterOfficerCard({
           alt={name}
           width={160}
           height={110}
-          className="h-21.5 w-31 shrink-0 rounded-[160px] object-cover xl:h-27.5 xl:w-40"
+          className="h-[86px] w-[124px] shrink-0 rounded-[160px] object-cover xl:h-[110px] xl:w-[160px]"
         />
         <div className="flex flex-col items-start gap-2 xl:gap-4">
-          <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md xl:w-52.5">
+          <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md xl:w-[210px]">
             {name}
           </p>
           <div className="flex flex-col items-start gap-2">
             <div className="flex items-start gap-2">
-              <PhoneIcon className="text-grey-400 size-4 shrink-0 xl:size-5.5" />
+              <PhoneIcon className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
               <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md">
                 {phone}
                 <br />
@@ -39,7 +39,7 @@ export default function FooterOfficerCard({
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <MailIcon className="text-grey-400 size-4 shrink-0 xl:size-5.5" />
+              <MailIcon className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
               <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md">
                 {email}
               </p>

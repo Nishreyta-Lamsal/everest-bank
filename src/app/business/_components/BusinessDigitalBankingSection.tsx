@@ -15,7 +15,7 @@ export default function BusinessDigitalBankingSection() {
             Run your business banking from one dashboard.
           </h2>
 
-          <div className="relative h-59.75 w-full overflow-hidden rounded-lg md:h-106.5 lg:w-full lg:max-w-155">
+          <div className="relative h-[239px] w-full overflow-hidden rounded-lg md:h-[426px] lg:w-full lg:max-w-[620px]">
             <Image
               src="/images/business/digital-banking.png"
               alt="A relationship manager holding a laptop, giving a thumbs up"
@@ -23,7 +23,7 @@ export default function BusinessDigitalBankingSection() {
               className="object-cover"
             />
           </div>
-          <div className="flex w-full flex-col items-start gap-10 lg:h-90.5 lg:w-139 lg:justify-between">
+          <div className="flex w-full flex-col items-start gap-10 lg:h-[362px] lg:w-[556px] lg:justify-between">
             <div className="flex flex-col items-start gap-6 lg:gap-8">
               <h2 className="font-heading text-heading-h2-desktop-md text-grey-500 hidden lg:block">
                 Run your business banking from one dashboard.
@@ -31,7 +31,7 @@ export default function BusinessDigitalBankingSection() {
               <div className="flex flex-col items-start gap-6">
                 {digitalBankingFeatures.map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-4 lg:gap-2">
-                    <Icon className="size-6 shrink-0 text-orange-500" />
+                    <Icon className="size-[24px] shrink-0 text-orange-500" />
                     <p className="font-heading text-title-2-mobile md:text-heading-h4-desktop text-grey-500">
                       {label}
                     </p>
@@ -43,7 +43,7 @@ export default function BusinessDigitalBankingSection() {
               <Button
                 variant="secondary"
                 size="sm"
-                className="lg:text-body-3-desktop-md w-full lg:h-11.5"
+                className="lg:text-body-3-desktop-md w-full lg:h-[46px]"
               >
                 Explore digital business banking
               </Button>

@@ -31,7 +31,7 @@ export default function NavbarMenuItem({
       )}
     >
       {label}
-      <ChevronDownIcon className="size-4 shrink-0" />
+      <ChevronDownIcon className="size-[16px] shrink-0" />
     </Link>
   );
 }

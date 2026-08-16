@@ -1,6 +1,7 @@
 export const ROUTE = {
-  PERSONAL_PAGE: '/',
-  BUSINESS_PAGE: '/business',
-  REMITTANCE_PAGE: '/remittance',
+  PERSONAL: '/personal',
+  BUSINESS: '/business',
+  REMITTANCE: '/remittance',
   ABOUT: '/about',
+  LOANS: '/personal/loans',
 };

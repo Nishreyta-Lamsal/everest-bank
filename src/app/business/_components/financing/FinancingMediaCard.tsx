@@ -14,7 +14,7 @@ export default function FinancingMediaCard({
   return (
     <Link
       href={href}
-      className="relative flex h-71.5 w-full flex-col overflow-hidden rounded-tl-[124px] rounded-tr-lg rounded-br-lg rounded-bl-lg md:h-128.5 xl:flex-1"
+      className="relative flex h-[286px] w-full flex-col overflow-hidden rounded-tl-[124px] rounded-tr-lg rounded-br-lg rounded-bl-lg md:h-[514px] xl:flex-1"
     >
       <Image src={image} alt={imageAlt} fill className="object-cover" />
       <div className="absolute inset-0 bg-linear-to-b from-black/0 to-black/80" />
@@ -22,7 +22,7 @@ export default function FinancingMediaCard({
         <p className="font-heading text-heading-h3-desktop leading-none text-white">
           {label}
         </p>
-        <ArrowUpRightIcon className="size-6 shrink-0 text-white" />
+        <ArrowUpRightIcon className="size-[24px] shrink-0 text-white" />
       </div>
     </Link>
   );

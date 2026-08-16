@@ -13,7 +13,7 @@ function NavbarPersonalMenuColumn({
   return (
     <div className="flex w-[274px] flex-col gap-2">
       <div className="flex items-center gap-2 py-2">
-        <Icon className="text-grey-500 size-4 shrink-0" />
+        <Icon className="text-grey-500 size-[16px] shrink-0" />
         <p className="text-body-2-desktop-md text-grey-500">{label}</p>
       </div>
       <div className="flex flex-col gap-4 pl-6">
@@ -61,7 +61,7 @@ export default function NavbarPersonalMenu() {
             <p className="font-heading text-heading-h4-desktop-md text-[#49423c]">
               Apply for your visa card
             </p>
-            <ArrowUpRightIcon className="size-6 shrink-0 text-[#450b03]" />
+            <ArrowUpRightIcon className="size-[24px] shrink-0 text-[#450b03]" />
           </div>
         </Link>
       </div>

@@ -12,8 +12,8 @@ export default function CsrSection() {
     <section className="w-full py-16 xl:pt-30 xl:pb-15">
       <LayoutWrapper>
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
-          <div className="flex flex-col gap-10 xl:w-107.25 xl:shrink-0 xl:gap-12 xl:py-6">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-106.25">
+          <div className="flex flex-col gap-10 xl:w-[429px] xl:shrink-0 xl:gap-12 xl:py-6">
+            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-[425px]">
               Creating positive change beyond banking for a better tomorrow
             </h2>
             <div className="hidden flex-col items-start gap-6 xl:flex">
@@ -27,13 +27,13 @@ export default function CsrSection() {
                     height={60}
                     className={
                       index === 0
-                        ? 'size-15 shrink-0 rounded-full'
-                        : '-ml-6 size-15 shrink-0 rounded-full'
+                        ? 'size-[60px] shrink-0 rounded-full'
+                        : '-ml-6 size-[60px] shrink-0 rounded-full'
                     }
                   />
                 ))}
-                <div className="bg-cream-50 text-grey-200 -ml-6 flex size-15 shrink-0 items-center justify-center rounded-full">
-                  <PlusIcon className="size-3.5" />
+                <div className="bg-cream-50 text-grey-200 -ml-6 flex size-[60px] shrink-0 items-center justify-center rounded-full">
+                  <PlusIcon className="size-[14px]" />
                 </div>
               </div>
               <p className="font-heading text-heading-h4-desktop text-grey-400">
@@ -43,7 +43,7 @@ export default function CsrSection() {
           </div>
           <div className="flex flex-1 flex-col gap-10 xl:gap-12">
             <div className="flex flex-col gap-10 xl:w-full xl:flex-row xl:items-start xl:gap-12">
-              <div className="rounded-tl-65 relative h-59.25 w-full overflow-hidden rounded-3xl md:h-71.25 xl:w-107.25 xl:shrink-0">
+              <div className="rounded-tl-65 relative h-[237px] w-full overflow-hidden rounded-3xl md:h-[285px] xl:w-[429px] xl:shrink-0">
                 <Image
                   src="/images/csr/csr-photo.jpg"
                   alt="A barista helping a customer pay with a QR code"
@@ -51,7 +51,7 @@ export default function CsrSection() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-col gap-4 xl:w-77.5 xl:shrink-0 xl:gap-12">
+              <div className="flex flex-col gap-4 xl:w-[310px] xl:shrink-0 xl:gap-12">
                 <p className="text-body-2-desktop text-grey-400">
                   Explore how Everest Bank contributes to communities through
                   education, sustainability, and social development initiatives.
@@ -74,11 +74,11 @@ export default function CsrSection() {
               {csrCards.map((card) => (
                 <div
                   key={card.title}
-                  className="bg-grey-bluish-grey flex w-full flex-col items-end gap-6 rounded-lg p-4 xl:h-71.25 xl:flex-1 xl:items-start xl:justify-between xl:gap-0 xl:p-6"
+                  className="bg-grey-bluish-grey flex w-full flex-col items-end gap-6 rounded-lg p-4 xl:h-[285px] xl:flex-1 xl:items-start xl:justify-between xl:gap-0 xl:p-6"
                 >
                   <div className="flex w-full items-center gap-2 xl:flex-col xl:items-start xl:gap-4">
-                    <card.icon className="size-8 shrink-0 text-orange-500 xl:size-12" />
-                    <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-56.75">
+                    <card.icon className="size-[32px] shrink-0 text-orange-500 xl:size-[48px]" />
+                    <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-[227px]">
                       {card.title}
                     </h3>
                   </div>
@@ -87,7 +87,7 @@ export default function CsrSection() {
                     className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700"
                   >
                     {card.linkLabel}
-                    <ArrowUpRightIcon className="size-4 shrink-0" />
+                    <ArrowUpRightIcon className="size-[16px] shrink-0" />
                   </Link>
                 </div>
               ))}
