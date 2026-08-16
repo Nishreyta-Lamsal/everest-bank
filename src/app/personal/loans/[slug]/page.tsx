@@ -3,6 +3,7 @@ import LoanHeroSection from './_components/LoanHeroSection';
 import LoanStatsSection from './_components/LoanStatsSection';
 import LoanEligibilitySection from './_components/LoanEligibilitySection';
 import LoanFinancingSection from './_components/LoanFinancingSection';
+import LoanApplyChecklistSection from './_components/apply-checklist/LoanApplyChecklistSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 import LoanGlanceSection from './_components/LoanGlanceSection';
 
@@ -21,6 +22,7 @@ export default function LoansPage() {
       <LoanStatsSection />
       <LoanEligibilitySection />
       <LoanFinancingSection />
+      <LoanApplyChecklistSection />
       <FaqSection heading="Quick FAQs for Agriculture Loan" items={loanFaqs} />
       <LoanGlanceSection />
     </main>

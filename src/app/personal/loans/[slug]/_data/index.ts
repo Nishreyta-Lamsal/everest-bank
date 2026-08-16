@@ -1,3 +1,4 @@
+export * from './apply-checklist';
 export * from './eligibility';
 export * from './faqs';
 export * from './financing';

@@ -46,6 +46,7 @@ export * from './PiggyBankIcon';
 export * from './PlayIcon';
 export * from './PlusIcon';
 export * from './ResetIcon';
+export * from './RouteIcon';
 export * from './SafeIcon';
 export * from './SearchIcon';
 export * from './ShieldCheckBadgeIcon';

@@ -349,6 +349,21 @@
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
+
+  @keyframes fill-progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .animate-fill-progress {
+    animation-name: fill-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
 }
 
 body {
