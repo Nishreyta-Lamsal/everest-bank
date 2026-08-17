@@ -5,7 +5,7 @@ import ProfileContentSection from './_components/ProfileContentSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 
 import { ROUTE } from '@/constants';
-import ContactSection from '@/components/shared/ContactSection';
+import ContactSection from '@/components/shared/content/ContactSection';
 
 const breadcrumbItems = [
   { label: 'About', href: ROUTE.ABOUT },

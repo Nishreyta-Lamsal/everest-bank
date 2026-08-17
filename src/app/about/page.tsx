@@ -7,7 +7,7 @@ import AboutLeadershipSection from './_components/AboutLeadershipSection';
 import AboutHistorySection from './_components/AboutHistorySection';
 import TrustSection from '../personal/_components/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
-import ContactSection from '@/components/shared/ContactSection';
+import ContactSection from '@/components/shared/content/ContactSection';
 
 const breadcrumbItems = [{ label: 'About' }];
 
