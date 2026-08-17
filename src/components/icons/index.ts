@@ -63,4 +63,5 @@ export * from './TransferIcon';
 export * from './TrendingUpIcon';
 export * from './VerifiedIcon';
 export * from './WorldwideIcon';
+export * from './XIcon';
 export * from './YoutubeIcon';

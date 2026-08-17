@@ -126,7 +126,7 @@
   --text-heading-h1-mobile-md--letter-spacing: 0%;
   --text-heading-h1-mobile-md--font-weight: 500;
 
-  --text-heading-h2-desktop: 40px;
+  --text-heading-h2-desktop: 48px;
   --text-heading-h2-desktop--line-height: 100%;
   --text-heading-h2-desktop--letter-spacing: 0%;
   --text-heading-h2-desktop--font-weight: 400;
@@ -135,7 +135,7 @@
   --text-heading-h2-mobile--letter-spacing: 0%;
   --text-heading-h2-mobile--font-weight: 400;
 
-  --text-heading-h2-desktop-md: 40px;
+  --text-heading-h2-desktop-md: 48px;
   --text-heading-h2-desktop-md--line-height: 100%;
   --text-heading-h2-desktop-md--letter-spacing: 0%;
   --text-heading-h2-desktop-md--font-weight: 500;
@@ -143,6 +143,15 @@
   --text-heading-h2-mobile-md--line-height: 100%;
   --text-heading-h2-mobile-md--letter-spacing: 0%;
   --text-heading-h2-mobile-md--font-weight: 500;
+
+  --text-heading-h2-desktop-sb: 48px;
+  --text-heading-h2-desktop-sb--line-height: 100%;
+  --text-heading-h2-desktop-sb--letter-spacing: 0%;
+  --text-heading-h2-desktop-sb--font-weight: 600;
+  --text-heading-h2-mobile-sb: 28px;
+  --text-heading-h2-mobile-sb--line-height: 100%;
+  --text-heading-h2-mobile-sb--letter-spacing: 0%;
+  --text-heading-h2-mobile-sb--font-weight: 600;
 
   --text-heading-h3-desktop: 32px;
   --text-heading-h3-desktop--line-height: 100%;
