@@ -7,7 +7,7 @@ import AppPromoSection from './_components/AppPromoSection';
 import CsrSection from './_components/CsrSection';
 import TrustSection from './_components/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
-import ContactSection from '@/components/shared/ContactSection';
+import ContactSection from '@/components/shared/content/ContactSection';
 
 export default function PersonalPage() {
   return (

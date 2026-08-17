@@ -1,4 +1,4 @@
-import type { ContentStat } from '@/components/shared/ContentStatsSection';
+import type { ContentStat } from '@/components/shared/content/ContentStatsSection';
 
 export const profileStats: ContentStat[] = [
   { value: '300', label: 'Branches' },

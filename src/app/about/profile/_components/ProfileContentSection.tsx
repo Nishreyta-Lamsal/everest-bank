@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import ContentSidebar from '@/components/shared/ContentSidebar';
+import ContentSidebar from '@/components/shared/content/ContentSidebar';
 
 import { relatedPages } from '../_data/related-pages';
 import { profileSocialLinks } from '../_data/social-links';

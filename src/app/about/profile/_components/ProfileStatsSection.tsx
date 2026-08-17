@@ -1,4 +1,4 @@
-import ContentStatsSection from '@/components/shared/ContentStatsSection';
+import ContentStatsSection from '@/components/shared/content/ContentStatsSection';
 
 import { profileStats } from '../_data/stats';
 

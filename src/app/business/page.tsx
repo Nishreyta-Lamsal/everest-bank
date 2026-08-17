@@ -7,7 +7,7 @@ import BusinessIndustriesSection from './_components/BusinessIndustriesSection';
 import BusinessTrustSection from './_components/BusinessTrustSection';
 import BusinessRelationshipManagerSection from './_components/BusinessRelationshipManagerSection';
 import NewsSection from '@/components/shared/news/NewsSection';
-import ContactSection from '@/components/shared/ContactSection';
+import ContactSection from '@/components/shared/content/ContactSection';
 
 export default function BusinessPage() {
   return (
