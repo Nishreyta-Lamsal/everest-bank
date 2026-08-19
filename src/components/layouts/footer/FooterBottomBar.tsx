@@ -11,13 +11,13 @@ export default function FooterBottomBar() {
         <div className="flex gap-20">
           <Link
             href="#"
-            className="font-heading text-grey-400 hover:text-red-500 text-title-3-desktop transition-colors"
+            className="font-heading text-grey-400 text-title-4-desktop transition-colors hover:text-red-500"
           >
             Site Map
           </Link>
           <Link
             href="#"
-            className="font-heading text-grey-400 hover:text-red-500 text-title-3-desktop transition-colors"
+            className="font-heading text-grey-400 text-title-4-desktop transition-colors hover:text-red-500"
           >
             Privacy Policy
           </Link>

@@ -31,7 +31,7 @@ export default function FooterAccordionColumn({
           aria-controls={panelId}
           className="flex w-full items-center justify-between px-4 py-6"
         >
-          <span className="font-heading text-title-1-mobile-md text-grey-500">
+          <span className="font-heading text-title-2-mobile-md text-grey-500">
             {column.title}
           </span>
           <ChevronDownIcon
@@ -48,7 +48,7 @@ export default function FooterAccordionColumn({
             <Link
               key={link.label}
               href={link.href}
-              className="text-grey-400 text-body-4-desktop transition-colors hover:text-red-500"
+              className="text-grey-400 text-body-3-mobile transition-colors hover:text-red-500"
             >
               {link.label}
             </Link>

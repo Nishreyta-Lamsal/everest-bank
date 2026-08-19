@@ -27,7 +27,7 @@ export default function FooterLinksSectionMobile() {
         ))}
       </div>
       <div className="flex w-full flex-col gap-3 px-4">
-        <p className="font-heading text-title-1-mobile-md text-grey-500 w-[56px]">
+        <p className="font-heading text-title-2-mobile-md text-grey-500 w-[56px]">
           Socials:
         </p>
         <div className="flex w-full flex-wrap items-start gap-x-8 gap-y-2">
@@ -46,19 +46,19 @@ export default function FooterLinksSectionMobile() {
       <div className="flex items-start gap-20 px-4">
         <Link
           href="#"
-          className="font-heading text-title-1-mobile-md text-grey-400 transition-colors hover:text-red-500"
+          className="font-heading text-title-2-mobile-md text-grey-400 transition-colors hover:text-red-500"
         >
           Site Map
         </Link>
         <Link
           href="#"
-          className="font-heading text-title-1-mobile-md text-grey-400 transition-colors hover:text-red-500"
+          className="font-heading text-title-2-mobile-md text-grey-400 transition-colors hover:text-red-500"
         >
           Privacy Policy
         </Link>
       </div>
       <div className="flex w-full flex-col items-start gap-3 px-4">
-        <p className="font-heading text-title-1-mobile-md text-grey-500">
+        <p className="font-heading text-title-2-mobile-md text-grey-500">
           Get EBL Touch App
         </p>
         <div className="flex items-center gap-4">

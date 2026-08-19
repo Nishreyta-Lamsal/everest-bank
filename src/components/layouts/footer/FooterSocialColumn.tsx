@@ -11,7 +11,7 @@ export default function FooterSocialColumn({
 }: FooterSocialColumnProps) {
   return (
     <div className={cn('flex shrink-0 flex-col gap-6', className)}>
-      <p className="font-heading text-title-2-desktop-md text-grey-500">
+      <p className="font-heading text-title-3-desktop-md text-grey-500">
         Socials:
       </p>
       <div className="flex flex-col items-start gap-6">

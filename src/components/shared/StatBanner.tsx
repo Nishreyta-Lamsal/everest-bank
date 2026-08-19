@@ -58,7 +58,7 @@ export default function StatBanner({
 
   return (
     <section className="relative flex w-full flex-col xl:flex-row">
-      <div className="relative h-[396px] overflow-hidden bg-[#b41518] xl:h-[532px] xl:flex-708 xl:bg-red-500">
+      <div className="relative h-[396px] overflow-hidden bg-red-500 xl:h-[532px] xl:flex-708">
         <Image
           src="/icons/trust/mountain-outline.svg"
           alt="Mountain outline"
@@ -95,10 +95,10 @@ export default function StatBanner({
       <div className="pointer-events-none absolute inset-0">
         <LayoutWrapper>
           <div className="relative h-[396px] xl:h-[532px]">
-            <p className="font-heading text-display-0-mobile-md xl:text-display-0-desktop-md absolute top-0 left-0 text-white uppercase">
+            <p className="font-heading text-display-0-mobile-md xl:text-display-0-desktop-md absolute -top-1 left-0 text-white uppercase">
               {title}
             </p>
-            <p className="font-heading text-display-2-mobile-md xl:text-display-3-desktop-md absolute top-28.75 left-4 whitespace-nowrap text-white xl:top-[93.77%] xl:left-24">
+            <p className="font-heading text-display-2-mobile-md xl:text-display-3-desktop-md absolute top-28.75 left-4 whitespace-nowrap text-white xl:top-[94.5%] xl:left-24">
               {description}
             </p>
           </div>

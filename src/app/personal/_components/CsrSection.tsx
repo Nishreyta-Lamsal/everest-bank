@@ -14,7 +14,7 @@ export default function CsrSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
           <div className="flex flex-col gap-10 xl:w-[429px] xl:shrink-0 xl:gap-12 xl:py-6">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-[425px]">
+            <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-[425px]">
               Creating positive change beyond banking for a better tomorrow
             </h2>
             <CustomerAvatarStack
@@ -24,8 +24,8 @@ export default function CsrSection() {
             />
           </div>
           <div className="flex flex-1 flex-col gap-10 xl:gap-12">
-            <div className="flex flex-col gap-10 xl:w-full xl:flex-row xl:items-start xl:gap-12">
-              <div className="rounded-tl-65 relative h-[237px] w-full overflow-hidden rounded-3xl md:h-[285px] xl:w-[429px] xl:shrink-0">
+            <div className="flex flex-col gap-8 xl:w-full xl:flex-row xl:items-start xl:gap-12">
+              <div className="relative h-[237px] w-full overflow-hidden rounded-3xl md:h-[285px] xl:w-[429px] xl:shrink-0 xl:rounded-tl-[260px]">
                 <Image
                   src="/images/csr/csr-photo.jpg"
                   alt="A barista helping a customer pay with a QR code"
@@ -34,7 +34,7 @@ export default function CsrSection() {
                 />
               </div>
               <div className="flex flex-col gap-4 xl:w-[310px] xl:shrink-0 xl:gap-12">
-                <p className="text-body-2-desktop text-grey-400">
+                <p className="text-body-1-mobile xl:text-body-2-desktop text-grey-400">
                   Explore how Everest Bank contributes to communities through
                   education, sustainability, and social development initiatives.
                 </p>

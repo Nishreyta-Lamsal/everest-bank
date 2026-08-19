@@ -14,7 +14,7 @@ export default function FooterOfficerCard({
 }: FooterOfficerCardProps) {
   return (
     <div className=":justify-end flex w-full flex-col items-start gap-2 lg:w-[297px] xl:shrink-0 xl:gap-4">
-      <p className="font-heading text-title-2-desktop-md text-grey-500">
+      <p className="font-heading text-title-3-mobile-md text-grey-500 xl:text-title-3-desktop-md">
         {title}
       </p>
       <div className="flex w-full items-start gap-4 lg:flex-col lg:justify-center">

@@ -29,7 +29,7 @@ export default function IconLinkCard({
       )}
     >
       <div className="flex w-full items-center gap-2 lg:flex-col lg:items-start lg:gap-4">
-        <Icon className="size-8 shrink-0 text-orange-500 lg:size-12" />
+        <Icon className="size-6 shrink-0 text-orange-500 lg:size-10" />
         <h3 className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h4-desktop w-[227px]">
           {title}
         </h3>
@@ -39,7 +39,7 @@ export default function IconLinkCard({
         className="text-body-4-desktop-md inline-flex items-center gap-1 text-red-700"
       >
         {linkLabel}
-        <ArrowUpRightIcon className="size-[16px] shrink-0" />
+        <ArrowUpRightIcon className="size-4 shrink-0" />
       </Link>
     </div>
   );

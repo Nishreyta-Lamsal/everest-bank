@@ -14,7 +14,7 @@ export default function ContactSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-20 rounded-2xl bg-red-600 px-4 py-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-8 lg:p-10">
           <div className="flex flex-col gap-8 lg:items-start lg:justify-between lg:gap-0 lg:self-stretch">
-            <h2 className="font-heading text-heading-h3-desktop-md w-[304px] text-white">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md w-[304px] text-white">
               Get in touch with us anytime.
             </h2>
             <div className="flex flex-col gap-4">
@@ -22,7 +22,7 @@ export default function ContactSection() {
                 <Button
                   variant="tertiary-white"
                   size="lg"
-                  className="h-[42px] w-full lg:h-[46px] lg:w-[350px]"
+                  className="text-body-4-desktop-md lg:text-body-3-desktop-md h-[42px] w-full lg:h-[46px] lg:w-[350px]"
                 >
                   Know More About Us
                 </Button>
@@ -35,7 +35,7 @@ export default function ContactSection() {
                   leftIcon={<EnvelopeIcon />}
                   variant="secondary-white"
                   size="lg"
-                  className="h-[42px] w-full lg:h-[46px] lg:w-[350px]"
+                  className="text-body-4-desktop-md lg:text-body-3-desktop-md h-[42px] w-full lg:h-[46px] lg:w-[350px]"
                 >
                   <span className="lg:hidden">everestsupport@gmail.com</span>
                   <span className="hidden lg:inline">
@@ -55,10 +55,10 @@ export default function ContactSection() {
                 )}
               >
                 <div className="flex flex-col items-start gap-2">
-                  <h3 className="font-heading text-title-1-desktop-md text-white">
+                  <h3 className="font-heading text-title-1-mobile-md lg:text-title-2-desktop-md text-white">
                     {topic.title}
                   </h3>
-                  <p className="font-heading text-title-3-desktop w-full text-white/90 lg:w-[538px]">
+                  <p className="font-heading text-title-3-mobile lg:text-title-4-desktop w-full text-white/90 lg:w-[538px]">
                     {topic.description}
                   </p>
                 </div>

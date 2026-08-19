@@ -78,7 +78,7 @@ export default function HeroVideoPlayer() {
         onClick={togglePlayback}
         aria-label={isPlaying ? 'Pause video' : 'Play video'}
         className={cn(
-          'absolute inset-0 m-auto flex size-[16px] cursor-pointer items-center justify-center text-white backdrop-blur-xs transition-opacity duration-300 lg:size-[32px]',
+          'absolute inset-0 m-auto flex size-[16px] cursor-pointer items-center justify-center text-white backdrop-blur-[1.876px] transition-opacity duration-300 lg:size-[32px]',
           showControls ? 'opacity-100' : 'opacity-0',
         )}
       >

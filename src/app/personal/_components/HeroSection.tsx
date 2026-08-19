@@ -10,7 +10,7 @@ import { heroSlides } from '../_data';
 
 export default function HeroSection() {
   return (
-    <section className="w-full pt-6 lg:pt-15">
+    <section className="w-full pt-8 lg:pt-15">
       <LayoutWrapper>
         <div className="flex flex-col-reverse gap-8 lg:flex-row lg:items-end lg:gap-6">
           <div className="flex flex-col gap-8 lg:h-[520px] lg:w-[620px] lg:shrink-0 lg:justify-between lg:gap-0">
@@ -35,7 +35,7 @@ export default function HeroSection() {
             <div className="flex w-full items-center gap-6">
               <HeroVideoPlayer />
               <div className="flex flex-col items-start gap-4 lg:h-[160px] lg:w-[405px] lg:shrink-0 lg:justify-between lg:gap-0 lg:bg-white lg:p-4">
-                <p className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h4-desktop w-[240px] lg:w-[333px]">
+                <p className="font-heading text-heading-h5-mobile text-grey-500 lg:text-heading-h5-desktop w-[240px] lg:w-[333px]">
                   Build healthy financial habits with secure and rewarding
                   savings solutions.
                 </p>

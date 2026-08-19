@@ -10,7 +10,7 @@ export default function FooterBrand() {
         height={91}
       />
       <div className="flex flex-col items-start gap-4">
-        <p className="font-heading text-title-2-desktop-md text-grey-400">
+        <p className="font-heading text-title-3-desktop-md text-grey-400">
           Get EBL Touch App
         </p>
         <Image

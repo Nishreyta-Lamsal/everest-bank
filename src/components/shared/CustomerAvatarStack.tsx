@@ -39,7 +39,7 @@ export default function CustomerAvatarStack({
       </div>
       <p
         className={cn(
-          'font-heading text-heading-h4-desktop text-grey-400',
+          'font-heading text-heading-h5-desktop text-grey-400',
           countClassName,
         )}
       >

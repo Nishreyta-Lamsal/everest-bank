@@ -11,7 +11,7 @@ export default function NewsSection() {
     <section className="w-full py-16 lg:py-30">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[1fr_auto] lg:items-center lg:gap-x-6 lg:gap-y-12">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 lg:order-0">
+          <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 w-full max-w-[270px] lg:order-0 lg:max-w-[650px]">
             Stay updated With Everest Bank
           </h2>
           <Link

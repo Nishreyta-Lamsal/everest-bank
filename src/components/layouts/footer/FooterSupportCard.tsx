@@ -5,7 +5,7 @@ export default function FooterSupportCard() {
   return (
     <div className="flex w-full flex-col items-start gap-4 rounded-2xl bg-gradient-to-l from-[#fbc999] via-[#ffe8c8] to-[#fbc999] px-4 py-8 xl:h-[286px] xl:w-[620px] xl:shrink-0 xl:justify-between xl:gap-0 xl:p-8">
       <div className="flex flex-col gap-1 xl:contents">
-        <p className="font-heading text-title-1-mobile text-grey-500 xl:text-title-1-desktop">
+        <p className="font-heading text-title-2-mobile text-grey-500 xl:text-title-2-desktop">
           Customer Support Center
         </p>
         <p className="text-body-3-mobile text-grey-400 xl:text-body-2-desktop">
@@ -31,7 +31,7 @@ export default function FooterSupportCard() {
         <Button
           variant="tertiary-white"
           size="lg"
-          className="h-[42px] w-full xl:h-[46px] xl:w-[270px]"
+          className="text-body-4-desktop-md xl:text-body-3-desktop-md h-[42px] w-full xl:h-[46px] xl:w-[270px]"
           leftIcon={<PhoneCallIcon className="size-[16px]" />}
         >
           Call Us
@@ -39,7 +39,7 @@ export default function FooterSupportCard() {
         <Button
           variant="secondary"
           size="lg"
-          className="h-[42px] w-full text-red-500! xl:h-[46px] xl:w-[270px] xl:text-red-600!"
+          className="text-body-4-desktop-md xl:text-body-3-desktop-md h-[42px] w-full text-red-500! xl:h-[46px] xl:w-[270px] xl:text-red-600!"
         >
           Make an enquire
         </Button>

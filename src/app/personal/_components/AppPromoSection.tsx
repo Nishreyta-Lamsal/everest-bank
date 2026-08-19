@@ -10,7 +10,7 @@ export default function AppPromoSection() {
     <section className="bg-grey-bluish-grey relative w-full overflow-hidden py-16 lg:py-15">
       <LayoutWrapper>
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-22">
-          <div className="rounded-tr-22 relative h-[239px] w-full overflow-hidden rounded-lg md:h-[404px] lg:max-w-[620px]">
+          <div className="relative h-[239px] w-full overflow-hidden rounded-lg md:h-[404px] lg:max-w-[620px] lg:rounded-tr-[88px]">
             <Image
               src="/images/app-promo/woman-with-card-photo.png"
               alt="A woman checking her balance on her phone while holding an Everest Bank card"
@@ -19,7 +19,7 @@ export default function AppPromoSection() {
             />
           </div>
           <div className="flex flex-col gap-4 lg:h-[404px] lg:gap-18">
-            <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[469px]">
+            <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[469px]">
               Save smarter, stay connected, and achieve more with modern
               banking.
             </h2>
@@ -59,10 +59,12 @@ export default function AppPromoSection() {
           <Link
             key={badge.label}
             href={badge.href}
-            className="flex h-[91px] w-[185px] shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-2xl bg-red-500 p-4 text-white transition-colors hover:bg-red-700"
+            className="flex h-[91px] w-[185px] shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-[32px] bg-red-500 p-4 text-white transition-colors hover:bg-red-700"
           >
-            <badge.icon className="size-[32px]" />
-            <p className="font-heading text-title-2-desktop">{badge.label}</p>
+            <badge.icon className="size-5 md:size-8" />
+            <p className="font-heading text-title-2-mobile lg:text-title-3-desktop">
+              {badge.label}
+            </p>
           </Link>
         ))}
       </div>

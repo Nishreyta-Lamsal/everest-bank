@@ -21,8 +21,8 @@ export default function NewsItem({
         hideOnMobile && 'hidden lg:flex',
       )}
     >
-      <div className="flex w-full flex-col items-start gap-4">
-        <h3 className="font-heading text-heading-h3-mobile text-grey-500 lg:text-heading-h4-desktop">
+      <div className="flex w-full flex-col items-start gap-2 lg:gap-4">
+        <h3 className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h5-desktop">
           {card.headline.split('\n').map((line, lineIndex) => (
             <span key={lineIndex} className="block">
               {line}
