@@ -32,7 +32,7 @@ export default function MeetTheTeamSection({
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
           <div className="flex flex-col items-start gap-10 lg:h-[433px] lg:max-w-[380px] lg:justify-between">
             <div className="flex flex-col items-start gap-10 lg:gap-8">
-              <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[380px]">
+              <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[380px]">
                 {heading}
               </h2>
               <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop lg:max-w-[405px]">
@@ -52,7 +52,7 @@ export default function MeetTheTeamSection({
                   key={person.name}
                   className="flex w-[171px] flex-col items-start gap-6 lg:w-[200px] xl:w-[322px]"
                 >
-                  <div className="relative h-[257px] w-full overflow-hidden rounded-lg rounded-tl-[60px] lg:h-[368px] lg:rounded-xl lg:rounded-tl-[64px]">
+                  <div className="relative h-[228px] w-full overflow-hidden rounded-lg rounded-tl-[60px] lg:h-[368px] lg:rounded-xl lg:rounded-tl-[100px]">
                     <Image
                       src={person.image}
                       alt={person.alt}
@@ -61,10 +61,10 @@ export default function MeetTheTeamSection({
                     />
                   </div>
                   <div className="flex flex-col items-start gap-4">
-                    <p className="font-heading text-heading-h3-mobile text-grey-500 lg:text-heading-h4-desktop">
+                    <p className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h5-desktop">
                       {person.name}
                     </p>
-                    <p className="font-heading text-title-2-mobile text-grey-400">
+                    <p className="font-heading text-title-3-mobile text-grey-400 lg:text-title-4-desktop">
                       {person.role}
                     </p>
                   </div>

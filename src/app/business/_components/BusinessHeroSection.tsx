@@ -9,7 +9,7 @@ import { businessHeroHighlights, businessHeroSlides } from '../_data';
 
 export default function BusinessHeroSection() {
   return (
-    <section className="w-full pt-6 lg:pt-15">
+    <section className="w-full pt-8 lg:pt-15">
       <LayoutWrapper>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:gap-25">
           <HeroImageCarousel
@@ -18,7 +18,7 @@ export default function BusinessHeroSection() {
             className="lg:order-2"
           />
           <div className="flex flex-col items-start lg:order-1 lg:h-[510px] lg:w-[544px] lg:shrink-0">
-            <h1 className="font-heading text-grey-500 lg:text-display-1-desktop-md text-[36px] leading-[0.92] font-medium lg:order-1">
+            <h1 className="font-heading text-display-1-mobile-md text-grey-500 lg:text-display-1-desktop-md lg:order-1">
               Banking that grows
               <br />
               with your business

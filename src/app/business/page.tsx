@@ -18,8 +18,8 @@ export default function BusinessPage() {
       <BusinessFinancingSection />
       <BusinessDigitalBankingSection />
       <BusinessIndustriesSection />
-      <BusinessTrustSection />
       <BusinessRelationshipManagerSection />
+      <BusinessTrustSection />
       <NewsSection />
       <ContactSection />
     </main>

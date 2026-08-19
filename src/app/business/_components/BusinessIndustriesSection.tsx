@@ -5,8 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
+import IconLinkCard from '@/components/ui/cards/IconLinkCard';
 
 import { gsap, useGSAP } from '@/lib/gsap';
 
@@ -62,7 +62,7 @@ export default function BusinessIndustriesSection() {
     <section ref={sectionRef} className="w-full py-16 lg:pt-30 lg:pb-15">
       <LayoutWrapper>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-          <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[425px]">
+          <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full max-w-[335px] lg:max-w-[425px]">
             Specialists in the sectors that move Nepal&rsquo;s economy.
           </h2>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
@@ -95,27 +95,17 @@ export default function BusinessIndustriesSection() {
       >
         <div ref={trackRef} className="flex gap-4 lg:gap-6">
           {businessIndustryCards.map((card) => (
-            <div
+            <IconLinkCard
               key={card.title}
-              className="bg-grey-bluish-grey flex w-[332px] shrink-0 flex-col items-start justify-between gap-8 rounded-lg px-4 py-6 lg:min-h-[285px] lg:w-[400px] lg:p-6"
-            >
-              <div className="flex flex-col items-start gap-4">
-                <card.icon className="size-[32px] shrink-0 text-orange-500 lg:size-[48px]" />
-                <h3 className="font-heading text-heading-h4-desktop text-grey-500">
-                  {card.title}
-                </h3>
-                <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop">
-                  {card.description}
-                </p>
-              </div>
-              <Link
-                href={card.href}
-                className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline"
-              >
-                {card.linkLabel}
-                <ArrowUpRightIcon className="size-[16px] shrink-0" />
-              </Link>
-            </div>
+              icon={card.icon}
+              title={card.title}
+              description={card.description}
+              linkLabel={card.linkLabel}
+              href={card.href}
+              headerLayout="stacked"
+              titleClassName="text-title-0-mobile"
+              className="w-[332px] shrink-0 items-start gap-15 lg:min-h-[285px] lg:w-[400px]"
+            />
           ))}
         </div>
       </div>
