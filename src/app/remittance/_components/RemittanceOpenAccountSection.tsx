@@ -30,7 +30,7 @@ export default function RemittanceOpenAccountSection() {
     <section className="w-full bg-red-600 py-16 lg:py-30">
       <LayoutWrapper>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[558px_642px] lg:gap-x-12 lg:gap-y-12">
-          <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h3-desktop-md w-full text-white lg:col-start-1 lg:row-start-1 lg:w-[546px] lg:self-center">
+          <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md w-full text-white lg:col-start-1 lg:row-start-1 lg:w-[550px] lg:self-center">
             Open an account that fits your financial goals
           </h2>
           <div className="relative h-[286px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:row-start-2 lg:h-[428px] lg:w-[642px] lg:shrink-0 lg:rounded-3xl">
@@ -49,7 +49,7 @@ export default function RemittanceOpenAccountSection() {
               type="button"
               onClick={togglePlayback}
               aria-label={isPlaying ? 'Pause video' : 'Play video'}
-              className="absolute top-1/2 left-1/2 flex size-[60px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm"
+              className="absolute top-1/2 left-1/2 flex size-[60px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-[1.876px]"
             >
               {isPlaying ? (
                 <PauseIcon className="size-[24px]" />
@@ -65,7 +65,7 @@ export default function RemittanceOpenAccountSection() {
                 className="flex w-full items-center gap-4 py-3 lg:gap-6 lg:py-5"
               >
                 <Icon className="size-[28px] shrink-0 text-white lg:size-[40px]" />
-                <p className="font-heading text-heading-h3-mobile-md lg:text-heading-h6-desktop-md text-white">
+                <p className="font-heading text-title-1-mobile-md lg:text-heading-h3-desktop-md text-white">
                   {label}
                 </p>
               </div>

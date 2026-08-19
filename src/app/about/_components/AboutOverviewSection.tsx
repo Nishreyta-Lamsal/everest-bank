@@ -20,7 +20,7 @@ export default function AboutOverviewSection() {
             <div className="flex flex-col gap-10 lg:w-[298px] lg:shrink-0 lg:justify-center lg:gap-12">
               {aboutOverviewStats.map((stat) => (
                 <div key={stat.label} className="flex flex-col">
-                  <p className="font-heading lg:text-heading-h2-desktop-sb text-display-2-mobile-sb text-red-500">
+                  <p className="font-heading lg:text-heading-h2-desktop-md text-display-2-mobile-md text-red-500">
                     {stat.value}
                   </p>
                   <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">

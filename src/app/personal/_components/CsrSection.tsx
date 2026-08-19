@@ -60,7 +60,7 @@ export default function CsrSection() {
                   title={card.title}
                   linkLabel={card.linkLabel}
                   href={card.href}
-                  className="h-[250px] xl:h-[285px] xl:flex-1"
+                  className="xl:h-[285px] xl:flex-1"
                 />
               ))}
             </div>

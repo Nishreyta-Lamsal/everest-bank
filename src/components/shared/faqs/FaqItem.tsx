@@ -17,7 +17,7 @@ export default function FaqItem({ item, isOpen, onToggle }: FaqItemProps) {
           aria-controls={panelId}
           className="flex w-full cursor-pointer items-center justify-between gap-4 text-left"
         >
-          <span className="font-heading text-heading-h4-mobile lg:text-heading-h4-desktop text-grey-500">
+          <span className="font-heading text-heading-h4-mobile lg:text-heading-h5-desktop text-grey-500">
             {item.question}
           </span>
           <span className="grid shrink-0">

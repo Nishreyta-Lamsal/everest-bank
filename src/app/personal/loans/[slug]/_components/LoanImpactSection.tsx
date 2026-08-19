@@ -49,7 +49,7 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
                   key={stat.label}
                   className="flex flex-col items-start gap-4 lg:gap-5.75"
                 >
-                  <p className="font-heading text-heading-h3-mobile-sb lg:text-heading-h3-desktop-sb text-white">
+                  <p className="font-heading text-heading-h3-mobile-md lg:text-heading-h3-desktop-md text-white">
                     {stat.value}
                   </p>
                   <p className="font-heading text-title-2-mobile lg:text-title-1-desktop text-white-90">
