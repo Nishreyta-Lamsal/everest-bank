@@ -2,8 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon, PlusIcon } from '@/components/icons';
+import CustomerAvatarStack from '@/components/shared/CustomerAvatarStack';
 import Button from '@/components/ui/buttons/Button';
+import IconLinkCard from '@/components/ui/cards/IconLinkCard';
 
 import { csrCards, csrCustomerAvatars } from '../_data';
 
@@ -16,30 +17,11 @@ export default function CsrSection() {
             <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 xl:text-heading-h2-desktop-md w-full xl:w-[425px]">
               Creating positive change beyond banking for a better tomorrow
             </h2>
-            <div className="hidden flex-col items-start gap-6 xl:flex">
-              <div className="flex items-start">
-                {csrCustomerAvatars.map((avatar, index) => (
-                  <Image
-                    key={avatar}
-                    src={avatar}
-                    alt=""
-                    width={60}
-                    height={60}
-                    className={
-                      index === 0
-                        ? 'size-[60px] shrink-0 rounded-full'
-                        : '-ml-6 size-[60px] shrink-0 rounded-full'
-                    }
-                  />
-                ))}
-                <div className="bg-cream-50 text-grey-200 -ml-6 flex size-[60px] shrink-0 items-center justify-center rounded-full">
-                  <PlusIcon className="size-[14px]" />
-                </div>
-              </div>
-              <p className="font-heading text-heading-h4-desktop text-grey-400">
-                100K+ Customers
-              </p>
-            </div>
+            <CustomerAvatarStack
+              avatars={csrCustomerAvatars}
+              countLabel="100K+ Customers"
+              className="xl:flex"
+            />
           </div>
           <div className="flex flex-1 flex-col gap-10 xl:gap-12">
             <div className="flex flex-col gap-10 xl:w-full xl:flex-row xl:items-start xl:gap-12">
@@ -72,24 +54,14 @@ export default function CsrSection() {
             </div>
             <div className="flex flex-col gap-6 xl:w-full xl:flex-row xl:gap-12">
               {csrCards.map((card) => (
-                <div
+                <IconLinkCard
                   key={card.title}
-                  className="bg-grey-bluish-grey flex w-full flex-col items-end gap-6 rounded-lg p-4 xl:h-[285px] xl:flex-1 xl:items-start xl:justify-between xl:gap-0 xl:p-6"
-                >
-                  <div className="flex w-full items-center gap-2 xl:flex-col xl:items-start xl:gap-4">
-                    <card.icon className="size-[32px] shrink-0 text-orange-500 xl:size-[48px]" />
-                    <h3 className="font-heading text-heading-h3-mobile text-grey-500 xl:text-heading-h3-desktop w-[227px]">
-                      {card.title}
-                    </h3>
-                  </div>
-                  <Link
-                    href={card.href}
-                    className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700"
-                  >
-                    {card.linkLabel}
-                    <ArrowUpRightIcon className="size-[16px] shrink-0" />
-                  </Link>
-                </div>
+                  icon={card.icon}
+                  title={card.title}
+                  linkLabel={card.linkLabel}
+                  href={card.href}
+                  className="h-[250px] xl:h-[285px] xl:flex-1"
+                />
               ))}
             </div>
           </div>

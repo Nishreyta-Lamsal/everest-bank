@@ -103,6 +103,8 @@
   --text-display-3-desktop-md--letter-spacing: 0%;
   --text-display-3-desktop-md--font-weight: 500;
 
+  /* Heading */
+
   --text-heading-h0-desktop-md: 60px;
   --text-heading-h0-desktop-md--line-height: 92%;
   --text-heading-h0-desktop-md--letter-spacing: 0%;
@@ -153,7 +155,7 @@
   --text-heading-h2-mobile-sb--letter-spacing: 0%;
   --text-heading-h2-mobile-sb--font-weight: 600;
 
-  --text-heading-h3-desktop: 32px;
+  --text-heading-h3-desktop: 40px;
   --text-heading-h3-desktop--line-height: 100%;
   --text-heading-h3-desktop--letter-spacing: 0%;
   --text-heading-h3-desktop--font-weight: 400;
@@ -162,7 +164,7 @@
   --text-heading-h3-mobile--letter-spacing: 0%;
   --text-heading-h3-mobile--font-weight: 400;
 
-  --text-heading-h3-desktop-md: 32px;
+  --text-heading-h3-desktop-md: 40px;
   --text-heading-h3-desktop-md--line-height: 100%;
   --text-heading-h3-desktop-md--letter-spacing: 0%;
   --text-heading-h3-desktop-md--font-weight: 500;
@@ -171,7 +173,7 @@
   --text-heading-h3-mobile-md--letter-spacing: 0%;
   --text-heading-h3-mobile-md--font-weight: 500;
 
-  --text-heading-h3-desktop-sb: 32px;
+  --text-heading-h3-desktop-sb: 40px;
   --text-heading-h3-desktop-sb--line-height: 92%;
   --text-heading-h3-desktop-sb--letter-spacing: 0%;
   --text-heading-h3-desktop-sb--font-weight: 600;
@@ -197,6 +199,26 @@
   --text-heading-h4-mobile-md--line-height: 120%;
   --text-heading-h4-mobile-md--letter-spacing: 0%;
   --text-heading-h4-mobile-md--font-weight: 500;
+
+  --text-heading-h5-desktop: 28px;
+  --text-heading-h5-desktop--line-height: 100%;
+  --text-heading-h5-desktop--letter-spacing: 0%;
+  --text-heading-h5-desktop--font-weight: 400;
+
+  --text-heading-h5-desktop-md: 28px;
+  --text-heading-h5-desktop-md--line-height: 100%;
+  --text-heading-h5-desktop-md--letter-spacing: 0%;
+  --text-heading-h5-desktop-md--font-weight: 500;
+
+  --text-heading-h6-desktop: 32px;
+  --text-heading-h6-desktop--line-height: 100%;
+  --text-heading-h6-desktop--letter-spacing: 0%;
+  --text-heading-h6-desktop--font-weight: 400;
+
+  --text-heading-h6-desktop-md: 32px;
+  --text-heading-h6-desktop-md--line-height: 100%;
+  --text-heading-h6-desktop-md--letter-spacing: 0%;
+  --text-heading-h6-desktop-md--font-weight: 500;
 
   /* Title */
   --text-title-0-desktop: 24px;
