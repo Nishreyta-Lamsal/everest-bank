@@ -24,13 +24,13 @@ export default function IconLinkCard({
   return (
     <div
       className={cn(
-        'bg-grey-bluish-grey flex w-full flex-col items-start justify-between rounded-lg p-6',
+        'bg-grey-bluish-grey flex w-full flex-col items-end gap-6 rounded-lg p-4 lg:items-start lg:justify-between lg:gap-0 lg:p-6',
         className,
       )}
     >
-      <div className="flex w-full flex-col items-start gap-4">
-        <Icon className="size-8 shrink-0 text-orange-500 lg:size-10" />
-        <h3 className="font-heading text-title-0-mobile text-grey-500 lg:text-heading-h5-desktop w-[227px]">
+      <div className="flex w-full items-center gap-2 lg:flex-col lg:items-start lg:gap-4">
+        <Icon className="size-8 shrink-0 text-orange-500 lg:size-12" />
+        <h3 className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h4-desktop w-[227px]">
           {title}
         </h3>
       </div>
