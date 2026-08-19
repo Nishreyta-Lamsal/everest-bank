@@ -30,7 +30,10 @@ export default function LoanApplyChecklistItem({
         onClick={onSelect}
         aria-expanded={isActive}
         aria-controls={panelId}
-        className="flex w-full cursor-pointer flex-col items-start py-2 text-left lg:py-3"
+        className={cn(
+          'flex w-full cursor-pointer flex-col items-start text-left lg:py-3',
+          isActive ? 'py-2' : 'py-1',
+        )}
       >
         <div
           className={cn(

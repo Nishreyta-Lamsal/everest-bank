@@ -19,7 +19,7 @@ export default function LoanProcessItem({
       onClick={onSelect}
       aria-pressed={isActive}
       className={cn(
-        'flex w-full cursor-pointer items-center gap-8 py-5 text-left text-red-500 transition-opacity duration-300 lg:gap-10 lg:py-8',
+        'flex w-full cursor-pointer items-center gap-8 py-4.5 text-left text-red-500 transition-opacity duration-300 lg:gap-10 lg:py-8',
         isActive ? 'opacity-100' : 'opacity-40 hover:opacity-70',
       )}
     >

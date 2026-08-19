@@ -14,4 +14,4 @@ export const fieldRowClasses = tv({
 });
 
 export const fieldElementClasses =
-  'w-full min-w-0 border-none bg-transparent text-body-4-desktop text-grey-500 outline-none placeholder:text-grey-300';
+  'w-full min-w-0 border-none bg-transparent text-body-4-desktop text-grey-300 outline-none placeholder:text-grey-300';

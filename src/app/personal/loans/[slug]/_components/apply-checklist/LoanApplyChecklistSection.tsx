@@ -19,7 +19,7 @@ export default function LoanApplyChecklistSection({
       <LayoutWrapper>
         <div className="flex w-full flex-col items-start gap-10 lg:gap-12">
           <div className="flex w-full flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 lg:w-[500px]">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 lg:w-[500px]">
               {data.heading}
             </h2>
             <Link href={data.applyHref} className="hidden lg:inline-block">
@@ -30,7 +30,7 @@ export default function LoanApplyChecklistSection({
           </div>
 
           <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-            <div className="relative order-1 h-[239px] w-full overflow-hidden rounded-lg md:h-[489px] lg:order-2 lg:h-[526px] lg:w-[513px] lg:rounded-3xl lg:rounded-tl-[192px]">
+            <div className="relative order-1 h-[201px] w-full overflow-hidden rounded-lg rounded-tl-[112px] md:h-[489px] lg:order-2 lg:h-[526px] lg:w-[513px] lg:rounded-3xl lg:rounded-tl-[192px]">
               <Image
                 src={data.image}
                 alt={data.imageAlt}

@@ -26,7 +26,7 @@ export default function LoanProcessSection({ data }: LoanProcessSectionProps) {
       <LayoutWrapper>
         <div className="flex w-full flex-col items-start gap-10 lg:gap-12">
           <div className="flex w-full flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[640px]">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[640px]">
               {data.heading}
             </h2>
             <Link href={data.applyHref} className="hidden lg:inline-block">
@@ -42,7 +42,7 @@ export default function LoanProcessSection({ data }: LoanProcessSectionProps) {
               activeIndex={activeIndex}
               onSelect={onSelect}
             />
-            <div className="relative order-1 h-[239px] w-full shrink-0 overflow-hidden rounded-lg md:h-[380px] lg:order-2 lg:h-[384px] lg:w-[513px] lg:rounded-3xl lg:rounded-tl-[192px]">
+            <div className="relative order-1 h-[239px] w-full shrink-0 overflow-hidden rounded-lg md:h-[380px] lg:order-2 lg:h-[437px] lg:w-[583px] lg:rounded-3xl lg:rounded-tl-[192px]">
               <Image
                 key={activeStep.image}
                 src={activeStep.image}

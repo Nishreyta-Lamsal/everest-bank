@@ -23,7 +23,7 @@ export default function LoanEligibilitySection({
         <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between xl:gap-16">
           <div className="flex flex-col items-start gap-10 lg:gap-12 lg:py-8">
             <div className="flex flex-col gap-10 lg:gap-12">
-              <h2 className="font-heading text-heading-h2-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[528px]">
+              <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[528px]">
                 {data.heading}
               </h2>
               <ul className="flex flex-col items-start gap-4">
@@ -37,15 +37,22 @@ export default function LoanEligibilitySection({
                 ))}
               </ul>
             </div>
-            <Link href={data.requirementsHref}>
-              <Button variant="secondary" size="md">
+            <Link
+              href={data.requirementsHref}
+              className="block w-full lg:inline-block lg:w-auto"
+            >
+              <Button
+                variant="secondary"
+                size="md"
+                className="h-9 w-full lg:h-[42px] lg:w-auto"
+              >
                 See detailed requirement
               </Button>
             </Link>
           </div>
 
           <div className="bg-grey-bluish-grey flex w-full flex-col gap-8 rounded-2xl p-4 lg:w-[513px] lg:p-8">
-            <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h3-desktop-md text-grey-500">
+            <h3 className="font-heading text-heading-h4-mobile-md lg:text-heading-h3-desktop-md text-grey-500">
               Borrowing power calculator
             </h3>
             <div className="flex flex-col gap-5 lg:gap-6">
@@ -66,7 +73,7 @@ export default function LoanEligibilitySection({
                 <Button
                   variant="primary"
                   size="lg"
-                  className="text-body-4-desktop-md lg:text-body-3-desktop-md h-9 px-6 lg:h-[46px] lg:flex-1"
+                  className="text-body-4-desktop-md lg:text-body-3-desktop-md h-9 w-[219px] px-6 lg:h-[46px] lg:w-auto lg:flex-1"
                 >
                   Calculate
                 </Button>

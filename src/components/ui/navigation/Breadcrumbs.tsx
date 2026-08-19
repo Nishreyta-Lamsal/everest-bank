@@ -26,7 +26,7 @@ export default function Breadcrumbs({
     <nav
       aria-label="Breadcrumb"
       className={cn(
-        'absolute inset-x-0 top-0 z-10 bg-black/40 py-2.5 backdrop-blur-[5px] md:py-4',
+        'absolute inset-x-0 top-0 z-10 bg-black/40 py-2.5 backdrop-blur-[5px] md:py-4 lg:bg-black/20',
         className,
       )}
       {...otherProps}

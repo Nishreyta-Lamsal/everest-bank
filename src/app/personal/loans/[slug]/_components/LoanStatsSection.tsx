@@ -14,12 +14,12 @@ export default function LoanStatsSection({ stats }: LoanStatsSectionProps) {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-start gap-4 lg:w-[298px] lg:gap-1.5"
+              className="flex flex-col items-start gap-4 lg:w-[298px] lg:gap-6"
             >
-              <p className="font-heading text-heading-h3-mobile-md lg:text-heading-h3-desktop-md text-red-500">
+              <p className="font-heading text-title-1-mobile-md lg:text-heading-h3-desktop-md text-red-500">
                 {stat.value}
               </p>
-              <p className="font-heading text-title-2-mobile lg:text-title-1-desktop text-grey-300">
+              <p className="font-heading text-title-3-mobile lg:text-title-1-desktop text-grey-300">
                 {stat.label}
               </p>
             </div>

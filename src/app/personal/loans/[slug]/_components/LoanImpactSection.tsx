@@ -24,7 +24,7 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
           />
 
           <div className="flex w-full flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h0-desktop-md w-full text-white lg:w-[675px]">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h0-desktop-md w-full text-white lg:w-[675px]">
               {data.heading}
             </h2>
             <p className="text-body-3-mobile lg:text-body-2-desktop text-white-90 w-full lg:w-[410px]">
@@ -49,10 +49,10 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
                   key={stat.label}
                   className="flex flex-col items-start gap-4 lg:gap-5.75"
                 >
-                  <p className="font-heading text-heading-h3-mobile-md lg:text-heading-h3-desktop-md text-white">
+                  <p className="font-heading text-title-2-mobile-md lg:text-heading-h3-desktop-md text-white">
                     {stat.value}
                   </p>
-                  <p className="font-heading text-title-2-mobile lg:text-title-1-desktop text-white-90">
+                  <p className="font-heading text-title-3-mobile lg:text-title-1-desktop text-white-90">
                     {stat.label}
                   </p>
                 </div>
