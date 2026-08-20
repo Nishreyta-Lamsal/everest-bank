@@ -21,7 +21,7 @@ export default function LeaderListRow({
       )}
     >
       <div className="flex flex-col items-start gap-3 lg:gap-4">
-        <p className="font-heading text-title-2-desktop lg:text-heading-h4-desktop text-grey-500">
+        <p className="font-heading text-title-3-desktop lg:text-heading-h5-desktop text-grey-500">
           {name}
         </p>
         {departments && (

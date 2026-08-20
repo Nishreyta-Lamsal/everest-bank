@@ -13,7 +13,7 @@ export default function ProfileContentSection() {
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           <article className="flex w-full max-w-[750px] flex-col items-start gap-10 lg:gap-13.5">
             <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h2-mobile-md text-grey-500">
+              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                 Brief Profile
               </h2>
               <p className="text-body-3-mobile lg:text-body-2-desktop text-grey-500">
@@ -66,7 +66,7 @@ export default function ProfileContentSection() {
             </div>
 
             <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h2-mobile-md text-grey-500">
+              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                 Network
               </h2>
               <p className="text-body-3-mobile lg:text-body-2-desktop text-grey-500">
@@ -81,7 +81,7 @@ export default function ProfileContentSection() {
             </div>
 
             <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h2-mobile-md text-grey-500">
+              <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                 Joint Venture Partner *
               </h2>
               <div className="text-body-3-mobile lg:text-body-2-desktop text-grey-500 flex flex-col gap-4">

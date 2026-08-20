@@ -17,7 +17,7 @@ export default function RemittanceWhySection() {
               <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 max-w-[325px] lg:max-w-[550px]">
                 Why Send Money Home With Everest Bank
               </h2>
-              <div className="relative h-[286px] w-full overflow-hidden rounded-lg rounded-tl-[120px] lg:hidden">
+              <div className="relative h-[286px] w-full overflow-hidden rounded-lg lg:hidden">
                 <Image
                   src={remittanceWhyImage.src}
                   alt={remittanceWhyImage.alt}

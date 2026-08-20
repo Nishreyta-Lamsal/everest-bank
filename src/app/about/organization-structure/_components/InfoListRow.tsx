@@ -14,7 +14,7 @@ export default function InfoListRow({ name, badge, isLast }: InfoListRowProps) {
         !isLast && 'border-b border-[#f4efde]',
       )}
     >
-      <p className="font-heading text-title-2-desktop lg:text-heading-h4-desktop text-grey-500">
+      <p className="font-heading text-title-3-desktop lg:text-heading-h5-desktop text-grey-500">
         {name}
       </p>
       <div className="bg-cream-75 flex shrink-0 items-center justify-center rounded-full px-4 py-2">

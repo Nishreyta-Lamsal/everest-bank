@@ -22,7 +22,7 @@ export default function ContentSidebar({
     <aside className="sticky top-30 w-full max-lg:hidden lg:max-w-[405px]">
       <div className="flex flex-col items-start gap-4">
         <div className="bg-grey-bluish-grey flex w-full flex-col items-start gap-4 rounded-3xl p-6">
-          <h3 className="font-heading text-heading-h4-desktop-md text-grey-500">
+          <h3 className="font-heading text-heading-h5-desktop-md text-grey-500">
             {heading}
           </h3>
           <ul className="flex w-full flex-col items-start gap-2.5 pl-3">

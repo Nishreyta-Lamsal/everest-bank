@@ -24,7 +24,7 @@ export default function OrganizationStructureContentSection() {
                   <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
                     Governance
                   </p>
-                  <h2 className="font-heading text-heading-h4-desktop-md lg:text-heading-h2-mobile-md text-grey-500">
+                  <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                     Board & board-level committees
                   </h2>
                 </div>
@@ -32,7 +32,7 @@ export default function OrganizationStructureContentSection() {
                 <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
                   <div className="flex items-center gap-2">
                     <CourtIcon className="size-6 text-orange-500 lg:size-7" />
-                    <h3 className="font-heading text-heading-h4-desktop-md lg:text-heading-h2-mobile-md text-grey-500">
+                    <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                       Board of Directors
                     </h3>
                   </div>
@@ -54,7 +54,7 @@ export default function OrganizationStructureContentSection() {
                   <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
                     Executive Leadership
                   </p>
-                  <h2 className="font-heading text-heading-h4-desktop-md lg:text-heading-h2-mobile-md text-grey-500">
+                  <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                     The team running the bank
                   </h2>
                 </div>
@@ -63,7 +63,7 @@ export default function OrganizationStructureContentSection() {
                   <div className="flex w-full flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-2">
                       <StarBadgeIcon className="size-6 text-orange-500 lg:size-7" />
-                      <h3 className="font-heading text-heading-h4-desktop-md lg:text-heading-h2-mobile-md text-grey-500">
+                      <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                         Chief Executive Officer
                       </h3>
                     </div>
@@ -85,7 +85,7 @@ export default function OrganizationStructureContentSection() {
                 </div>
 
                 <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
-                  <h3 className="font-heading text-heading-h4-desktop-md lg:text-heading-h2-mobile-md text-grey-500">
+                  <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                     Chief Officers
                   </h3>
                   <div className="flex w-full flex-col items-start">

@@ -61,7 +61,7 @@ export default function MeetTheTeamSection({
                     />
                   </div>
                   <div className="flex flex-col items-start gap-4">
-                    <p className="font-heading text-heading-h4-mobile text-grey-500 lg:text-heading-h5-desktop">
+                    <p className="font-heading text-heading-h4-mobile text-grey-500 lg:text-title-0-desktop">
                       {person.name}
                     </p>
                     <p className="font-heading text-title-3-mobile text-grey-400 lg:text-title-4-desktop">

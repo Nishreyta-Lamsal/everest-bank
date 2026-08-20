@@ -10,7 +10,7 @@ export default function AboutHistorySection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-12">
           <div className="flex flex-col items-start gap-6 lg:w-[429px] lg:shrink-0 lg:gap-8">
-            <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 lg:max-w-[425px]">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 lg:max-w-[425px]">
               Rooted in Trust. Growing Through People.
             </h2>
             <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-400 lg:max-w-[396px]">

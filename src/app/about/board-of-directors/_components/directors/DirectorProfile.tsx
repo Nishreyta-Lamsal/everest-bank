@@ -19,7 +19,7 @@ export default function DirectorProfile({ director }: DirectorProfileProps) {
       </div>
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center justify-center bg-red-700 px-4 pt-2">
-          <p className="font-heading text-title-2-desktop-md lg:text-title-0-mobile-md text-white">
+          <p className="font-heading text-title-2-mobile-md lg:text-title-0-mobile-md text-white">
             {director.name}
           </p>
         </div>

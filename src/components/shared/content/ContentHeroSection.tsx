@@ -33,7 +33,7 @@ export default function ContentHeroSection({
       <div className="absolute inset-x-0 bottom-6 z-10 lg:bottom-15">
         <LayoutWrapper>
           <div className="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
-            <h1 className="font-heading text-heading-h2-mobile-md md:text-display-1-mobile-md lg:text-display-1-desktop-md max-w-[278px] text-white md:max-w-[750px]">
+            <h1 className="font-heading text-display-1-mobile-md lg:text-display-1-desktop-md text-white md:max-w-[750px]">
               {heading}
             </h1>
             <Link href={buttonHref} className="w-full lg:w-auto">

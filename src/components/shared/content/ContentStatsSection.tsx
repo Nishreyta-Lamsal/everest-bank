@@ -18,7 +18,7 @@ export default function ContentStatsSection({
         <div className="grid grid-cols-2 gap-x-6.5 gap-y-6 lg:flex lg:flex-nowrap lg:justify-between">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-col gap-4">
-              <p className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-red-500">
+              <p className="font-heading text-title-1-mobile-md lg:text-display-2-desktop-md text-red-500">
                 {stat.value}
               </p>
               <p className="font-heading text-title-3-mobile text-grey-300 lg:font-body lg:text-body-2-desktop lg:text-grey-500">

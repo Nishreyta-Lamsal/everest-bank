@@ -12,7 +12,7 @@ export default function AboutOverviewSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-16 lg:gap-15">
           <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
-            <p className="font-heading text-title-1-mobile text-grey-500 lg:max-w-[751px] lg:text-[40px] lg:leading-[1.2] lg:font-medium">
+            <p className="font-heading text-title-1-mobile-md text-grey-500 leading-[1.4] lg:max-w-[751px] lg:text-[40px] lg:leading-[1.2] lg:font-medium">
               With a strong nationwide presence and a legacy of trust, Everest
               Bank continues to deliver responsible banking solutions that
               create lasting value for customers and communities across Nepal.
@@ -20,7 +20,7 @@ export default function AboutOverviewSection() {
             <div className="flex flex-col gap-10 lg:w-[298px] lg:shrink-0 lg:justify-center lg:gap-12">
               {aboutOverviewStats.map((stat) => (
                 <div key={stat.label} className="flex flex-col">
-                  <p className="font-heading lg:text-heading-h2-desktop-md text-display-2-mobile-md text-red-500">
+                  <p className="font-heading lg:text-display-2-desktop-md text-heading-h2-mobile-md text-red-500">
                     {stat.value}
                   </p>
                   <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">
