@@ -6,7 +6,7 @@ import Button from '@/components/ui/buttons/Button';
 
 export default function CardsHeroSection() {
   return (
-    <section className="relative h-[312px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[528px] lg:bg-[#fff5ed]">
+    <section className="relative h-[312px] w-full overflow-hidden lg:h-[528px]">
       <Image
         src="/images/cards/card-showcase-bg.png"
         alt="A hand holding an Everest Bank Visa card in front of Kathmandu Durbar Square at sunset"

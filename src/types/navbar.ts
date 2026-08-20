@@ -19,6 +19,7 @@ export type PersonalMenuLink = {
 
 export type PersonalMenuColumn = {
   label: string;
+  href?: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   links: PersonalMenuLink[];
 };

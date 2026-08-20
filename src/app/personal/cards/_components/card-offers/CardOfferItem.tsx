@@ -35,7 +35,7 @@ export default function CardOfferItem({
 
       <div className="order-2 flex w-full flex-col items-start gap-8 lg:order-none lg:max-w-[453px] lg:gap-7">
         <div className="flex w-full flex-col items-start gap-3 lg:gap-4.25">
-          <h3 className="font-heading text-heading-h3-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+          <h3 className="font-heading text-title-1-mobile-md lg:text-heading-h5-desktop-md text-grey-500">
             {offer.title}
           </h3>
           <p className="text-body-2-mobile lg:text-body-3-desktop text-grey-400">

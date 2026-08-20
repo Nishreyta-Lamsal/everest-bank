@@ -47,6 +47,7 @@ export const personalMenuColumns: PersonalMenuColumn[] = [
   },
   {
     label: 'Cards',
+    href: ROUTE.CARDS,
     icon: CardStackIcon,
     links: [
       { label: 'Virtual Credit Card', href: '#' },

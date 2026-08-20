@@ -22,7 +22,7 @@ export default function CardsProcessSection() {
       <LayoutWrapper>
         <div className="flex w-full flex-col items-start gap-10 lg:gap-12">
           <div className="flex w-full flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[561px]">
+            <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[561px]">
               Getting your card takes three steps.
             </h2>
             <Link href="#" className="hidden lg:inline-block">
