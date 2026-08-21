@@ -5,7 +5,7 @@ import MountainDivider from '@/components/shared/MountainDivider';
 import AboutLinksSection from './_components/links/AboutLinksSection';
 import AboutLeadershipSection from './_components/AboutLeadershipSection';
 import AboutHistorySection from './_components/AboutHistorySection';
-import TrustSection from '../personal/_components/TrustSection';
+import TrustSection from '@/components/shared/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 

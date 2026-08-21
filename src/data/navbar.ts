@@ -28,7 +28,12 @@ export const utilityNavItems: UtilityNavItem[] = [
 ];
 
 export const mainNavItems: MainNavItem[] = [
-  { label: 'Personal', href: ROUTE.PERSONAL, icon: PeopleIcon },
+  {
+    label: 'Personal',
+    href: ROUTE.PERSONAL,
+    icon: PeopleIcon,
+    activePrefixes: [ROUTE.CARDS, ROUTE.LOANS],
+  },
   { label: 'Business', href: ROUTE.BUSINESS, icon: BriefcaseIcon },
   { label: 'Remittance', href: ROUTE.REMITTANCE, icon: BanknoteIcon },
   { label: 'About', href: ROUTE.ABOUT, icon: BankIcon },

@@ -7,7 +7,7 @@ import LoansSection from './_components/LoansSection';
 import CardsSection from './_components/CardsSection';
 import AppPromoSection from './_components/AppPromoSection';
 import CsrSection from './_components/CsrSection';
-import TrustSection from './_components/TrustSection';
+import TrustSection from '@/components/shared/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 

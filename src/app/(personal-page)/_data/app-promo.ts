@@ -1,6 +1,10 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import { AtmMachineIcon, CalculatorIcon, FeedbackIcon } from '@/components/icons';
+import {
+  AtmMachineIcon,
+  CalculatorIcon,
+  FeedbackIcon,
+} from '@/components/icons';
 
 export type ActionBadge = {
   label: string;

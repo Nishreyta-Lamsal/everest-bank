@@ -1,8 +1,8 @@
 export const ROUTE = {
-  PERSONAL: '/personal',
+  PERSONAL: '/',
   BUSINESS: '/business',
   REMITTANCE: '/remittance',
   ABOUT: '/about',
-  LOANS: '/personal/loans',
-  CARDS: '/personal/cards',
+  LOANS: '/loans',
+  CARDS: '/cards',
 };

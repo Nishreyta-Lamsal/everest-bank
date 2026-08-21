@@ -11,8 +11,6 @@ import LoanImpactSection from './_components/LoanImpactSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 import LoanGlanceSection from './_components/LoanGlanceSection';
 
-import { ROUTE } from '@/constants';
-
 import { loans } from './_data';
 
 type LoansPageProps = {
@@ -28,10 +26,7 @@ export default async function LoansPage({ params }: LoansPageProps) {
     notFound();
   }
 
-  const breadcrumbItems = [
-    { label: 'Loans', href: ROUTE.LOANS },
-    { label: loan.name },
-  ];
+  const breadcrumbItems = [{ label: loan.name }];
 
   return (
     <main className="relative">
