@@ -33,7 +33,7 @@ export default function CardsSection() {
                 key={card.title}
                 href={card.href}
                 className={cn(
-                  'relative h-[239px] w-full overflow-hidden rounded-lg md:h-[324px]',
+                  'group relative h-[239px] w-full overflow-hidden rounded-lg md:h-[324px]',
                   card.roundedCorner === 'right'
                     ? 'lg:rounded-tr-[120px]'
                     : 'lg:rounded-tl-[120px]',
@@ -43,7 +43,7 @@ export default function CardsSection() {
                   src="/images/cards/card-showcase-bg.png"
                   alt=""
                   fill
-                  className="object-cover object-bottom"
+                  className="object-cover object-bottom transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-[rgba(102,102,102,0)] to-[rgba(0,0,0,0.68)]" />
                 <div className="absolute top-45.75 left-4 w-[238px] lg:inset-x-6 lg:top-60.5 lg:flex lg:w-auto lg:items-center lg:justify-between">

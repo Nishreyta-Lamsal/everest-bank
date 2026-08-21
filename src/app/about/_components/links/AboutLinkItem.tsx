@@ -13,13 +13,13 @@ export default function AboutLinkItem({ card }: AboutLinkItemProps) {
   return (
     <Link
       href={card.href}
-      className="relative block h-[372px] w-[335px] shrink-0 overflow-hidden rounded-3xl lg:w-auto lg:shrink"
+      className="group relative block h-[372px] w-[335px] shrink-0 overflow-hidden rounded-3xl lg:w-auto lg:shrink"
     >
       <Image
         src={card.image}
         alt={card.imageAlt}
         fill
-        className="object-cover"
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
       />
       <div className="absolute inset-6 flex items-end justify-between gap-4 lg:inset-8">
         <h3 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-white">

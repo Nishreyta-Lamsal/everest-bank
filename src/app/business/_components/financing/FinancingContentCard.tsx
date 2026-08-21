@@ -16,10 +16,15 @@ export default function FinancingContentCard({
   return (
     <Link
       href={href}
-      className="flex flex-col items-start overflow-hidden rounded-lg bg-[#f6f5ec] xl:flex-1"
+      className="group flex flex-col items-start overflow-hidden rounded-lg bg-[#f6f5ec] xl:flex-1"
     >
-      <div className="relative h-[201px] w-full md:h-[302px]">
-        <Image src={image} alt={imageAlt} fill className="object-cover" />
+      <div className="relative h-[201px] w-full overflow-hidden md:h-[302px]">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
       <div className="flex w-full flex-col items-start justify-between gap-12 bg-white px-4 py-6 xl:h-[212px] xl:p-6">
         <div className="flex flex-col items-start gap-2">
