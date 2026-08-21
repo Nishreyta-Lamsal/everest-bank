@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import { ArrowShareRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 type ContentHeroSectionProps = {
@@ -10,6 +11,8 @@ type ContentHeroSectionProps = {
   heading: string;
   buttonLabel: string;
   buttonHref: string;
+  secondaryButtonHref?: string;
+  secondaryButtonAriaLabel?: string;
 };
 
 export default function ContentHeroSection({
@@ -18,9 +21,11 @@ export default function ContentHeroSection({
   heading,
   buttonLabel,
   buttonHref,
+  secondaryButtonHref,
+  secondaryButtonAriaLabel,
 }: ContentHeroSectionProps) {
   return (
-    <section className="relative h-[312px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[528px] lg:bg-[#fff5ed]">
+    <section className="relative h-[312px] w-full overflow-hidden lg:h-[528px]">
       <Image
         src={image}
         alt={imageAlt}
@@ -36,15 +41,26 @@ export default function ContentHeroSection({
             <h1 className="font-heading text-display-1-mobile-md lg:text-display-1-desktop-md text-white md:max-w-[750px]">
               {heading}
             </h1>
-            <Link href={buttonHref} className="w-full lg:w-auto">
-              <Button
-                variant="primary"
-                size="sm"
-                className="lg:text-body-3-desktop-md w-full lg:h-[46px] lg:w-auto"
-              >
-                {buttonLabel}
-              </Button>
-            </Link>
+            <div className="flex w-full items-center gap-4 lg:w-auto">
+              <Link href={buttonHref} className="flex-1 lg:flex-none">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="lg:text-body-3-desktop-md w-full lg:h-[46px] lg:w-auto"
+                >
+                  {buttonLabel}
+                </Button>
+              </Link>
+              {secondaryButtonHref && (
+                <Link
+                  href={secondaryButtonHref}
+                  aria-label={secondaryButtonAriaLabel ?? buttonLabel}
+                  className="flex size-[46px] shrink-0 items-center justify-center rounded-full bg-white text-red-500 transition-colors hover:bg-red-50"
+                >
+                  <ArrowShareRightIcon className="size-[18px]" />
+                </Link>
+              )}
+            </div>
           </div>
         </LayoutWrapper>
       </div>

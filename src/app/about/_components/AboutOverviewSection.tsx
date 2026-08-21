@@ -32,7 +32,7 @@ export default function AboutOverviewSection() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <div className="bg-grey-bluish-grey flex flex-col justify-between gap-26 rounded-2xl p-4 lg:h-[280px] lg:gap-0 lg:p-6">
+            <div className="bg-grey-bluish-grey flex h-[142px] flex-col justify-between rounded-2xl p-4 lg:h-[280px] lg:p-6">
               <h3 className="font-heading text-title-1-mobile lg:text-heading-h3-desktop text-grey-500">
                 {aboutOverviewCards[0].title}
               </h3>
@@ -54,7 +54,7 @@ export default function AboutOverviewSection() {
               />
             </div>
 
-            <div className="bg-grey-bluish-grey flex flex-col justify-between gap-26 rounded-2xl p-4 lg:h-[280px] lg:gap-0 lg:p-6">
+            <div className="bg-grey-bluish-grey flex h-[142px] flex-col justify-between rounded-2xl p-4 lg:h-[280px] lg:p-6">
               <h3 className="font-heading text-title-1-mobile lg:text-heading-h3-desktop text-grey-500">
                 {aboutOverviewCards[1].title}
               </h3>

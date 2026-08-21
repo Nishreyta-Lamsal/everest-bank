@@ -1,5 +1,6 @@
 export * from './AccessibilityIcon';
 export * from './AiSparkleIcon';
+export * from './ArrowShareRightIcon';
 export * from './ArrowUpRightIcon';
 export * from './ArrowUpRightSquareIcon';
 export * from './AtmMachineIcon';

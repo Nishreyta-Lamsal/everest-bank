@@ -3,7 +3,7 @@ import RemittanceServicesSection from './_components/RemittanceServicesSection';
 import MountainDivider from '@/components/shared/MountainDivider';
 import RemittanceWhySection from './_components/RemittanceWhySection';
 import RemittanceTrustSection from './_components/RemittanceTrustSection';
-import RemittanceOpenAccountSection from './_components/RemittanceOpenAccountSection';
+import OpenAccountSection from '@/components/shared/OpenAccountSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 
 import { remittanceFaqs } from './_data/remittance-faqs';
@@ -16,7 +16,7 @@ export default function RemittancePage() {
       <MountainDivider />
       <RemittanceWhySection />
       <RemittanceTrustSection />
-      <RemittanceOpenAccountSection />
+      <OpenAccountSection />
       <FaqSection heading="Quick FAQs for Remittance" items={remittanceFaqs} />
     </main>
   );

@@ -12,7 +12,7 @@ export type OpenAccountFeature = {
   label: string;
 };
 
-export const remittanceOpenAccountFeatures: OpenAccountFeature[] = [
+export const openAccountFeatures: OpenAccountFeature[] = [
   {
     icon: SpeedClockIcon,
     label: 'Quick account opening process',
@@ -30,8 +30,3 @@ export const remittanceOpenAccountFeatures: OpenAccountFeature[] = [
     label: 'Decades of trust',
   },
 ];
-
-export const remittanceOpenAccountImage = {
-  src: '/images/remittance/open-account-banner.png',
-  alt: 'Everest Bank Limited signage above the head office entrance',
-};

@@ -1,17 +1,15 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { PauseIcon, PlayIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
-import {
-  remittanceOpenAccountFeatures,
-  remittanceOpenAccountImage,
-} from '../_data/remittance-open-account';
+import { openAccountFeatures } from '@/data';
 
-export default function RemittanceOpenAccountSection() {
+export default function OpenAccountSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -37,7 +35,8 @@ export default function RemittanceOpenAccountSection() {
             <video
               ref={videoRef}
               src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-              poster={remittanceOpenAccountImage.src}
+              poster="/images/remittance/open-account-banner.png"
+              aria-label="Everest Bank Limited signage above the head office entrance"
               loop
               playsInline
               onPlay={() => setIsPlaying(true)}
@@ -59,7 +58,7 @@ export default function RemittanceOpenAccountSection() {
             </button>
           </div>
           <div className="flex w-full flex-col items-start lg:col-start-1 lg:row-start-2">
-            {remittanceOpenAccountFeatures.map(({ icon: Icon, label }) => (
+            {openAccountFeatures.map(({ icon: Icon, label }) => (
               <div
                 key={label}
                 className="flex w-full items-center gap-4 py-3 lg:gap-6 lg:py-5"
@@ -71,12 +70,17 @@ export default function RemittanceOpenAccountSection() {
               </div>
             ))}
           </div>
-          <Button
-            variant="secondary-white"
-            className="h-[36px] w-full lg:col-start-2 lg:row-start-1 lg:h-[42px] lg:w-auto lg:self-center lg:justify-self-end"
+          <Link
+            href="#"
+            className="w-full lg:col-start-2 lg:row-start-1 lg:w-auto lg:self-center lg:justify-self-end"
           >
-            Open Your Account in 3 Minutes
-          </Button>
+            <Button
+              variant="secondary-white"
+              className="h-[36px] w-full lg:h-[42px] lg:w-auto"
+            >
+              Open Your Account in 3 Minutes
+            </Button>
+          </Link>
         </div>
       </LayoutWrapper>
     </section>
