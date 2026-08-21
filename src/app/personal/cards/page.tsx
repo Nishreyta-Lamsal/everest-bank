@@ -8,7 +8,7 @@ import CardsDebitSection from './_components/CardsDebitSection';
 import CardsTravelSection from './_components/CardsTravelSection';
 import CardsProcessSection from './_components/process/CardsProcessSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
-import CardsExploreServicesSection from './_components/CardsExploreServicesSection';
+import ExploreServicesSection from '@/components/shared/ExploreServicesSection';
 
 import { cardFaqs } from './_data';
 
@@ -27,7 +27,7 @@ export default function CardsPage() {
       <CardsTravelSection />
       <CardsProcessSection />
       <FaqSection heading="Quick FAQs for Everest cards" items={cardFaqs} />
-      <CardsExploreServicesSection />
+      <ExploreServicesSection />
     </main>
   );
 }

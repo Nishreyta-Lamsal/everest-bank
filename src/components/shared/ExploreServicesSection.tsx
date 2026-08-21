@@ -1,9 +1,9 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ProductCard from '@/components/ui/cards/ProductCard';
 
-import { exploreServiceCards } from '../_data';
+import { exploreServiceCards } from '@/data';
 
-export default function CardsExploreServicesSection() {
+export default function ExploreServicesSection() {
   return (
     <section className="w-full bg-white py-16 lg:py-20">
       <LayoutWrapper>
