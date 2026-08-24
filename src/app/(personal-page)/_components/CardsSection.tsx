@@ -5,30 +5,57 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { ArrowUpRightIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
+import type { PersonalPageSection } from '@/api/services/personal/personal-page.service';
+
+import { getSectionContent } from '@/lib/get-section-content';
 import { cn } from '@/lib/utils';
 
 import { cardTiles } from '../_data';
 
-export default function CardsSection() {
+type CardsSectionProps = {
+  sections: PersonalPageSection[];
+};
+
+export default function CardsSection({ sections }: CardsSectionProps) {
+  const content = getSectionContent(sections, 'cards_preview');
+
+  const headingLines = content?.heading_lines || [
+    'Pay Smarter, Earn More, ',
+    'Bank Better.',
+  ];
+  const ctaHref = content?.cta?.href || '#';
+  const ctaLabel = content?.cta?.label || 'Know more about the cards';
+  const backgroundImageSrc =
+    content?.background_image?.src || '/images/cards/card-showcase-bg.png';
+  const tiles =
+    content?.tiles.map((tile) => ({
+      href: tile.href,
+      title: tile.title,
+      roundedCorner: tile.rounded_corner,
+    })) || cardTiles;
+
   return (
     <section className="bg-grey-bluish-grey w-full py-16 lg:py-15">
       <LayoutWrapper>
         <div className="flex w-full flex-col gap-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-6 lg:gap-y-12">
           <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md order-1 lg:order-0 lg:w-[581px]">
-            {'Pay Smarter, Earn More, '}
-            <br />
-            Bank Better.
+            {headingLines.map((line, index) => (
+              <span key={line}>
+                {index > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h2>
           <Link
-            href="#"
+            href={ctaHref}
             className="order-3 block w-full lg:order-0 lg:inline-block lg:w-auto"
           >
             <Button variant="secondary" size="md" className="w-full lg:w-auto">
-              Know more about the cards
+              {ctaLabel}
             </Button>
           </Link>
           <div className="order-2 flex w-full flex-col gap-8 lg:order-0 lg:col-span-2 lg:flex-row lg:items-center lg:gap-10">
-            {cardTiles.map((card) => (
+            {tiles.map((card) => (
               <Link
                 key={card.title}
                 href={card.href}
@@ -40,7 +67,7 @@ export default function CardsSection() {
                 )}
               >
                 <Image
-                  src="/images/cards/card-showcase-bg.png"
+                  src={backgroundImageSrc}
                   alt=""
                   fill
                   className="object-cover object-bottom transition-transform duration-300 group-hover:scale-105"

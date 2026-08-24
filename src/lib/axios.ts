@@ -1,5 +1,7 @@
 import axios, { type AxiosError } from 'axios';
 
+import { PUBLIC_ENV } from '@/config/env';
+
 import { ApiErrorType, type ApiResponse } from '@/types/api';
 
 export class ApiError extends Error {
@@ -15,7 +17,7 @@ export class ApiError extends Error {
 }
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: PUBLIC_ENV.API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

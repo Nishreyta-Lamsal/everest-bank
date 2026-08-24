@@ -28,14 +28,14 @@ export default async function PersonalPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <main>
-        <HeroSection sections={data.sections} />
+        <HeroSection sections={data?.sections} />
         <ProductsSection />
         <MountainDivider />
-        <LoansSection />
-        <CardsSection />
-        <AppPromoSection />
-        <CsrSection />
-        <TrustSection />
+        <LoansSection sections={data?.sections} />
+        <CardsSection sections={data?.sections} />
+        <AppPromoSection sections={data?.sections} />
+        <CsrSection sections={data?.sections} />
+        <TrustSection sections={data?.sections} />
         <NewsSection />
         <ContactSection />
       </main>

@@ -74,7 +74,7 @@ export default function HeroSection({ sections }: HeroSectionProps) {
                   className="text-body-4-desktop-md flex items-center justify-center gap-1 font-medium text-red-700"
                 >
                   {videoChipLinkLabel}
-                  <ArrowUpRightIcon className="size-[16px] shrink-0" />
+                  <ArrowUpRightIcon className="size-4 shrink-0" />
                 </Link>
               </div>
             </div>

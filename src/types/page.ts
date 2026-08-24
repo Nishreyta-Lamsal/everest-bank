@@ -14,11 +14,9 @@ export type LinkAction = {
   label: string;
 };
 
-type SectionType = 'hero' | 'products';
-
 export type SectionData = {
   id: number;
-  section_type: SectionType;
+  section_type: string;
   label: string;
   position: number;
   is_visible: boolean;

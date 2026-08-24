@@ -4,9 +4,21 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 import NewsList from './NewsList';
 
+import { newsService } from '@/api/services/news.service';
+
 import { newsCards } from '@/data';
 
-export default function NewsSection() {
+export default async function NewsSection() {
+  const { data } = await newsService.getNewsList({ is_pinned: true });
+
+  const items = data.results.length
+    ? data.results.map((item) => ({
+        headline: item.title,
+        description: item.excerpt,
+        href: '#',
+      }))
+    : newsCards;
+
   return (
     <section className="w-full py-16 lg:py-30">
       <LayoutWrapper>
@@ -22,7 +34,7 @@ export default function NewsSection() {
               See more
             </Button>
           </Link>
-          <NewsList items={newsCards} />
+          <NewsList items={items} />
         </div>
       </LayoutWrapper>
     </section>
