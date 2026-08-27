@@ -13,6 +13,8 @@ import ContactSection from '@/components/shared/content/ContactSection';
 
 import { getQueryClient } from '@/lib/get-query-client';
 
+import type { PersonalPageResponse } from '@/api/services/personal/personal-page.service';
+
 import { personalPageService } from '@/api/services/personal/personal-page.service';
 
 export const personalPageQueryKey = ['personal-page'] as const;
@@ -20,10 +22,16 @@ export const personalPageQueryKey = ['personal-page'] as const;
 export default async function PersonalPage() {
   const queryClient = getQueryClient();
 
-  const { data } = await queryClient.fetchQuery({
-    queryKey: personalPageQueryKey,
-    queryFn: personalPageService.getPersonalPageData,
-  });
+  let data: PersonalPageResponse['data'] | undefined;
+
+  try {
+    ({ data } = await queryClient.fetchQuery({
+      queryKey: personalPageQueryKey,
+      queryFn: personalPageService.getPersonalPageData,
+    }));
+  } catch {
+    data = undefined;
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

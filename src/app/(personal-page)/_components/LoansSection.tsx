@@ -11,7 +11,7 @@ import { getSectionContent } from '@/lib/get-section-content';
 import { loanCards } from '../_data';
 
 type LoansSectionProps = {
-  sections: PersonalPageSection[];
+  sections?: PersonalPageSection[];
 };
 
 export default function LoansSection({ sections }: LoansSectionProps) {

@@ -11,7 +11,7 @@ import { iconMap } from '@/constants';
 import { actionBadges } from '../_data';
 
 type AppPromoSectionProps = {
-  sections: PersonalPageSection[];
+  sections?: PersonalPageSection[];
 };
 
 export default function AppPromoSection({ sections }: AppPromoSectionProps) {

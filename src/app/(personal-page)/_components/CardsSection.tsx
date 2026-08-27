@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { cardTiles } from '../_data';
 
 type CardsSectionProps = {
-  sections: PersonalPageSection[];
+  sections?: PersonalPageSection[];
 };
 
 export default function CardsSection({ sections }: CardsSectionProps) {

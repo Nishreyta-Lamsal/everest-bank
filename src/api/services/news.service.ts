@@ -17,7 +17,7 @@ export type NewsMedia = {
   id: number;
   title: string;
   file_url: string;
-  thumbnail_url: string;
+  thumbnail_url: string | null;
   alt_text: string;
   media_type: NewsMediaType;
 };
@@ -28,19 +28,16 @@ type NewsContentBlock = {
 };
 
 export type NewsContent = {
-  description: string;
-  blocks: NewsContentBlock[];
+  description?: string;
+  blocks?: NewsContentBlock[];
 };
 
-export type NewsItem = {
+export type News = {
   id: number;
   slug: string;
   news_type: NewsTypeBrief;
   title: string;
-  title_ne: string;
   content: NewsContent;
-  content_ne: NewsContent;
-  excerpt: string;
   date: string;
   expires_on: string | null;
   media: NewsMedia | null;
@@ -71,20 +68,27 @@ export type NewsListData = {
   count: number;
   next: string | null;
   previous: string | null;
-  results: NewsItem[];
+  results: News[];
 };
 
 export type NewsListResponse = ApiResponse<NewsListData>;
 
-export type NewsDetailResponse = ApiResponse<NewsItem>;
+export type NewsDetailResponse = ApiResponse<News>;
+
+export type NewsLang = 'en' | 'ne';
 
 export type NewsListParams = {
   cursor?: string;
   is_pinned?: boolean;
+  lang?: NewsLang;
   news_type?: string;
   ordering?: string;
   page_size?: number;
   status?: NewsStatus;
+};
+
+export type NewsDetailParams = {
+  lang?: NewsLang;
 };
 
 export const newsService = {
@@ -96,9 +100,13 @@ export const newsService = {
     return response.data;
   },
 
-  getNewsById: async (newsId: number): Promise<NewsDetailResponse> => {
+  getNewsById: async (
+    newsId: number,
+    params?: NewsDetailParams,
+  ): Promise<NewsDetailResponse> => {
     const response = await api.get<NewsDetailResponse>(
       `/public/news/${newsId}/`,
+      { params },
     );
 
     return response.data;

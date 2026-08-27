@@ -15,7 +15,7 @@ import { iconMap } from '@/constants';
 import { csrCards, csrCustomerAvatars } from '../_data';
 
 type CsrSectionProps = {
-  sections: PersonalPageSection[];
+  sections?: PersonalPageSection[];
 };
 
 export default function CsrSection({ sections }: CsrSectionProps) {

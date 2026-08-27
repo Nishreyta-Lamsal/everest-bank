@@ -4,7 +4,7 @@ export function getSectionContent<
   TSection extends { section_type: string; content: unknown },
   TType extends TSection['section_type'],
 >(
-  sections: TSection[],
+  sections: TSection[] | undefined,
   sectionType: TType,
 ): SectionContentOf<TSection, TType> | undefined {
   const section = sections?.find(

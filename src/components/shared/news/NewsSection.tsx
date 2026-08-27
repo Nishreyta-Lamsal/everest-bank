@@ -4,17 +4,31 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 import NewsList from './NewsList';
 
+import type { News } from '@/api/services/news.service';
+
 import { newsService } from '@/api/services/news.service';
 
 import { newsCards } from '@/data';
 
-export default async function NewsSection() {
-  const { data } = await newsService.getNewsList({ is_pinned: true });
+const NEWS_CARD_COUNT = 4;
 
-  const items = data.results.length
-    ? data.results.map((item) => ({
-        headline: item.title,
-        description: item.excerpt,
+export default async function NewsSection() {
+  let results: News[] = [];
+
+  try {
+    const { data } = await newsService.getNewsList({
+      is_pinned: true,
+      page_size: NEWS_CARD_COUNT,
+    });
+    results = data.results;
+  } catch {
+    results = [];
+  }
+
+  const items = results.length
+    ? results.map((news) => ({
+        headline: news.title,
+        description: news.content.description ?? '',
         href: '#',
       }))
     : newsCards;

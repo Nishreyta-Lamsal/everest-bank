@@ -13,7 +13,7 @@ import { getSectionContent } from '@/lib/get-section-content';
 import { heroSlides } from '../_data';
 
 type HeroSectionProps = {
-  sections: PersonalPageSection[];
+  sections?: PersonalPageSection[];
 };
 
 export default function HeroSection({ sections }: HeroSectionProps) {
