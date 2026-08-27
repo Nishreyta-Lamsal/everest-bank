@@ -3,13 +3,19 @@ import FooterSupportCard from './FooterSupportCard';
 
 import { peopleService, type Person } from '@/api/services/people.service';
 
+import { getQueryClient } from '@/lib/get-query-client';
+
 import { footerOfficers } from '@/data';
 
 import type { FooterOfficer } from '@/types';
 
+export const footerOfficersQueryKey = ['footer-officers'] as const;
+
 const DEFAULT_OFFICER_PHOTO = '/images/footer/grievance-officer-photo.png';
 
 export default async function FooterSupportSection() {
+  const queryClient = getQueryClient();
+
   let results: Person[] = [];
 
   function toFooterOfficer(person: Person, index: number): FooterOfficer {
@@ -27,7 +33,10 @@ export default async function FooterSupportSection() {
   }
 
   try {
-    const { data } = await peopleService.getPeopleList({ footer: true });
+    const { data } = await queryClient.fetchQuery({
+      queryKey: footerOfficersQueryKey,
+      queryFn: () => peopleService.getPeopleList({ footer: true }),
+    });
     results = data.results;
   } catch {
     results = [];
