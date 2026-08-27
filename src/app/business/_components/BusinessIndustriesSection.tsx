@@ -7,15 +7,49 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 import IconLinkCard from '@/components/ui/cards/IconLinkCard';
+import { FactoryIcon } from '@/components/icons';
 
 import { gsap, useGSAP } from '@/lib/gsap';
+import { getSectionContent } from '@/lib/get-section-content';
 
+import { iconMap } from '@/constants';
 import { businessIndustryCards } from '../_data';
 
-export default function BusinessIndustriesSection() {
+import type { BusinessPageSection } from '@/api/services/business/business-page.service';
+
+type BusinessIndustriesSectionProps = {
+  sections?: BusinessPageSection[];
+};
+
+export default function BusinessIndustriesSection({
+  sections,
+}: BusinessIndustriesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const content = getSectionContent(sections, 'business_industries');
+
+  const heading =
+    content?.heading || 'Specialists in the sectors that move Nepal’s economy.';
+  const description =
+    content?.description ||
+    'From manufacturing and trade to hospitality, construction, and technology, our banking solutions are tailored to the unique needs of your industry.';
+  const sideImageSrc =
+    content?.side_image?.src || '/images/business/industries-photo.png';
+  const sideImageAlt =
+    content?.side_image?.alt ||
+    'A relationship manager assisting a business owner at their warehouse desk';
+  const ctaHref = content?.cta?.href || '#';
+  const ctaLabel = content?.cta?.label || 'Explore Industry Solutions';
+  const cards =
+    content?.cards.map((card) => ({
+      icon: iconMap[card.icon] ?? FactoryIcon,
+      title: card.title,
+      description: card.description,
+      href: card.href,
+      linkLabel: card.link_label,
+    })) || businessIndustryCards;
 
   useGSAP(
     () => {
@@ -55,7 +89,7 @@ export default function BusinessIndustriesSection() {
 
       return () => mm.revert();
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [cards.length] },
   );
 
   return (
@@ -63,26 +97,22 @@ export default function BusinessIndustriesSection() {
       <LayoutWrapper>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
           <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full max-w-[335px] lg:max-w-[425px]">
-            Specialists in the sectors that move Nepal&rsquo;s economy.
+            {heading}
           </h2>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
             <div className="relative h-[272px] w-full overflow-hidden rounded-lg md:h-[285px] lg:w-[429px] lg:shrink-0 lg:rounded-3xl lg:rounded-tl-[260px]">
               <Image
-                src="/images/business/industries-photo.png"
-                alt="A relationship manager assisting a business owner at their warehouse desk"
+                src={sideImageSrc}
+                alt={sideImageAlt}
                 fill
                 className="object-cover"
               />
             </div>
             <div className="hidden flex-col items-start gap-12 lg:flex lg:w-[310px] lg:shrink-0">
-              <p className="text-body-2-desktop text-grey-600">
-                From manufacturing and trade to hospitality, construction, and
-                technology, our banking solutions are tailored to the unique
-                needs of your industry.
-              </p>
-              <Link href="#" className="inline-block">
+              <p className="text-body-2-desktop text-grey-600">{description}</p>
+              <Link href={ctaHref} className="inline-block">
                 <Button variant="secondary" size="lg">
-                  Explore Industry Solutions
+                  {ctaLabel}
                 </Button>
               </Link>
             </div>
@@ -94,7 +124,7 @@ export default function BusinessIndustriesSection() {
         className="scrollbar-hidden mt-8 flex gap-4 overflow-x-auto pl-4 md:pl-8 lg:mt-12 lg:w-full lg:max-w-[1400px] lg:overflow-hidden lg:px-8 xl:mx-auto"
       >
         <div ref={trackRef} className="flex gap-4 lg:gap-6">
-          {businessIndustryCards.map((card) => (
+          {cards.map((card) => (
             <IconLinkCard
               key={card.title}
               icon={card.icon}
@@ -110,9 +140,9 @@ export default function BusinessIndustriesSection() {
         </div>
       </div>
       <LayoutWrapper>
-        <Link href="#" className="mt-8 block w-full lg:hidden">
+        <Link href={ctaHref} className="mt-8 block w-full lg:hidden">
           <Button variant="secondary" size="sm" className="w-full">
-            Explore Industry Solutions
+            {ctaLabel}
           </Button>
         </Link>
       </LayoutWrapper>

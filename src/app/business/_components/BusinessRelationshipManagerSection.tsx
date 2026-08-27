@@ -1,15 +1,41 @@
 import MeetTheTeamSection from '@/components/shared/MeetTheTeamSection';
 
+import { getSectionContent } from '@/lib/get-section-content';
+
 import { relationshipManagers } from '../_data';
 
-export default function BusinessRelationshipManagerSection() {
+import type { BusinessPageSection } from '@/api/services/business/business-page.service';
+
+type BusinessRelationshipManagerSectionProps = {
+  sections?: BusinessPageSection[];
+};
+
+export default function BusinessRelationshipManagerSection({
+  sections,
+}: BusinessRelationshipManagerSectionProps) {
+  const content = getSectionContent(sections, 'business_relationship_managers');
+
+  const heading = content?.heading || 'Meet Your Relationship Manager';
+  const description =
+    content?.description ||
+    'Your business deserves more than banking. Work with a dedicated Relationship Manager who understands your industry, helps you navigate financial decisions, and supports your growth at every stage.';
+  const ctaHref = content?.cta?.href || '#';
+  const ctaLabel = content?.cta?.label || 'Connect With Our Team';
+  const people =
+    content?.managers.map((manager) => ({
+      name: manager.name,
+      role: manager.role,
+      image: manager.image.src,
+      alt: manager.image.alt,
+    })) || relationshipManagers;
+
   return (
     <MeetTheTeamSection
-      heading="Meet Your Relationship Manager"
-      description="Your business deserves more than banking. Work with a dedicated Relationship Manager who understands your industry, helps you navigate financial decisions, and supports your growth at every stage."
-      ctaLabel="Connect With Our Team"
-      ctaHref="#"
-      people={relationshipManagers}
+      heading={heading}
+      description={description}
+      ctaLabel={ctaLabel}
+      ctaHref={ctaHref}
+      people={people}
     />
   );
 }
