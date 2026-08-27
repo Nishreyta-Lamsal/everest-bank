@@ -60,7 +60,7 @@ export default function CardNumberField({
         id={fieldId}
         type="text"
         inputMode="numeric"
-        className={fieldElementClasses}
+        className={fieldElementClasses()}
         aria-invalid={isError}
         aria-describedby={describedBy}
         {...inputProps}

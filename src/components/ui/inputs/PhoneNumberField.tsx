@@ -68,7 +68,7 @@ export default function PhoneNumberField({
       <input
         id={fieldId}
         type="tel"
-        className={fieldElementClasses}
+        className={fieldElementClasses()}
         aria-invalid={isError}
         aria-describedby={describedBy}
         {...inputProps}

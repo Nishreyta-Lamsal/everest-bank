@@ -7,7 +7,12 @@ import { cn } from '@/lib/utils';
 
 import { useFieldA11y } from '@/hooks/useFieldA11y';
 
-import { fieldElementClasses, fieldRowClasses } from './fieldStyles';
+import {
+  fieldElementClasses,
+  fieldRowClasses,
+  fieldRowLayoutClasses,
+  type FieldVariant,
+} from './fieldStyles';
 
 type SelectFieldOption = {
   label: string;
@@ -19,6 +24,7 @@ type SelectFieldProps = {
   hint?: string;
   error?: string;
   className?: string;
+  variant?: FieldVariant;
   options: SelectFieldOption[];
   placeholder?: string;
 } & Omit<ComponentPropsWithoutRef<'select'>, 'className'>;
@@ -28,6 +34,7 @@ export default function SelectField({
   hint,
   error,
   className,
+  variant = 'primary',
   options,
   placeholder,
   id,
@@ -50,14 +57,16 @@ export default function SelectField({
       hint={hint}
       error={error}
       className={className}
+      variant={variant}
       rowClassName={cn(
-        fieldRowClasses({ error: isError }),
-        'relative h-[48px] items-center px-4 py-1.5',
+        fieldRowClasses({ variant, error: isError }),
+        fieldRowLayoutClasses({ variant }),
+        'relative',
       )}
     >
       <select
         id={fieldId}
-        className={cn(fieldElementClasses, 'appearance-none pr-6')}
+        className={cn(fieldElementClasses({ variant }), 'appearance-none pr-6')}
         aria-invalid={isError}
         aria-describedby={describedBy}
         defaultValue={defaultValue ?? (placeholder ? '' : undefined)}
@@ -74,7 +83,14 @@ export default function SelectField({
           </option>
         ))}
       </select>
-      <ChevronDownIcon className="text-grey-300 pointer-events-none absolute right-4 size-[14px] shrink-0" />
+      <ChevronDownIcon
+        className={cn(
+          'pointer-events-none absolute right-4 shrink-0',
+          variant === 'secondary'
+            ? 'text-grey-400 size-[16px]'
+            : 'text-grey-300 size-[14px]',
+        )}
+      />
     </FieldShell>
   );
 }

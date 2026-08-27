@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
+import { fieldLabelClasses, type FieldVariant } from './fieldStyles';
+
 type FieldShellProps = {
   fieldId: string;
   hintId: string;
@@ -12,6 +14,7 @@ type FieldShellProps = {
   error?: string;
   className?: string;
   rowClassName: string;
+  variant?: FieldVariant;
   children: ReactNode;
 };
 
@@ -25,12 +28,13 @@ export default function FieldShell({
   error,
   className,
   rowClassName,
+  variant = 'primary',
   children,
 }: FieldShellProps) {
   return (
     <div className={cn('flex w-full flex-col items-start gap-2', className)}>
       {label && (
-        <label htmlFor={fieldId} className="text-body-4-desktop text-grey-500">
+        <label htmlFor={fieldId} className={fieldLabelClasses({ variant })}>
           {label}
         </label>
       )}

@@ -387,6 +387,30 @@
     display: none;
   }
 
+  /* * Chrome/Safari/Edge: the pseudo-elements give an exact 4px track.
+   * `scrollbar-width` must NOT be set alongside them — when it is, those
+   * browsers drop the ::-webkit-scrollbar rules entirely. */
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-track {
+    background-color: var(--color-grey-25);
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background-color: var(--color-cream-300);
+  }
+
+  /* * Firefox has no ::-webkit-scrollbar, so it gets the standard properties.
+   * Width there is browser-defined; only the colors are controllable. */
+  @supports not selector(::-webkit-scrollbar) {
+    .scrollbar-slim {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-cream-300) var(--color-grey-25);
+    }
+  }
+
   @keyframes fill-progress {
     from {
       width: 0%;

@@ -1,19 +1,24 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { ChevronDownIcon } from '@/components/icons';
 import FieldShell from '@/components/ui/inputs/FieldShell';
 
 import { cn } from '@/lib/utils';
 
 import { useFieldA11y } from '@/hooks/useFieldA11y';
 
-import { fieldElementClasses, fieldRowClasses } from './fieldStyles';
+import {
+  fieldElementClasses,
+  fieldRowClasses,
+  fieldRowLayoutClasses,
+  type FieldVariant,
+} from './fieldStyles';
 
 type TextFieldProps = {
   label?: string;
   hint?: string;
   error?: string;
   className?: string;
+  variant?: FieldVariant;
   trailingIcon?: ReactNode;
 } & Omit<ComponentPropsWithoutRef<'input'>, 'className'>;
 
@@ -22,6 +27,7 @@ export default function TextField({
   hint,
   error,
   className,
+  variant = 'primary',
   trailingIcon,
   id,
   ...inputProps
@@ -42,14 +48,15 @@ export default function TextField({
       hint={hint}
       error={error}
       className={className}
+      variant={variant}
       rowClassName={cn(
-        fieldRowClasses({ error: isError }),
-        'h-[48px] items-center px-4 py-1.5',
+        fieldRowClasses({ variant, error: isError }),
+        fieldRowLayoutClasses({ variant }),
       )}
     >
       <input
         id={fieldId}
-        className={fieldElementClasses}
+        className={fieldElementClasses({ variant })}
         aria-invalid={isError}
         aria-describedby={describedBy}
         {...inputProps}

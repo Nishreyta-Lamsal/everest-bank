@@ -48,7 +48,7 @@ export default function Textarea({
       <ChevronDownIcon className="text-grey-300 mt-0.5 size-[16px] shrink-0" />
       <textarea
         id={fieldId}
-        className={cn(fieldElementClasses, 'h-full resize-none')}
+        className={cn(fieldElementClasses(), 'h-full resize-none')}
         aria-invalid={isError}
         aria-describedby={describedBy}
         {...textareaProps}
