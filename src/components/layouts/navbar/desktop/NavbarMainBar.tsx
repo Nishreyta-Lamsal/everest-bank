@@ -53,7 +53,11 @@ export default function NavbarMainBar() {
                   isFirst={index === 0}
                   hasDropdown
                   isExpanded={isPersonalMenuOpen}
-                  isActive={isNavItemActive(pathname, item.href)}
+                  isActive={isNavItemActive(
+                    pathname,
+                    item.href,
+                    item.activePrefixes,
+                  )}
                   onFocus={openPersonalMenu}
                 />
               </div>
@@ -62,7 +66,11 @@ export default function NavbarMainBar() {
                 key={item.label}
                 {...item}
                 isFirst={index === 0}
-                isActive={isNavItemActive(pathname, item.href)}
+                isActive={isNavItemActive(
+                  pathname,
+                  item.href,
+                  item.activePrefixes,
+                )}
               />
             ),
           )}

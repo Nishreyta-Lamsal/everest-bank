@@ -29,7 +29,7 @@ export default function NewsItem({
             </span>
           ))}
         </h3>
-        <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop line-clamp-2 lg:line-clamp-none lg:max-w-[521px]">
+        <p className="text-body-2-mobile text-grey-400 lg:text-body-2-desktop line-clamp-2 lg:max-w-[520px]">
           {card.description}
         </p>
       </div>

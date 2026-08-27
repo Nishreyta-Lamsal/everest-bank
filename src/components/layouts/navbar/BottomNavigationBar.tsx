@@ -16,7 +16,11 @@ export default function BottomNavigationBar() {
       className="fixed inset-x-0 bottom-0 z-40 flex w-full items-center bg-white shadow-[0px_-1px_5px_rgba(0,0,0,0.08)] lg:hidden"
     >
       {mainNavItems.map((item, index) => {
-        const isActive = isNavItemActive(pathname, item.href);
+        const isActive = isNavItemActive(
+          pathname,
+          item.href,
+          item.activePrefixes,
+        );
 
         return (
           <Link

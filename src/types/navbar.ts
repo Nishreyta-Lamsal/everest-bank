@@ -10,6 +10,7 @@ export type MainNavItem = {
   label: string;
   href: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
+  activePrefixes?: string[];
 };
 
 export type PersonalMenuLink = {
