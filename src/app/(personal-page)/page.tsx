@@ -11,11 +11,12 @@ import TrustSection from '@/components/shared/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 
+import {
+  personalPageService,
+  type PersonalPageResponse,
+} from '@/api/services/personal/personal-page.service';
+
 import { getQueryClient } from '@/lib/get-query-client';
-
-import type { PersonalPageResponse } from '@/api/services/personal/personal-page.service';
-
-import { personalPageService } from '@/api/services/personal/personal-page.service';
 
 export const personalPageQueryKey = ['personal-page'] as const;
 

@@ -1,3 +1,5 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import AboutHeroSection from './_components/AboutHeroSection';
 import AboutOverviewSection from './_components/AboutOverviewSection';
@@ -9,21 +11,46 @@ import TrustSection from '@/components/shared/TrustSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 
+import { aboutPageService } from '@/api/services/about/about-page.service';
+
+import { getQueryClient } from '@/lib/get-query-client';
+
+import type { AboutPageResponse } from '@/api/services/about/about-page.service';
+
+export const aboutPageQueryKey = ['about-page'] as const;
+
 const breadcrumbItems = [{ label: 'About' }];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const queryClient = getQueryClient();
+
+  let data: AboutPageResponse['data'] | undefined;
+
+  try {
+    ({ data } = await queryClient.fetchQuery({
+      queryKey: aboutPageQueryKey,
+      queryFn: aboutPageService.getAboutPageData,
+    }));
+  } catch {
+    data = undefined;
+  }
+
+  const sections = data?.sections;
+
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <AboutHeroSection />
-      <AboutOverviewSection />
-      <MountainDivider />
-      <AboutLinksSection />
-      <AboutLeadershipSection />
-      <AboutHistorySection />
-      <TrustSection />
-      <NewsSection />
-      <ContactSection />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        <AboutHeroSection sections={sections} />
+        <AboutOverviewSection sections={sections} />
+        <MountainDivider />
+        <AboutLinksSection sections={sections} />
+        <AboutLeadershipSection sections={sections} />
+        <AboutHistorySection sections={sections} />
+        <TrustSection sections={sections} />
+        <NewsSection />
+        <ContactSection />
+      </main>
+    </HydrationBoundary>
   );
 }

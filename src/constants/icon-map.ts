@@ -1,12 +1,24 @@
-import type { ComponentType, SVGProps } from 'react';
-
 import {
   AtmMachineIcon,
+  BankIcon,
+  BuildingsIcon,
   CalculatorIcon,
+  DevicesIcon,
+  FactoryIcon,
   FeedbackIcon,
+  GrowthIcon,
+  HeartIcon,
+  MapPinIcon,
+  MoneyBagIcon,
   PartnershipIcon,
+  PieChartIcon,
   ShieldCheckBadgeIcon,
+  ShieldCheckIcon,
+  SpeedClockIcon,
+  StoreIcon,
 } from '@/components/icons';
+
+import type { ComponentType, SVGProps } from 'react';
 
 export const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   calculator: CalculatorIcon,
@@ -14,4 +26,16 @@ export const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   feedback: FeedbackIcon,
   partnership: PartnershipIcon,
   'shield-check-badge': ShieldCheckBadgeIcon,
+  bank: BankIcon,
+  buildings: BuildingsIcon,
+  devices: DevicesIcon,
+  factory: FactoryIcon,
+  growth: GrowthIcon,
+  'money-bag': MoneyBagIcon,
+  'pie-chart': PieChartIcon,
+  store: StoreIcon,
+  heart: HeartIcon,
+  'map-pin': MapPinIcon,
+  'shield-check': ShieldCheckIcon,
+  'speed-clock': SpeedClockIcon,
 };

@@ -1,6 +1,6 @@
 import { api } from '@/lib/axios';
 
-import type { ApiResponse } from '@/types';
+import type { ApiResponse, MediaBrief } from '@/types';
 
 export type NewsStatus = 'draft' | 'published';
 
@@ -9,17 +9,6 @@ export type NewsTypeBrief = {
   slug: string;
   label: string;
   label_ne: string;
-};
-
-export type NewsMediaType = 'image' | 'video' | 'pdf' | 'audio' | 'document';
-
-export type NewsMedia = {
-  id: number;
-  title: string;
-  file_url: string;
-  thumbnail_url: string | null;
-  alt_text: string;
-  media_type: NewsMediaType;
 };
 
 type NewsContentBlock = {
@@ -40,8 +29,8 @@ export type News = {
   content: NewsContent;
   date: string;
   expires_on: string | null;
-  media: NewsMedia | null;
-  document: NewsMedia | null;
+  media: MediaBrief | null;
+  document: MediaBrief | null;
   attachment_url: string | null;
   status: NewsStatus;
   status_label: string;
