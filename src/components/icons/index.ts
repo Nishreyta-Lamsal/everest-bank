@@ -53,7 +53,6 @@ export * from './PieChartIcon';
 export * from './PiggyBankIcon';
 export * from './PlayIcon';
 export * from './PlusIcon';
-export * from './PlusSmallIcon';
 export * from './ResetIcon';
 export * from './RouteIcon';
 export * from './SafeIcon';
