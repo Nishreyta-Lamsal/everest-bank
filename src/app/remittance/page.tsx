@@ -15,25 +15,24 @@ import { getSectionContent } from '@/lib/get-section-content';
 
 import { remittanceFaqs } from './_data/remittance-faqs';
 
-import type { RemittancePageResponse } from '@/api/services/remittance/remittance-page.service';
+import type { RemittancePageSection } from '@/api/services/remittance/remittance-page.service';
 
 export const remittancePageQueryKey = ['remittance-page'] as const;
 
 export default async function RemittancePage() {
   const queryClient = getQueryClient();
 
-  let data: RemittancePageResponse['data'] | undefined;
+  let sections: RemittancePageSection[] | undefined;
 
   try {
-    ({ data } = await queryClient.fetchQuery({
+    const { data } = await queryClient.fetchQuery({
       queryKey: remittancePageQueryKey,
       queryFn: remittancePageService.getRemittancePageData,
-    }));
+    });
+    sections = data.sections;
   } catch {
-    data = undefined;
+    sections = undefined;
   }
-
-  const sections = data?.sections;
 
   const openAccount = getSectionContent(sections, 'remittance_open_account');
   const faqs = getSectionContent(sections, 'remittance_faqs');

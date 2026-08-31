@@ -4,21 +4,31 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 import NewsList from './NewsList';
 
-import type { News } from '@/api/services/news.service';
-
 import { newsService } from '@/api/services/news.service';
+
+import { getQueryClient } from '@/lib/get-query-client';
 
 import { newsCards } from '@/data';
 
+import type { News } from '@/api/services/news.service';
+
 const NEWS_CARD_COUNT = 4;
 
+export const newsQueryKey = ['news'] as const;
+
 export default async function NewsSection() {
+  const queryClient = getQueryClient();
+
   let results: News[] = [];
 
   try {
-    const { data } = await newsService.getNewsList({
-      is_pinned: true,
-      page_size: NEWS_CARD_COUNT,
+    const { data } = await queryClient.fetchQuery({
+      queryKey: newsQueryKey,
+      queryFn: () =>
+        newsService.getNewsList({
+          is_pinned: true,
+          page_size: NEWS_CARD_COUNT,
+        }),
     });
     results = data.results;
   } catch {

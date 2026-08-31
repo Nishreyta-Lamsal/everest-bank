@@ -15,7 +15,7 @@ import { aboutPageService } from '@/api/services/about/about-page.service';
 
 import { getQueryClient } from '@/lib/get-query-client';
 
-import type { AboutPageResponse } from '@/api/services/about/about-page.service';
+import type { AboutPageSection } from '@/api/services/about/about-page.service';
 
 export const aboutPageQueryKey = ['about-page'] as const;
 
@@ -24,18 +24,17 @@ const breadcrumbItems = [{ label: 'About' }];
 export default async function AboutPage() {
   const queryClient = getQueryClient();
 
-  let data: AboutPageResponse['data'] | undefined;
+  let sections: AboutPageSection[] | undefined;
 
   try {
-    ({ data } = await queryClient.fetchQuery({
+    const { data } = await queryClient.fetchQuery({
       queryKey: aboutPageQueryKey,
       queryFn: aboutPageService.getAboutPageData,
-    }));
+    });
+    sections = data.sections;
   } catch {
-    data = undefined;
+    sections = undefined;
   }
-
-  const sections = data?.sections;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

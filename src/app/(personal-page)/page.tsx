@@ -13,7 +13,7 @@ import ContactSection from '@/components/shared/content/ContactSection';
 
 import {
   personalPageService,
-  type PersonalPageResponse,
+  type PersonalPageSection,
 } from '@/api/services/personal/personal-page.service';
 
 import { getQueryClient } from '@/lib/get-query-client';
@@ -23,28 +23,29 @@ export const personalPageQueryKey = ['personal-page'] as const;
 export default async function PersonalPage() {
   const queryClient = getQueryClient();
 
-  let data: PersonalPageResponse['data'] | undefined;
+  let sections: PersonalPageSection[] | undefined;
 
   try {
-    ({ data } = await queryClient.fetchQuery({
+    const { data } = await queryClient.fetchQuery({
       queryKey: personalPageQueryKey,
       queryFn: personalPageService.getPersonalPageData,
-    }));
+    });
+    sections = data.sections;
   } catch {
-    data = undefined;
+    sections = undefined;
   }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <main>
-        <HeroSection sections={data?.sections} />
+        <HeroSection sections={sections} />
         <ProductsSection />
         <MountainDivider />
-        <LoansSection sections={data?.sections} />
-        <CardsSection sections={data?.sections} />
-        <AppPromoSection sections={data?.sections} />
-        <CsrSection sections={data?.sections} />
-        <TrustSection sections={data?.sections} />
+        <LoansSection sections={sections} />
+        <CardsSection sections={sections} />
+        <AppPromoSection sections={sections} />
+        <CsrSection sections={sections} />
+        <TrustSection sections={sections} />
         <NewsSection />
         <ContactSection />
       </main>
