@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { footerSocialLinks } from '@/data';
+import { socialLinks } from '@/data';
 
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ export default function FooterSocialColumn({
         Socials:
       </p>
       <div className="flex flex-col items-start gap-6">
-        {footerSocialLinks.map(({ label, href, icon: Icon }) => (
+        {socialLinks.map(({ label, href, icon: Icon }) => (
           <Link
             key={label}
             href={href}

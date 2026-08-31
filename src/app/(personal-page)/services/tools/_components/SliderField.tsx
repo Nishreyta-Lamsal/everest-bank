@@ -2,9 +2,11 @@ import { useId } from 'react';
 
 import RangeSlider from '@/components/ui/inputs/RangeSlider';
 
+import { cn } from '@/lib/utils';
+
 import type { ReactNode } from 'react';
 
-type CalculatorSliderFieldProps = {
+type SliderFieldProps = {
   label: string;
   value: number;
   min: number;
@@ -14,9 +16,10 @@ type CalculatorSliderFieldProps = {
   prefix: ReactNode;
   trailing?: ReactNode;
   formatValue?: (value: number) => string;
+  className?: string;
 };
 
-export default function CalculatorSliderField({
+export default function SliderField({
   label,
   value,
   min,
@@ -26,7 +29,8 @@ export default function CalculatorSliderField({
   prefix,
   trailing,
   formatValue = String,
-}: CalculatorSliderFieldProps) {
+  className,
+}: SliderFieldProps) {
   const labelId = useId();
   const inputId = useId();
 
@@ -43,7 +47,7 @@ export default function CalculatorSliderField({
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 lg:gap-1">
+    <div className={cn('flex w-full flex-col gap-6 lg:gap-2', className)}>
       <label
         id={labelId}
         htmlFor={inputId}

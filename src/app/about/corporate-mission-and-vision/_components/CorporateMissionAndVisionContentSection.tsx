@@ -6,7 +6,8 @@ import ContentQuote from '@/components/shared/content/ContentQuote';
 import { EyeIcon, TargetArrowIcon } from '@/components/icons';
 
 import { relatedPages } from '../_data/related-pages';
-import { corporateMissionAndVisionSocialLinks } from '../_data/social-links';
+
+import { socialLinks } from '@/data';
 
 export default function CorporateMissionAndVisionContentSection() {
   return (
@@ -95,10 +96,7 @@ export default function CorporateMissionAndVisionContentSection() {
             </div>
           </article>
 
-          <ContentSidebar
-            links={relatedPages}
-            socialLinks={corporateMissionAndVisionSocialLinks}
-          />
+          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
         </div>
       </LayoutWrapper>
     </section>

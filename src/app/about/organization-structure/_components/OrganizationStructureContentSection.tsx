@@ -8,9 +8,10 @@ import InfoListRow from './InfoListRow';
 import LeaderListRow from './LeaderListRow';
 
 import { relatedPages } from '../_data/related-pages';
-import { organizationStructureSocialLinks } from '../_data/social-links';
 import { boardCommittees } from '../_data/governance';
 import { chiefOfficers, executiveLeadership } from '../_data/leadership';
+
+import { socialLinks } from '@/data';
 
 export default function OrganizationStructureContentSection() {
   return (
@@ -114,10 +115,7 @@ export default function OrganizationStructureContentSection() {
             <ContentQuote title="“Consistent, strong and dependable: दिगो, दरिलो, विश्वासिलो.”" />
           </article>
 
-          <ContentSidebar
-            links={relatedPages}
-            socialLinks={organizationStructureSocialLinks}
-          />
+          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
         </div>
       </LayoutWrapper>
     </section>

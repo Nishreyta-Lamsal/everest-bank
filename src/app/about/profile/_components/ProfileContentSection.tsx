@@ -4,7 +4,8 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ContentSidebar from '@/components/shared/content/ContentSidebar';
 
 import { relatedPages } from '../_data/related-pages';
-import { profileSocialLinks } from '../_data/social-links';
+
+import { socialLinks } from '@/data';
 
 export default function ProfileContentSection() {
   return (
@@ -126,10 +127,7 @@ export default function ProfileContentSection() {
             </div>
           </article>
 
-          <ContentSidebar
-            links={relatedPages}
-            socialLinks={profileSocialLinks}
-          />
+          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
         </div>
       </LayoutWrapper>
     </section>

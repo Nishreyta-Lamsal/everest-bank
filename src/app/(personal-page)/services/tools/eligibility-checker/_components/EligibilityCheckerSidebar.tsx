@@ -6,7 +6,7 @@ import { ArrowUpRightIcon } from '@/components/icons';
 import { ROUTE } from '@/constants';
 import { socialLinks } from '@/data';
 
-export default function EMICalculatorSidebar() {
+export default function EligibilityCheckerSidebar() {
   return (
     <aside className="flex w-full flex-col items-start gap-7 lg:sticky lg:top-30 lg:max-w-[405px] lg:gap-8 lg:pb-8">
       <Link

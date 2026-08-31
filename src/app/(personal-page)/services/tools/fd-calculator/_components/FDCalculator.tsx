@@ -4,60 +4,66 @@ import { useState } from 'react';
 
 import { CalendarIcon, ChevronDownIcon } from '@/components/icons';
 import SliderField from '../../_components/SliderField';
-import EMIResultSummary from './EMIResultSummary';
+import CompoundingSelector from './CompoundingSelector';
+import FDResultSummary from './FDResultSummary';
 
 import {
-  emiCalculatorDefaults,
+  compoundingOptions,
+  depositAmountRange,
+  fdCalculatorDefaults,
   interestRateRange,
-  loanAmountRange,
   tenureRanges,
   tenureUnitOptions,
-} from '../_data/emi-calculator';
+} from '../_data/fd-calculator';
 
-import type { TenureUnit } from '../_data/emi-calculator';
+import type { CompoundingFrequency, TenureUnit } from '../_data/fd-calculator';
 
-function calculateMonthlyEmi(
+function calculateMaturityValue(
   principal: number,
   annualRate: number,
-  months: number,
+  years: number,
+  periodsPerYear: number,
 ) {
-  if (principal <= 0 || months <= 0) {
-    return 0;
+  if (principal <= 0 || years <= 0) {
+    return principal;
   }
 
-  const monthlyRate = annualRate / 12 / 100;
+  const ratePerPeriod = annualRate / 100 / periodsPerYear;
 
-  if (monthlyRate === 0) {
-    return principal / months;
-  }
-
-  const growth = (1 + monthlyRate) ** months;
-
-  return (principal * monthlyRate * growth) / (growth - 1);
+  return principal * (1 + ratePerPeriod) ** (periodsPerYear * years);
 }
 
-export default function EMICalculator() {
-  const [loanAmount, setLoanAmount] = useState(
-    emiCalculatorDefaults.loanAmount,
+export default function FDCalculator() {
+  const [depositAmount, setDepositAmount] = useState(
+    fdCalculatorDefaults.depositAmount,
   );
   const [interestRate, setInterestRate] = useState(
-    emiCalculatorDefaults.interestRate,
+    fdCalculatorDefaults.interestRate,
   );
-  const [tenure, setTenure] = useState(emiCalculatorDefaults.tenure);
+  const [tenure, setTenure] = useState(fdCalculatorDefaults.tenure);
   const [tenureUnit, setTenureUnit] = useState<TenureUnit>(
-    emiCalculatorDefaults.tenureUnit,
+    fdCalculatorDefaults.tenureUnit,
+  );
+  const [compounding, setCompounding] = useState<CompoundingFrequency>(
+    fdCalculatorDefaults.compounding,
   );
 
   const tenureRange = tenureRanges[tenureUnit];
 
-  const months = tenureUnit === 'years' ? tenure * 12 : tenure;
-  const monthlyEmi = calculateMonthlyEmi(loanAmount, interestRate, months);
-  const totalPayable = monthlyEmi * months;
-  const totalInterest = Math.max(totalPayable - loanAmount, 0);
-  const principalShare =
-    totalPayable > 0 ? (loanAmount / totalPayable) * 100 : 0;
-  const interestShare =
-    totalPayable > 0 ? (totalInterest / totalPayable) * 100 : 0;
+  const compoundingOption =
+    compoundingOptions.find((option) => option.value === compounding) ??
+    compoundingOptions[0];
+
+  const years = tenureUnit === 'years' ? tenure : tenure / 12;
+  const maturityValue = calculateMaturityValue(
+    depositAmount,
+    interestRate,
+    years,
+    compoundingOption.periodsPerYear,
+  );
+  const interestEarned = Math.max(maturityValue - depositAmount, 0);
+
+  const tenureLabel = `${tenure} ${tenureUnit === 'years' ? 'years' : 'months'}`;
 
   const handleTenureUnitChange = (nextUnit: TenureUnit) => {
     const nextRange = tenureRanges[nextUnit];
@@ -74,12 +80,12 @@ export default function EMICalculator() {
     <div className="flex w-full flex-col gap-10 lg:gap-8">
       <div className="flex flex-col gap-6">
         <SliderField
-          label="Loan Amount"
-          value={loanAmount}
-          min={loanAmountRange.min}
-          max={loanAmountRange.max}
-          step={loanAmountRange.step}
-          onValueChange={setLoanAmount}
+          label="Deposit Amount"
+          value={depositAmount}
+          min={depositAmountRange.min}
+          max={depositAmountRange.max}
+          step={depositAmountRange.step}
+          onValueChange={setDepositAmount}
           prefix="Rs."
           formatValue={(value) => value.toLocaleString('en-IN')}
         />
@@ -126,16 +132,21 @@ export default function EMICalculator() {
             </div>
           }
         />
+
+        <div className="border-cream-75 w-full border-t" />
+
+        <CompoundingSelector
+          value={compounding}
+          onValueChange={setCompounding}
+        />
       </div>
 
-      <EMIResultSummary
-        monthlyEmi={monthlyEmi}
-        months={months}
-        principal={loanAmount}
-        totalInterest={totalInterest}
-        totalPayable={totalPayable}
-        principalShare={principalShare}
-        interestShare={interestShare}
+      <FDResultSummary
+        maturityValue={maturityValue}
+        principal={depositAmount}
+        interestEarned={interestEarned}
+        tenureLabel={tenureLabel}
+        compoundingLabel={compoundingOption.label.toLowerCase()}
       />
     </div>
   );

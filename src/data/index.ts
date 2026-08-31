@@ -4,3 +4,4 @@ export * from './footer';
 export * from './navbar';
 export * from './news';
 export * from './open-account';
+export * from './social-links';

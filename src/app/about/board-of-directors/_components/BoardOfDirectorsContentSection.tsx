@@ -5,7 +5,8 @@ import DirectorCardList from './directors/DirectorCardList';
 
 import { directorCardRows } from '../_data/directors';
 import { relatedPages } from '../_data/related-pages';
-import { boardOfDirectorsSocialLinks } from '../_data/social-links';
+
+import { socialLinks } from '@/data';
 
 export default function BoardOfDirectorsContentSection() {
   return (
@@ -18,10 +19,7 @@ export default function BoardOfDirectorsContentSection() {
             <ContentQuote title="“Consistent, strong and dependable: दिगो, दरिलो, विश्वासिलो.”" />
           </article>
 
-          <ContentSidebar
-            links={relatedPages}
-            socialLinks={boardOfDirectorsSocialLinks}
-          />
+          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
         </div>
       </LayoutWrapper>
     </section>

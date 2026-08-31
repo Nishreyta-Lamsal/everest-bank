@@ -1,16 +1,4 @@
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  YoutubeIcon,
-} from '@/components/icons';
-
-import { EXTERNAL_LINK } from '@/constants';
-import type {
-  FooterLinkColumn,
-  FooterOfficer,
-  FooterSocialLink,
-} from '@/types';
+import type { FooterLinkColumn, FooterOfficer } from '@/types';
 
 export const footerOfficers: FooterOfficer[] = [
   {
@@ -77,11 +65,4 @@ export const footerLinkColumns: FooterLinkColumn[] = [
       { label: 'Sitemap', href: '#' },
     ],
   },
-];
-
-export const footerSocialLinks: FooterSocialLink[] = [
-  { label: 'Facebook', href: EXTERNAL_LINK.FACEBOOK, icon: FacebookIcon },
-  { label: 'Instagram', href: EXTERNAL_LINK.INSTAGRAM, icon: InstagramIcon },
-  { label: 'LinkedIn', href: EXTERNAL_LINK.LINKEDIN, icon: LinkedinIcon },
-  { label: 'YouTube', href: EXTERNAL_LINK.YOUTUBE, icon: YoutubeIcon },
 ];

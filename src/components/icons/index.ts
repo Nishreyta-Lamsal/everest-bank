@@ -72,6 +72,7 @@ export * from './TextBlockIcon';
 export * from './TransferIcon';
 export * from './TrendingUpIcon';
 export * from './VerifiedIcon';
+export * from './VerifiedTickIcon';
 export * from './WorldwideIcon';
 export * from './XIcon';
 export * from './YoutubeIcon';

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import FooterAccordionColumn from './FooterAccordionColumn';
 
-import { footerLinkColumns, footerSocialLinks } from '@/data';
+import { footerLinkColumns, socialLinks } from '@/data';
 
 export default function FooterLinksSectionMobile() {
   const currentYear = new Date().getFullYear();
@@ -31,7 +31,7 @@ export default function FooterLinksSectionMobile() {
           Socials:
         </p>
         <div className="flex w-full flex-wrap items-start gap-x-8 gap-y-2">
-          {footerSocialLinks.map(({ label, href, icon: Icon }) => (
+          {socialLinks.map(({ label, href, icon: Icon }) => (
             <Link
               key={label}
               href={href}
