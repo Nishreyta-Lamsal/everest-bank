@@ -42,7 +42,7 @@ export default function BusinessProductsSection({
               <FeatureCard
                 key={card.title}
                 {...card}
-                decorationSrc="/images/products/open-account-money-bag.png"
+                decorationSrc="/images/products/open-account-money-bag-v1.png"
                 featured={index === 0}
               />
             ))}

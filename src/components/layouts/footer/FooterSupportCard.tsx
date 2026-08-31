@@ -1,9 +1,10 @@
+import GradientCard from '@/components/ui/cards/GradientCard';
 import { GlobeIcon, PhoneCallIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 export default function FooterSupportCard() {
   return (
-    <div className="flex w-full flex-col items-start gap-4 rounded-2xl bg-gradient-to-l from-[#fbc999] via-[#ffe8c8] to-[#fbc999] px-4 py-8 xl:h-[286px] xl:w-[620px] xl:shrink-0 xl:justify-between xl:gap-0 xl:p-8">
+    <GradientCard className="flex flex-col items-start gap-4 px-4 py-8 xl:h-[286px] xl:w-[620px] xl:shrink-0 xl:justify-between xl:gap-0 xl:p-8">
       <div className="flex flex-col gap-1 xl:contents">
         <p className="font-heading text-title-2-mobile text-grey-500 xl:text-title-2-desktop">
           Customer Support Center
@@ -44,6 +45,6 @@ export default function FooterSupportCard() {
           Make an enquire
         </Button>
       </div>
-    </div>
+    </GradientCard>
   );
 }
