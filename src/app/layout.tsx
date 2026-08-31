@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Anek_Devanagari } from 'next/font/google';
 
 import Providers from '@/providers/providers';
+import SiteChrome from '@/components/layouts/SiteChrome';
 import Footer from '@/components/layouts/footer/Footer';
 import Navbar from '@/components/layouts/navbar/Navbar';
 import BottomNavigationBar from '@/components/layouts/navbar/BottomNavigationBar';
@@ -66,11 +67,17 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className="flex min-h-full flex-col pb-14.5 lg:pb-0">
         <Providers>
-          <Navbar />
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
+
           {children}
-          <Footer />
-          <SideFixedMenu />
-          <BottomNavigationBar />
+
+          <SiteChrome>
+            <Footer />
+            <SideFixedMenu />
+            <BottomNavigationBar />
+          </SiteChrome>
         </Providers>
       </body>
     </html>

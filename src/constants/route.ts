@@ -16,4 +16,6 @@ export const ROUTE = {
   EMI_CALCULATOR: '/services/tools/emi-calculator',
   FD_CALCULATOR: '/services/tools/fd-calculator',
   ELIGIBILITY_CHECKER: '/services/tools/eligibility-checker',
+  ADMIN: '/admin',
+  ADMIN_LOGIN: '/admin/login',
 };
