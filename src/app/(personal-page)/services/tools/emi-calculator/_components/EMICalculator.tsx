@@ -6,6 +6,8 @@ import { CalendarIcon, ChevronDownIcon } from '@/components/icons';
 import SliderField from '../../_components/SliderField';
 import EMIResultSummary from './EMIResultSummary';
 
+import { calculateMonthlyEmi } from '@/utils/calculator';
+
 import {
   emiCalculatorDefaults,
   interestRateRange,
@@ -15,26 +17,6 @@ import {
 } from '../_data/emi-calculator';
 
 import type { TenureUnit } from '../_data/emi-calculator';
-
-function calculateMonthlyEmi(
-  principal: number,
-  annualRate: number,
-  months: number,
-) {
-  if (principal <= 0 || months <= 0) {
-    return 0;
-  }
-
-  const monthlyRate = annualRate / 12 / 100;
-
-  if (monthlyRate === 0) {
-    return principal / months;
-  }
-
-  const growth = (1 + monthlyRate) ** months;
-
-  return (principal * monthlyRate * growth) / (growth - 1);
-}
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(

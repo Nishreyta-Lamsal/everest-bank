@@ -7,6 +7,8 @@ import SliderField from '../../_components/SliderField';
 import CompoundingSelector from './CompoundingSelector';
 import FDResultSummary from './FDResultSummary';
 
+import { calculateMaturityValue } from '@/utils/calculator';
+
 import {
   compoundingOptions,
   depositAmountRange,
@@ -17,21 +19,6 @@ import {
 } from '../_data/fd-calculator';
 
 import type { CompoundingFrequency, TenureUnit } from '../_data/fd-calculator';
-
-function calculateMaturityValue(
-  principal: number,
-  annualRate: number,
-  years: number,
-  periodsPerYear: number,
-) {
-  if (principal <= 0 || years <= 0) {
-    return principal;
-  }
-
-  const ratePerPeriod = annualRate / 100 / periodsPerYear;
-
-  return principal * (1 + ratePerPeriod) ** (periodsPerYear * years);
-}
 
 export default function FDCalculator() {
   const [depositAmount, setDepositAmount] = useState(

@@ -8,49 +8,16 @@ import MeasureField from './MeasureField';
 import EligibilityResultSummary from './EligibilityResultSummary';
 
 import {
+  calculateEligibleAmount,
+  calculateMonthlyEmi,
+} from '@/utils/calculator';
+
+import {
   eligibilityCheckerDefaults,
   interestRateRange,
   maxEmiShareOfDisposableIncome,
   tenureRange,
 } from '../_data/eligibility-checker';
-
-function calculateEligibleAmount(
-  monthlyEmi: number,
-  annualRate: number,
-  months: number,
-) {
-  if (monthlyEmi <= 0 || months <= 0) {
-    return 0;
-  }
-
-  const monthlyRate = annualRate / 12 / 100;
-
-  if (monthlyRate === 0) {
-    return monthlyEmi * months;
-  }
-
-  return (monthlyEmi * (1 - (1 + monthlyRate) ** -months)) / monthlyRate;
-}
-
-function calculateMonthlyEmi(
-  principal: number,
-  annualRate: number,
-  months: number,
-) {
-  if (principal <= 0 || months <= 0) {
-    return 0;
-  }
-
-  const monthlyRate = annualRate / 12 / 100;
-
-  if (monthlyRate === 0) {
-    return principal / months;
-  }
-
-  const growth = (1 + monthlyRate) ** months;
-
-  return (principal * monthlyRate * growth) / (growth - 1);
-}
 
 export default function EligibilityChecker() {
   const [loanType, setLoanType] = useState(eligibilityCheckerDefaults.loanType);
