@@ -1,9 +1,6 @@
-export type SMEStat = {
-  value: string;
-  label: string;
-};
+import type { StatEntry } from '@/types';
 
-export const smeStats: SMEStat[] = [
+export const smeStats: StatEntry[] = [
   {
     value: '30+',
     label: 'Years of Banking Excellence',

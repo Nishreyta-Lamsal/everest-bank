@@ -1,14 +1,11 @@
-export type FinancingRow = {
-  stage: string;
-  solution: string;
-};
+import type { RecommendationRow } from '@/types';
 
-export const financingRows: FinancingRow[] = [
-  { stage: 'Starting a Business', solution: 'Business Account' },
-  { stage: 'Growing Operations', solution: 'Working Capital Finance' },
-  { stage: 'Expanding Business', solution: 'SME Loan' },
-  { stage: 'Accepting Payments', solution: 'Merchant Solutions' },
-  { stage: 'Trading Internationally', solution: 'Trade Finance' },
+export const financingRows: RecommendationRow[] = [
+  { label: 'Starting a Business', value: 'Business Account' },
+  { label: 'Growing Operations', value: 'Working Capital Finance' },
+  { label: 'Expanding Business', value: 'SME Loan' },
+  { label: 'Accepting Payments', value: 'Merchant Solutions' },
+  { label: 'Trading Internationally', value: 'Trade Finance' },
 ];
 
 export const financingImage = {

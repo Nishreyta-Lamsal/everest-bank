@@ -1,11 +1,6 @@
-export type SMEProduct = {
-  index: string;
-  title: string;
-  description: string;
-  href: string;
-};
+import type { ProductListEntry } from '@/types';
 
-export const smeProducts: SMEProduct[] = [
+export const smeProducts: ProductListEntry[] = [
   {
     index: '01',
     title: 'SME Loans',
@@ -28,3 +23,8 @@ export const smeProducts: SMEProduct[] = [
     href: '#',
   },
 ];
+
+export const smeProductsImage = {
+  src: '/images/business/sme-loans-product.png',
+  alt: 'A woman entrepreneur standing in front of her handicraft bag shop',
+};

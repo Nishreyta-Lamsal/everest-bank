@@ -4,17 +4,17 @@ import { ArrowUpRightIcon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
-import type { SMEProduct } from '../../_data/products';
+import type { ProductListEntry } from '@/types';
 
-type SMEProductItemProps = {
-  product: SMEProduct;
+type ProductListItemProps = {
+  product: ProductListEntry;
   isLast: boolean;
 };
 
-export default function SMEProductItem({
+export default function ProductListItem({
   product,
   isLast,
-}: SMEProductItemProps) {
+}: ProductListItemProps) {
   return (
     <Link
       href={product.href}
@@ -27,8 +27,8 @@ export default function SMEProductItem({
         <span className="border-grey-25 text-body-2-mobile lg:text-body-1-desktop text-grey-500 flex w-15 shrink-0 items-center justify-center rounded-full border px-2.5 py-3 transition-colors group-hover:text-red-500 lg:w-16 lg:px-4">
           {product.index}
         </span>
-        <div className="flex flex-1 items-center justify-between lg:flex-none lg:justify-start lg:gap-4">
-          <span className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500 whitespace-nowrap transition-colors group-hover:text-red-500">
+        <div className="flex flex-1 items-center justify-between gap-4 lg:flex-none lg:justify-start">
+          <span className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500 transition-colors group-hover:text-red-500 lg:w-[193px]">
             {product.title}
           </span>
           <ArrowUpRightIcon className="text-grey-500 size-7 shrink-0 transition-colors group-hover:text-red-500 lg:size-8" />

@@ -5,3 +5,4 @@ export * from './footer';
 export * from './media';
 export * from './navbar';
 export * from './page';
+export * from './sections';

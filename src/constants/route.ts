@@ -11,6 +11,7 @@ export const ROUTE = {
   ABOUT_BOARD_OF_DIRECTORS: '/about/board-of-directors',
   LOANS: '/loans',
   CARDS: '/cards',
+  DEPOSIT_ACCOUNTS: '/deposit-accounts',
   SERVICES: '/services',
   TOOLS: '/services/tools',
   EMI_CALCULATOR: '/services/tools/emi-calculator',

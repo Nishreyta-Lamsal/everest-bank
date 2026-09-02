@@ -262,7 +262,7 @@ export const mainNavItems: MainNavItem[] = [
     label: 'Personal',
     href: ROUTE.PERSONAL,
     icon: PeopleIcon,
-    activePrefixes: [ROUTE.CARDS, ROUTE.LOANS],
+    activePrefixes: [ROUTE.CARDS, ROUTE.LOANS, ROUTE.DEPOSIT_ACCOUNTS],
     megaMenu: personalMegaMenu,
   },
   {

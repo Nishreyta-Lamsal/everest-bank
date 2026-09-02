@@ -1,16 +1,16 @@
-import SMEProductItem from './SMEProductItem';
+import ProductListItem from './ProductListItem';
 
-import type { SMEProduct } from '../../_data/products';
+import type { ProductListEntry } from '@/types';
 
-type SMEProductListProps = {
-  products: SMEProduct[];
+type ProductListProps = {
+  products: ProductListEntry[];
 };
 
-export default function SMEProductList({ products }: SMEProductListProps) {
+export default function ProductList({ products }: ProductListProps) {
   return (
     <div className="flex w-full flex-col items-start">
       {products.map((product, index) => (
-        <SMEProductItem
+        <ProductListItem
           key={product.title}
           product={product}
           isLast={index === products.length - 1}

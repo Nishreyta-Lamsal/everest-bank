@@ -1,14 +1,17 @@
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
-import SMEProductsSection from './_components/products/SMEProductsSection';
+import ProductListSection from '@/components/shared/product-list/ProductListSection';
 import MountainDivider from '@/components/shared/MountainDivider';
-import SMEStatsSection from './_components/SMEStatsSection';
-import SMEFinancingSection from './_components/SMEFinancingSection';
+import StatsHighlightSection from '@/components/shared/stats/StatsHighlightSection';
+import RecommendationSection from '@/components/shared/recommendation/RecommendationSection';
 import OpenAccountSection from '@/components/shared/OpenAccountSection';
 import FaqSection from '@/components/shared/faqs/FaqSection';
 import ExploreServicesSection from '@/components/shared/ExploreServicesSection';
 
 import { ROUTE } from '@/constants';
+import { smeProducts, smeProductsImage } from './_data/products';
+import { smeStats, smeStatsImage } from './_data/stats';
+import { financingImage, financingRows } from './_data/financing';
 import { smeFaqs } from './_data/faqs';
 
 const breadcrumbItems = [
@@ -28,10 +31,28 @@ export default function SMEBankingPage() {
         buttonHref="#"
         secondaryButtonHref="#"
       />
-      <SMEProductsSection />
+      <ProductListSection
+        products={smeProducts}
+        image={smeProductsImage.src}
+        imageAlt={smeProductsImage.alt}
+      />
       <MountainDivider />
-      <SMEStatsSection />
-      <SMEFinancingSection />
+      <StatsHighlightSection
+        heading="Supporting Nepal’s businesses with tailored financial solutions and dedicated relationship managers."
+        stats={smeStats}
+        image={smeStatsImage.src}
+        imageAlt={smeStatsImage.alt}
+      />
+      <RecommendationSection
+        heading="Find the Right Financing"
+        labelHeading="Business Stage"
+        valueHeading="Recommended Solution"
+        rows={financingRows}
+        primaryCtaLabel="Open Business Account"
+        secondaryCtaLabel="Talk to an Expert"
+        image={financingImage.src}
+        imageAlt={financingImage.alt}
+      />
       <OpenAccountSection />
       <FaqSection heading="Quick FAQs for SME Banking" items={smeFaqs} />
       <ExploreServicesSection />

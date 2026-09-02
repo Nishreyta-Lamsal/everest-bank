@@ -69,7 +69,7 @@ export default function OpenAccountSection({
           <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md w-full text-white lg:col-start-1 lg:row-start-1 lg:w-[550px] lg:self-center">
             {heading}
           </h2>
-          <div className="relative h-[286px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:row-start-2 lg:h-[428px] lg:w-[642px] lg:shrink-0 lg:rounded-3xl">
+          <div className="relative h-[286px] w-full overflow-hidden rounded-lg md:h-[428px] lg:col-start-2 lg:row-start-2 lg:w-[642px] lg:shrink-0 lg:rounded-3xl">
             <video
               ref={videoRef}
               src={videoSrc}
