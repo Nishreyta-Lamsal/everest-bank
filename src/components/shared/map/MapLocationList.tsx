@@ -1,26 +1,28 @@
-import PayoutLocationCard from './PayoutLocationCard';
+import MapLocationCard from './MapLocationCard';
 
-import type { PayoutLocation } from '../_data/payout-locations';
+import type { MapLocation } from '@/types';
 
-type PayoutLocationListProps = {
-  locations: PayoutLocation[];
+type MapLocationListProps = {
+  locations: MapLocation[];
   activeLocationId: number;
   onSelectLocation: (id: number) => void;
+  resultsLabel?: string;
 };
 
-export default function PayoutLocationList({
+export default function MapLocationList({
   locations,
   activeLocationId,
   onSelectLocation,
-}: PayoutLocationListProps) {
+  resultsLabel = 'locations found',
+}: MapLocationListProps) {
   return (
     <div className="flex w-full flex-col gap-4 lg:w-[409px]">
       <p className="text-body-3-desktop text-grey-400 hidden lg:block">
-        Total Search: {locations.length} payout locations found
+        Total Search: {locations.length} {resultsLabel}
       </p>
       <div className="scrollbar-slim flex flex-col gap-4 lg:max-h-[714px] lg:overflow-y-auto lg:pr-6">
         {locations.map((location) => (
-          <PayoutLocationCard
+          <MapLocationCard
             key={location.id}
             location={location}
             isActive={location.id === activeLocationId}

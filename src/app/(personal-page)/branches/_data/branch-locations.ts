@@ -1,0 +1,88 @@
+import type { MapLocation } from '@/types';
+
+export const branchLocations: MapLocation[] = [
+  {
+    id: 1,
+    name: 'New Baneshwor Branch',
+    address: 'New Baneshwor, Kathmandu',
+    phone: '01-4783100',
+    mapUrl: 'https://www.google.com/maps?q=27.6890,85.3350&z=16&output=embed',
+  },
+  {
+    id: 2,
+    name: 'Lazimpat Branch',
+    address: 'Lazimpat, Kathmandu',
+    phone: '01-4443377',
+    mapUrl: 'https://www.google.com/maps?q=27.7215,85.3200&z=16&output=embed',
+  },
+  {
+    id: 3,
+    name: 'Thamel Branch',
+    address: 'Thamel, Kathmandu',
+    phone: '01-4700200',
+    mapUrl: 'https://www.google.com/maps?q=27.7154,85.3123&z=16&output=embed',
+  },
+  {
+    id: 4,
+    name: 'Kalimati Branch',
+    address: 'Kalimati, Kathmandu',
+    phone: '01-4278400',
+    mapUrl: 'https://www.google.com/maps?q=27.6995,85.2932&z=16&output=embed',
+  },
+  {
+    id: 5,
+    name: 'Chabahil Branch',
+    address: 'Chabahil, Kathmandu',
+    phone: '01-4488900',
+    mapUrl: 'https://www.google.com/maps?q=27.7172,85.3450&z=16&output=embed',
+  },
+  {
+    id: 6,
+    name: 'Pulchowk Branch',
+    address: 'Pulchowk, Lalitpur',
+    phone: '01-5010146',
+    mapUrl: 'https://www.google.com/maps?q=27.6785,85.3168&z=16&output=embed',
+  },
+  {
+    id: 7,
+    name: 'Bhaktapur Branch',
+    address: 'Sallaghari, Bhaktapur',
+    phone: '01-6612400',
+    mapUrl: 'https://www.google.com/maps?q=27.6725,85.4025&z=16&output=embed',
+  },
+  {
+    id: 8,
+    name: 'Biratnagar Branch',
+    address: 'Goswara Road, Biratnagar',
+    phone: '021-530900',
+    mapUrl: 'https://www.google.com/maps?q=26.4550,87.2718&z=16&output=embed',
+  },
+  {
+    id: 9,
+    name: 'Pokhara Branch',
+    address: 'New Road, Pokhara',
+    phone: '061-540845',
+    mapUrl: 'https://www.google.com/maps?q=28.2096,83.9856&z=16&output=embed',
+  },
+  {
+    id: 10,
+    name: 'Butwal Branch',
+    address: 'Traffic Chowk, Butwal',
+    phone: '071-543900',
+    mapUrl: 'https://www.google.com/maps?q=27.6866,83.4650&z=16&output=embed',
+  },
+  {
+    id: 11,
+    name: 'Birgunj Branch',
+    address: 'Adarsha Nagar, Birgunj',
+    phone: '051-527900',
+    mapUrl: 'https://www.google.com/maps?q=27.0104,84.8770&z=16&output=embed',
+  },
+  {
+    id: 12,
+    name: 'Nepalgunj Branch',
+    address: 'Surkhet Road, Nepalgunj',
+    phone: '081-527700',
+    mapUrl: 'https://www.google.com/maps?q=28.0500,81.6167&z=16&output=embed',
+  },
+];

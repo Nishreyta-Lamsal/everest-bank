@@ -14,7 +14,7 @@ import {
   type FieldVariant,
 } from './fieldStyles';
 
-type SelectFieldOption = {
+export type SelectFieldOption = {
   label: string;
   value: string;
 };

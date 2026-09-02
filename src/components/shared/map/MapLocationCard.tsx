@@ -2,19 +2,19 @@ import { MapPinIcon, TelephoneIcon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
-import type { PayoutLocation } from '../_data/payout-locations';
+import type { MapLocation } from '@/types';
 
-type PayoutLocationCardProps = {
-  location: PayoutLocation;
+type MapLocationCardProps = {
+  location: MapLocation;
   isActive?: boolean;
   onSelect?: (id: number) => void;
 };
 
-export default function PayoutLocationCard({
+export default function MapLocationCard({
   location,
   isActive = false,
   onSelect,
-}: PayoutLocationCardProps) {
+}: MapLocationCardProps) {
   return (
     <article
       onClick={() => onSelect?.(location.id)}

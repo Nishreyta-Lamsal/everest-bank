@@ -1,12 +1,6 @@
-export type PayoutLocation = {
-  id: number;
-  name: string;
-  address: string;
-  phone: string;
-  mapUrl: string;
-};
+import type { MapLocation } from '@/types';
 
-export const payoutLocations: PayoutLocation[] = [
+export const payoutLocations: MapLocation[] = [
   {
     id: 1,
     name: 'New Baneshwor Branch',

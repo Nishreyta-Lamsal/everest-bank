@@ -1,0 +1,88 @@
+import type { MapLocation } from '@/types';
+
+export const atmLocations: MapLocation[] = [
+  {
+    id: 1,
+    name: 'New Baneshwor ATM',
+    address: 'New Baneshwor, Kathmandu',
+    phone: '01-4783100',
+    mapUrl: 'https://www.google.com/maps?q=27.6890,85.3350&z=16&output=embed',
+  },
+  {
+    id: 2,
+    name: 'Lazimpat ATM',
+    address: 'Lazimpat, Kathmandu',
+    phone: '01-4443377',
+    mapUrl: 'https://www.google.com/maps?q=27.7215,85.3200&z=16&output=embed',
+  },
+  {
+    id: 3,
+    name: 'Tribhuvan International Airport ATM',
+    address: 'Sinamangal, Kathmandu',
+    phone: '01-4113200',
+    mapUrl: 'https://www.google.com/maps?q=27.6981,85.3592&z=16&output=embed',
+  },
+  {
+    id: 4,
+    name: 'Thamel ATM',
+    address: 'Thamel, Kathmandu',
+    phone: '01-4700200',
+    mapUrl: 'https://www.google.com/maps?q=27.7154,85.3123&z=16&output=embed',
+  },
+  {
+    id: 5,
+    name: 'Kalimati ATM',
+    address: 'Kalimati, Kathmandu',
+    phone: '01-4278400',
+    mapUrl: 'https://www.google.com/maps?q=27.6995,85.2932&z=16&output=embed',
+  },
+  {
+    id: 6,
+    name: 'Chabahil ATM',
+    address: 'Chabahil, Kathmandu',
+    phone: '01-4488900',
+    mapUrl: 'https://www.google.com/maps?q=27.7172,85.3450&z=16&output=embed',
+  },
+  {
+    id: 7,
+    name: 'Pulchowk ATM',
+    address: 'Pulchowk, Lalitpur',
+    phone: '01-5010146',
+    mapUrl: 'https://www.google.com/maps?q=27.6785,85.3168&z=16&output=embed',
+  },
+  {
+    id: 8,
+    name: 'Bhaktapur ATM',
+    address: 'Sallaghari, Bhaktapur',
+    phone: '01-6612400',
+    mapUrl: 'https://www.google.com/maps?q=27.6725,85.4025&z=16&output=embed',
+  },
+  {
+    id: 9,
+    name: 'Biratnagar ATM',
+    address: 'Goswara Road, Biratnagar',
+    phone: '021-530900',
+    mapUrl: 'https://www.google.com/maps?q=26.4550,87.2718&z=16&output=embed',
+  },
+  {
+    id: 10,
+    name: 'Pokhara ATM',
+    address: 'New Road, Pokhara',
+    phone: '061-540845',
+    mapUrl: 'https://www.google.com/maps?q=28.2096,83.9856&z=16&output=embed',
+  },
+  {
+    id: 11,
+    name: 'Butwal ATM',
+    address: 'Traffic Chowk, Butwal',
+    phone: '071-543900',
+    mapUrl: 'https://www.google.com/maps?q=27.6866,83.4650&z=16&output=embed',
+  },
+  {
+    id: 12,
+    name: 'Birgunj ATM',
+    address: 'Adarsha Nagar, Birgunj',
+    phone: '051-527900',
+    mapUrl: 'https://www.google.com/maps?q=27.0104,84.8770&z=16&output=embed',
+  },
+];

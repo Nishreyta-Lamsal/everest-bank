@@ -20,6 +20,14 @@ export type ProcessStep = {
   description: string;
 };
 
+export type MapLocation = {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  mapUrl: string;
+};
+
 export type StepEntry = {
   number: string;
   title: string;

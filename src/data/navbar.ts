@@ -107,7 +107,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
     icon: CardStackIcon,
     links: [
       { label: 'Everyday banking', href: '#' },
-      { label: 'Tools', href: '#' },
+      { label: 'Tools', href: ROUTE.EMI_CALCULATOR },
       { label: 'Security', href: '#' },
     ],
   },
