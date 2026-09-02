@@ -2,19 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import LoanApplyChecklistItem from './LoanApplyChecklistItem';
+import ProcessItem from './ProcessItem';
 
-import type { LoanApplyChecklistItem as LoanApplyChecklistItemData } from '../../_data';
+import type { ProcessStep } from '@/types';
 
-type LoanApplyChecklistListProps = {
-  items: LoanApplyChecklistItemData[];
+type ProcessListProps = {
+  steps: ProcessStep[];
 };
 
 const AUTO_EXPAND_DELAY = 10000;
 
-export default function LoanApplyChecklistList({
-  items,
-}: LoanApplyChecklistListProps) {
+export default function ProcessList({ steps }: ProcessListProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cycle, setCycle] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -38,7 +36,7 @@ export default function LoanApplyChecklistList({
     intervalRef.current = setInterval(() => {
       if (isPausedRef.current) return;
 
-      setActiveIndex((current) => (current + 1) % items.length);
+      setActiveIndex((current) => (current + 1) % steps.length);
       setCycle((current) => current + 1);
     }, AUTO_EXPAND_DELAY);
   }
@@ -48,7 +46,7 @@ export default function LoanApplyChecklistList({
 
     return stopAutoExpand;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items.length]);
+  }, [steps.length]);
 
   function handleSelect(index: number) {
     setActiveIndex(index);
@@ -64,10 +62,10 @@ export default function LoanApplyChecklistList({
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
-      {items.map((item, index) => (
-        <LoanApplyChecklistItem
-          key={item.title}
-          item={item}
+      {steps.map((step, index) => (
+        <ProcessItem
+          key={step.title}
+          step={step}
           isActive={index === activeIndex}
           isPaused={isPaused}
           progressKey={`${activeIndex}-${cycle}`}

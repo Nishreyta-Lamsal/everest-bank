@@ -13,9 +13,9 @@ export type MegaMenuLink = {
 
 export type MegaMenuColumn = {
   label: string;
-  href?: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   links: MegaMenuLink[];
+  explore?: MegaMenuLink;
 };
 
 export type MegaMenu = {

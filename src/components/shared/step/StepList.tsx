@@ -1,22 +1,22 @@
-import LoanProcessItem from './LoanProcessItem';
+import StepItem from './StepItem';
 
-import type { LoanProcessStep } from '../../_data';
+import type { StepEntry } from '@/types';
 
-type LoanProcessListProps = {
-  steps: LoanProcessStep[];
+type StepListProps = {
+  steps: StepEntry[];
   activeIndex: number;
   onSelect: (index: number) => void;
 };
 
-export default function LoanProcessList({
+export default function StepList({
   steps,
   activeIndex,
   onSelect,
-}: LoanProcessListProps) {
+}: StepListProps) {
   return (
     <div className="order-2 flex w-full flex-col items-start lg:order-1 lg:w-[558px]">
       {steps.map((step, index) => (
-        <LoanProcessItem
+        <StepItem
           key={step.title}
           step={step}
           isActive={index === activeIndex}

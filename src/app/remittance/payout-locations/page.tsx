@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
-import PayoutLocationsHeroSection from './_components/PayoutLocationsHeroSection';
+import MountainHeroSection from '@/components/shared/MountainHeroSection';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import PayoutLocationsFilterBar from './_components/PayoutLocationsFilterBar';
 import PayoutLocationsMapSection from './_components/PayoutLocationsMapSection';
@@ -18,7 +18,10 @@ export default function PayoutLocationsPage() {
   return (
     <main className="relative">
       <Breadcrumbs items={breadcrumbItems} tone="dark" />
-      <PayoutLocationsHeroSection />
+      <MountainHeroSection
+        heading="Payout Locations"
+        buttonLabel="Contact your nearest branch"
+      />
       <section className="w-full pt-8 pb-6 lg:pt-12">
         <LayoutWrapper>
           <PayoutLocationsFilterBar />

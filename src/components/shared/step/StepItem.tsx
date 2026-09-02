@@ -1,18 +1,14 @@
 import { cn } from '@/lib/utils';
 
-import type { LoanProcessStep } from '../../_data';
+import type { StepEntry } from '@/types';
 
-type LoanProcessItemProps = {
-  step: LoanProcessStep;
+type StepItemProps = {
+  step: StepEntry;
   isActive: boolean;
   onSelect: () => void;
 };
 
-export default function LoanProcessItem({
-  step,
-  isActive,
-  onSelect,
-}: LoanProcessItemProps) {
+export default function StepItem({ step, isActive, onSelect }: StepItemProps) {
   return (
     <button
       type="button"

@@ -14,3 +14,15 @@ export type RecommendationRow = {
   label: string;
   value: string;
 };
+
+export type ProcessStep = {
+  title: string;
+  description: string;
+};
+
+export type StepEntry = {
+  number: string;
+  title: string;
+  image: string;
+  alt: string;
+};

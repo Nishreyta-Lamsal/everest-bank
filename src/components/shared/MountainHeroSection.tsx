@@ -4,11 +4,21 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 
-export default function PayoutLocationsHeroSection() {
+type MountainHeroSectionProps = {
+  heading: string;
+  buttonLabel: string;
+  buttonHref?: string;
+};
+
+export default function MountainHeroSection({
+  heading,
+  buttonLabel,
+  buttonHref = '#',
+}: MountainHeroSectionProps) {
   return (
     <section className="relative h-[292px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[308px] lg:bg-[#fff5ed]">
       <Image
-        src="/images/remittance/payout-locations/hero-bg-base.png"
+        src="/images/shared/mountain-hero-base.png"
         alt=""
         fill
         priority
@@ -16,7 +26,7 @@ export default function PayoutLocationsHeroSection() {
       />
       <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/images/remittance/payout-locations/hero-bg-mountain.png"
+          src="/images/shared/mountain-hero-panorama.png"
           alt="Stylized illustration of a snow-capped mountain range"
           width={1440}
           height={542}
@@ -29,15 +39,15 @@ export default function PayoutLocationsHeroSection() {
         <LayoutWrapper>
           <div className="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="font-heading text-display-1-mobile-md lg:text-display-1-desktop-md text-grey-500">
-              Payout Locations
+              {heading}
             </h1>
-            <Link href="#" className="w-[261px] lg:w-auto">
+            <Link href={buttonHref} className="w-[261px] lg:w-auto">
               <Button
                 variant="primary"
                 size="sm"
                 className="lg:text-body-3-desktop-md w-full lg:h-[46px] lg:w-auto"
               >
-                Contact your nearest branch
+                {buttonLabel}
               </Button>
             </Link>
           </div>

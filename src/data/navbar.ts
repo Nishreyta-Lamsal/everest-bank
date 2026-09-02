@@ -46,15 +46,18 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
     label: 'Accounts',
     icon: PeopleIcon,
     links: [
-      { label: 'Savings Account', href: '#' },
+      { label: 'Savings Account', href: ROUTE.SAVING_ACCOUNT },
       { label: 'FCY Deposit Account', href: '#' },
       { label: 'Fixed Deposit Account', href: '#' },
       { label: 'Recurring Deposit Accounts', href: '#' },
     ],
+    explore: {
+      label: 'Explore Deposit Accounts',
+      href: ROUTE.DEPOSIT_ACCOUNTS,
+    },
   },
   {
     label: 'Cards',
-    href: ROUTE.CARDS,
     icon: CardStackIcon,
     links: [
       { label: 'Virtual Credit Card', href: '#' },
@@ -63,6 +66,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
       { label: 'Prepaid Dollar E-Com Card', href: '#' },
       { label: 'Security Tips for E-Commerce', href: '#' },
     ],
+    explore: { label: 'Explore Cards', href: ROUTE.CARDS },
   },
   {
     label: 'Loans',
@@ -77,6 +81,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
       { label: 'Vehicle Loans', href: `${ROUTE.LOANS}/vehicle-loans` },
       { label: 'Retail Loans', href: `${ROUTE.LOANS}/retail-loans` },
     ],
+    explore: { label: 'Explore Loan Services', href: ROUTE.LOANS },
   },
   {
     label: 'Digital Banking',
@@ -116,12 +121,12 @@ const personalMegaMenu: MegaMenu = {
 const businessMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'SME Banking',
-    href: ROUTE.SME_BANKING,
     icon: StoreIcon,
     links: [
       { label: 'SME Loans', href: '#' },
       { label: 'Working Capital', href: '#' },
     ],
+    explore: { label: 'Explore SME Banking', href: ROUTE.SME_BANKING },
   },
   {
     label: 'Corporate Banking',
@@ -207,7 +212,6 @@ const remittanceMegaMenu: MegaMenu = {
 const aboutMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'About Everest',
-    href: ROUTE.ABOUT,
     icon: BankIcon,
     links: [
       { label: 'Profile', href: ROUTE.ABOUT_PROFILE },
@@ -222,6 +226,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
       { label: 'Board of Directors', href: ROUTE.ABOUT_BOARD_OF_DIRECTORS },
       { label: 'Branch Network', href: '#' },
     ],
+    explore: { label: 'Explore About Everest', href: ROUTE.ABOUT },
   },
   {
     label: 'Investor Relations',
@@ -243,12 +248,12 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Careers and CSR',
-    href: '#',
     icon: HeartIcon,
     links: [
       { label: 'Careers', href: '#' },
       { label: 'CSR', href: '#' },
     ],
+    explore: { label: 'Explore Careers and CSR', href: '#' },
   },
 ];
 

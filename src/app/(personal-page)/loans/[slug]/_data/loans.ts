@@ -1,4 +1,4 @@
-import type { FaqEntry } from '@/types';
+import type { FaqEntry, ProcessStep, StepEntry } from '@/types';
 
 export type LoanCta = {
   label: string;
@@ -25,17 +25,12 @@ export type LoanEligibility = {
   requirementsHref: string;
 };
 
-export type LoanApplyChecklistItem = {
-  title: string;
-  description: string;
-};
-
 export type LoanApplyChecklist = {
   heading: string;
   applyHref: string;
   image: string;
   imageAlt: string;
-  items: LoanApplyChecklistItem[];
+  items: ProcessStep[];
 };
 
 export type LoanFinancingCard = {
@@ -51,17 +46,10 @@ export type LoanFinancing = {
   cards: LoanFinancingCard[];
 };
 
-export type LoanProcessStep = {
-  number: string;
-  title: string;
-  image: string;
-  alt: string;
-};
-
 export type LoanProcess = {
   heading: string;
   applyHref: string;
-  steps: LoanProcessStep[];
+  steps: StepEntry[];
 };
 
 export type LoanImpactStat = {

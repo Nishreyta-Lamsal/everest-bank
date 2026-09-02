@@ -2,10 +2,10 @@ import { RouteIcon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
-import type { LoanApplyChecklistItem as LoanApplyChecklistItemData } from '../../_data';
+import type { ProcessStep } from '@/types';
 
-type LoanApplyChecklistItemProps = {
-  item: LoanApplyChecklistItemData;
+type ProcessItemProps = {
+  step: ProcessStep;
   isActive: boolean;
   isPaused: boolean;
   progressKey: string;
@@ -13,15 +13,15 @@ type LoanApplyChecklistItemProps = {
   onSelect: () => void;
 };
 
-export default function LoanApplyChecklistItem({
-  item,
+export default function ProcessItem({
+  step,
   isActive,
   isPaused,
   progressKey,
   duration,
   onSelect,
-}: LoanApplyChecklistItemProps) {
-  const panelId = `apply-checklist-${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}: ProcessItemProps) {
+  const panelId = `process-step-${step.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function LoanApplyChecklistItem({
         </div>
 
         <span className="font-heading text-title-1-mobile lg:text-title-0-desktop text-grey-500">
-          {item.title}
+          {step.title}
         </span>
 
         <div
@@ -64,7 +64,7 @@ export default function LoanApplyChecklistItem({
               aria-hidden={!isActive}
               className="text-body-3-mobile lg:text-body-2-mobile text-grey-400 max-w-[378px] pt-3 lg:pt-4"
             >
-              {item.description}
+              {step.description}
             </p>
           </div>
         </div>

@@ -18,7 +18,7 @@ export function useScrollStepper(stepCount: number) {
 
         const trigger = ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top 18%',
+          start: 'top 15%',
           end: `+=${STEP_SCROLL_DISTANCE * (stepCount - 1)}`,
           pin: true,
           scrub: true,

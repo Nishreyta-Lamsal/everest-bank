@@ -18,6 +18,7 @@ type RecommendationSectionProps = {
   secondaryCtaLabel: string;
   primaryCtaHref?: string;
   secondaryCtaHref?: string;
+  showPrimaryCtaIcon?: boolean;
   image: string;
   imageAlt: string;
 };
@@ -31,6 +32,7 @@ export default function RecommendationSection({
   secondaryCtaLabel,
   primaryCtaHref = '#',
   secondaryCtaHref = '#',
+  showPrimaryCtaIcon = true,
   image,
   imageAlt,
 }: RecommendationSectionProps) {
@@ -76,7 +78,9 @@ export default function RecommendationSection({
                     size="sm"
                     className="w-full lg:h-[42px] lg:w-auto"
                     rightIcon={
-                      <ArrowUpRightIcon className="size-3.5 lg:size-4" />
+                      showPrimaryCtaIcon ? (
+                        <ArrowUpRightIcon className="size-3.5 lg:size-4" />
+                      ) : undefined
                     }
                   >
                     {primaryCtaLabel}
