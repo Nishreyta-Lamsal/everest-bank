@@ -37,7 +37,7 @@ export const utilityNavItems: UtilityNavItem[] = [
   { label: 'Calendar 2026', href: '#', icon: CalendarIcon },
   { label: 'Forex Rates', href: '#', icon: TrendingUpIcon },
   { label: 'Cyber Security', href: '#', icon: ShieldCheckIcon },
-  { label: 'ATM/Branch', href: '#', icon: MapPinIcon },
+  { label: 'ATM/Branch', href: ROUTE.ATM, icon: MapPinIcon },
   { label: 'English', href: '#', icon: LanguageIcon },
 ];
 
