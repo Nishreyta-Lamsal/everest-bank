@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 import NavbarMenuItem from './NavbarMenuItem';
-import NavbarPersonalMenu from './NavbarPersonalMenu';
+import NavbarMegaMenu from './mega-menu/NavbarMegaMenu';
 import NavbarSearchInput from '../NavbarSearchInput';
 import Button from '@/components/ui/buttons/Button';
 
@@ -14,51 +14,51 @@ import { mainNavItems } from '@/data';
 
 export default function NavbarMainBar() {
   const pathname = usePathname();
-  const [isPersonalMenuOpen, setIsPersonalMenuOpen] = useState(false);
+  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const [prevPathname, setPrevPathname] = useState(pathname);
   const containerRef = useRef<HTMLDivElement>(null);
 
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
-    setIsPersonalMenuOpen(false);
+    setOpenMenuLabel(null);
   }
 
-  function openPersonalMenu() {
-    setIsPersonalMenuOpen(true);
-  }
-
-  function closePersonalMenu() {
-    setIsPersonalMenuOpen(false);
+  function closeMegaMenu() {
+    setOpenMenuLabel(null);
   }
 
   function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
     if (!containerRef.current?.contains(event.relatedTarget)) {
-      closePersonalMenu();
+      closeMegaMenu();
     }
   }
+
+  const openMenuItem = mainNavItems.find(
+    (item) => item.label === openMenuLabel,
+  );
 
   return (
     <div ref={containerRef} onBlur={handleBlur} className="relative">
       <div className="flex items-center justify-between pr-4 md:pr-10 xl:pr-22">
         <nav aria-label="Main navigation" className="flex items-center">
           {mainNavItems.map((item, index) =>
-            item.label === 'Personal' ? (
+            item.megaMenu ? (
               <div
                 key={item.label}
-                onMouseEnter={openPersonalMenu}
-                onMouseLeave={closePersonalMenu}
+                onMouseEnter={() => setOpenMenuLabel(item.label)}
+                onMouseLeave={closeMegaMenu}
               >
                 <NavbarMenuItem
                   {...item}
                   isFirst={index === 0}
                   hasDropdown
-                  isExpanded={isPersonalMenuOpen}
+                  isExpanded={openMenuLabel === item.label}
                   isActive={isNavItemActive(
                     pathname,
                     item.href,
                     item.activePrefixes,
                   )}
-                  onFocus={openPersonalMenu}
+                  onFocus={() => setOpenMenuLabel(item.label)}
                 />
               </div>
             ) : (
@@ -82,13 +82,16 @@ export default function NavbarMainBar() {
           </Button>
         </div>
       </div>
-      {isPersonalMenuOpen && (
+      {openMenuItem?.megaMenu && (
         <div
           className="absolute top-full left-0 z-50 w-full"
-          onMouseEnter={openPersonalMenu}
-          onMouseLeave={closePersonalMenu}
+          onMouseEnter={() => setOpenMenuLabel(openMenuItem.label)}
+          onMouseLeave={closeMegaMenu}
         >
-          <NavbarPersonalMenu />
+          <NavbarMegaMenu
+            label={openMenuItem.label}
+            {...openMenuItem.megaMenu}
+          />
         </div>
       )}
     </div>

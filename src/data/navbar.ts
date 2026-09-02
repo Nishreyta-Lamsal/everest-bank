@@ -3,19 +3,33 @@ import {
   BanknoteIcon,
   BellIcon,
   BriefcaseIcon,
+  BuildingsIcon,
   CalendarIcon,
+  CardIcon,
   CardStackIcon,
+  CourtIcon,
   GavelIcon,
+  HeartIcon,
   LanguageIcon,
   MapPinIcon,
+  MoneyBagIcon,
   PeopleIcon,
+  PieChartIcon,
   ShieldCheckIcon,
+  SmartphoneIcon,
+  StoreIcon,
+  TransferIcon,
   TrendingUpIcon,
 } from '@/components/icons';
 
 import { ROUTE } from '@/constants/route';
 
-import type { MainNavItem, PersonalMenuColumn, UtilityNavItem } from '@/types';
+import type {
+  MainNavItem,
+  MegaMenu,
+  MegaMenuColumn,
+  UtilityNavItem,
+} from '@/types';
 
 export const utilityNavItems: UtilityNavItem[] = [
   { label: 'Notice', href: '#', icon: BellIcon },
@@ -27,19 +41,7 @@ export const utilityNavItems: UtilityNavItem[] = [
   { label: 'English', href: '#', icon: LanguageIcon },
 ];
 
-export const mainNavItems: MainNavItem[] = [
-  {
-    label: 'Personal',
-    href: ROUTE.PERSONAL,
-    icon: PeopleIcon,
-    activePrefixes: [ROUTE.CARDS, ROUTE.LOANS],
-  },
-  { label: 'Business', href: ROUTE.BUSINESS, icon: BriefcaseIcon },
-  { label: 'Remittance', href: ROUTE.REMITTANCE, icon: BanknoteIcon },
-  { label: 'About', href: ROUTE.ABOUT, icon: BankIcon },
-];
-
-export const personalMenuColumns: PersonalMenuColumn[] = [
+const personalMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'Accounts',
     icon: PeopleIcon,
@@ -103,5 +105,182 @@ export const personalMenuColumns: PersonalMenuColumn[] = [
       { label: 'Tools', href: '#' },
       { label: 'Security', href: '#' },
     ],
+  },
+];
+
+const personalMegaMenu: MegaMenu = {
+  columns: personalMegaMenuColumns,
+  cta: { label: 'Apply for your visa card', href: '#' },
+};
+
+const businessMegaMenuColumns: MegaMenuColumn[] = [
+  {
+    label: 'SME Banking',
+    href: ROUTE.SME_BANKING,
+    icon: StoreIcon,
+    links: [
+      { label: 'SME Loans', href: '#' },
+      { label: 'Working Capital', href: '#' },
+    ],
+  },
+  {
+    label: 'Corporate Banking',
+    icon: BuildingsIcon,
+    links: [
+      { label: 'Corporate Loans', href: '#' },
+      { label: 'Accounts', href: '#' },
+      { label: 'Treasury', href: '#' },
+    ],
+  },
+  {
+    label: 'Trade and Government',
+    icon: CourtIcon,
+    links: [
+      { label: 'Trade Finance', href: '#' },
+      { label: 'Government Business', href: '#' },
+      { label: 'Tax Collection', href: '#' },
+    ],
+  },
+  {
+    label: 'Payment Solutions',
+    icon: CardIcon,
+    links: [
+      { label: 'Corporate Pay', href: '#' },
+      { label: 'Merchant QR', href: '#' },
+      { label: 'Payroll', href: '#' },
+      { label: 'QR Soundbox', href: '#' },
+    ],
+  },
+  {
+    label: 'Services',
+    icon: CardStackIcon,
+    links: [
+      { label: 'Digital Business Banking', href: '#' },
+      { label: 'Resources', href: '#' },
+    ],
+  },
+];
+
+const businessMegaMenu: MegaMenu = {
+  columns: businessMegaMenuColumns,
+  cta: { label: 'Apply for a business loan', href: '#' },
+};
+
+const remittanceMegaMenuColumns: MegaMenuColumn[] = [
+  {
+    label: 'Send Money',
+    icon: TransferIcon,
+    links: [
+      { label: 'Outward Remittance', href: '#' },
+      { label: 'Student Payments', href: '#' },
+      { label: 'Travel Payments', href: '#' },
+    ],
+  },
+  {
+    label: 'Receive Money',
+    icon: MoneyBagIcon,
+    links: [
+      { label: 'Inward Remittance', href: '#' },
+      { label: 'Indo-Nepal Remittance', href: '#' },
+    ],
+  },
+  {
+    label: 'Locations',
+    icon: MapPinIcon,
+    links: [
+      { label: 'Payout Locations', href: ROUTE.PAYOUT_LOCATIONS },
+      { label: 'Representatives Worldwide', href: '#' },
+    ],
+  },
+  {
+    label: 'Digital',
+    icon: SmartphoneIcon,
+    links: [{ label: 'Online Remittance Portal', href: '#' }],
+  },
+];
+
+const remittanceMegaMenu: MegaMenu = {
+  columns: remittanceMegaMenuColumns,
+  cta: { label: 'Find a payout location', href: ROUTE.PAYOUT_LOCATIONS },
+};
+
+const aboutMegaMenuColumns: MegaMenuColumn[] = [
+  {
+    label: 'About Everest',
+    href: ROUTE.ABOUT,
+    icon: BankIcon,
+    links: [
+      { label: 'Profile', href: ROUTE.ABOUT_PROFILE },
+      {
+        label: 'Corporate Mission and Vision',
+        href: ROUTE.ABOUT_CORPORATE_MISSION_AND_VISION,
+      },
+      {
+        label: 'Organization Structure',
+        href: ROUTE.ABOUT_ORGANIZATION_STRUCTURE,
+      },
+      { label: 'Board of Directors', href: ROUTE.ABOUT_BOARD_OF_DIRECTORS },
+      { label: 'Branch Network', href: '#' },
+    ],
+  },
+  {
+    label: 'Investor Relations',
+    icon: PieChartIcon,
+    links: [
+      { label: 'Annual & Quarterly Reports', href: '#' },
+      { label: 'Capital Adequacy', href: '#' },
+      { label: 'AGM', href: '#' },
+    ],
+  },
+  {
+    label: 'Media and Updates',
+    icon: BellIcon,
+    links: [
+      { label: 'News', href: '#' },
+      { label: 'Notices', href: '#' },
+      { label: 'Awards', href: '#' },
+    ],
+  },
+  {
+    label: 'Careers and CSR',
+    href: '#',
+    icon: HeartIcon,
+    links: [
+      { label: 'Careers', href: '#' },
+      { label: 'CSR', href: '#' },
+    ],
+  },
+];
+
+const aboutMegaMenu: MegaMenu = {
+  columns: aboutMegaMenuColumns,
+  cta: { label: 'Explore careers at Everest', href: '#' },
+};
+
+export const mainNavItems: MainNavItem[] = [
+  {
+    label: 'Personal',
+    href: ROUTE.PERSONAL,
+    icon: PeopleIcon,
+    activePrefixes: [ROUTE.CARDS, ROUTE.LOANS],
+    megaMenu: personalMegaMenu,
+  },
+  {
+    label: 'Business',
+    href: ROUTE.BUSINESS,
+    icon: BriefcaseIcon,
+    megaMenu: businessMegaMenu,
+  },
+  {
+    label: 'Remittance',
+    href: ROUTE.REMITTANCE,
+    icon: BanknoteIcon,
+    megaMenu: remittanceMegaMenu,
+  },
+  {
+    label: 'About',
+    href: ROUTE.ABOUT,
+    icon: BankIcon,
+    megaMenu: aboutMegaMenu,
   },
 ];

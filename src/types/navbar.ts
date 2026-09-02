@@ -6,26 +6,38 @@ export type UtilityNavItem = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
+export type MegaMenuLink = {
+  label: string;
+  href: string;
+};
+
+export type MegaMenuColumn = {
+  label: string;
+  href?: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  links: MegaMenuLink[];
+};
+
+export type MegaMenu = {
+  columns: MegaMenuColumn[];
+  cta: MegaMenuLink;
+};
+
 export type MainNavItem = {
   label: string;
   href: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   activePrefixes?: string[];
-};
-
-export type PersonalMenuLink = {
-  label: string;
-  href: string;
-};
-
-export type PersonalMenuColumn = {
-  label: string;
-  href?: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-  links: PersonalMenuLink[];
+  megaMenu?: MegaMenu;
 };
 
 export type NavbarUtilityLinkProps = UtilityNavItem;
+
+export type NavbarMegaMenuProps = MegaMenu & {
+  label: string;
+};
+
+export type NavbarMegaMenuColumnProps = MegaMenuColumn;
 
 export type NavbarMenuItemProps = {
   label: string;
