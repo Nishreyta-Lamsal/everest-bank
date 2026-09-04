@@ -1,7 +1,6 @@
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import BranchesHeroSection from './_components/BranchesHeroSection';
-import MapFilterBar from '@/components/shared/map/MapFilterBar';
-import MapSection from '@/components/shared/map/MapSection';
+import MapExplorer from '@/components/shared/map/MapExplorer';
 
 import { branchLocations } from './_data/branch-locations';
 import NewsSection from '@/components/shared/news/NewsSection';
@@ -14,8 +13,11 @@ export default function BranchesPage() {
     <main className="relative">
       <Breadcrumbs items={breadcrumbItems} tone="dark" />
       <BranchesHeroSection />
-      <MapFilterBar searchPlaceholder="Branch name, address" />
-      <MapSection locations={branchLocations} resultsLabel="branches found" />
+      <MapExplorer
+        locations={branchLocations}
+        searchPlaceholder="Branch name, address"
+        resultsLabel="branches found"
+      />
       <NewsSection />
       <ContactSection />
     </main>

@@ -1,7 +1,6 @@
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import MountainHeroSection from '@/components/shared/MountainHeroSection';
-import MapFilterBar from '@/components/shared/map/MapFilterBar';
-import MapSection from '@/components/shared/map/MapSection';
+import MapExplorer from '@/components/shared/map/MapExplorer';
 
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
@@ -22,8 +21,7 @@ export default function PayoutLocationsPage() {
         heading="Payout Locations"
         buttonLabel="Contact your nearest branch"
       />
-      <MapFilterBar />
-      <MapSection
+      <MapExplorer
         locations={payoutLocations}
         resultsLabel="payout locations found"
       />

@@ -1,42 +1,32 @@
-'use client';
-
-import { useState } from 'react';
-
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import SelectField from '@/components/ui/inputs/SelectField';
 import TextField from '@/components/ui/inputs/TextField';
 import FilterButton from '@/components/ui/buttons/FilterButton';
-import { MapPaperIcon, SearchIcon, TextBlockIcon } from '@/components/icons';
+import { GridIcon, MapPaperIcon, SearchIcon } from '@/components/icons';
 
 import type { SelectFieldOption } from '@/components/ui/inputs/SelectField';
-
-type MapView = 'map' | 'list';
+import type { MapView } from '@/types';
 
 type MapFilterBarProps = {
+  view: MapView;
+  onViewChange: (view: MapView) => void;
   provinceOptions?: SelectFieldOption[];
   districtOptions?: SelectFieldOption[];
   searchPlaceholder?: string;
-  onViewChange?: (view: MapView) => void;
 };
 
 const VIEW_OPTIONS = [
   { value: 'map', label: 'Map', icon: MapPaperIcon },
-  { value: 'list', label: 'List', icon: TextBlockIcon },
+  { value: 'grid', label: 'Grid', icon: GridIcon },
 ] as const;
 
 export default function MapFilterBar({
+  view,
+  onViewChange,
   provinceOptions = [],
   districtOptions = [],
   searchPlaceholder = 'Name, address',
-  onViewChange,
 }: MapFilterBarProps) {
-  const [view, setView] = useState<MapView>('map');
-
-  const selectView = (nextView: MapView) => {
-    setView(nextView);
-    onViewChange?.(nextView);
-  };
-
   return (
     <section className="w-full pt-8 pb-6 lg:pt-12">
       <LayoutWrapper>
@@ -78,7 +68,7 @@ export default function MapFilterBar({
                 key={value}
                 active={view === value}
                 aria-pressed={view === value}
-                onClick={() => selectView(value)}
+                onClick={() => onViewChange(value)}
                 leftIcon={<Icon className="size-4" />}
                 className="flex-1 lg:flex-none"
               >

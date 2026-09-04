@@ -28,6 +28,8 @@ export type MapLocation = {
   mapUrl: string;
 };
 
+export type MapView = 'map' | 'grid';
+
 export type StepEntry = {
   number: string;
   title: string;
