@@ -6,6 +6,8 @@ import {
   FeedbackIcon,
 } from '@/components/icons';
 
+import { ROUTE } from '@/constants';
+
 export type ActionBadge = {
   label: string;
   href: string;
@@ -15,12 +17,12 @@ export type ActionBadge = {
 export const actionBadges: ActionBadge[] = [
   {
     label: 'EMI CALCULATOR',
-    href: '#',
+    href: ROUTE.EMI_CALCULATOR,
     icon: CalculatorIcon,
   },
   {
     label: 'ATM & Branches',
-    href: '#',
+    href: ROUTE.ATM,
     icon: AtmMachineIcon,
   },
   {

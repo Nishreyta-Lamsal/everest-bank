@@ -4,7 +4,7 @@ import NavbarMobile from './mobile/NavbarMobile';
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
+    <header className="w-full bg-white">
       <NavbarMobile />
       <div className="hidden lg:block">
         <NavbarUtilityBar />

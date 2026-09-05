@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 export type CardTile = {
   title: string;
   href: string;
@@ -7,12 +9,12 @@ export type CardTile = {
 export const cardTiles: CardTile[] = [
   {
     title: 'Flexible Credit for Your Everyday Needs',
-    href: '#',
+    href: ROUTE.CARDS,
     roundedCorner: 'right',
   },
   {
     title: 'Find the Card That Fits Your Lifestyle',
-    href: '#',
+    href: ROUTE.CARDS,
     roundedCorner: 'left',
   },
 ];

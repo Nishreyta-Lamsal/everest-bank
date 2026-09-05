@@ -21,7 +21,7 @@ export default function OrganizationStructurePage() {
         imageAlt="Signage on the exterior of an Everest Bank branch"
         heading="Organizational Structure"
         buttonLabel="Contact Near Branch"
-        buttonHref="#"
+        buttonHref={ROUTE.BRANCHES}
       />
       <OrganizationStructureContentSection />
       <NewsSection />

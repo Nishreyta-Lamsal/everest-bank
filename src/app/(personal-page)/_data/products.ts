@@ -10,6 +10,8 @@ import {
   TransferIcon,
 } from '@/components/icons';
 
+import { ROUTE } from '@/constants';
+
 export type ProductCardData = {
   title: string;
   subtitle: string;
@@ -27,7 +29,7 @@ export const topProductCards: ProductCardData[] = [
   {
     title: 'Personal Loans',
     subtitle: 'Home · Auto · Personal',
-    href: '#',
+    href: ROUTE.LOANS,
     icon: BankIcon,
   },
   {
@@ -42,19 +44,19 @@ export const bottomProductCards: ProductCardData[] = [
   {
     title: 'Money Transfer',
     subtitle: 'Send & Receive Instantly',
-    href: '#',
+    href: ROUTE.REMITTANCE,
     icon: TransferIcon,
   },
   {
     title: 'Cards',
     subtitle: 'Debit · Credit · Premium',
-    href: '#',
+    href: ROUTE.CARDS,
     icon: CardIcon,
   },
   {
     title: 'Fixed Deposits',
     subtitle: 'Grow Savings, Better Returns',
-    href: '#',
+    href: ROUTE.DEPOSIT_ACCOUNTS,
     icon: SafeIcon,
   },
   {

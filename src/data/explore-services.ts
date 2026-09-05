@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 export type ExploreServiceCard = {
   title: string;
   image: string;
@@ -8,7 +10,7 @@ export const exploreServiceCards: ExploreServiceCard[] = [
   {
     title: 'Loan Products',
     image: '/images/loans/home-loan.png',
-    href: '#',
+    href: ROUTE.LOANS,
   },
   {
     title: 'Digital Banking',

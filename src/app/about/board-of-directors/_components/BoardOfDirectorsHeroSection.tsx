@@ -4,6 +4,8 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 
+import { ROUTE } from '@/constants';
+
 export default function BoardOfDirectorsHeroSection() {
   return (
     <section className="relative h-[312px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[308px] lg:bg-[#fff5ed]">
@@ -35,7 +37,7 @@ export default function BoardOfDirectorsHeroSection() {
             <h1 className="font-heading text-heading-h2-mobile-md md:text-display-1-mobile-md lg:text-display-1-desktop-md text-grey-500">
               Board of Directors
             </h1>
-            <Link href="#" className="w-full lg:w-auto">
+            <Link href={ROUTE.BRANCHES} className="w-full lg:w-auto">
               <Button
                 variant="primary"
                 size="sm"

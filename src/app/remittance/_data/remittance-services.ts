@@ -2,6 +2,8 @@ import type { ComponentType, SVGProps } from 'react';
 
 import { BankIcon } from '@/components/icons';
 
+import { ROUTE } from '@/constants';
+
 export type RemittanceServiceCard = {
   title: string;
   subtitle: string;
@@ -31,7 +33,7 @@ export const remittanceServiceCards: RemittanceServiceCard[] = [
   {
     title: 'Payout Locations',
     subtitle: 'Find a payout location',
-    href: '#',
+    href: ROUTE.PAYOUT_LOCATIONS,
     icon: BankIcon,
   },
   {

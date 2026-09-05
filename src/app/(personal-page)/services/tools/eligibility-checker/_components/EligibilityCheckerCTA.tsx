@@ -4,6 +4,7 @@ import GradientCard from '@/components/ui/cards/GradientCard';
 import { PhoneCallIcon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
+import { ROUTE } from '@/constants';
 import { applicationHref } from '../_data/eligibility-checker';
 
 export default function EligibilityCheckerCTA() {
@@ -26,7 +27,7 @@ export default function EligibilityCheckerCTA() {
               Start Your Application
             </Button>
           </Link>
-          <Link href="#" className="block w-full lg:flex-1">
+          <Link href={ROUTE.BRANCHES} className="block w-full lg:flex-1">
             <Button
               variant="secondary"
               size="lg"

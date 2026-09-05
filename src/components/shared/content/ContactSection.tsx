@@ -6,6 +6,7 @@ import Button from '@/components/ui/buttons/Button';
 
 import { cn } from '@/lib/utils';
 
+import { ROUTE } from '@/constants';
 import { contactHelpTopics } from '@/data';
 
 export default function ContactSection() {
@@ -18,7 +19,10 @@ export default function ContactSection() {
               Get in touch with us anytime.
             </h2>
             <div className="flex flex-col gap-4">
-              <Link href="#" className="block w-full lg:inline-block lg:w-auto">
+              <Link
+                href={ROUTE.ABOUT}
+                className="block w-full lg:inline-block lg:w-auto"
+              >
                 <Button
                   variant="tertiary-white"
                   size="lg"

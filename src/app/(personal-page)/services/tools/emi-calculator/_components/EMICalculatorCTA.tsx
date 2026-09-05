@@ -28,7 +28,7 @@ export default function EMICalculatorCTA() {
               Apply for a Loan
             </Button>
           </Link>
-          <Link href="#" className="block w-full lg:flex-1">
+          <Link href={ROUTE.BRANCHES} className="block w-full lg:flex-1">
             <Button
               variant="secondary"
               size="lg"

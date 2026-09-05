@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 export type AboutLinkCard = {
   title: string;
   href: string;
@@ -8,25 +10,25 @@ export type AboutLinkCard = {
 export const aboutLinkCards: AboutLinkCard[] = [
   {
     title: 'Profile',
-    href: '#',
+    href: ROUTE.ABOUT_PROFILE,
     image: '/images/about/profile.png',
     imageAlt: 'Signage on the exterior of an Everest Bank branch',
   },
   {
     title: 'Mission & Vision',
-    href: '#',
+    href: ROUTE.ABOUT_CORPORATE_MISSION_AND_VISION,
     image: '/images/about/mission-vision.png',
     imageAlt: 'Everest Bank leadership signing an agreement',
   },
   {
     title: 'Organizational Structure',
-    href: '#',
+    href: ROUTE.ABOUT_ORGANIZATION_STRUCTURE,
     image: '/images/about/org-structure.png',
     imageAlt: 'Everest Bank staff gathered for a group photo',
   },
   {
     title: 'Branch Network',
-    href: '#',
+    href: ROUTE.BRANCHES,
     image: '/images/about/branch-network.png',
     imageAlt: 'Ribbon-cutting ceremony at an Everest Bank branch opening',
   },

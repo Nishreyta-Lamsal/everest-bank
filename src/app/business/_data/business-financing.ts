@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 export type BusinessFinancingContentCard = {
   title: string;
   description: string;
@@ -39,5 +41,5 @@ export const businessFinancingMediaCard: BusinessFinancingMediaCard = {
   label: 'SME Banking',
   image: '/images/business/sme-banking.png',
   imageAlt: 'A merchant carrying handwoven rugs to market',
-  href: '#',
+  href: ROUTE.SME_BANKING,
 };

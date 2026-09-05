@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 import type { ProductListEntry } from '@/types';
 
 export const depositProducts: ProductListEntry[] = [
@@ -5,7 +7,7 @@ export const depositProducts: ProductListEntry[] = [
     index: '01',
     title: 'Savings Account',
     description: 'Save with flexibility and easy access to your money.',
-    href: '#',
+    href: ROUTE.SAVING_ACCOUNT,
   },
   {
     index: '02',

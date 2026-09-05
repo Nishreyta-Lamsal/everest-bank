@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants';
+
 export type LoanCard = {
   title: string;
   href: string;
@@ -7,17 +9,17 @@ export type LoanCard = {
 export const loanCards: LoanCard[] = [
   {
     title: 'Making Your Dream Home More Attainable',
-    href: '#',
+    href: ROUTE.LOANS,
     image: '/images/loans/home-loan.png',
   },
   {
     title: 'Simple Financing Solutions For Everyday Goals',
-    href: '#',
+    href: ROUTE.LOANS,
     image: '/images/loans/personal-loan.png',
   },
   {
     title: 'Drive Forward With Smarter Financial Support',
-    href: '#',
+    href: ROUTE.LOANS,
     image: '/images/loans/auto-loan.png',
   },
 ];

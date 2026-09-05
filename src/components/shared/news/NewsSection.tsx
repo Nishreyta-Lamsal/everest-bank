@@ -8,6 +8,7 @@ import { newsService } from '@/api/services/news.service';
 
 import { getQueryClient } from '@/lib/get-query-client';
 
+import { ROUTE } from '@/constants';
 import { newsCards } from '@/data';
 
 import type { News } from '@/api/services/news.service';
@@ -51,7 +52,7 @@ export default async function NewsSection() {
             Stay updated With Everest Bank
           </h2>
           <Link
-            href="#"
+            href={ROUTE.NOTICE}
             className="order-3 block w-full lg:order-0 lg:inline-block lg:w-auto"
           >
             <Button variant="secondary" size="md" className="w-full lg:w-auto">

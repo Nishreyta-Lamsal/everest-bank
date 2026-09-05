@@ -23,7 +23,7 @@ export default function ProfilePage() {
         imageAlt="Signage on the exterior of an Everest Bank branch"
         heading="Profile"
         buttonLabel="Contact Near Branch"
-        buttonHref="#"
+        buttonHref={ROUTE.BRANCHES}
       />
       <ContentStatsSection stats={profileStats} />
       <ProfileContentSection />

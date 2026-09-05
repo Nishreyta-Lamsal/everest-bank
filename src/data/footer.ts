@@ -1,3 +1,5 @@
+import { ROUTE } from '@/constants/route';
+
 import type { FooterLinkColumn, FooterOfficer } from '@/types';
 
 export const footerOfficers: FooterOfficer[] = [
@@ -23,9 +25,9 @@ export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: 'About Everest Bank',
     links: [
-      { label: 'About', href: '#' },
-      { label: 'Find Us', href: '#' },
-      { label: 'News & Notices', href: '#' },
+      { label: 'About', href: ROUTE.ABOUT },
+      { label: 'Find Us', href: ROUTE.BRANCHES },
+      { label: 'News & Notices', href: ROUTE.NOTICE },
       { label: 'Press Release', href: '#' },
       { label: 'Careers', href: '#' },
       { label: 'Privacy Policy', href: '#' },
@@ -37,12 +39,12 @@ export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: 'Explore',
     links: [
-      { label: 'Apply for loans', href: '#' },
-      { label: 'Fixed Deposite', href: '#' },
-      { label: 'Apply for Cards', href: '#' },
-      { label: 'Send Money to Nepal', href: '#' },
+      { label: 'Apply for loans', href: ROUTE.LOANS },
+      { label: 'Fixed Deposits', href: ROUTE.DEPOSIT_ACCOUNTS },
+      { label: 'Apply for Cards', href: ROUTE.CARDS },
+      { label: 'Send Money to Nepal', href: ROUTE.REMITTANCE },
       { label: 'Online Account Opening', href: '#' },
-      { label: 'Check Loan Eligibility', href: '#' },
+      { label: 'Check Loan Eligibility', href: ROUTE.ELIGIBILITY_CHECKER },
       { label: 'Cybersecurity Awareness', href: '#' },
       { label: 'Pratibimba', href: '#' },
       { label: 'e-Calendar 2082', href: '#' },
@@ -52,11 +54,11 @@ export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: 'Miscellaneous',
     links: [
-      { label: 'FD Calculator', href: '#' },
-      { label: 'EMI Calculator', href: '#' },
-      { label: 'Rates and Fees', href: '#' },
+      { label: 'FD Calculator', href: ROUTE.FD_CALCULATOR },
+      { label: 'EMI Calculator', href: ROUTE.EMI_CALCULATOR },
+      { label: 'Rates and Fees', href: ROUTE.FOREX_RATES },
       { label: 'Banking Hours', href: '#' },
-      { label: 'Branch Network', href: '#' },
+      { label: 'Branch Network', href: ROUTE.BRANCHES },
       { label: 'Extension Counter', href: '#' },
       { label: 'Learning and Development', href: '#' },
       { label: 'Downloads', href: '#' },

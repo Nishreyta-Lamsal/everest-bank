@@ -32,10 +32,10 @@ import type {
 } from '@/types';
 
 export const utilityNavItems: UtilityNavItem[] = [
-  { label: 'Notice', href: '#', icon: BellIcon },
+  { label: 'Notice', href: ROUTE.NOTICE, icon: BellIcon },
   { label: 'Auction Notice', href: '#', icon: GavelIcon },
   { label: 'Calendar 2026', href: '#', icon: CalendarIcon },
-  { label: 'Forex Rates', href: '#', icon: TrendingUpIcon },
+  { label: 'Forex Rates', href: ROUTE.FOREX_RATES, icon: TrendingUpIcon },
   { label: 'Cyber Security', href: '#', icon: ShieldCheckIcon },
   { label: 'ATM/Branch', href: ROUTE.ATM, icon: MapPinIcon },
   { label: 'English', href: '#', icon: LanguageIcon },
@@ -107,7 +107,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
     icon: CardStackIcon,
     links: [
       { label: 'Everyday banking', href: '#' },
-      { label: 'Tools', href: ROUTE.EMI_CALCULATOR },
+      { label: 'Tools', href: ROUTE.TOOLS },
       { label: 'Security', href: '#' },
     ],
   },
@@ -224,7 +224,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
         href: ROUTE.ABOUT_ORGANIZATION_STRUCTURE,
       },
       { label: 'Board of Directors', href: ROUTE.ABOUT_BOARD_OF_DIRECTORS },
-      { label: 'Branch Network', href: '#' },
+      { label: 'Branch Network', href: ROUTE.BRANCHES },
     ],
     explore: { label: 'Explore About Everest', href: ROUTE.ABOUT },
   },
@@ -242,7 +242,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
     icon: BellIcon,
     links: [
       { label: 'News', href: '#' },
-      { label: 'Notices', href: '#' },
+      { label: 'Notices', href: ROUTE.NOTICE },
       { label: 'Awards', href: '#' },
     ],
   },
