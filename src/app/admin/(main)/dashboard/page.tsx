@@ -1,4 +1,4 @@
-import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import LayoutWrapper from '@/components/admin/layouts/wrapper/LayoutWrapper';
 import DashboardBanner from './_components/DashboardBanner';
 import DashboardContent from './_components/DashboardContent';
 

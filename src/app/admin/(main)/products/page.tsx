@@ -1,4 +1,4 @@
-import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import LayoutWrapper from '@/components/admin/layouts/wrapper/LayoutWrapper';
 import ProductsHeader from './_components/ProductsHeader';
 import ProductsFilterTabs from './_components/products-filters/ProductsFilterTabs';
 import ProductsListCard from './_components/products-list/ProductsListCard';

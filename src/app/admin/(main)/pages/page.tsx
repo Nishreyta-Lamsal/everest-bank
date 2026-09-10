@@ -1,4 +1,4 @@
-import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
+import LayoutWrapper from '@/components/admin/layouts/wrapper/LayoutWrapper';
 import PagesHeader from './_components/PagesHeader';
 import PagesListCard from './_components/pages-list/PagesListCard';
 
