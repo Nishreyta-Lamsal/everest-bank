@@ -3,6 +3,7 @@ import {
   InstagramIcon,
   LinkedinIcon,
   XIcon,
+  YoutubeIcon,
 } from '@/components/icons';
 
 import type { ComponentType, SVGProps } from 'react';
@@ -15,4 +16,5 @@ export const socialIconMap: Record<
   x: XIcon,
   instagram: InstagramIcon,
   linkedin: LinkedinIcon,
+  youtube: YoutubeIcon,
 };
