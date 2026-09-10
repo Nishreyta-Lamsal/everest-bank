@@ -1,11 +1,17 @@
 import Image from 'next/image';
 
-export default function FooterMountainBanner() {
+type FooterMountainBannerProps = {
+  imageUrl?: string;
+};
+
+export default function FooterMountainBanner({
+  imageUrl,
+}: FooterMountainBannerProps) {
   return (
     <div className="relative h-[75vw] w-full overflow-hidden xl:h-[33.68vw]">
       <div className="absolute inset-x-0 top-0 h-[81.79vw] overflow-hidden xl:h-[30.21vw]">
         <Image
-          src="/images/footer/mountain-climbers-bg.png"
+          src={imageUrl ?? '/images/footer/mountain-climbers-bg.png'}
           alt=""
           width={4093}
           height={2198}

@@ -2,27 +2,34 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import FooterAccordionColumn from './FooterAccordionColumn';
+import { XIcon } from '@/components/icons';
 
-import { footerLinkColumns, socialLinks } from '@/data';
+import { socialIconMap } from '@/constants/social-icon-map';
 
-export default function FooterLinksSectionMobile() {
+import type { FooterSectionProps } from '@/types';
+
+export default function FooterLinksSectionMobile({
+  columns,
+  socials,
+  brand,
+}: FooterSectionProps) {
   const currentYear = new Date().getFullYear();
 
   return (
     <div className="flex w-full flex-col gap-8 xl:hidden">
       <Image
-        src="/icons/footer/everest-bank-logo-lockup.svg"
+        src={brand.logoUrl ?? '/icons/footer/everest-bank-logo-lockup.svg'}
         alt="Everest Bank Limited — Consistent, Strong, Dependable"
         width={294}
         height={91}
         className="h-auto w-[182px]"
       />
       <div className="flex w-full flex-col items-start">
-        {footerLinkColumns.map((column, index) => (
+        {columns.map((column, index) => (
           <FooterAccordionColumn
             key={column.title}
             column={column}
-            isLast={index === footerLinkColumns.length - 1}
+            isLast={index === columns.length - 1}
           />
         ))}
       </div>
@@ -31,16 +38,20 @@ export default function FooterLinksSectionMobile() {
           Socials:
         </p>
         <div className="flex w-full flex-wrap items-start gap-x-8 gap-y-2">
-          {socialLinks.map(({ label, href, icon: Icon }) => (
-            <Link
-              key={label}
-              href={href}
-              className="text-grey-400 text-body-3-mobile flex items-center gap-2 transition-colors hover:text-red-500"
-            >
-              <Icon className="size-[16px] shrink-0" />
-              {label}
-            </Link>
-          ))}
+          {socials.map(({ label, href, iconName }) => {
+            const Icon = socialIconMap[iconName] ?? XIcon;
+
+            return (
+              <Link
+                key={label}
+                href={href}
+                className="text-grey-400 text-body-3-mobile flex items-center gap-2 transition-colors hover:text-red-500"
+              >
+                <Icon className="size-[16px] shrink-0" />
+                {label}
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div className="flex items-start gap-20 px-4">
@@ -59,7 +70,7 @@ export default function FooterLinksSectionMobile() {
       </div>
       <div className="flex w-full flex-col items-start gap-3 px-4">
         <p className="font-heading text-title-2-mobile-md text-grey-500">
-          Get EBL Touch App
+          {brand.appPromoLabel}
         </p>
         <div className="flex items-center gap-4">
           <Image

@@ -1,6 +1,11 @@
 import { ROUTE } from '@/constants/route';
 
-import type { FooterLinkColumn, FooterOfficer } from '@/types';
+import type {
+  FooterBrandContent,
+  FooterLinkColumn,
+  FooterOfficer,
+  FooterSupportContent,
+} from '@/types';
 
 export const footerOfficers: FooterOfficer[] = [
   {
@@ -68,3 +73,17 @@ export const footerLinkColumns: FooterLinkColumn[] = [
     ],
   },
 ];
+
+// Fallbacks used when the footer API is unreachable, so the footer never
+// renders empty.
+export const footerSupportContent: FooterSupportContent = {
+  title: 'Customer Support Center',
+  description:
+    'For any questions or support, please call our customer care centre- Global Connect. We are available 24/7 to serve you.',
+  swiftCode: 'EVBLNPKA',
+  tollFreeNumber: '1660-01-66777',
+};
+
+export const footerBrandContent: FooterBrandContent = {
+  appPromoLabel: 'Get EBL Touch App',
+};

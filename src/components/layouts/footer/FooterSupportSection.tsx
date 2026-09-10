@@ -7,13 +7,19 @@ import { getQueryClient } from '@/lib/get-query-client';
 
 import { footerOfficers } from '@/data';
 
-import type { FooterOfficer } from '@/types';
+import type { FooterOfficer, FooterSupportContent } from '@/types';
+
+type FooterSupportSectionProps = {
+  support: FooterSupportContent;
+};
 
 export const footerOfficersQueryKey = ['footer-officers'] as const;
 
 const DEFAULT_OFFICER_PHOTO = '/images/footer/grievance-officer-photo.png';
 
-export default async function FooterSupportSection() {
+export default async function FooterSupportSection({
+  support,
+}: FooterSupportSectionProps) {
   const queryClient = getQueryClient();
 
   let results: Person[] = [];
@@ -51,7 +57,7 @@ export default async function FooterSupportSection() {
       {officers.map((officer) => (
         <FooterOfficerCard key={officer.name} {...officer} />
       ))}
-      <FooterSupportCard />
+      <FooterSupportCard content={support} />
     </div>
   );
 }
