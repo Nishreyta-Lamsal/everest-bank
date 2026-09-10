@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import type { LoanGlance } from '../_data';
@@ -50,7 +50,7 @@ export default function LoanGlanceSection({ data }: LoanGlanceSectionProps) {
                     variant="primary"
                     size="sm"
                     className="w-full"
-                    rightIcon={<ArrowUpRightIcon className="size-3.5" />}
+                    rightIcon={<icon.arrowUpRight className="size-3.5" />}
                   >
                     Download detailed PDF
                   </Button>
@@ -66,7 +66,7 @@ export default function LoanGlanceSection({ data }: LoanGlanceSectionProps) {
                   <Button
                     variant="primary"
                     size="md"
-                    rightIcon={<ArrowUpRightIcon />}
+                    rightIcon={<icon.arrowUpRight />}
                   >
                     Download detailed PDF
                   </Button>

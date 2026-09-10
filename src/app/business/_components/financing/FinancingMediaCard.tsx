@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { BusinessFinancingMediaCard } from '../../_data';
 
@@ -27,7 +27,7 @@ export default function FinancingMediaCard({
         <p className="font-heading text-heading-h3-desktop leading-none text-white">
           {label}
         </p>
-        <ArrowUpRightIcon className="size-[24px] shrink-0 text-white" />
+        <icon.arrowUpRight className="size-[24px] shrink-0 text-white" />
       </div>
     </Link>
   );

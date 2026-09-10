@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { ROUTE } from '@/constants';
 import { socialLinks } from '@/data';
@@ -24,7 +24,7 @@ export default function EligibilityCheckerSidebar() {
           <p className="font-heading text-title-1-desktop lg:text-heading-h3-desktop text-white">
             Home Loan
           </p>
-          <ArrowUpRightIcon className="size-[22px] shrink-0 text-white lg:size-[24px]" />
+          <icon.arrowUpRight className="size-[22px] shrink-0 text-white lg:size-[24px]" />
         </div>
       </Link>
 

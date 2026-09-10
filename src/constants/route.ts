@@ -23,5 +23,4 @@ export const ROUTE = {
   FD_CALCULATOR: '/services/tools/fd-calculator',
   ELIGIBILITY_CHECKER: '/services/tools/eligibility-checker',
   ADMIN: '/admin',
-  ADMIN_LOGIN: '/admin/login',
 };

@@ -1,10 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import {
-  AtmMachineIcon,
-  CalculatorIcon,
-  FeedbackIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { ROUTE } from '@/constants';
 
@@ -18,16 +14,16 @@ export const actionBadges: ActionBadge[] = [
   {
     label: 'EMI CALCULATOR',
     href: ROUTE.EMI_CALCULATOR,
-    icon: CalculatorIcon,
+    icon: icon.calculator,
   },
   {
     label: 'ATM & Branches',
     href: ROUTE.ATM,
-    icon: AtmMachineIcon,
+    icon: icon.atmMachine,
   },
   {
     label: 'Give Feedbacks',
     href: '#',
-    icon: FeedbackIcon,
+    icon: icon.feedback,
   },
 ];

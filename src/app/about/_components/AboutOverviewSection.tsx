@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
@@ -70,7 +70,7 @@ export default function AboutOverviewSection({
                   className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline"
                 >
                   {leadingCard.linkLabel}
-                  <ArrowUpRightIcon className="size-[16px] shrink-0" />
+                  <icon.arrowUpRight className="size-[16px] shrink-0" />
                 </Link>
               </div>
             )}
@@ -94,7 +94,7 @@ export default function AboutOverviewSection({
                   className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline"
                 >
                   {trailingCard.linkLabel}
-                  <ArrowUpRightIcon className="size-[16px] shrink-0" />
+                  <icon.arrowUpRight className="size-[16px] shrink-0" />
                 </Link>
               </div>
             )}

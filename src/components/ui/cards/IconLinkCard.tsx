@@ -2,7 +2,7 @@ import type { ComponentType, SVGProps } from 'react';
 
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -61,7 +61,7 @@ export default function IconLinkCard({
         className="text-body-4-desktop-md inline-flex items-center gap-1 text-red-700"
       >
         {linkLabel}
-        <ArrowUpRightIcon className="size-4 shrink-0" />
+        <icon.arrowUpRight className="size-4 shrink-0" />
       </Link>
     </div>
   );

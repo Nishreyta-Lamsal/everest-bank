@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import type { PersonalPageSection } from '@/api/services/personal/personal-page.service';
@@ -77,7 +77,7 @@ export default function CardsSection({ sections }: CardsSectionProps) {
                   <h3 className="font-heading text-heading-h3-mobile lg:text-heading-h3-desktop text-white lg:w-[366px]">
                     {card.title}
                   </h3>
-                  <ArrowUpRightIcon className="hidden size-[32px] shrink-0 text-white lg:block" />
+                  <icon.arrowUpRight className="hidden size-[32px] shrink-0 text-white lg:block" />
                 </div>
               </Link>
             ))}

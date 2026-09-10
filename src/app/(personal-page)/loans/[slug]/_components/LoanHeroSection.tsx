@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import type { LoanHero } from '../_data';
@@ -38,7 +38,7 @@ export default function LoanHeroSection({ data }: LoanHeroSectionProps) {
                   <Button
                     variant="primary"
                     size="sm"
-                    rightIcon={<ArrowUpRightIcon className="size-3.5" />}
+                    rightIcon={<icon.arrowUpRight className="size-3.5" />}
                   >
                     {data.primaryCta.label}
                   </Button>
@@ -54,7 +54,7 @@ export default function LoanHeroSection({ data }: LoanHeroSectionProps) {
                   <Button
                     variant="primary"
                     size="lg"
-                    rightIcon={<ArrowUpRightIcon />}
+                    rightIcon={<icon.arrowUpRight />}
                   >
                     {data.primaryCta.label}
                   </Button>

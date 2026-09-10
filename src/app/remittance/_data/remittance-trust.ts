@@ -1,6 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import { PartnershipIcon, ShieldCheckBadgeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 export const remittanceTrustAvatars: string[] = [
   '/images/csr/customer-avatar-1.png',
@@ -23,13 +23,13 @@ export type RemittanceTrustCard = {
 
 export const remittanceTrustCards: RemittanceTrustCard[] = [
   {
-    icon: ShieldCheckBadgeIcon,
+    icon: icon.shieldCheckBadge,
     title: 'Safe & Formal Channel',
     linkLabel: 'Apply now',
     href: '#',
   },
   {
-    icon: PartnershipIcon,
+    icon: icon.partnership,
     title: 'Backed by Punjab National Bank',
     linkLabel: 'Read More about Punjab National Bank',
     href: '#',

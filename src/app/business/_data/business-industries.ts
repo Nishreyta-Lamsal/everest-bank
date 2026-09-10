@@ -1,11 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import {
-  BuildingsIcon,
-  FactoryIcon,
-  GrowthIcon,
-  PieChartIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 export type BusinessIndustryCard = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -17,7 +12,7 @@ export type BusinessIndustryCard = {
 
 export const businessIndustryCards: BusinessIndustryCard[] = [
   {
-    icon: FactoryIcon,
+    icon: icon.factory,
     title: 'Manufacturing',
     description:
       'Equipment finance, working capital, and production-focused banking.',
@@ -25,7 +20,7 @@ export const businessIndustryCards: BusinessIndustryCard[] = [
     linkLabel: 'Explore Manufacturing Bank',
   },
   {
-    icon: PieChartIcon,
+    icon: icon.pieChart,
     title: 'Trading & Import/Export',
     description:
       'Trade finance, letters of credit, and foreign exchange solutions.',
@@ -33,7 +28,7 @@ export const businessIndustryCards: BusinessIndustryCard[] = [
     linkLabel: 'Explore Trade Solutions',
   },
   {
-    icon: BuildingsIcon,
+    icon: icon.buildings,
     title: 'Hospitality & Tourism',
     description:
       'Flexible financing and payment solutions for hotels and tourism businesses.',
@@ -41,7 +36,7 @@ export const businessIndustryCards: BusinessIndustryCard[] = [
     linkLabel: 'Explore Hospitality Banking',
   },
   {
-    icon: GrowthIcon,
+    icon: icon.growth,
     title: 'Agriculture & Agro-business',
     description:
       'Priority-sector financing designed for farmers, cooperatives, and agribusinesses.',

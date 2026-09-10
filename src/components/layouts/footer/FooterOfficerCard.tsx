@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { MailIcon, PhoneIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { FooterOfficerCardProps } from '@/types';
 
@@ -31,7 +31,7 @@ export default function FooterOfficerCard({
           </p>
           <div className="flex flex-col items-start gap-2">
             <div className="flex items-start gap-2">
-              <PhoneIcon className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
+              <icon.phone className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
               <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md">
                 {phone}
                 <br />
@@ -39,7 +39,7 @@ export default function FooterOfficerCard({
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <MailIcon className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
+              <icon.mail className="text-grey-400 size-[16px] shrink-0 xl:size-[22px]" />
               <p className="text-body-3-mobile-md text-grey-400 xl:text-body-3-desktop-md">
                 {email}
               </p>

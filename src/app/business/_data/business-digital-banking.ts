@@ -1,6 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import { DevicesIcon, MoneyBagIcon, StoreIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 export type DigitalBankingFeature = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -8,7 +8,7 @@ export type DigitalBankingFeature = {
 };
 
 export const digitalBankingFeatures: DigitalBankingFeature[] = [
-  { icon: DevicesIcon, label: 'Corporate Internet Banking' },
-  { icon: MoneyBagIcon, label: 'Corporate Pay' },
-  { icon: StoreIcon, label: 'Merchant Solutions' },
+  { icon: icon.devices, label: 'Corporate Internet Banking' },
+  { icon: icon.moneyBag, label: 'Corporate Pay' },
+  { icon: icon.store, label: 'Merchant Solutions' },
 ];

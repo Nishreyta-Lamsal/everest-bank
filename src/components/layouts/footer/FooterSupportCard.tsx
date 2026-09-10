@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 import GradientCard from '@/components/ui/cards/GradientCard';
-import { GlobeIcon, PhoneCallIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import type { FooterSupportCardProps } from '@/types';
@@ -30,13 +30,13 @@ export default function FooterSupportCard({ content }: FooterSupportCardProps) {
       </div>
       <div className="flex flex-col items-start gap-2 xl:flex-row xl:gap-11">
         <div className="flex items-center gap-2">
-          <GlobeIcon className="text-grey-500 size-[16px] shrink-0 xl:size-[20px]" />
+          <icon.globe className="text-grey-500 size-[16px] shrink-0 xl:size-[20px]" />
           <p className="text-body-2-mobile-md text-grey-500 xl:text-body-2-desktop-md">
             SWIFT: {content.swiftCode}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <PhoneCallIcon className="text-grey-500 size-[16px] shrink-0 xl:size-[20px]" />
+          <icon.phoneCall className="text-grey-500 size-[16px] shrink-0 xl:size-[20px]" />
           <p className="text-body-2-mobile-md text-grey-500 xl:text-body-2-desktop-md">
             Toll free: {content.tollFreeNumber}
           </p>
@@ -49,7 +49,7 @@ export default function FooterSupportCard({ content }: FooterSupportCardProps) {
             variant="tertiary-white"
             size="lg"
             className="text-body-4-desktop-md xl:text-body-3-desktop-md h-[42px] w-full xl:h-[46px] xl:w-[270px]"
-            leftIcon={<PhoneCallIcon className="size-[16px]" />}
+            leftIcon={<icon.phoneCall className="size-[16px]" />}
           >
             Call Us
           </Button>,

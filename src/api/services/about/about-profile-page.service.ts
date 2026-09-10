@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type {
   LinkAction,
@@ -115,7 +115,7 @@ export type AboutProfilePageResponse = Omit<PageResponse, 'data'> & {
 
 export const aboutProfilePageService = {
   getAboutProfilePageData: async (): Promise<AboutProfilePageResponse> => {
-    const response = await api.get<AboutProfilePageResponse>(
+    const response = await axiosClient.get<AboutProfilePageResponse>(
       '/public/pages/about-profile',
     );
 

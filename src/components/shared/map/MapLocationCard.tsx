@@ -1,4 +1,4 @@
-import { MapPinIcon, TelephoneIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -28,7 +28,7 @@ export default function MapLocationCard({
     >
       <div className="flex min-w-0 flex-1 flex-col items-start gap-3">
         <div className="flex items-center gap-3 lg:gap-4">
-          <MapPinIcon className="size-4.5 shrink-0 text-orange-500 lg:size-6" />
+          <icon.mapPin className="size-4.5 shrink-0 text-orange-500 lg:size-6" />
           <h3 className="font-heading text-title-2-mobile lg:text-title-2-desktop text-grey-500">
             {isSelectable ? (
               <button
@@ -50,7 +50,7 @@ export default function MapLocationCard({
             {location.address}
           </p>
           <div className="flex items-center gap-2">
-            <TelephoneIcon className="text-grey-400 size-[16px] shrink-0" />
+            <icon.telephone className="text-grey-400 size-[16px] shrink-0" />
             <a
               href={`tel:${location.phone}`}
               onClick={(event) => event.stopPropagation()}

@@ -1,27 +1,32 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-import { ROUTE, SITE_ACCESS_COOKIE, SITE_ACCESS_VALUE } from '@/constants';
+import { ACCESS_TOKEN_COOKIE, isProtectedRoute } from '@/lib/admin/session';
 
-import type { NextRequest } from 'next/server';
+import { ADMIN_ROUTE } from '@/constants/admin';
 
 export function proxy(request: NextRequest) {
-  const hasAccess =
-    request.cookies.get(SITE_ACCESS_COOKIE)?.value === SITE_ACCESS_VALUE;
-  const isLoginRoute = request.nextUrl.pathname === ROUTE.ADMIN_LOGIN;
+  const { pathname, search } = request.nextUrl;
 
-  if (hasAccess) {
-    return isLoginRoute
-      ? NextResponse.redirect(new URL(ROUTE.PERSONAL, request.url))
-      : NextResponse.next();
+  if (!isProtectedRoute(pathname)) {
+    return NextResponse.next();
   }
 
-  return isLoginRoute
-    ? NextResponse.next()
-    : NextResponse.redirect(new URL(ROUTE.ADMIN_LOGIN, request.url));
+  const hasSession = request.cookies.has(ACCESS_TOKEN_COOKIE);
+
+  if (hasSession) {
+    return NextResponse.next();
+  }
+
+  const loginUrl = new URL(ADMIN_ROUTE.LOGIN, request.url);
+  loginUrl.searchParams.set('next', `${pathname}${search}`);
+
+  return NextResponse.redirect(loginUrl);
 }
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|woff2?|ttf)$).*)',
+    '/admin/dashboard/:path*',
+    '/admin/pages/:path*',
+    '/admin/products/:path*',
   ],
 };

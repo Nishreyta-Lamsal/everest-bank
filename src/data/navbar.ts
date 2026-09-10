@@ -1,26 +1,4 @@
-import {
-  BankIcon,
-  BanknoteIcon,
-  BellIcon,
-  BriefcaseIcon,
-  BuildingsIcon,
-  CalendarIcon,
-  CardIcon,
-  CardStackIcon,
-  CourtIcon,
-  GavelIcon,
-  HeartIcon,
-  LanguageIcon,
-  MapPinIcon,
-  MoneyBagIcon,
-  PeopleIcon,
-  PieChartIcon,
-  ShieldCheckIcon,
-  SmartphoneIcon,
-  StoreIcon,
-  TransferIcon,
-  TrendingUpIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { ROUTE } from '@/constants/route';
 
@@ -32,19 +10,19 @@ import type {
 } from '@/types';
 
 export const utilityNavItems: UtilityNavItem[] = [
-  { label: 'Notice', href: ROUTE.NOTICE, icon: BellIcon },
-  { label: 'Auction Notice', href: '#', icon: GavelIcon },
-  { label: 'Calendar 2026', href: '#', icon: CalendarIcon },
-  { label: 'Forex Rates', href: ROUTE.FOREX_RATES, icon: TrendingUpIcon },
-  { label: 'Cyber Security', href: '#', icon: ShieldCheckIcon },
-  { label: 'ATM/Branch', href: ROUTE.ATM, icon: MapPinIcon },
-  { label: 'English', href: '#', icon: LanguageIcon },
+  { label: 'Notice', href: ROUTE.NOTICE, icon: icon.bell },
+  { label: 'Auction Notice', href: '#', icon: icon.gavel },
+  { label: 'Calendar 2026', href: '#', icon: icon.calendar },
+  { label: 'Forex Rates', href: ROUTE.FOREX_RATES, icon: icon.trendingUp },
+  { label: 'Cyber Security', href: '#', icon: icon.shieldCheck },
+  { label: 'ATM/Branch', href: ROUTE.ATM, icon: icon.mapPin },
+  { label: 'English', href: '#', icon: icon.language },
 ];
 
 const personalMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'Accounts',
-    icon: PeopleIcon,
+    icon: icon.people,
     links: [
       { label: 'Savings Account', href: ROUTE.SAVING_ACCOUNT },
       { label: 'FCY Deposit Account', href: '#' },
@@ -58,7 +36,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Cards',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Virtual Credit Card', href: '#' },
       { label: 'Debit Card', href: '#' },
@@ -70,7 +48,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Loans',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Home Loans', href: `${ROUTE.LOANS}/home-loans` },
       {
@@ -85,7 +63,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Digital Banking',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Mobile Banking', href: '#' },
       { label: 'Internet Banking', href: '#' },
@@ -96,7 +74,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Investments',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Shares', href: '#' },
       { label: 'ASBA / C-ASBA', href: '#' },
@@ -104,7 +82,7 @@ const personalMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Services',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Everyday banking', href: '#' },
       { label: 'Tools', href: ROUTE.TOOLS },
@@ -121,7 +99,7 @@ const personalMegaMenu: MegaMenu = {
 const businessMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'SME Banking',
-    icon: StoreIcon,
+    icon: icon.store,
     links: [
       { label: 'SME Loans', href: '#' },
       { label: 'Working Capital', href: '#' },
@@ -130,7 +108,7 @@ const businessMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Corporate Banking',
-    icon: BuildingsIcon,
+    icon: icon.buildings,
     links: [
       { label: 'Corporate Loans', href: '#' },
       { label: 'Accounts', href: '#' },
@@ -139,7 +117,7 @@ const businessMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Trade and Government',
-    icon: CourtIcon,
+    icon: icon.court,
     links: [
       { label: 'Trade Finance', href: '#' },
       { label: 'Government Business', href: '#' },
@@ -148,7 +126,7 @@ const businessMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Payment Solutions',
-    icon: CardIcon,
+    icon: icon.card,
     links: [
       { label: 'Corporate Pay', href: '#' },
       { label: 'Merchant QR', href: '#' },
@@ -158,7 +136,7 @@ const businessMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Services',
-    icon: CardStackIcon,
+    icon: icon.cardStack,
     links: [
       { label: 'Digital Business Banking', href: '#' },
       { label: 'Resources', href: '#' },
@@ -174,7 +152,7 @@ const businessMegaMenu: MegaMenu = {
 const remittanceMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'Send Money',
-    icon: TransferIcon,
+    icon: icon.transfer,
     links: [
       { label: 'Outward Remittance', href: '#' },
       { label: 'Student Payments', href: '#' },
@@ -183,7 +161,7 @@ const remittanceMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Receive Money',
-    icon: MoneyBagIcon,
+    icon: icon.moneyBag,
     links: [
       { label: 'Inward Remittance', href: '#' },
       { label: 'Indo-Nepal Remittance', href: '#' },
@@ -191,7 +169,7 @@ const remittanceMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Locations',
-    icon: MapPinIcon,
+    icon: icon.mapPin,
     links: [
       { label: 'Payout Locations', href: ROUTE.PAYOUT_LOCATIONS },
       { label: 'Representatives Worldwide', href: '#' },
@@ -199,7 +177,7 @@ const remittanceMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Digital',
-    icon: SmartphoneIcon,
+    icon: icon.smartphone,
     links: [{ label: 'Online Remittance Portal', href: '#' }],
   },
 ];
@@ -212,7 +190,7 @@ const remittanceMegaMenu: MegaMenu = {
 const aboutMegaMenuColumns: MegaMenuColumn[] = [
   {
     label: 'About Everest',
-    icon: BankIcon,
+    icon: icon.bank,
     links: [
       { label: 'Profile', href: ROUTE.ABOUT_PROFILE },
       {
@@ -230,7 +208,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Investor Relations',
-    icon: PieChartIcon,
+    icon: icon.pieChart,
     links: [
       { label: 'Annual & Quarterly Reports', href: '#' },
       { label: 'Capital Adequacy', href: '#' },
@@ -239,7 +217,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Media and Updates',
-    icon: BellIcon,
+    icon: icon.bell,
     links: [
       { label: 'News', href: '#' },
       { label: 'Notices', href: ROUTE.NOTICE },
@@ -248,7 +226,7 @@ const aboutMegaMenuColumns: MegaMenuColumn[] = [
   },
   {
     label: 'Careers and CSR',
-    icon: HeartIcon,
+    icon: icon.heart,
     links: [
       { label: 'Careers', href: '#' },
       { label: 'CSR', href: '#' },
@@ -266,26 +244,26 @@ export const mainNavItems: MainNavItem[] = [
   {
     label: 'Personal',
     href: ROUTE.PERSONAL,
-    icon: PeopleIcon,
+    icon: icon.people,
     activePrefixes: [ROUTE.CARDS, ROUTE.LOANS, ROUTE.DEPOSIT_ACCOUNTS],
     megaMenu: personalMegaMenu,
   },
   {
     label: 'Business',
     href: ROUTE.BUSINESS,
-    icon: BriefcaseIcon,
+    icon: icon.briefcase,
     megaMenu: businessMegaMenu,
   },
   {
     label: 'Remittance',
     href: ROUTE.REMITTANCE,
-    icon: BanknoteIcon,
+    icon: icon.banknote,
     megaMenu: remittanceMegaMenu,
   },
   {
     label: 'About',
     href: ROUTE.ABOUT,
-    icon: BankIcon,
+    icon: icon.bank,
     megaMenu: aboutMegaMenu,
   },
 ];

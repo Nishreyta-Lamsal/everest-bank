@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -40,7 +40,7 @@ export default function ImageLinkCard({
         <p className="font-heading text-title-1-mobile lg:text-heading-h3-desktop text-white">
           {title}
         </p>
-        <ArrowUpRightIcon className="size-[20px] shrink-0 text-white lg:size-[32px]" />
+        <icon.arrowUpRight className="size-[20px] shrink-0 text-white lg:size-[32px]" />
       </div>
     </Link>
   );

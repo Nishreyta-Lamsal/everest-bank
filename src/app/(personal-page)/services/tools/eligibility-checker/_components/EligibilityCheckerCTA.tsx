@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import GradientCard from '@/components/ui/cards/GradientCard';
-import { PhoneCallIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { ROUTE } from '@/constants';
@@ -32,7 +32,7 @@ export default function EligibilityCheckerCTA() {
               variant="secondary"
               size="lg"
               leftIcon={
-                <PhoneCallIcon className="size-[14px] lg:size-[16px]" />
+                <icon.phoneCall className="size-[14px] lg:size-[16px]" />
               }
               className="text-body-4-desktop-md lg:text-body-3-desktop-md h-[36px] w-full text-red-500! lg:h-[46px] lg:text-red-600!"
             >

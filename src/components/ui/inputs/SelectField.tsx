@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import FieldShell from '@/components/ui/inputs/FieldShell';
 
 import { cn } from '@/lib/utils';
@@ -83,7 +83,7 @@ export default function SelectField({
           </option>
         ))}
       </select>
-      <ChevronDownIcon
+      <icon.chevronDown
         className={cn(
           'pointer-events-none absolute right-4 shrink-0',
           variant === 'secondary'

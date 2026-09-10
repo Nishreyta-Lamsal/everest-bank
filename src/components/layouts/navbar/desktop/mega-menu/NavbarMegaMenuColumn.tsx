@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { NavbarMegaMenuColumnProps } from '@/types';
 
@@ -32,7 +32,7 @@ export default function NavbarMegaMenuColumn({
             className="text-body-4-desktop-md flex items-center gap-1 text-red-700 transition-colors hover:text-red-500"
           >
             {explore.label}
-            <ArrowUpRightIcon className="size-4 shrink-0" />
+            <icon.arrowUpRight className="size-4 shrink-0" />
           </Link>
         )}
       </div>

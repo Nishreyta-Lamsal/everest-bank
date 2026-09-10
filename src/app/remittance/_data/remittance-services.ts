@@ -1,6 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import { BankIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { ROUTE } from '@/constants';
 
@@ -16,36 +16,36 @@ export const remittanceServiceCards: RemittanceServiceCard[] = [
     title: 'Inward Remit',
     subtitle: 'Send money to Nepal',
     href: '#',
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Indo-Nepal Remittance',
     subtitle: 'Send money from India',
     href: '#',
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Outward Remit',
     subtitle: 'Transfer from Nepal',
     href: '#',
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Payout Locations',
     subtitle: 'Find a payout location',
     href: ROUTE.PAYOUT_LOCATIONS,
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Bank Representatives',
     subtitle: 'View representatives',
     href: '#',
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Correspondent Banks',
     subtitle: 'View corresponding banks',
     href: '#',
-    icon: BankIcon,
+    icon: icon.bank,
   },
 ];

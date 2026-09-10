@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import FooterAccordionColumn from './FooterAccordionColumn';
-import { XIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { socialIconMap } from '@/constants/social-icon-map';
 
@@ -39,7 +39,7 @@ export default function FooterLinksSectionMobile({
         </p>
         <div className="flex w-full flex-wrap items-start gap-x-8 gap-y-2">
           {socials.map(({ label, href, iconName }) => {
-            const Icon = socialIconMap[iconName] ?? XIcon;
+            const Icon = socialIconMap[iconName] ?? icon.x;
 
             return (
               <Link

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowShareRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 type ContentHeroSectionProps = {
@@ -57,7 +57,7 @@ export default function ContentHeroSection({
                   aria-label={secondaryButtonAriaLabel ?? buttonLabel}
                   className="flex size-[46px] shrink-0 items-center justify-center rounded-full bg-white text-red-500 transition-colors hover:bg-red-50"
                 >
-                  <ArrowShareRightIcon className="size-[18px]" />
+                  <icon.arrowShareRight className="size-[18px]" />
                 </Link>
               )}
             </div>

@@ -4,7 +4,7 @@ import HeroVideoPlayer from './HeroVideoPlayer';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import HeroImageCarousel from '@/components/shared/HeroImageCarousel';
 import Button from '@/components/ui/buttons/Button';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { PersonalPageSection } from '@/api/services/personal/personal-page.service';
 
@@ -57,7 +57,7 @@ export default function HeroSection({ sections }: HeroSectionProps) {
                   {subtext}
                 </p>
                 <Link href={primaryButtonHref}>
-                  <Button size="lg" rightIcon={<ArrowUpRightIcon />}>
+                  <Button size="lg" rightIcon={<icon.arrowUpRight />}>
                     {primaryButtonLabel}
                   </Button>
                 </Link>
@@ -74,7 +74,7 @@ export default function HeroSection({ sections }: HeroSectionProps) {
                   className="text-body-4-desktop-md flex items-center justify-center gap-1 font-medium text-red-700"
                 >
                   {videoChipLinkLabel}
-                  <ArrowUpRightIcon className="size-4 shrink-0" />
+                  <icon.arrowUpRight className="size-4 shrink-0" />
                 </Link>
               </div>
             </div>

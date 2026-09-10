@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -34,7 +34,7 @@ export default function FooterAccordionColumn({
           <span className="font-heading text-title-2-mobile-md text-grey-500">
             {column.title}
           </span>
-          <ChevronDownIcon
+          <icon.chevronDown
             className={cn(
               'text-grey-500 size-[16px] shrink-0 transition-transform',
               isOpen && 'rotate-180',

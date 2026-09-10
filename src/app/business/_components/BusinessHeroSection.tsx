@@ -3,7 +3,7 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import HeroImageCarousel from '@/components/shared/HeroImageCarousel';
 import Button from '@/components/ui/buttons/Button';
-import { VerifiedIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
@@ -62,7 +62,7 @@ export default function BusinessHeroSection({
             <div className="order-2 mt-4 flex flex-col items-start gap-3 lg:order-4 lg:mt-auto lg:gap-4">
               {highlights.map((highlight) => (
                 <div key={highlight} className="flex items-center gap-2">
-                  <VerifiedIcon className="size-[18px] shrink-0 text-red-500 lg:size-[24px]" />
+                  <icon.verified className="size-[18px] shrink-0 text-red-500 lg:size-[24px]" />
                   <p className="text-body-4-desktop text-grey-400 lg:text-body-2-desktop">
                     {highlight}
                   </p>

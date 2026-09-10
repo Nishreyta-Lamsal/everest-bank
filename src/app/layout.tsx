@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Anek_Devanagari } from 'next/font/google';
+import { Inter, Anek_Devanagari, Urbanist } from 'next/font/google';
 
 import Providers from '@/providers/providers';
 import SiteChrome from '@/components/layouts/SiteChrome';
@@ -17,6 +17,11 @@ const inter = Inter({
 
 const anekDevanagari = Anek_Devanagari({
   variable: '--font-anek-devanagari',
+  subsets: ['latin'],
+});
+
+const urbanist = Urbanist({
+  variable: '--font-urbanist',
   subsets: ['latin'],
 });
 
@@ -63,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${anekDevanagari.variable} h-full antialiased`}
+      className={`${inter.variable} ${anekDevanagari.variable} ${urbanist.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col pb-14.5 lg:pb-0">
         <Providers>

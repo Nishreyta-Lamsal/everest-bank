@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { XIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ export default function FooterSocialColumn({
       </p>
       <div className="flex flex-col items-start gap-6">
         {links.map(({ label, href, iconName }) => {
-          const Icon = socialIconMap[iconName] ?? XIcon;
+          const Icon = socialIconMap[iconName] ?? icon.x;
 
           return (
             <Link

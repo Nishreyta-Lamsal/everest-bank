@@ -1,9 +1,9 @@
-import { AccessibilityIcon, AiSparkleIcon, CallIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 const sideMenuItems = [
-  { label: 'AI Assistant', icon: AiSparkleIcon },
-  { label: 'Accessibility', icon: AccessibilityIcon },
-  { label: 'Call Us', icon: CallIcon },
+  { label: 'AI Assistant', icon: icon.aiSparkle },
+  { label: 'Accessibility', icon: icon.accessibility },
+  { label: 'Call Us', icon: icon.call },
 ];
 
 export default function SideFixedMenu() {

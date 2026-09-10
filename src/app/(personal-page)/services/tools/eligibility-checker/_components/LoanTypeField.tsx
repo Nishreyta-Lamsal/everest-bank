@@ -1,6 +1,6 @@
 import { useId } from 'react';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { loanTypeOptions } from '../_data/eligibility-checker';
 
@@ -36,7 +36,7 @@ export default function LoanTypeField({
             </option>
           ))}
         </select>
-        <ChevronDownIcon className="text-grey-300 pointer-events-none absolute right-4 size-[18px]" />
+        <icon.chevronDown className="text-grey-300 pointer-events-none absolute right-4 size-[18px]" />
       </div>
     </div>
   );

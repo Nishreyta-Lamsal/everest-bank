@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon, EnvelopeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { cn } from '@/lib/utils';
@@ -36,7 +36,7 @@ export default function ContactSection() {
                 className="block w-full lg:inline-block lg:w-auto"
               >
                 <Button
-                  leftIcon={<EnvelopeIcon />}
+                  leftIcon={<icon.envelope />}
                   variant="secondary-white"
                   size="lg"
                   className="text-body-4-desktop-md lg:text-body-3-desktop-md h-[42px] w-full lg:h-[46px] lg:w-[350px]"
@@ -71,7 +71,7 @@ export default function ContactSection() {
                   className="text-body-4-desktop-md inline-flex items-center justify-center gap-1 font-medium text-white lg:underline"
                 >
                   {topic.linkLabel}
-                  <ArrowUpRightIcon className="size-[16px] shrink-0" />
+                  <icon.arrowUpRight className="size-[16px] shrink-0" />
                 </Link>
               </div>
             ))}

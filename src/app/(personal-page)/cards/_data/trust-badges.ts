@@ -1,11 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import {
-  HeadsetIcon,
-  SecurityShieldIcon,
-  SignalIcon,
-  WorldwideIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 export type CardTrustBadge = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -13,8 +8,8 @@ export type CardTrustBadge = {
 };
 
 export const cardTrustBadges: CardTrustBadge[] = [
-  { icon: WorldwideIcon, label: 'VISA · Worldwide' },
-  { icon: SecurityShieldIcon, label: 'NepalPay · Nepal & India' },
-  { icon: SignalIcon, label: 'Contactless Tap-to-Pay' },
-  { icon: HeadsetIcon, label: '24/7 Card Support' },
+  { icon: icon.worldwide, label: 'VISA · Worldwide' },
+  { icon: icon.securityShield, label: 'NepalPay · Nepal & India' },
+  { icon: icon.signal, label: 'Contactless Tap-to-Pay' },
+  { icon: icon.headset, label: '24/7 Card Support' },
 ];

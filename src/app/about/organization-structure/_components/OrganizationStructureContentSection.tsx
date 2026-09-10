@@ -3,7 +3,7 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ContentSidebar from '@/components/shared/content/ContentSidebar';
 import ContentQuote from '@/components/shared/content/ContentQuote';
-import { CourtIcon, StarBadgeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import InfoListRow from './InfoListRow';
 import LeaderListRow from './LeaderListRow';
 
@@ -32,7 +32,7 @@ export default function OrganizationStructureContentSection() {
 
                 <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
                   <div className="flex items-center gap-2">
-                    <CourtIcon className="size-6 text-orange-500 lg:size-7" />
+                    <icon.court className="size-6 text-orange-500 lg:size-7" />
                     <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                       Board of Directors
                     </h3>
@@ -63,7 +63,7 @@ export default function OrganizationStructureContentSection() {
                 <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
                   <div className="flex w-full flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-2">
-                      <StarBadgeIcon className="size-6 text-orange-500 lg:size-7" />
+                      <icon.starBadge className="size-6 text-orange-500 lg:size-7" />
                       <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                         Chief Executive Officer
                       </h3>

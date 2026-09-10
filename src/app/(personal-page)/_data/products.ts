@@ -1,14 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import {
-  ArrowUpRightSquareIcon,
-  BankIcon,
-  CardIcon,
-  PiggyBankIcon,
-  SafeIcon,
-  SmartphoneIcon,
-  TransferIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { ROUTE } from '@/constants';
 
@@ -24,19 +16,19 @@ export const topProductCards: ProductCardData[] = [
     title: 'Open Account',
     subtitle: 'Only in 3 minutes',
     href: '#',
-    icon: ArrowUpRightSquareIcon,
+    icon: icon.arrowUpRightSquare,
   },
   {
     title: 'Personal Loans',
     subtitle: 'Home · Auto · Personal',
     href: ROUTE.LOANS,
-    icon: BankIcon,
+    icon: icon.bank,
   },
   {
     title: 'Mobile Banking',
     subtitle: 'EBL Mobile · 2.5M Users',
     href: '#',
-    icon: SmartphoneIcon,
+    icon: icon.smartphone,
   },
 ];
 
@@ -45,24 +37,24 @@ export const bottomProductCards: ProductCardData[] = [
     title: 'Money Transfer',
     subtitle: 'Send & Receive Instantly',
     href: ROUTE.REMITTANCE,
-    icon: TransferIcon,
+    icon: icon.transfer,
   },
   {
     title: 'Cards',
     subtitle: 'Debit · Credit · Premium',
     href: ROUTE.CARDS,
-    icon: CardIcon,
+    icon: icon.card,
   },
   {
     title: 'Fixed Deposits',
     subtitle: 'Grow Savings, Better Returns',
     href: ROUTE.DEPOSIT_ACCOUNTS,
-    icon: SafeIcon,
+    icon: icon.safe,
   },
   {
     title: 'Investments',
     subtitle: 'ASBA · Demat · IPO Services',
     href: '#',
-    icon: PiggyBankIcon,
+    icon: icon.piggyBank,
   },
 ];

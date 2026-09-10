@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ChevronRightIcon, HomeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -52,14 +52,14 @@ export default function Breadcrumbs({
               outlineClasses,
             )}
           >
-            <HomeIcon className="size-4" />
+            <icon.home className="size-4" />
           </Link>
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
 
             return (
               <span key={item.label} className="flex items-center gap-1">
-                <ChevronRightIcon
+                <icon.chevronRight
                   className={cn('size-4 shrink-0', textClasses)}
                 />
                 {item.href && !isLast ? (

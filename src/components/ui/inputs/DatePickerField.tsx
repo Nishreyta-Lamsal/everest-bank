@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import FieldShell from '@/components/ui/inputs/FieldShell';
-import { CalendarIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -87,7 +87,7 @@ export default function DatePickerField({
         aria-label="Choose date"
         className="text-grey-400 flex size-4 shrink-0 cursor-pointer items-center justify-center self-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
       >
-        <CalendarIcon aria-hidden="true" className="size-4" />
+        <icon.calendar aria-hidden="true" className="size-4" />
       </button>
     </FieldShell>
   );
