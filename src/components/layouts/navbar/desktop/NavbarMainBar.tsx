@@ -10,9 +10,13 @@ import Button from '@/components/ui/buttons/Button';
 
 import { isNavItemActive } from '@/lib/utils';
 
-import { mainNavItems } from '@/data';
+import type { MainNavItem } from '@/types';
 
-export default function NavbarMainBar() {
+type NavbarMainBarProps = {
+  items: MainNavItem[];
+};
+
+export default function NavbarMainBar({ items }: NavbarMainBarProps) {
   const pathname = usePathname();
   const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -33,15 +37,13 @@ export default function NavbarMainBar() {
     }
   }
 
-  const openMenuItem = mainNavItems.find(
-    (item) => item.label === openMenuLabel,
-  );
+  const openMenuItem = items.find((item) => item.label === openMenuLabel);
 
   return (
     <div ref={containerRef} onBlur={handleBlur} className="relative">
       <div className="flex items-center justify-between pr-4 md:pr-10 xl:pr-22">
         <nav aria-label="Main navigation" className="flex items-center">
-          {mainNavItems.map((item, index) =>
+          {items.map((item, index) =>
             item.megaMenu ? (
               <div
                 key={item.label}

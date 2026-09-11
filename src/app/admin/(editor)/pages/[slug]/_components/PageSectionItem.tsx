@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
+import { ADMIN_ROUTE } from '@/constants/admin';
+
 import type { PageSectionRead } from '@/types/admin';
 
 type PageSectionItemProps = {
@@ -19,7 +21,7 @@ export default function PageSectionItem({
 }: PageSectionItemProps) {
   return (
     <Link
-      href={`/pages/${slug}?section=${section.id}`}
+      href={`${ADMIN_ROUTE.PAGES}/${slug}?section=${section.id}`}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
         'w-full truncate rounded-[4px] px-2 py-2 text-[12px] text-[#4f4f4f]',

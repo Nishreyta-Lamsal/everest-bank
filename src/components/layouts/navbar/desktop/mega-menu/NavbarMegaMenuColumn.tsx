@@ -2,14 +2,22 @@ import Link from 'next/link';
 
 import { icon } from '@/components/icons';
 
+import { toIconKey } from '@/lib/utils';
+
 import type { NavbarMegaMenuColumnProps } from '@/types';
+import type { ComponentType, SVGProps } from 'react';
 
 export default function NavbarMegaMenuColumn({
   label,
-  icon: Icon,
+  icon: iconSlug,
   links,
   explore,
 }: NavbarMegaMenuColumnProps) {
+  const Icon =
+    (icon as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[
+      toIconKey(iconSlug)
+    ] ?? icon.bank;
+
   return (
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-2 py-2">

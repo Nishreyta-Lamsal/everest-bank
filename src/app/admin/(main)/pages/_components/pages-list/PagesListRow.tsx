@@ -5,6 +5,8 @@ import { icon } from '@/components/admin/icons';
 import { cn } from '@/lib/utils';
 import { formatRelativeTime } from '@/lib/admin/format-relative-time';
 
+import { ADMIN_ROUTE } from '@/constants/admin';
+
 import type { Page } from '@/types/admin';
 
 const statusStyles = {
@@ -28,7 +30,10 @@ export default function PagesListRow({ page }: PagesListRowProps) {
   const updatedLabel = `updated ${formatRelativeTime(page.updated_at)}`;
 
   return (
-    <Link href={`/pages/${page.slug}`} className="flex w-full items-center">
+    <Link
+      href={`${ADMIN_ROUTE.PAGES}/${page.slug}`}
+      className="flex w-full items-center"
+    >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
         <icon.dragHandle className="size-4 shrink-0 text-slate-950" />
         <div className="flex min-w-0 items-center gap-3">

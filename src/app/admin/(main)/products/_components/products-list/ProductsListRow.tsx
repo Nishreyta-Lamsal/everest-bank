@@ -4,6 +4,8 @@ import { icon } from '@/components/admin/icons';
 
 import { cn } from '@/lib/utils';
 
+import { ADMIN_ROUTE } from '@/constants/admin';
+
 import type { ProductsListEntry, ProductsListStatus } from '@/data/admin';
 
 const statusStyles: Record<
@@ -35,7 +37,10 @@ export default function ProductsListRow({ entry }: ProductsListRowProps) {
     : `${entry.path} · ${sectionsLabel} · ${entry.updatedLabel}`;
 
   return (
-    <Link href={`/products/${entry.id}`} className="flex w-full items-center">
+    <Link
+      href={`${ADMIN_ROUTE.PRODUCTS}/${entry.id}`}
+      className="flex w-full items-center"
+    >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
         <icon.dragHandle className="size-4 shrink-0 text-slate-950" />
         <div className="flex min-w-0 items-center gap-3">

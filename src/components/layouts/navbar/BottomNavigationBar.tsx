@@ -3,9 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { icon } from '@/components/icons';
+
+import { cn, isNavItemActive, toIconKey } from '@/lib/utils';
+
 import { mainNavItems } from '@/data';
 
-import { cn, isNavItemActive } from '@/lib/utils';
+import type { ComponentType, SVGProps } from 'react';
 
 export default function BottomNavigationBar() {
   const pathname = usePathname();
@@ -21,6 +25,10 @@ export default function BottomNavigationBar() {
           item.href,
           item.activePrefixes,
         );
+        const Icon =
+          (icon as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[
+            toIconKey(item.icon)
+          ] ?? icon.bank;
 
         return (
           <Link
@@ -34,7 +42,7 @@ export default function BottomNavigationBar() {
               index === mainNavItems.length - 1 && 'pr-4',
             )}
           >
-            <item.icon className="size-[18px] shrink-0" />
+            <Icon className="size-[18px] shrink-0" />
             <span className="text-body-4-desktop">{item.label}</span>
           </Link>
         );
