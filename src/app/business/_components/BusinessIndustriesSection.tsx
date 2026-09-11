@@ -7,7 +7,7 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 import IconLinkCard from '@/components/ui/cards/IconLinkCard';
-import { FactoryIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { gsap, useGSAP } from '@/lib/gsap';
 import { getSectionContent } from '@/lib/get-section-content';
@@ -44,7 +44,7 @@ export default function BusinessIndustriesSection({
   const ctaLabel = content?.cta?.label || 'Explore Industry Solutions';
   const cards =
     content?.cards.map((card) => ({
-      icon: iconMap[card.icon] ?? FactoryIcon,
+      icon: iconMap[card.icon] ?? icon.factory,
       title: card.title,
       description: card.description,
       href: card.href,

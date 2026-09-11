@@ -3,7 +3,7 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import CustomerAvatarStack from '@/components/shared/CustomerAvatarStack';
 import IconLinkCard from '@/components/ui/cards/IconLinkCard';
-import { ShieldCheckBadgeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
@@ -34,7 +34,7 @@ export default function RemittanceTrustSection({
   const countLabel = content?.count_label || '100K+ Customers';
   const cards =
     content?.cards.map((card) => ({
-      icon: iconMap[card.icon] ?? ShieldCheckBadgeIcon,
+      icon: iconMap[card.icon] ?? icon.shieldCheckBadge,
       title: card.title,
       linkLabel: card.link_label,
       href: card.href,

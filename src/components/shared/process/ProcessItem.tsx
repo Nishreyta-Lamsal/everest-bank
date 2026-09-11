@@ -1,4 +1,4 @@
-import { RouteIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -43,7 +43,7 @@ export default function ProcessItem({
         >
           <div className="overflow-hidden">
             <div className="flex size-8 items-center justify-center pb-3 lg:pb-4">
-              <RouteIcon className="h-[24px] w-[30px] text-orange-500" />
+              <icon.route className="h-[24px] w-[30px] text-orange-500" />
             </div>
           </div>
         </div>

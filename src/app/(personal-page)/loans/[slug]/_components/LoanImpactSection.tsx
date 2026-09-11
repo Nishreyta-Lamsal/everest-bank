@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { GreenEnergyIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { LoanImpact } from '../_data';
 
@@ -37,7 +37,7 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
               href={data.applyHref}
               className="order-2 flex h-[154px] w-full shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-[60px] bg-red-700 p-8 transition-colors duration-200 hover:bg-red-800 lg:order-1 lg:h-auto lg:w-[340px] lg:justify-start lg:gap-10"
             >
-              <GreenEnergyIcon className="size-[32px] text-white lg:size-[52px]" />
+              <icon.greenEnergy className="size-[32px] text-white lg:size-[52px]" />
               <span className="font-heading text-title-0-mobile-md lg:text-heading-h3-desktop-md text-white">
                 Apply for Loan
               </span>

@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type {
   LinkAction,
@@ -115,7 +115,7 @@ export type RemittancePageResponse = Omit<PageResponse, 'data'> & {
 
 export const remittancePageService = {
   getRemittancePageData: async (): Promise<RemittancePageResponse> => {
-    const response = await api.get<RemittancePageResponse>(
+    const response = await axiosClient.get<RemittancePageResponse>(
       '/public/pages/remittance',
     );
 

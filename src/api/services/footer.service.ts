@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse } from '@/types';
 
@@ -58,7 +58,7 @@ export type FooterParams = {
 
 export const footerService = {
   getFooter: async (params?: FooterParams): Promise<FooterResponse> => {
-    const response = await api.get<FooterResponse>('/public/footer/', {
+    const response = await axiosClient.get<FooterResponse>('/public/footer/', {
       params,
     });
 

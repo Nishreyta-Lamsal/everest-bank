@@ -1,11 +1,6 @@
 import { tv } from 'tailwind-variants';
 
-import {
-  ChevronDownIcon,
-  ChevronLeftSmallIcon,
-  ChevronRightSmallIcon,
-  EllipsisIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -108,7 +103,7 @@ export default function Pagination({
           onClick={() => onPageChange(currentPage - 1)}
           className={step({ disabled: isFirstPage })}
         >
-          <ChevronLeftSmallIcon className="size-4" />
+          <icon.chevronLeftSmall className="size-4" />
         </button>
 
         <ul className="flex items-center justify-center gap-1">
@@ -119,7 +114,7 @@ export default function Pagination({
                 aria-hidden="true"
                 className="text-grey-200 flex h-[32px] w-[32px] items-center justify-center rounded-[4px] px-1"
               >
-                <EllipsisIcon className="size-4" />
+                <icon.ellipsis className="size-4" />
               </li>
             ) : (
               <li key={item}>
@@ -144,7 +139,7 @@ export default function Pagination({
           onClick={() => onPageChange(currentPage + 1)}
           className={step({ disabled: isLastPage })}
         >
-          <ChevronRightSmallIcon className="size-4" />
+          <icon.chevronRightSmall className="size-4" />
         </button>
       </div>
 
@@ -162,7 +157,7 @@ export default function Pagination({
               </option>
             ))}
           </select>
-          <ChevronDownIcon className="text-grey-200 pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 opacity-80" />
+          <icon.chevronDown className="text-grey-200 pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 opacity-80" />
         </div>
       )}
     </nav>

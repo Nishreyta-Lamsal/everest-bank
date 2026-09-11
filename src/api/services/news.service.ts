@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse, MediaBrief } from '@/types';
 
@@ -82,7 +82,7 @@ export type NewsDetailParams = {
 
 export const newsService = {
   getNewsList: async (params?: NewsListParams): Promise<NewsListResponse> => {
-    const response = await api.get<NewsListResponse>('/public/news/', {
+    const response = await axiosClient.get<NewsListResponse>('/public/news/', {
       params,
     });
 
@@ -93,7 +93,7 @@ export const newsService = {
     newsId: number,
     params?: NewsDetailParams,
   ): Promise<NewsDetailResponse> => {
-    const response = await api.get<NewsDetailResponse>(
+    const response = await axiosClient.get<NewsDetailResponse>(
       `/public/news/${newsId}/`,
       { params },
     );

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { PlusIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -34,7 +34,7 @@ export default function CustomerAvatarStack({
           />
         ))}
         <div className="bg-cream-50 text-grey-200 -ml-3 flex size-[34px] shrink-0 items-center justify-center rounded-full lg:-ml-6 lg:size-[60px]">
-          <PlusIcon className="size-[10px] lg:size-[14px]" />
+          <icon.plus className="size-[10px] lg:size-[14px]" />
         </div>
       </div>
       <p

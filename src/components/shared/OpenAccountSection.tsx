@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { PauseIcon, PlayIcon, SpeedClockIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { iconMap } from '@/constants';
@@ -46,8 +46,8 @@ export default function OpenAccountSection({
   const [isPlaying, setIsPlaying] = useState(false);
 
   const resolvedFeatures =
-    features?.map(({ icon, label }) => ({
-      icon: iconMap[icon] ?? SpeedClockIcon,
+    features?.map(({ icon: iconKey, label }) => ({
+      icon: iconMap[iconKey] ?? icon.speedClock,
       label,
     })) || openAccountFeatures;
 
@@ -89,9 +89,9 @@ export default function OpenAccountSection({
               className="absolute top-1/2 left-1/2 flex size-15 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-[1.876px]"
             >
               {isPlaying ? (
-                <PauseIcon className="size-6" />
+                <icon.pause className="size-6" />
               ) : (
-                <PlayIcon className="size-6" />
+                <icon.play className="size-6" />
               )}
             </button>
           </div>

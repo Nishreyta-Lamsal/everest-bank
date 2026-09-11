@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -21,13 +21,13 @@ export default function FaqItem({ item, isOpen, onToggle }: FaqItemProps) {
             {item.question}
           </span>
           <span className="grid shrink-0">
-            <PlusIcon
+            <icon.plus
               className={cn(
                 'text-grey-500 col-start-1 row-start-1 transition-all duration-300 ease-in-out',
                 isOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100',
               )}
             />
-            <MinusIcon
+            <icon.minus
               className={cn(
                 'text-grey-500 col-start-1 row-start-1 transition-all duration-300 ease-in-out',
                 isOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0',

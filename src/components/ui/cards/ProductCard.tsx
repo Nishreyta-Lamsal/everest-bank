@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -44,7 +44,7 @@ export default function ProductCard({
         </h3>
         <span className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 lg:underline">
           {ctaLabel}
-          <ArrowUpRightIcon className="size-[16px] shrink-0" />
+          <icon.arrowUpRight className="size-[16px] shrink-0" />
         </span>
       </div>
     </Link>

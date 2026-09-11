@@ -1,15 +1,23 @@
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
+
+import { toIconKey } from '@/lib/utils';
 
 import type { NavbarMegaMenuColumnProps } from '@/types';
+import type { ComponentType, SVGProps } from 'react';
 
 export default function NavbarMegaMenuColumn({
   label,
-  icon: Icon,
+  icon: iconSlug,
   links,
   explore,
 }: NavbarMegaMenuColumnProps) {
+  const Icon =
+    (icon as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[
+      toIconKey(iconSlug)
+    ] ?? icon.bank;
+
   return (
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-2 py-2">
@@ -32,7 +40,7 @@ export default function NavbarMegaMenuColumn({
             className="text-body-4-desktop-md flex items-center gap-1 text-red-700 transition-colors hover:text-red-500"
           >
             {explore.label}
-            <ArrowUpRightIcon className="size-4 shrink-0" />
+            <icon.arrowUpRight className="size-4 shrink-0" />
           </Link>
         )}
       </div>

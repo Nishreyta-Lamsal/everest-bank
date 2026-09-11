@@ -5,7 +5,7 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import CustomerAvatarStack from '@/components/shared/CustomerAvatarStack';
 import Button from '@/components/ui/buttons/Button';
 import IconLinkCard from '@/components/ui/cards/IconLinkCard';
-import { ShieldCheckBadgeIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { PersonalPageSection } from '@/api/services/personal/personal-page.service';
 
@@ -38,7 +38,7 @@ export default function CsrSection({ sections }: CsrSectionProps) {
   const ctaLabel = content?.cta?.label || 'Explore CSR activities';
   const cards =
     content?.cards.map((card) => ({
-      icon: iconMap[card.icon] ?? ShieldCheckBadgeIcon,
+      icon: iconMap[card.icon] ?? icon.shieldCheckBadge,
       title: card.title,
       linkLabel: card.link_label,
       href: card.href,

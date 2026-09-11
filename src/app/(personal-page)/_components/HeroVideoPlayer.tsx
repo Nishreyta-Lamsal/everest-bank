@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { PauseIcon, PlayIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -83,9 +83,9 @@ export default function HeroVideoPlayer() {
         )}
       >
         {isPlaying ? (
-          <PauseIcon className="size-[16px] lg:size-[32px]" />
+          <icon.pause className="size-[16px] lg:size-[32px]" />
         ) : (
-          <PlayIcon className="size-[16px] lg:size-[32px]" />
+          <icon.play className="size-[16px] lg:size-[32px]" />
         )}
       </button>
     </div>

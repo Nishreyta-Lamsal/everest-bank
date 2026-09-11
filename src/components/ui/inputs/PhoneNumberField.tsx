@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import FieldShell from '@/components/ui/inputs/FieldShell';
 
 import { cn } from '@/lib/utils';
@@ -63,7 +63,7 @@ export default function PhoneNumberField({
         <span className="text-body-4-desktop text-grey-500 whitespace-nowrap">
           {countryCode}
         </span>
-        <ChevronDownIcon className="text-grey-300 size-[10px] shrink-0" />
+        <icon.chevronDown className="text-grey-300 size-[10px] shrink-0" />
       </div>
       <input
         id={fieldId}
@@ -73,7 +73,7 @@ export default function PhoneNumberField({
         aria-describedby={describedBy}
         {...inputProps}
       />
-      <ChevronDownIcon className="text-grey-300 size-[14px] shrink-0" />
+      <icon.chevronDown className="text-grey-300 size-[14px] shrink-0" />
     </FieldShell>
   );
 }

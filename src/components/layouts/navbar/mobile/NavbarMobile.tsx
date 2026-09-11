@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import NavbarSearchInput from '../NavbarSearchInput';
-import { MenuIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { ROUTE } from '@/constants/route';
@@ -25,7 +25,7 @@ export default function NavbarMobile() {
           aria-label="Open menu"
           className="flex size-[24px] shrink-0 items-center justify-center text-red-500"
         >
-          <MenuIcon className="size-[24px]" />
+          <icon.menu className="size-[24px]" />
         </button>
       </div>
       <div className="flex items-center gap-2 px-4 py-2">

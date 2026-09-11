@@ -3,7 +3,7 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ContentSidebar from '@/components/shared/content/ContentSidebar';
 import ContentQuote from '@/components/shared/content/ContentQuote';
-import { EyeIcon, TargetArrowIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { relatedPages } from '../_data/related-pages';
 
@@ -47,7 +47,7 @@ export default function CorporateMissionAndVisionContentSection() {
 
             <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-lg p-6">
               <div className="flex items-center gap-2">
-                <EyeIcon className="text-orange-500" />
+                <icon.eye className="text-orange-500" />
                 <h3 className="font-heading text-title-1-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                   Our Vision
                 </h3>
@@ -62,7 +62,7 @@ export default function CorporateMissionAndVisionContentSection() {
 
             <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-lg p-6">
               <div className="flex items-center gap-2">
-                <TargetArrowIcon className="text-orange-500" />
+                <icon.targetArrow className="text-orange-500" />
                 <h3 className="font-heading text-title-1-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
                   Our Mission
                 </h3>

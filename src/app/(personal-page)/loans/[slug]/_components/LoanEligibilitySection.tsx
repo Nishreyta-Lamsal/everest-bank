@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { CircleCheckIcon, PercentIcon, ResetIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 import SelectField from '@/components/ui/inputs/SelectField';
 import TextField from '@/components/ui/inputs/TextField';
@@ -29,7 +29,7 @@ export default function LoanEligibilitySection({
               <ul className="flex flex-col items-start gap-4">
                 {data.applicantTypes.map((type) => (
                   <li key={type} className="flex items-center gap-2">
-                    <CircleCheckIcon className="text-grey-400 size-[20px] lg:size-[24px]" />
+                    <icon.circleCheck className="text-grey-400 size-[20px] lg:size-[24px]" />
                     <span className="font-heading text-title-3-mobile lg:text-title-0-desktop text-grey-400">
                       {type}
                     </span>
@@ -66,7 +66,7 @@ export default function LoanEligibilitySection({
                 label="Interest Rate"
                 placeholder="0"
                 trailingIcon={
-                  <PercentIcon className="text-grey-300 size-[14px] shrink-0" />
+                  <icon.percent className="text-grey-300 size-[14px] shrink-0" />
                 }
               />
               <div className="flex items-center gap-6 lg:gap-8">
@@ -81,7 +81,7 @@ export default function LoanEligibilitySection({
                   type="button"
                   className="text-body-4-desktop-md text-grey-400 inline-flex shrink-0 items-center gap-1"
                 >
-                  <ResetIcon className="size-[16px]" />
+                  <icon.reset className="size-[16px]" />
                   Reset
                 </button>
               </div>

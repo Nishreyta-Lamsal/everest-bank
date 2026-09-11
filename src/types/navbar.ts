@@ -13,7 +13,7 @@ export type MegaMenuLink = {
 
 export type MegaMenuColumn = {
   label: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: string;
   links: MegaMenuLink[];
   explore?: MegaMenuLink;
 };
@@ -26,7 +26,7 @@ export type MegaMenu = {
 export type MainNavItem = {
   label: string;
   href: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: string;
   activePrefixes?: string[];
   megaMenu?: MegaMenu;
 };

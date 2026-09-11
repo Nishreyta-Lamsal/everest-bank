@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { AboutLinkCard } from '../../_data';
 
@@ -25,7 +25,7 @@ export default function AboutLinkItem({ card }: AboutLinkItemProps) {
         <h3 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-white">
           {card.title}
         </h3>
-        <ArrowUpRightIcon className="size-[40px] shrink-0 text-white lg:size-[52px]" />
+        <icon.arrowUpRight className="size-[40px] shrink-0 text-white lg:size-[52px]" />
       </div>
     </Link>
   );

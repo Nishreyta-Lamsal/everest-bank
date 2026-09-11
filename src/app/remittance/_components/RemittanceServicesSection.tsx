@@ -1,6 +1,6 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import FeatureCard from '@/components/shared/FeatureCard';
-import { BankIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
@@ -23,7 +23,7 @@ export default function RemittanceServicesSection({
       title: card.title,
       subtitle: card.subtitle,
       href: card.href,
-      icon: iconMap[card.icon] ?? BankIcon,
+      icon: iconMap[card.icon] ?? icon.bank,
     })) || remittanceServiceCards;
 
   return (

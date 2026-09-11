@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type {
   LinkAction,
@@ -115,7 +115,7 @@ export type PersonalPageResponse = Omit<PageResponse, 'data'> & {
 
 export const personalPageService = {
   getPersonalPageData: async (): Promise<PersonalPageResponse> => {
-    const response = await api.get<PersonalPageResponse>(
+    const response = await axiosClient.get<PersonalPageResponse>(
       '/public/pages/personal',
     );
 

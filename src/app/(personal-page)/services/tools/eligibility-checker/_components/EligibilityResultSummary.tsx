@@ -1,4 +1,4 @@
-import { VerifiedTickIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 type EligibilityResultSummaryProps = {
   eligibleAmount: number;
@@ -23,7 +23,7 @@ export default function EligibilityResultSummary({
       <div className="flex flex-col justify-center gap-4 lg:gap-6">
         <div className="flex flex-col gap-3 lg:gap-4">
           <div className="flex items-center gap-2">
-            <VerifiedTickIcon className="size-[24px] shrink-0" />
+            <icon.verifiedTick className="size-[24px] shrink-0" />
             <p className="text-body-2-mobile-md lg:text-body-2-desktop-md">
               You may be eligible for up to
             </p>

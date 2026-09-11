@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CircleCheckIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { cn } from '@/lib/utils';
@@ -46,7 +46,7 @@ export default function CardOfferItem({
         <ul className="flex w-full flex-col items-start gap-4 lg:gap-3.5">
           {offer.features.map((feature) => (
             <li key={feature} className="flex items-center gap-3">
-              <CircleCheckIcon className="text-grey-400 size-[20px] shrink-0" />
+              <icon.circleCheck className="text-grey-400 size-[20px] shrink-0" />
               <span className="font-heading text-title-3-mobile text-grey-400">
                 {feature}
               </span>

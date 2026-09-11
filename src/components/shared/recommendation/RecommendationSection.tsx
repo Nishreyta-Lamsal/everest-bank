@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
 import { cn } from '@/lib/utils';
@@ -79,7 +79,7 @@ export default function RecommendationSection({
                     className="w-full lg:h-[42px] lg:w-auto"
                     rightIcon={
                       showPrimaryCtaIcon ? (
-                        <ArrowUpRightIcon className="size-3.5 lg:size-4" />
+                        <icon.arrowUpRight className="size-3.5 lg:size-4" />
                       ) : undefined
                     }
                   >

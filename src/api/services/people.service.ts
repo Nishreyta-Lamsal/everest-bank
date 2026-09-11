@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios';
+import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse, MediaBrief } from '@/types';
 
@@ -67,9 +67,12 @@ export const peopleService = {
   getPeopleList: async (
     params?: PeopleListParams,
   ): Promise<PeopleListResponse> => {
-    const response = await api.get<PeopleListResponse>('/public/people/', {
-      params,
-    });
+    const response = await axiosClient.get<PeopleListResponse>(
+      '/public/people/',
+      {
+        params,
+      },
+    );
 
     return response.data;
   },

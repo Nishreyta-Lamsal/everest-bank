@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { ArrowBottomIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -42,7 +42,7 @@ export default function ForexRatesTable({ rates }: ForexRatesTableProps) {
                       </span>
                     )}
                   </span>
-                  <ArrowBottomIcon
+                  <icon.arrowBottom
                     aria-hidden="true"
                     className="mt-0.5 size-[12px] shrink-0"
                   />

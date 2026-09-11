@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import FieldShell from '@/components/ui/inputs/FieldShell';
 
 import { cn } from '@/lib/utils';
@@ -65,7 +65,7 @@ export default function CardNumberField({
         aria-describedby={describedBy}
         {...inputProps}
       />
-      <ChevronDownIcon className="text-grey-300 size-[14px] shrink-0" />
+      <icon.chevronDown className="text-grey-300 size-[14px] shrink-0" />
     </FieldShell>
   );
 }

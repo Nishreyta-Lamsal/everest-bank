@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { CalendarIcon, ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import SliderField from '../../_components/SliderField';
 import CompoundingSelector from './CompoundingSelector';
 import FDResultSummary from './FDResultSummary';
@@ -98,7 +98,7 @@ export default function FDCalculator() {
           max={tenureRange.max}
           step={tenureRange.step}
           onValueChange={setTenure}
-          prefix={<CalendarIcon className="size-[20px] shrink-0" />}
+          prefix={<icon.calendar className="size-[20px] shrink-0" />}
           trailing={
             <div className="relative flex shrink-0 items-center">
               <select
@@ -115,7 +115,7 @@ export default function FDCalculator() {
                   </option>
                 ))}
               </select>
-              <ChevronDownIcon className="text-grey-300 pointer-events-none absolute right-0 size-[16px]" />
+              <icon.chevronDown className="text-grey-300 pointer-events-none absolute right-0 size-[16px]" />
             </div>
           }
         />

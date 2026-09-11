@@ -2,7 +2,7 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import SelectField from '@/components/ui/inputs/SelectField';
 import TextField from '@/components/ui/inputs/TextField';
 import FilterButton from '@/components/ui/buttons/FilterButton';
-import { GridIcon, MapPaperIcon, SearchIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { SelectFieldOption } from '@/components/ui/inputs/SelectField';
 import type { MapView } from '@/types';
@@ -16,8 +16,8 @@ type MapFilterBarProps = {
 };
 
 const VIEW_OPTIONS = [
-  { value: 'map', label: 'Map', icon: MapPaperIcon },
-  { value: 'grid', label: 'Grid', icon: GridIcon },
+  { value: 'map', label: 'Map', icon: icon.mapPaper },
+  { value: 'grid', label: 'Grid', icon: icon.grid },
 ] as const;
 
 export default function MapFilterBar({
@@ -52,7 +52,7 @@ export default function MapFilterBar({
               variant="secondary"
               placeholder={searchPlaceholder}
               trailingIcon={
-                <SearchIcon className="text-grey-400 size-4 shrink-0" />
+                <icon.search className="text-grey-400 size-4 shrink-0" />
               }
               className="lg:flex-1"
             />

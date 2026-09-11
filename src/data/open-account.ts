@@ -1,11 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 
-import {
-  HeartIcon,
-  MapPinIcon,
-  ShieldCheckIcon,
-  SpeedClockIcon,
-} from '@/components/icons';
+import { icon } from '@/components/icons';
 
 export type OpenAccountFeature = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -14,19 +9,19 @@ export type OpenAccountFeature = {
 
 export const openAccountFeatures: OpenAccountFeature[] = [
   {
-    icon: SpeedClockIcon,
+    icon: icon.speedClock,
     label: 'Quick account opening process',
   },
   {
-    icon: MapPinIcon,
+    icon: icon.mapPin,
     label: 'Nationwide network',
   },
   {
-    icon: ShieldCheckIcon,
+    icon: icon.shieldCheck,
     label: 'Secure digital access',
   },
   {
-    icon: HeartIcon,
+    icon: icon.heart,
     label: 'Decades of trust',
   },
 ];

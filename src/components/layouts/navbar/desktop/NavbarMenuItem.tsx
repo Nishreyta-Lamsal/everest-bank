@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -31,7 +31,7 @@ export default function NavbarMenuItem({
       )}
     >
       {label}
-      <ChevronDownIcon className="size-[16px] shrink-0" />
+      <icon.chevronDown className="size-[16px] shrink-0" />
     </Link>
   );
 }

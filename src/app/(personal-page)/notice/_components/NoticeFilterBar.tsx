@@ -2,7 +2,7 @@
 
 import TextField from '@/components/ui/inputs/TextField';
 import DatePickerField from '@/components/ui/inputs/DatePickerField';
-import { SearchIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 type NoticeFilterBarProps = {
   search: string;
@@ -27,7 +27,7 @@ export default function NoticeFilterBar({
         value={search}
         onChange={(event) => onSearchChange(event.target.value)}
         trailingIcon={
-          <SearchIcon
+          <icon.search
             aria-hidden="true"
             className="text-grey-400 size-4 shrink-0"
           />

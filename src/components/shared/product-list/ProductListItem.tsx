@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
@@ -31,7 +31,7 @@ export default function ProductListItem({
           <span className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500 transition-colors group-hover:text-red-500 lg:w-[193px]">
             {product.title}
           </span>
-          <ArrowUpRightIcon className="text-grey-500 size-7 shrink-0 transition-colors group-hover:text-red-500 lg:size-8" />
+          <icon.arrowUpRight className="text-grey-500 size-7 shrink-0 transition-colors group-hover:text-red-500 lg:size-8" />
         </div>
       </div>
       <p className="text-body-3-mobile lg:text-body-2-desktop text-grey-400 w-full pl-16 lg:w-[256px] lg:pl-0">

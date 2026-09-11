@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
-import { DevicesIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
@@ -32,7 +32,7 @@ export default function BusinessDigitalBankingSection({
   const ctaLabel = content?.cta?.label || 'Explore digital business banking';
   const features =
     content?.features.map((feature) => ({
-      icon: iconMap[feature.icon] ?? DevicesIcon,
+      icon: iconMap[feature.icon] ?? icon.devices,
       label: feature.label,
     })) || digitalBankingFeatures;
 

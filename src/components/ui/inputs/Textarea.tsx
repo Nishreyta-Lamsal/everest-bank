@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { ChevronDownIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 import FieldShell from '@/components/ui/inputs/FieldShell';
 
 import { cn } from '@/lib/utils';
@@ -45,7 +45,7 @@ export default function Textarea({
         'h-[96px] items-start px-4 py-3.5',
       )}
     >
-      <ChevronDownIcon className="text-grey-300 mt-0.5 size-[16px] shrink-0" />
+      <icon.chevronDown className="text-grey-300 mt-0.5 size-[16px] shrink-0" />
       <textarea
         id={fieldId}
         className={cn(fieldElementClasses(), 'h-full resize-none')}

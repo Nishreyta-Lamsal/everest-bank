@@ -32,12 +32,9 @@ No test runner is configured in this project.
 Not installed by default — add via `npm install` when a feature actually requires it, and prefer these over alternatives so the stack stays consistent:
 
 - **axios** — for HTTP requests to external/backend APIs when native `fetch` isn't enough (interceptors, instance-level config, upload progress). Use a shared `axios.create()` instance rather than importing bare `axios` per call site.
-- **gsap** + **@gsap/react** — for animation beyond what CSS transitions/Tailwind can do (scroll-triggered effects, timelines, complex sequencing). Use the `useGSAP` hook from `@gsap/react` for setup/cleanup in components, not raw `useEffect`.
-- **mantine** — for complex interactive UI (data tables, date pickers, rich forms, modals) that isn't worth hand-building with Tailwind. Don't reach for it for anything a `tv()`-based component can already do.
 - **shadcn** — for accessible unstyled primitives (dialogs, popovers, dropdowns) to restyle with the existing Tailwind tokens, rather than building ARIA-correct interactive primitives from scratch.
 - **react-hook-form** — for any non-trivial form (multiple fields, validation, submit state). Pair with **zod** via `@hookform/resolvers` for schema-based validation rather than hand-rolled field validation.
 - **zod** — schema validation, primarily for form input and any data crossing a trust boundary (API responses, query params).
-- **remark** + **remark-html** — for rendering markdown content (e.g. CMS/blog content) to HTML at build/request time.
 
 ## Architecture
 
@@ -52,7 +49,7 @@ Not installed by default — add via `npm install` when a feature actually requi
 - `src/components/ui/` — generic, reusable UI primitives (buttons, carousel). One component per file.
 - `src/components/layouts/` — structural components, grouped by area in subfolders (`navbar/`, `footer/`, `wrapper/`).
 - `src/components/shared/` — components reused across routes but not generic primitives (`ContactSection`, `FAQSection`).
-- `src/components/icons/` — one SVG per file, PascalCase with an `Icon` suffix (`BankIcon.tsx`), all re-exported through `icons/index.ts`.
+- `src/components/icons/` — one SVG per file, PascalCase with an `Icon` suffix (`BankIcon.tsx`), all registered in the `icon` map in `icons/icon.tsx` (not individually re-exported through `icons/index.ts`).
 - `src/data/`, `src/constants/` — static values shared app-wide, each with a barrel `index.ts`.
 - `src/lib/` — small utilities (`cn`).
 - Components: PascalCase `.tsx` (`ProductCard.tsx`). Data/constants: kebab- or camelCase `.ts` (`external-link.ts`). Barrels are always `index.ts`.
@@ -77,7 +74,7 @@ Not installed by default — add via `npm install` when a feature actually requi
   import Link from 'next/link';
 
   import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
-  import { ArrowUpRightIcon, EnvelopeIcon } from '@/components/icons';
+  import { icon } from '@/components/icons';
   import Button from '@/components/ui/buttons/Button';
 
   import { cn } from '@/lib/utils';
@@ -102,23 +99,7 @@ Follow `src/components/ui/buttons/Button.tsx`:
 
 Plugin registration is centralized in `src/lib/gsap.ts`, not repeated per component:
 
-```ts
-'use client';
-
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitText from 'gsap/SplitText';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
-
-export { gsap, ScrollTrigger, SplitText, useGSAP };
-```
-
-- `'use client'` at the top — GSAP only runs client-side.
-- Register every plugin the app uses (`ScrollTrigger`, `SplitText`, ...) once here via `gsap.registerPlugin(...)`; add new plugins to this same call rather than registering them inline in a component.
-- Re-export `gsap`, each registered plugin, and `useGSAP` from this file. Components import from `@/lib/gsap` (e.g. `import { gsap, useGSAP } from '@/lib/gsap';`), never directly from `gsap`/`@gsap/react` — that's what guarantees plugins are registered before use.
-- Adding a new GSAP plugin: import it in `gsap.ts`, add it to `registerPlugin`, add it to the export list — don't register it ad hoc in the component that needs it.
+````ts
 
 ## `globals.css` structure
 
@@ -129,6 +110,7 @@ Everything lives in `src/app/globals.css` — there is no `tailwind.config.ts`, 
    - **Colors** — grouped by color family with a comment header (`/* Red */`, `/* Grey */`, ...), each shade as `--color-{family}-{step}` (e.g. `--color-red-500`, `--color-grey-300`). New colors: add the shade under its family's comment block, keep the numeric step scale consistent (50/100/200...).
    - **Typography** — `--font-heading` / `--font-body` (mapped to the `next/font` variables from `layout.tsx`) and `--font-weight-*`, followed by the type scale grouped by category (`Display`, `Heading`, `Title`, `Body`, `Caption`). Each size defines a set of four related properties: `--text-{category}-{n}-desktop[-md]`, `--text-...--line-height`, `--text-...--letter-spacing`, `--text-...--font-weight`. The `-md` suffix is the medium-weight variant of the same size — add both when introducing a new size. These become Tailwind utilities directly (e.g. `text-body-4-desktop-md`) — always use a token instead of an arbitrary `text-[14px]`.
 3. `@layer utilities { ... }` for one-off custom utility classes not covered by Tailwind, e.g.:
+
    ```css
    @layer utilities {
      .scrollbar-hidden {
@@ -140,7 +122,8 @@ Everything lives in `src/app/globals.css` — there is no `tailwind.config.ts`, 
        display: none;
      }
    }
-   ```
+````
+
 4. Plain CSS rules after the layers for base element styling (currently just `body { font-family: ... }`).
 
 Don't add a `tailwind.config.ts` or duplicate tokens elsewhere — extend the `@theme` block instead.
@@ -193,12 +176,7 @@ export function RouteIcon(props: SVGProps<SVGSVGElement>) {
       fill="none"
       {...props}
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="..."
-        fill="currentColor"
-      />
+      <path fillRule="evenodd" clipRule="evenodd" d="..." fill="currentColor" />
     </svg>
   );
 }
@@ -207,7 +185,7 @@ export function RouteIcon(props: SVGProps<SVGSVGElement>) {
 1. One SVG per file in `src/components/icons/`, named export (not default), PascalCase with an `Icon` suffix matching the filename (`RouteIcon` in `RouteIcon.tsx`).
 2. Type props as `SVGProps<SVGSVGElement>` and spread `{...props}` onto the `<svg>` so callers can pass `className`, `onClick`, etc.
 3. Keep the source SVG's `viewBox`/`width`/`height`; drop hardcoded fill colors on paths in favor of `fill="currentColor"` (or `stroke="currentColor"` for stroked icons) so color follows the surrounding text/`text-*` class.
-4. Add `export * from './YourIcon';` to `icons/index.ts`, keeping the list alphabetical, and import from the barrel (`@/components/icons`), never the individual file.
+4. Register it in `icons/icon.tsx`: import the component and add a camelCase entry to the `icon` object (e.g. `routeIcon: RouteIcon` → key it without the `Icon` suffix, e.g. `route: RouteIcon`), keeping both the import list and the object keys alphabetical. Do **not** re-export the component itself from `icons/index.ts` — that file only does `export * from './icon';`. Consumers always `import { icon } from '@/components/icons'` and render `<icon.route />`, never import the individual icon file or component directly.
 
 ## Rendering a list of cards
 

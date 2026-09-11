@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRightIcon } from '@/components/icons';
+import { icon } from '@/components/icons';
 
 import type { BusinessFinancingContentCard } from '../../_data';
 
@@ -35,7 +35,7 @@ export default function FinancingContentCard({
         </div>
         <span className="text-body-4-desktop-md inline-flex items-center gap-1 font-medium text-red-700 underline">
           {linkLabel}
-          <ArrowUpRightIcon className="size-[16px] shrink-0" />
+          <icon.arrowUpRight className="size-[16px] shrink-0" />
         </span>
       </div>
     </Link>
