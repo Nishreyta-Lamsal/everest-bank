@@ -41,7 +41,7 @@ export default function EMICalculator() {
   const interestShare =
     totalPayable > 0 ? (totalInterest / totalPayable) * 100 : 0;
 
-  const handleTenureUnitChange = (nextUnit: TenureUnit) => {
+  function handleTenureUnitChange(nextUnit: TenureUnit) {
     const nextRange = tenureRanges[nextUnit];
     const convertedTenure =
       nextUnit === 'months' ? tenure * 12 : Math.round(tenure / 12);
@@ -49,8 +49,9 @@ export default function EMICalculator() {
     setTenure(
       Math.min(Math.max(convertedTenure, nextRange.min), nextRange.max),
     );
+
     setTenureUnit(nextUnit);
-  };
+  }
 
   return (
     <div className="flex w-full flex-col gap-10 lg:gap-8">
