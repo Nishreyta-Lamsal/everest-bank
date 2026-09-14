@@ -28,6 +28,7 @@ export default function NavbarMenuItem({
         'text-body-3-desktop flex items-center gap-1 border-b-2 border-transparent py-3 pr-6 text-red-500! -outline-offset-2 transition-colors hover:border-red-500 focus-visible:outline-red-600',
         isFirst ? 'pl-22' : 'pl-6',
         isActive && 'bg-red-500 text-white!',
+        isExpanded && 'border-red-500',
       )}
     >
       {label}
