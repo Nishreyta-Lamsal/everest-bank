@@ -46,7 +46,7 @@ export default function LivePreview({ children }: LivePreviewProps) {
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-2">
-      <p className="flex items-center gap-1.5 text-[12px] font-medium text-slate-950 opacity-[0.68]">
+      <p className="flex items-center gap-1.5 text-[12px] font-medium text-slate-600">
         <icon.eye className="size-3.5" />
         Live Preview
       </p>

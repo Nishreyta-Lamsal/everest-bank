@@ -114,6 +114,7 @@ export default function LoansPreviewEditor({
                   updateCard(index, { ...card, image: media }),
                 )
               }
+              onRemove={() => updateCard(index, { ...card, image: undefined })}
             />
           </div>
         ))}

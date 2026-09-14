@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 
+import ImagePreview from './ImagePreview';
 import { icon } from '@/components/admin/icons';
 
 import { cn } from '@/lib/utils';
@@ -10,14 +11,21 @@ const ACCEPTED_TYPES = 'image/png,image/jpeg,image/webp';
 
 type ImageDropzoneProps = {
   onFileSelected: (file: File) => void;
+  onRemove?: () => void;
   isUploading?: boolean;
   error?: string;
+  preview?: {
+    src: string;
+    alt?: string;
+  };
 };
 
 export default function ImageDropzone({
   onFileSelected,
+  onRemove,
   isUploading,
   error,
+  preview,
 }: ImageDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -28,6 +36,22 @@ export default function ImageDropzone({
     if (file) {
       onFileSelected(file);
     }
+  }
+
+  if (preview) {
+    return (
+      <div className="flex w-full flex-col gap-1">
+        <ImagePreview
+          src={preview.src}
+          alt={preview.alt}
+          size="large"
+          onReplace={onFileSelected}
+          onRemove={onRemove}
+          isUploading={isUploading}
+        />
+        {error && <p className="text-[12px] text-red-600">{error}</p>}
+      </div>
+    );
   }
 
   return (
@@ -46,8 +70,9 @@ export default function ImageDropzone({
           setIsDragging(false);
           handleFiles(event.dataTransfer.files);
         }}
+        aria-label="Upload image"
         className={cn(
-          'flex w-full items-center justify-center gap-3 rounded-[6px] border border-dashed border-[#cfd9e8] bg-[rgba(0,0,0,0.03)] px-px py-[17px]',
+          'flex w-full cursor-pointer items-center justify-center gap-3 rounded-[6px] border border-dashed border-[#cfd9e8] bg-[rgba(0,0,0,0.03)] px-px py-[17px]',
           isDragging && 'border-blue-500 bg-blue-50',
           isUploading && 'cursor-not-allowed opacity-60',
         )}

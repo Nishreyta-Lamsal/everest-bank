@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import FieldLabel from './FieldLabel';
 import SectionEditorShell from './SectionEditorShell';
-import SlideImageThumbnail from './SlideImageThumbnail';
+import ImagePreview from './ImagePreview';
 import ImageDropzone from './ImageDropzone';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -68,19 +68,12 @@ export default function TrustBannerEditor({
         {images.length > 0 && (
           <div className="flex w-full flex-wrap items-center gap-2">
             {images.map((image, index) => (
-              <div key={index} className="flex flex-col items-center gap-1">
-                <SlideImageThumbnail src={image.src} alt={image.alt} />
-                {/* <button
-                  type="button"
-                  onClick={() =>
-                    setImages(images.filter((_, i) => i !== index))
-                  }
-                  aria-label={`Remove image ${index + 1}`}
-                  className="text-[11px] text-slate-600"
-                >
-                  Remove
-                </button> */}
-              </div>
+              <ImagePreview
+                key={index}
+                src={image.src}
+                alt={image.alt}
+                onRemove={() => setImages(images.filter((_, i) => i !== index))}
+              />
             ))}
           </div>
         )}

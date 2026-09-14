@@ -79,6 +79,7 @@ export default function CardsPreviewEditor({
         media={background}
         isUploading={isUploading}
         onUpload={(file) => uploadImage(file, setBackground)}
+        onRemove={() => setBackground(undefined)}
       />
 
       <div className="flex w-full flex-col gap-3">

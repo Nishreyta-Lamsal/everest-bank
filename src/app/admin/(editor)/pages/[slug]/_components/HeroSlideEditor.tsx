@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import ButtonFieldGroup from './ButtonFieldGroup';
 import ImageDropzone from './ImageDropzone';
-import SlideImageThumbnail from './SlideImageThumbnail';
+import ImagePreview from './ImagePreview';
 import SlideEditorHeader from './SlideEditorHeader';
 import { usePageEditor } from '@/store/PageEditorContext';
 import { Card } from '@/components/admin/ui/card';
@@ -99,6 +99,31 @@ export default function HeroSlideEditor({
     );
   }
 
+  function removeSlide(index: number) {
+    setSlides((current) => current.filter((_, i) => i !== index));
+  }
+
+  function handleSlideReplace(index: number, file: File) {
+    uploadMedia.mutate(
+      { file },
+      {
+        onSuccess: (media) => {
+          if (!media.file_url) return;
+
+          const uploaded: SectionMedia = {
+            src: media.file_url,
+            alt: media.alt_text || media.title || '',
+            media_id: media.id,
+          };
+
+          setSlides((current) =>
+            current.map((slide, i) => (i === index ? uploaded : slide)),
+          );
+        },
+      },
+    );
+  }
+
   async function publishChanges() {
     const validSlides = slides.filter((slide) => Boolean(slide.src));
 
@@ -187,10 +212,13 @@ export default function HeroSlideEditor({
               {slides.length > 0 && (
                 <div className="flex w-full flex-wrap items-center gap-2">
                   {slides.map((slide, index) => (
-                    <SlideImageThumbnail
+                    <ImagePreview
                       key={`${slide.media_id ?? 'slide'}-${index}`}
                       src={slide.src}
                       alt={slide.alt}
+                      onReplace={(file) => handleSlideReplace(index, file)}
+                      onRemove={() => removeSlide(index)}
+                      isUploading={uploadMedia.isPending}
                     />
                   ))}
                 </div>
