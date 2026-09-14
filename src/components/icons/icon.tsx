@@ -20,6 +20,7 @@ import { ChevronLeftSmallIcon } from './ChevronLeftSmallIcon';
 import { ChevronRightIcon } from './ChevronRightIcon';
 import { ChevronRightSmallIcon } from './ChevronRightSmallIcon';
 import { CircleCheckIcon } from './CircleCheckIcon';
+import { CloseIcon } from './CloseIcon';
 import { CourtIcon } from './CourtIcon';
 import { CursorIcon } from './CursorIcon';
 import { DevicesIcon } from './DevicesIcon';
@@ -105,6 +106,7 @@ export const icon = {
   chevronRight: ChevronRightIcon,
   chevronRightSmall: ChevronRightSmallIcon,
   circleCheck: CircleCheckIcon,
+  close: CloseIcon,
   court: CourtIcon,
   cursor: CursorIcon,
   devices: DevicesIcon,
