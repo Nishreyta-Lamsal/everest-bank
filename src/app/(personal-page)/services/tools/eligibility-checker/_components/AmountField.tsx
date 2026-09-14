@@ -13,13 +13,13 @@ export default function AmountField({
 }: AmountFieldProps) {
   const inputId = useId();
 
-  const handleChange = (rawValue: string) => {
+  function handleChange(rawValue: string) {
     const numericValue = Number(rawValue.replace(/[^\d.]/g, ''));
 
     if (!Number.isNaN(numericValue)) {
       onValueChange(numericValue);
     }
-  };
+  }
 
   return (
     <div className="flex w-full flex-col justify-center gap-2">

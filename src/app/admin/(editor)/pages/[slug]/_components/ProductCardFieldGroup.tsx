@@ -4,7 +4,7 @@
 import { Input } from '@/components/admin/ui/input';
 import LinkTargetSelect from './LinkTargetSelect';
 import ImageDropzone from './ImageDropzone';
-import SlideImageThumbnail from './SlideImageThumbnail';
+import ImagePreview from './ImagePreview';
 
 import type { ProductCard } from '@/types/admin';
 
@@ -50,7 +50,6 @@ export default function ProductCardFieldGroup({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             placeholder="Open Account"
             value={card.title ?? ''}
             onChange={(event) =>
@@ -100,17 +99,21 @@ export default function ProductCardFieldGroup({
             <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
               Decoration image
             </p>
-            {card.decoration_src?.src && (
-              <SlideImageThumbnail
+            {card.decoration_src?.src ? (
+              <ImagePreview
                 src={card.decoration_src.src}
                 alt={card.decoration_src.alt}
-              />
-            )}
-            {onDecorationUpload && (
-              <ImageDropzone
-                onFileSelected={onDecorationUpload}
+                onReplace={onDecorationUpload}
+                onRemove={() => onChange({ ...card, decoration_src: undefined })}
                 isUploading={isUploadingDecoration}
               />
+            ) : (
+              onDecorationUpload && (
+                <ImageDropzone
+                  onFileSelected={onDecorationUpload}
+                  isUploading={isUploadingDecoration}
+                />
+              )
             )}
           </div>
         )}

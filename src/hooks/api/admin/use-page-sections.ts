@@ -5,8 +5,9 @@ import { pageQueryKey } from './use-pages';
 
 import type { UpdatePageSectionPayload } from '@/api/services/admin/page-section.service';
 
-export const pageSectionQueryKey = (slug: string, sectionId: number) =>
-  ['pages', 'detail', slug, 'sections', sectionId] as const;
+export function pageSectionQueryKey(slug: string, sectionId: number) {
+  return ['pages', 'detail', slug, 'sections', sectionId] as const;
+}
 
 export function usePageSection(slug: string, sectionId?: number) {
   return useQuery({

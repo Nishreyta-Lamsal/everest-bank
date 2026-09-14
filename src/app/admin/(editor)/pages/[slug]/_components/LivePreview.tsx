@@ -1,24 +1,27 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
-const PREVIEW_ORIGIN = process.env.NEXT_PUBLIC_PREVIEW_ORIGIN ?? '';
+import { icon } from '@/components/admin/icons';
 
-// The frame renders at a real desktop width, then scales down to fit the
-// panel — sizing it to the panel instead would trigger the mobile layout.
-const FRAME_WIDTH = 1440;
+const FRAME_WIDTH = 1400;
 
-export default function LivePreview() {
+type LivePreviewProps = {
+  children: ReactNode;
+};
+
+export default function LivePreview({ children }: LivePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState({ width: 0, height: 0 });
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      setSize({ width, height });
+      setContainerWidth(entry.contentRect.width);
     });
 
     observer.observe(container);
@@ -26,39 +29,51 @@ export default function LivePreview() {
     return () => observer.disconnect();
   }, []);
 
-  if (!PREVIEW_ORIGIN) {
-    return (
-      <div className="flex h-full w-full items-center justify-center rounded-[12px] border border-slate-200 bg-white">
-        <p className="text-[12px] text-neutral-700 opacity-[0.72]">
-          Set NEXT_PUBLIC_PREVIEW_ORIGIN to enable the preview.
-        </p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
 
-  const scale = size.width ? size.width / FRAME_WIDTH : 0;
+    const observer = new ResizeObserver(([entry]) => {
+      setContentHeight(entry.contentRect.height);
+    });
+
+    observer.observe(content);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scale = containerWidth ? containerWidth / FRAME_WIDTH : 0;
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-2">
-      <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
+      <p className="flex items-center gap-1.5 text-[12px] font-medium text-slate-600">
+        <icon.eye className="size-3.5" />
         Live Preview
       </p>
       <div
         ref={containerRef}
-        className="min-h-0 w-full flex-1 overflow-hidden rounded-[12px] border border-slate-200 bg-white"
+        className="min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto rounded-[12px] border border-slate-200 bg-white"
       >
-        {scale > 0 && (
-          <iframe
-            src={`${PREVIEW_ORIGIN}?preview=1`}
-            title="Live preview"
-            className="origin-top-left border-0"
-            style={{
-              width: `${FRAME_WIDTH}px`,
-              // Fill the panel exactly once scaled, so no dead space is left.
-              height: `${size.height / scale}px`,
-              transform: `scale(${scale})`,
-            }}
-          />
+        {children ? (
+          <div style={{ height: scale ? contentHeight * scale : 0 }}>
+            <div
+              ref={contentRef}
+              inert
+              className="pointer-events-none origin-top-left select-none"
+              style={{
+                width: `${FRAME_WIDTH}px`,
+                transform: `scale(${scale})`,
+              }}
+            >
+              {children}
+            </div>
+          </div>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <p className="text-[12px] text-neutral-700 opacity-[0.72]">
+              No live preview available for this page yet.
+            </p>
+          </div>
         )}
       </div>
     </div>

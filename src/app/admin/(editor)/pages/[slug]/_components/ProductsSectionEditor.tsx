@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import ProductCardFieldGroup from './ProductCardFieldGroup';
 import SlideEditorHeader from './SlideEditorHeader';
-import { usePageEditor } from './PageEditorContext';
+import { usePageEditor } from '@/store/PageEditorContext';
 // import { Button } from '@/components/admin/ui/button';
 import { Card } from '@/components/admin/ui/card';
 
@@ -58,7 +58,7 @@ export default function ProductsSectionEditor({
     },
   ];
 
-  const publishChanges = async () => {
+  async function publishChanges() {
     await updateSection.mutateAsync({
       is_visible: shownOnPage,
       content: mergeLocalizedContent<ProductsContent>(section.content, {
@@ -66,7 +66,7 @@ export default function ProductsSectionEditor({
         bottom_cards: bottomCards,
       }),
     });
-  };
+  }
 
   // Re-register each render so the handler closes over the latest field values.
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ProductsSectionEditor({
   });
 
   return (
-    <Card className="w-full max-w-[760px]">
+    <Card className="w-full">
       <div className="flex w-full flex-col gap-8">
         <SlideEditorHeader
           title={section.label}

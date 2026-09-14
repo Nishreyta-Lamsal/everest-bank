@@ -6,9 +6,9 @@ import FieldLabel from './FieldLabel';
 import MediaField from './MediaField';
 import LinkTargetSelect from './LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
-import SlideImageThumbnail from './SlideImageThumbnail';
+import ImagePreview from './ImagePreview';
 import ImageDropzone from './ImageDropzone';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 // import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
@@ -58,8 +58,9 @@ export default function CsrSectionEditor({
       cta: { label: ctaLabel, href: ctaHref },
     }));
 
-  const updateCard = (index: number, next: CsrCard) =>
+  function updateCard(index: number, next: CsrCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
+  }
 
   return (
     <SectionEditorShell
@@ -73,7 +74,6 @@ export default function CsrSectionEditor({
         <Textarea
           variant="filled"
           size="medium"
-          className="font-medium"
           value={heading}
           onChange={(event) => setHeading(event.target.value)}
         />
@@ -93,6 +93,7 @@ export default function CsrSectionEditor({
         media={mainImage}
         isUploading={isUploading}
         onUpload={(file) => uploadImage(file, setMainImage)}
+        onRemove={() => setMainImage(undefined)}
       />
 
       <div className="flex w-full flex-col gap-3">
@@ -122,7 +123,6 @@ export default function CsrSectionEditor({
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={card.title ?? ''}
                 onChange={(event) =>
                   updateCard(index, { ...card, title: event.target.value })
@@ -164,7 +164,6 @@ export default function CsrSectionEditor({
         <Input
           variant="filled"
           size="medium"
-          className="font-medium"
           value={customerCount}
           onChange={(event) => setCustomerCount(event.target.value)}
         />
@@ -177,19 +176,14 @@ export default function CsrSectionEditor({
         {avatars.length > 0 && (
           <div className="flex w-full flex-wrap items-center gap-2">
             {avatars.map((avatar, index) => (
-              <div key={index} className="flex flex-col items-center gap-1">
-                <SlideImageThumbnail src={avatar.src} alt={avatar.alt} />
-                {/* <button
-                  type="button"
-                  onClick={() =>
-                    setAvatars(avatars.filter((_, i) => i !== index))
-                  }
-                  aria-label={`Remove avatar ${index + 1}`}
-                  className="text-[11px] text-slate-600"
-                >
-                  Remove
-                </button> */}
-              </div>
+              <ImagePreview
+                key={index}
+                src={avatar.src}
+                alt={avatar.alt}
+                onRemove={() =>
+                  setAvatars(avatars.filter((_, i) => i !== index))
+                }
+              />
             ))}
           </div>
         )}
@@ -211,7 +205,6 @@ export default function CsrSectionEditor({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             value={ctaLabel}
             onChange={(event) => setCtaLabel(event.target.value)}
           />

@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { useRouter } from 'next/navigation';
 
 type PublishHandler = () => Promise<void>;
 
@@ -20,25 +21,29 @@ type PageEditorContextValue = {
 const PageEditorContext = createContext<PageEditorContextValue | null>(null);
 
 export function PageEditorProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+
   const handlerRef = useRef<PublishHandler | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
 
-  const registerPublishHandler = (handler: PublishHandler | null) => {
+  function registerPublishHandler(handler: PublishHandler | null) {
     handlerRef.current = handler;
     setCanPublish(Boolean(handler));
-  };
+  }
 
-  const publish = async () => {
+  async function publish() {
     if (!handlerRef.current) return;
 
     setIsPublishing(true);
     try {
       await handlerRef.current();
+
+      router.refresh();
     } finally {
       setIsPublishing(false);
     }
-  };
+  }
 
   return (
     <PageEditorContext.Provider

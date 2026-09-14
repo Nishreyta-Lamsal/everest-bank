@@ -6,9 +6,9 @@ import FieldLabel from './FieldLabel';
 import MediaField from './MediaField';
 import LinkTargetSelect from './LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
-import SlideImageThumbnail from './SlideImageThumbnail';
+import ImagePreview from './ImagePreview';
 import ImageDropzone from './ImageDropzone';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 // import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
@@ -59,8 +59,9 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
       app_store_badges: storeBadges,
     }));
 
-  const updateBadge = (index: number, next: AppPromoBadge) =>
+  function updateBadge(index: number, next: AppPromoBadge) {
     setBadges(badges.map((badge, i) => (i === index ? next : badge)));
+  }
 
   return (
     <SectionEditorShell
@@ -74,7 +75,6 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         <Textarea
           variant="filled"
           size="medium"
-          className="font-medium"
           value={heading}
           onChange={(event) => setHeading(event.target.value)}
         />
@@ -109,7 +109,6 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={badge.label ?? ''}
                 onChange={(event) =>
                   updateBadge(index, { ...badge, label: event.target.value })
@@ -145,6 +144,7 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
             setQrCode({ ...media, caption_lines: qrCode?.caption_lines }),
           )
         }
+        onRemove={() => setQrCode(undefined)}
       />
 
       <FieldLabel label="QR caption (one line per row)">
@@ -161,6 +161,7 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         media={heroImage}
         isUploading={isUploading}
         onUpload={(file) => uploadImage(file, setHeroImage)}
+        onRemove={() => setHeroImage(undefined)}
       />
 
       <MediaField
@@ -168,6 +169,7 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         media={phoneMockup}
         isUploading={isUploading}
         onUpload={(file) => uploadImage(file, setPhoneMockup)}
+        onRemove={() => setPhoneMockup(undefined)}
       />
 
       <div className="flex w-full flex-col gap-2">
@@ -177,19 +179,14 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         {storeBadges.length > 0 && (
           <div className="flex w-full flex-wrap items-center gap-2">
             {storeBadges.map((badge, index) => (
-              <div key={index} className="flex flex-col items-center gap-1">
-                <SlideImageThumbnail src={badge.src} alt={badge.alt} />
-                {/* <button
-                  type="button"
-                  onClick={() =>
-                    setStoreBadges(storeBadges.filter((_, i) => i !== index))
-                  }
-                  aria-label={`Remove badge ${index + 1}`}
-                  className="text-[11px] text-slate-600"
-                >
-                  Remove
-                </button> */}
-              </div>
+              <ImagePreview
+                key={index}
+                src={badge.src}
+                alt={badge.alt}
+                onRemove={() =>
+                  setStoreBadges(storeBadges.filter((_, i) => i !== index))
+                }
+              />
             ))}
           </div>
         )}

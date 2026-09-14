@@ -21,7 +21,7 @@ type PageSectionEditorProps = {
 
 function EditorCard({ children }: { children: React.ReactNode }) {
   return (
-    <Card className="w-full max-w-[760px]">
+    <Card className="w-full">
       <p className="text-[14px] text-neutral-700 opacity-[0.72]">{children}</p>
     </Card>
   );
@@ -48,7 +48,7 @@ export default function PageSectionEditor({ slug }: PageSectionEditorProps) {
 
   if (isPending || (activeId && isSectionPending)) {
     return (
-      <Card className="w-full max-w-[760px]">
+      <Card className="w-full">
         <div className="flex w-full flex-col gap-4">
           {Array.from({ length: 4 }).map((_, index) => (
             <div
