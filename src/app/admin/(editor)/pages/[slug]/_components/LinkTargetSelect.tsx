@@ -13,7 +13,6 @@ export default function LinkTargetSelect({
     <Input
       variant="filled"
       size="medium"
-      className="font-medium"
       placeholder="/savings or https://example.com"
       value={value}
       onChange={(event) => onChange(event.target.value)}

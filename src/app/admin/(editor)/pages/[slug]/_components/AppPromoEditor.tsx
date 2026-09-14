@@ -8,7 +8,7 @@ import LinkTargetSelect from './LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import SlideImageThumbnail from './SlideImageThumbnail';
 import ImageDropzone from './ImageDropzone';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 // import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
@@ -59,8 +59,9 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
       app_store_badges: storeBadges,
     }));
 
-  const updateBadge = (index: number, next: AppPromoBadge) =>
+  function updateBadge(index: number, next: AppPromoBadge) {
     setBadges(badges.map((badge, i) => (i === index ? next : badge)));
+  }
 
   return (
     <SectionEditorShell
@@ -74,7 +75,6 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         <Textarea
           variant="filled"
           size="medium"
-          className="font-medium"
           value={heading}
           onChange={(event) => setHeading(event.target.value)}
         />
@@ -109,7 +109,6 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={badge.label ?? ''}
                 onChange={(event) =>
                   updateBadge(index, { ...badge, label: event.target.value })

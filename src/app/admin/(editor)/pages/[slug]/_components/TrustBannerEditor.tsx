@@ -6,7 +6,7 @@ import FieldLabel from './FieldLabel';
 import SectionEditorShell from './SectionEditorShell';
 import SlideImageThumbnail from './SlideImageThumbnail';
 import ImageDropzone from './ImageDropzone';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
 
 import { localizedContent } from '@/lib/admin/section-content';
@@ -47,7 +47,6 @@ export default function TrustBannerEditor({
         <Input
           variant="filled"
           size="medium"
-          className="font-medium"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />

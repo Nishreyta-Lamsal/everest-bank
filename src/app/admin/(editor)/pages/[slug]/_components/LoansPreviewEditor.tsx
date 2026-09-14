@@ -6,7 +6,7 @@ import FieldLabel from './FieldLabel';
 import MediaField from './MediaField';
 import LinkTargetSelect from './LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 // import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
@@ -43,8 +43,9 @@ export default function LoansPreviewEditor({
       cta: { label: ctaLabel, href: ctaHref },
     }));
 
-  const updateCard = (index: number, next: LoansPreviewCard) =>
+  function updateCard(index: number, next: LoansPreviewCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
+  }
 
   return (
     <SectionEditorShell
@@ -58,7 +59,6 @@ export default function LoansPreviewEditor({
         <Textarea
           variant="filled"
           size="medium"
-          className="font-medium"
           value={heading}
           onChange={(event) => setHeading(event.target.value)}
         />
@@ -91,7 +91,6 @@ export default function LoansPreviewEditor({
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={card.title ?? ''}
                 onChange={(event) =>
                   updateCard(index, { ...card, title: event.target.value })
@@ -137,7 +136,6 @@ export default function LoansPreviewEditor({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             value={ctaLabel}
             onChange={(event) => setCtaLabel(event.target.value)}
           />

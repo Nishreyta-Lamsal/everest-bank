@@ -50,7 +50,6 @@ export default function ProductCardFieldGroup({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             placeholder="Open Account"
             value={card.title ?? ''}
             onChange={(event) =>

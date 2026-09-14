@@ -86,6 +86,13 @@ Not installed by default — add via `npm install` when a feature actually requi
 
   In a `page.tsx`, group 3 (component imports) is ordered to match the JSX render order in the returned tree, not alphabetically and not alias-before-relative — e.g. in `src/app/(personal-page)/page.tsx`, `MountainDivider` is imported between `ProductsSection` and `LoansSection` because that's where it renders, even though it's an `@/components/*` import sitting among page-local relative ones.
 
+## Code style
+
+- Prefer function declarations over arrow functions assigned to a `const` — for components, hooks, exported utilities, and named helper functions inside a component/hook body (e.g. `function handleSubmit() {}`, not `const handleSubmit = () => {}`).
+- Exception: API layer code (`*.service.ts` in `src/api/services/`) keeps arrow functions for its methods, e.g. `{ retrieve: (slug: string) => {...} }` — don't convert these to method shorthand.
+- This doesn't extend to inline callbacks passed directly as arguments — array methods (`.map`, `.filter`), JSX event handlers (`onClick={() => ...}`), `useEffect` bodies, `.then()`/`.finally()` — those stay as arrows.
+- Arrow syntax in a type position (`buildContent: () => Partial<T>`, `onChange: (value: string) => void`) is unaffected — that's TypeScript's function-type notation, not a function definition.
+
 ## Building a button (or any variant-driven component)
 
 Follow `src/components/ui/buttons/Button.tsx`:

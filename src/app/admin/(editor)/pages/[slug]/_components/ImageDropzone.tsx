@@ -22,13 +22,13 @@ export default function ImageDropzone({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleFiles = (files: FileList | null) => {
+  function handleFiles(files: FileList | null) {
     const file = files?.[0];
 
     if (file) {
       onFileSelected(file);
     }
-  };
+  }
 
   return (
     <div className="flex w-full flex-col gap-1">

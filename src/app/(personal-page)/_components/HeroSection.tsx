@@ -44,7 +44,7 @@ export default function HeroSection({ sections }: HeroSectionProps) {
         <div className="flex flex-col-reverse gap-8 lg:flex-row lg:items-end lg:gap-6">
           <div className="flex flex-col gap-8 lg:h-[520px] lg:w-[620px] lg:shrink-0 lg:justify-between lg:gap-0">
             <div className="flex flex-col items-start gap-4 lg:gap-12">
-              <h1 className="font-heading text-display-1-mobile-md text-grey-500 lg:text-display-1-desktop-md">
+              <h1 className="font-heading text-display-1-mobile-md text-grey-500 lg:text-display-1-desktop-md max-w-[500px]">
                 {headlineLines.map((line, index) => (
                   <span key={line}>
                     {index > 0 && <br />}

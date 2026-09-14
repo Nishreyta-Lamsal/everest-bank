@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { usePageEditor } from './PageEditorContext';
+import { usePageEditor } from '@/store/PageEditorContext';
 
 import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { mergeLocalizedContent } from '@/lib/admin/section-content';
 
 import type { PageSectionRead, SectionMedia } from '@/types/admin';
+
 export function useSectionEditor<T extends object>(
   slug: string,
   section: PageSectionRead,
@@ -20,11 +21,14 @@ export function useSectionEditor<T extends object>(
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
 
-  const uploadImage = (file: File, onUploaded: (media: SectionMedia) => void) =>
+  function uploadImage(
+    file: File,
+    onUploaded: (media: SectionMedia) => void,
+  ) {
     uploadMedia.mutate(
       { file },
       {
-        onSuccess: (media) => {
+        onSuccess(media) {
           if (!media.file_url) return;
 
           onUploaded({
@@ -35,18 +39,21 @@ export function useSectionEditor<T extends object>(
         },
       },
     );
+  }
 
-  const publishChanges = async () => {
+  async function publishChanges() {
     await updateSection.mutateAsync({
       is_visible: shownOnPage,
       content: mergeLocalizedContent<T>(section.content, buildContent()),
     });
-  };
+  }
 
-  useEffect(() => {
+  useEffect(function () {
     registerPublishHandler(publishChanges);
 
-    return () => registerPublishHandler(null);
+    return function () {
+      registerPublishHandler(null);
+    };
   });
 
   return {

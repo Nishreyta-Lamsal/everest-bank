@@ -52,7 +52,7 @@ export default function FDCalculator() {
 
   const tenureLabel = `${tenure} ${tenureUnit === 'years' ? 'years' : 'months'}`;
 
-  const handleTenureUnitChange = (nextUnit: TenureUnit) => {
+  function handleTenureUnitChange(nextUnit: TenureUnit) {
     const nextRange = tenureRanges[nextUnit];
     const convertedTenure =
       nextUnit === 'months' ? tenure * 12 : Math.round(tenure / 12);
@@ -61,7 +61,7 @@ export default function FDCalculator() {
       Math.min(Math.max(convertedTenure, nextRange.min), nextRange.max),
     );
     setTenureUnit(nextUnit);
-  };
+  }
 
   return (
     <div className="flex w-full flex-col gap-10 lg:gap-8">

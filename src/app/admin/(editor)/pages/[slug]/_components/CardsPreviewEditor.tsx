@@ -6,7 +6,7 @@ import FieldLabel from './FieldLabel';
 import MediaField from './MediaField';
 import LinkTargetSelect from './LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
-import { useSectionEditor } from './useSectionEditor';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
 import { Input, inputVariants } from '@/components/admin/ui/input';
@@ -53,8 +53,9 @@ export default function CardsPreviewEditor({
       cta: { label: ctaLabel, href: ctaHref },
     }));
 
-  const updateTile = (index: number, next: CardsPreviewTile) =>
+  function updateTile(index: number, next: CardsPreviewTile) {
     setTiles(tiles.map((tile, i) => (i === index ? next : tile)));
+  }
 
   return (
     <SectionEditorShell
@@ -68,7 +69,6 @@ export default function CardsPreviewEditor({
         <Textarea
           variant="filled"
           size="medium"
-          className="font-medium"
           value={headingLines}
           onChange={(event) => setHeadingLines(event.target.value)}
         />
@@ -108,7 +108,6 @@ export default function CardsPreviewEditor({
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={tile.title ?? ''}
                 onChange={(event) =>
                   updateTile(index, { ...tile, title: event.target.value })
@@ -139,7 +138,7 @@ export default function CardsPreviewEditor({
                     })
                   }
                   className={cn(
-                    'w-full min-w-0 appearance-none border-none bg-transparent p-0 text-sm font-medium outline-none',
+                    'w-full min-w-0 appearance-none border-none bg-transparent p-0 text-sm outline-none',
                     tile.rounded_corner
                       ? 'text-slate-950'
                       : 'text-black-alpha-40',
@@ -180,7 +179,6 @@ export default function CardsPreviewEditor({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             value={ctaLabel}
             onChange={(event) => setCtaLabel(event.target.value)}
           />

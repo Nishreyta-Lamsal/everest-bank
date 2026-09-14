@@ -4,8 +4,9 @@ import { pageService } from '@/api/services/admin/page.service';
 
 import type { ListPagesParams } from '@/api/services/admin/page.service';
 
-export const pagesQueryKey = (params?: ListPagesParams) =>
-  ['pages', 'list', params ?? {}] as const;
+export function pagesQueryKey(params?: ListPagesParams) {
+  return ['pages', 'list', params ?? {}] as const;
+}
 
 export function usePages(params?: ListPagesParams) {
   return useQuery({
@@ -14,8 +15,9 @@ export function usePages(params?: ListPagesParams) {
   });
 }
 
-export const pageQueryKey = (slug: string) =>
-  ['pages', 'detail', slug] as const;
+export function pageQueryKey(slug: string) {
+  return ['pages', 'detail', slug] as const;
+}
 
 export function usePage(slug: string) {
   return useQuery({

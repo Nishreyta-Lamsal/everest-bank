@@ -29,10 +29,10 @@ export default function MapGridSection({
     page * pageSize,
   );
 
-  const changePageSize = (nextPageSize: number) => {
+  function changePageSize(nextPageSize: number) {
     setPageSize(nextPageSize);
     setCurrentPage(1);
-  };
+  }
 
   return (
     <section className="w-full pt-6 pb-8 lg:py-8">

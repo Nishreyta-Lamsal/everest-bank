@@ -41,7 +41,6 @@ export default function ButtonFieldGroup({
           <Input
             variant="filled"
             size="medium"
-            className="font-medium"
             value={buttonLabel}
             onChange={(event) => onButtonLabelChange(event.target.value)}
           />

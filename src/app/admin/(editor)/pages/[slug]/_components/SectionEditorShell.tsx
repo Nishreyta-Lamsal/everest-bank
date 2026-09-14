@@ -21,7 +21,7 @@ export default function SectionEditorShell({
   children,
 }: SectionEditorShellProps) {
   return (
-    <Card className="w-full max-w-[760px]">
+    <Card className="w-full">
       <div className="flex w-full flex-col gap-6">
         <SlideEditorHeader
           title={title}

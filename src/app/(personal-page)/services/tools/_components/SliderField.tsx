@@ -34,17 +34,17 @@ export default function SliderField({
   const labelId = useId();
   const inputId = useId();
 
-  const handleInputChange = (rawValue: string) => {
+  function handleInputChange(rawValue: string) {
     const numericValue = Number(rawValue.replace(/[^\d.]/g, ''));
 
     if (!Number.isNaN(numericValue)) {
       onValueChange(numericValue);
     }
-  };
+  }
 
-  const handleBlur = () => {
+  function handleBlur() {
     onValueChange(Math.min(Math.max(value, min), max));
-  };
+  }
 
   return (
     <div className={cn('flex w-full flex-col gap-6 lg:gap-2', className)}>

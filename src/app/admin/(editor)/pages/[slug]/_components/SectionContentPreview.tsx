@@ -17,7 +17,7 @@ export default function SectionContentPreview({
   const content = localizedContent<Record<string, unknown>>(section.content);
 
   return (
-    <Card className="w-full max-w-[760px]">
+    <Card className="w-full">
       <div className="flex w-full flex-col gap-4">
         <SlideEditorHeader
           title={section.label}

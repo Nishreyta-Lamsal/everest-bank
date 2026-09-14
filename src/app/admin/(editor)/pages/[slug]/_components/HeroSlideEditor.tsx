@@ -6,14 +6,17 @@ import ButtonFieldGroup from './ButtonFieldGroup';
 import ImageDropzone from './ImageDropzone';
 import SlideImageThumbnail from './SlideImageThumbnail';
 import SlideEditorHeader from './SlideEditorHeader';
-import { usePageEditor } from './PageEditorContext';
+import { usePageEditor } from '@/store/PageEditorContext';
 import { Card } from '@/components/admin/ui/card';
 import { Input } from '@/components/admin/ui/input';
 import { Textarea } from '@/components/admin/ui/textarea';
 
 import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
-import { localizedContent, mergeLocalizedContent } from '@/lib/admin/section-content';
+import {
+  localizedContent,
+  mergeLocalizedContent,
+} from '@/lib/admin/section-content';
 
 import type { HeroContent, PageSectionRead, SectionMedia } from '@/types/admin';
 
@@ -75,7 +78,7 @@ export default function HeroSlideEditor({
     ),
   );
 
-  const handleFileSelected = (file: File) => {
+  function handleFileSelected(file: File) {
     uploadMedia.mutate(
       { file },
       {
@@ -94,9 +97,9 @@ export default function HeroSlideEditor({
         },
       },
     );
-  };
+  }
 
-  const publishChanges = async () => {
+  async function publishChanges() {
     const validSlides = slides.filter((slide) => Boolean(slide.src));
 
     await updateSection.mutateAsync({
@@ -135,7 +138,7 @@ export default function HeroSlideEditor({
         },
       }),
     });
-  };
+  }
 
   // Re-register each render so the handler closes over the latest field values.
   useEffect(() => {
@@ -145,7 +148,7 @@ export default function HeroSlideEditor({
   });
 
   return (
-    <Card className="w-full max-w-[760px]">
+    <Card className="w-full">
       <div className="flex w-full flex-col gap-8">
         <div className="flex w-full flex-col gap-3">
           <SlideEditorHeader
@@ -162,7 +165,6 @@ export default function HeroSlideEditor({
               <Input
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={headline}
                 onChange={(event) => setHeadline(event.target.value)}
               />
@@ -174,7 +176,6 @@ export default function HeroSlideEditor({
               <Textarea
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={supportingText}
                 onChange={(event) => setSupportingText(event.target.value)}
               />
@@ -267,7 +268,6 @@ export default function HeroSlideEditor({
               <Textarea
                 variant="filled"
                 size="medium"
-                className="font-medium"
                 value={videoChipText}
                 onChange={(event) => setVideoChipText(event.target.value)}
               />

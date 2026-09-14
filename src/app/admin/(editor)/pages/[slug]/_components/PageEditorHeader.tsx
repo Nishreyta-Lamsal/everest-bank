@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { icon } from '@/components/admin/icons';
 import { Button } from '@/components/admin/ui/button';
-import { usePageEditor } from './PageEditorContext';
+import { usePageEditor } from '@/store/PageEditorContext';
 
 import { ADMIN_ROUTE } from '@/constants/admin';
 
