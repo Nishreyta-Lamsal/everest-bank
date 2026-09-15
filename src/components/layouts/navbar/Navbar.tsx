@@ -42,7 +42,7 @@ export default async function Navbar() {
 
   return (
     <header className="w-full bg-white">
-      <NavbarMobile />
+      <NavbarMobile items={mainNavItems} />
       <div className="hidden lg:block">
         <NavbarUtilityBar />
         <NavbarMainBar items={mainNavItems} />

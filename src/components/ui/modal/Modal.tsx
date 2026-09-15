@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom';
 
 import { icon } from '@/components/icons';
 
+import { useDismissableOverlay } from '@/hooks/useDismissableOverlay';
+
 import { cn } from '@/lib/utils';
 
 import type { ReactNode } from 'react';
@@ -31,21 +33,15 @@ export default function Modal({
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
 
+  useDismissableOverlay(isOpen, onClose);
+
   useEffect(() => {
     if (!isOpen) return;
 
     triggerRef.current = document.activeElement;
     dialogRef.current?.focus();
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        onClose();
-        return;
-      }
-
       if (event.key !== 'Tab' || !dialogRef.current) return;
 
       const focusable = Array.from(
@@ -69,12 +65,11 @@ export default function Modal({
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousOverflow;
       if (triggerRef.current instanceof HTMLElement) {
         triggerRef.current.focus();
       }
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
