@@ -37,7 +37,8 @@ export default function HeroSlideEditor({
   const content = localizedContent<HeroContent>(section.content);
   const updateSection = useUpdatePageSection(slug, section.id);
   const uploadMedia = useUploadMedia();
-  const { registerPublishHandler } = usePageEditor();
+  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
+    usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [headline, setHeadline] = useState(
@@ -124,44 +125,48 @@ export default function HeroSlideEditor({
     );
   }
 
-  async function publishChanges() {
+  function buildContent() {
     const validSlides = slides.filter((slide) => Boolean(slide.src));
 
+    return mergeLocalizedContent<HeroContent>(section.content, {
+      ...(isSingleImageHero
+        ? validSlides[0]
+          ? { image: validSlides[0] }
+          : {}
+        : { slides: validSlides }),
+      headline_lines: headline
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean),
+      subtext: supportingText,
+      ...(primaryButton
+        ? {
+            primary_button: {
+              label: primaryButton.label,
+              href: primaryButton.linkTarget,
+            },
+          }
+        : {}),
+      ...(secondaryButton
+        ? {
+            secondary_button: {
+              label: secondaryButton.label,
+              href: secondaryButton.linkTarget,
+            },
+          }
+        : {}),
+      video_chip: {
+        text: videoChipText,
+        link_label: videoChipLink.label,
+        link_href: videoChipLink.linkTarget,
+      },
+    });
+  }
+
+  async function publishChanges() {
     await updateSection.mutateAsync({
       is_visible: shownOnPage,
-      content: mergeLocalizedContent<HeroContent>(section.content, {
-        ...(isSingleImageHero
-          ? validSlides[0]
-            ? { image: validSlides[0] }
-            : {}
-          : { slides: validSlides }),
-        headline_lines: headline
-          .split('\n')
-          .map((line) => line.trim())
-          .filter(Boolean),
-        subtext: supportingText,
-        ...(primaryButton
-          ? {
-              primary_button: {
-                label: primaryButton.label,
-                href: primaryButton.linkTarget,
-              },
-            }
-          : {}),
-        ...(secondaryButton
-          ? {
-              secondary_button: {
-                label: secondaryButton.label,
-                href: secondaryButton.linkTarget,
-              },
-            }
-          : {}),
-        video_chip: {
-          text: videoChipText,
-          link_label: videoChipLink.label,
-          link_href: videoChipLink.linkTarget,
-        },
-      }),
+      content: buildContent(),
     });
   }
 
@@ -171,6 +176,27 @@ export default function HeroSlideEditor({
 
     return () => registerPublishHandler(null);
   });
+
+  // Mirror the in-progress fields into the shared draft so the live preview
+  // re-renders as they change.
+  useEffect(() => {
+    setDraftContent(section.id, buildContent());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    section.id,
+    headline,
+    supportingText,
+    slides,
+    primaryButton,
+    secondaryButton,
+    videoChipText,
+    videoChipLink,
+  ]);
+
+  useEffect(() => {
+    setDraftVisibility(section.id, shownOnPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section.id, shownOnPage]);
 
   return (
     <Card className="w-full">

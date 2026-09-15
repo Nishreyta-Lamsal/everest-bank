@@ -17,14 +17,12 @@ export function useSectionEditor<T extends object>(
 ) {
   const updateSection = useUpdatePageSection(slug, section.id);
   const uploadMedia = useUploadMedia();
-  const { registerPublishHandler } = usePageEditor();
+  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
+    usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
 
-  function uploadImage(
-    file: File,
-    onUploaded: (media: SectionMedia) => void,
-  ) {
+  function uploadImage(file: File, onUploaded: (media: SectionMedia) => void) {
     uploadMedia.mutate(
       { file },
       {
@@ -55,6 +53,31 @@ export function useSectionEditor<T extends object>(
       registerPublishHandler(null);
     };
   });
+
+  // Mirror the in-progress fields into the shared draft so the live preview
+  // re-renders as they change. `buildContent` is a new closure every render,
+  // so the serialized content is what decides whether anything actually moved.
+  const draftContent = mergeLocalizedContent<T>(
+    section.content,
+    buildContent(),
+  );
+  const serializedDraft = JSON.stringify(draftContent);
+
+  useEffect(
+    function () {
+      setDraftContent(section.id, draftContent);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [section.id, serializedDraft],
+  );
+
+  useEffect(
+    function () {
+      setDraftVisibility(section.id, shownOnPage);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [section.id, shownOnPage],
+  );
 
   return {
     shownOnPage,
