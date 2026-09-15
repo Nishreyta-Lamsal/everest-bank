@@ -1,5 +1,9 @@
+import Link from 'next/link';
+
 import { icon } from '@/components/admin/icons';
 import { Button } from '@/components/admin/ui/button';
+
+import { ADMIN_ROUTE } from '@/constants/admin';
 
 export default function ProductsHeader() {
   return (
@@ -11,10 +15,12 @@ export default function ProductsHeader() {
           structured editor.
         </p>
       </div>
-      <Button variant="primary">
-        <icon.plus />
-        Add new pages
-      </Button>
+      <Link href={ADMIN_ROUTE.PRODUCT_NEW}>
+        <Button variant="primary">
+          <icon.plus />
+          Add new product
+        </Button>
+      </Link>
     </section>
   );
 }

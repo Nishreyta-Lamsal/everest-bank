@@ -1,6 +1,6 @@
 'use client';
 
-import FieldLabel from './FieldLabel';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from './ImageDropzone';
 
 import type { SectionMedia } from '@/types/admin';

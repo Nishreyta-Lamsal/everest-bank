@@ -2,18 +2,17 @@
 
 import { useState } from 'react';
 
-import FieldLabel from './FieldLabel';
-import MediaField from './MediaField';
-import LinkTargetSelect from './LinkTargetSelect';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
+import MediaField from '@/components/admin/shared/MediaField';
+import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
-import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';
-import { Input, inputVariants } from '@/components/admin/ui/input';
+import { Input } from '@/components/admin/ui/input';
+import { Select } from '@/components/admin/ui/select';
 import { Textarea } from '@/components/admin/ui/textarea';
 
 import { localizedContent } from '@/lib/admin/section-content';
-import { cn } from '@/lib/utils';
 
 import type {
   CardsPreviewContent,
@@ -26,7 +25,11 @@ type CardsPreviewEditorProps = {
   section: PageSectionRead;
 };
 
-const CORNERS = ['left', 'right'];
+const ROUNDED_CORNER_OPTIONS = [
+  { label: 'None', value: '' },
+  { label: 'left', value: 'left' },
+  { label: 'right', value: 'right' },
+];
 
 export default function CardsPreviewEditor({
   slug,
@@ -124,40 +127,18 @@ export default function CardsPreviewEditor({
             </FieldLabel>
 
             <FieldLabel label="Rounded corner">
-              <div
-                className={inputVariants({
-                  variant: 'default',
-                  size: 'medium',
-                })}
-              >
-                <select
-                  value={tile.rounded_corner ?? ''}
-                  onChange={(event) =>
-                    updateTile(index, {
-                      ...tile,
-                      rounded_corner: event.target.value || undefined,
-                    })
-                  }
-                  className={cn(
-                    'w-full min-w-0 appearance-none border-none bg-transparent p-0 text-sm outline-none',
-                    tile.rounded_corner
-                      ? 'text-slate-950'
-                      : 'text-black-alpha-40',
-                  )}
-                >
-                  <option value="">None</option>
-                  {CORNERS.map((corner) => (
-                    <option
-                      key={corner}
-                      value={corner}
-                      className="text-slate-950"
-                    >
-                      {corner}
-                    </option>
-                  ))}
-                </select>
-                <icon.chevronDown className="size-4 shrink-0 text-[#999999]" />
-              </div>
+              <Select
+                variant="default"
+                size="medium"
+                options={ROUNDED_CORNER_OPTIONS}
+                value={tile.rounded_corner ?? ''}
+                onValueChange={(value) =>
+                  updateTile(index, {
+                    ...tile,
+                    rounded_corner: value || undefined,
+                  })
+                }
+              />
             </FieldLabel>
           </div>
         ))}

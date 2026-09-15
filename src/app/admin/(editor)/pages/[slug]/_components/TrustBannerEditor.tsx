@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
-import FieldLabel from './FieldLabel';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
 import SectionEditorShell from './SectionEditorShell';
-import ImagePreview from './ImagePreview';
-import ImageDropzone from './ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
 

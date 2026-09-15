@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 
-import FieldLabel from './FieldLabel';
-import MediaField from './MediaField';
-import LinkTargetSelect from './LinkTargetSelect';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
+import MediaField from '@/components/admin/shared/MediaField';
+import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
-import ImagePreview from './ImagePreview';
-import ImageDropzone from './ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 // import { icon } from '@/components/admin/icons';
 // import { Button } from '@/components/admin/ui/button';

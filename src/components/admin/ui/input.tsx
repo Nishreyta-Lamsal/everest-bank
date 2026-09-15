@@ -68,6 +68,7 @@ const Input = React.forwardRef<
           'placeholder:text-black-alpha-40 w-full min-w-0 border-none bg-transparent p-0 text-base outline-none disabled:cursor-not-allowed md:text-sm',
           className,
         )}
+        autoComplete="off"
         {...props}
       />
       {rightIcon}

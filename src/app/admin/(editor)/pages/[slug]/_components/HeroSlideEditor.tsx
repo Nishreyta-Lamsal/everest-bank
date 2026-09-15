@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import ButtonFieldGroup from './ButtonFieldGroup';
-import ImageDropzone from './ImageDropzone';
-import ImagePreview from './ImagePreview';
+import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import SlideEditorHeader from './SlideEditorHeader';
 import { usePageEditor } from '@/store/PageEditorContext';
 import { Card } from '@/components/admin/ui/card';

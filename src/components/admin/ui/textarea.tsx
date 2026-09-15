@@ -32,6 +32,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             'placeholder:text-black-alpha-40 w-full min-w-0 resize-none border-none bg-transparent p-0 text-base outline-none disabled:cursor-not-allowed md:text-sm',
             className,
           )}
+          autoComplete="off"
           {...props}
         />
       </div>

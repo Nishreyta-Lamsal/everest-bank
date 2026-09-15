@@ -1,45 +1,32 @@
-'use client';
-
 import type { ReactNode } from 'react';
 
-import EditorSidebar from './EditorSidebar';
-import PageEditorHeader from './PageEditorHeader';
-import LivePreview from './LivePreview';
+import PageEditorHeader from '../../pages/[slug]/_components/PageEditorHeader';
+import LivePreview from '../../pages/[slug]/_components/LivePreview';
+import Sidebar from '@/components/admin/layouts/sidebar/Sidebar';
 import { PageEditorProvider } from '@/store/PageEditorContext';
-
-import { usePage } from '@/hooks/api/admin/use-pages';
 
 import { ADMIN_ROUTE } from '@/constants/admin';
 
-type PageEditorShellProps = {
-  slug: string;
+type ProductEditorShellProps = {
   preview: ReactNode;
   children: ReactNode;
 };
 
-export default function PageEditorShell({
-  slug,
+export default function ProductEditorShell({
   preview,
   children,
-}: PageEditorShellProps) {
-  const { data: page, isPending, isError } = usePage(slug);
-
+}: ProductEditorShellProps) {
   return (
     <PageEditorProvider>
       <div className="flex h-screen flex-col overflow-hidden bg-blue-50">
         <PageEditorHeader
-          pageName={page?.title ?? (isPending ? 'Loading…' : 'Page')}
-          backHref={ADMIN_ROUTE.PAGES}
+          pageName="Products"
+          backHref={ADMIN_ROUTE.PRODUCTS}
           domainLabel="everestbankltd.com"
-          domainHref={`https://everestbankltd.com${page?.path ?? ''}`}
+          domainHref="https://everestbankltd.com"
         />
         <div className="flex min-h-0 flex-1">
-          <EditorSidebar
-            activeSlug={slug}
-            page={page}
-            isPending={isPending}
-            isError={isError}
-          />
+          <Sidebar />
           <main className="flex min-h-0 min-w-0 flex-1 gap-4 p-4">
             <div className="min-w-0 flex-2 overflow-y-auto">{children}</div>
             <div className="hidden min-h-0 w-[600px] shrink-0 xl:block">

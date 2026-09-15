@@ -18,7 +18,9 @@ type SidebarNavGroupProps = {
 export function SidebarNavGroup({ title, items = [] }: SidebarNavGroupProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(() =>
-    items.some((item) => item.href === pathname),
+    items.some(
+      (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+    ),
   );
 
   return (

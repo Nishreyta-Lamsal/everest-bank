@@ -6,6 +6,7 @@ import { BellIcon } from './BellIcon';
 import { CheckmarkIcon } from './CheckmarkIcon';
 import { ChevronDownIcon } from './ChevronDownIcon';
 import { ChevronRightIcon } from './ChevronRightIcon';
+import { CloseIcon } from './CloseIcon';
 import { CommandIcon } from './CommandIcon';
 import { DragHandleIcon } from './DragHandleIcon';
 import { EditIcon } from './EditIcon';
@@ -39,6 +40,7 @@ export const icon = {
   checkmark: CheckmarkIcon,
   chevronDown: ChevronDownIcon,
   chevronRight: ChevronRightIcon,
+  close: CloseIcon,
   command: CommandIcon,
   dragHandle: DragHandleIcon,
   edit: EditIcon,

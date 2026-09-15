@@ -2,9 +2,9 @@
 
 // import { icon } from '@/components/admin/icons';
 import { Input } from '@/components/admin/ui/input';
-import LinkTargetSelect from './LinkTargetSelect';
-import ImageDropzone from './ImageDropzone';
-import ImagePreview from './ImagePreview';
+import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 
 import type { ProductCard } from '@/types/admin';
 

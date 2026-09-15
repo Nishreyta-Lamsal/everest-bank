@@ -6,16 +6,16 @@ import { icon } from '@/components/admin/icons';
 import { Button } from '@/components/admin/ui/button';
 import { usePageEditor } from '@/store/PageEditorContext';
 
-import { ADMIN_ROUTE } from '@/constants/admin';
-
 type PageEditorHeaderProps = {
   pageName: string;
+  backHref: string;
   domainLabel: string;
   domainHref: string;
 };
 
 export default function PageEditorHeader({
   pageName,
+  backHref,
   domainLabel,
   domainHref,
 }: PageEditorHeaderProps) {
@@ -25,7 +25,7 @@ export default function PageEditorHeader({
     <header className="bg-white-alpha-80 sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 backdrop-blur-sm">
       <div className="flex items-center gap-6">
         <Link
-          href={ADMIN_ROUTE.PAGES}
+          href={backHref}
           className="text-paragraph-sm flex items-center gap-2 text-[#4f4f4f]"
         >
           <icon.arrowLeft className="size-4" />
