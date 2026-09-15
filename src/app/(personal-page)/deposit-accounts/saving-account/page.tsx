@@ -1,5 +1,6 @@
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import MountainHeroSection from '@/components/shared/MountainHeroSection';
+import AccountFinderSection from './_components/account-finder/AccountFinderSection';
 import StepSection from '@/components/shared/step/StepSection';
 import ProcessSection from '@/components/shared/process/ProcessSection';
 
@@ -21,6 +22,7 @@ export default function SavingAccountPage() {
         heading="Savings Account"
         buttonLabel="Open your account in 3 minutes"
       />
+      <AccountFinderSection />
       <ProcessSection
         heading="Documents You Need to Open Your Account"
         steps={accountDocuments}

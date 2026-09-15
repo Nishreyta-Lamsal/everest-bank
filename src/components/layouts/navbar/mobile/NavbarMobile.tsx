@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import NavbarSearchInput from '../NavbarSearchInput';
+import GlobalSearchInput from '@/components/ui/inputs/GlobalSearchInput';
 import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
@@ -30,7 +30,10 @@ export default function NavbarMobile() {
       </div>
       <div className="flex items-center gap-2 px-4 py-2">
         <div className="min-w-0 flex-1">
-          <NavbarSearchInput />
+          <GlobalSearchInput
+            label="Search for anything"
+            placeholder="Search for anything"
+          />
         </div>
         <Button shape="rectangular" size="sm" className="shrink-0">
           Login To EBL Digital

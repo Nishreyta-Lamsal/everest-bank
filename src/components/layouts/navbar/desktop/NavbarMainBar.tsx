@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import NavbarMenuItem from './NavbarMenuItem';
 import NavbarMegaMenu from './mega-menu/NavbarMegaMenu';
-import NavbarSearchInput from '../NavbarSearchInput';
+import GlobalSearchInput from '@/components/ui/inputs/GlobalSearchInput';
 import Button from '@/components/ui/buttons/Button';
 
 import { isNavItemActive } from '@/lib/utils';
@@ -78,7 +78,10 @@ export default function NavbarMainBar({ items }: NavbarMainBarProps) {
           )}
         </nav>
         <div className="flex items-center gap-2">
-          <NavbarSearchInput />
+          <GlobalSearchInput
+            label="Search for anything"
+            placeholder="Search for anything"
+          />
           <Button shape="rectangular" size="sm">
             Login To EBL Digital
           </Button>
