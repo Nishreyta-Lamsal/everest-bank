@@ -146,3 +146,37 @@ export type CurrentUser = {
     capabilities: Capability[];
   };
 };
+
+/** Aggregated response counts. Never carries applicant answers. */
+export type SummaryOption = {
+  label: string;
+  value: string;
+  count: number;
+};
+
+export type SummaryFieldStats = {
+  min: number;
+  max: number;
+  average: number;
+};
+
+export type SummaryField = {
+  name: string;
+  label: string;
+  field_type: FormFieldType;
+  is_active: boolean;
+  answered: number;
+  skipped: number;
+  /** True when the field's answers are countable, so a chart makes sense. */
+  chartable: boolean;
+  options: SummaryOption[];
+  stats: SummaryFieldStats | null;
+};
+
+export type SubmissionSummary = {
+  total: number;
+  undecryptable: number;
+  by_status: { status: SubmissionStatus; label: string; count: number }[];
+  by_day: { date: string; count: number }[];
+  fields: SummaryField[];
+};

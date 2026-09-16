@@ -165,6 +165,25 @@ export function useFormSubmissions(
   });
 }
 
+export function submissionSummaryQueryKey(
+  slug: string,
+  params?: ListSubmissionsParams,
+) {
+  return ['forms', 'summary', slug, params ?? {}] as const;
+}
+
+export function useSubmissionSummary(
+  slug: string,
+  params?: ListSubmissionsParams,
+  enabled = true,
+) {
+  return useQuery({
+    queryKey: submissionSummaryQueryKey(slug, params),
+    queryFn: () => formService.submissionSummary(slug, params),
+    enabled: enabled && Boolean(slug),
+  });
+}
+
 export function useExportSubmissions(slug: string) {
   return useMutation({
     mutationFn: (params?: ListSubmissionsParams) =>
