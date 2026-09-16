@@ -8,7 +8,7 @@ import BusinessDigitalBankingSection from '@/app/business/_components/BusinessDi
 import BusinessIndustriesSection from '@/app/business/_components/BusinessIndustriesSection';
 import BusinessRelationshipManagerSection from '@/app/business/_components/BusinessRelationshipManagerSection';
 import BusinessTrustSection from '@/app/business/_components/BusinessTrustSection';
-import NewsSection from '@/components/shared/news/NewsSection';
+import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 import { usePageEditor } from '@/store/PageEditorContext';
 
@@ -20,7 +20,6 @@ import type { BusinessPageSection } from '@/api/services/business/business-page.
 type BusinessPagePreviewProps = {
   slug: string;
 };
-
 
 export default function BusinessPagePreview({
   slug,
@@ -44,7 +43,7 @@ export default function BusinessPagePreview({
       <BusinessIndustriesSection sections={sections} />
       <BusinessRelationshipManagerSection sections={sections} />
       <BusinessTrustSection sections={sections} />
-      <NewsSection />
+      <PreviewNewsSection />
       <ContactSection />
     </main>
   );

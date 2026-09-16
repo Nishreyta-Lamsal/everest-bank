@@ -8,7 +8,7 @@ import AboutLinksSection from '@/app/about/_components/links/AboutLinksSection';
 import AboutLeadershipSection from '@/app/about/_components/AboutLeadershipSection';
 import AboutHistorySection from '@/app/about/_components/AboutHistorySection';
 import TrustSection from '@/components/shared/TrustSection';
-import NewsSection from '@/components/shared/news/NewsSection';
+import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 import { usePageEditor } from '@/store/PageEditorContext';
 
@@ -43,7 +43,7 @@ export default function AboutPagePreview({ slug }: AboutPagePreviewProps) {
       <AboutLeadershipSection sections={sections} />
       <AboutHistorySection sections={sections} />
       <TrustSection sections={sections} />
-      <NewsSection />
+      <PreviewNewsSection />
       <ContactSection />
     </main>
   );

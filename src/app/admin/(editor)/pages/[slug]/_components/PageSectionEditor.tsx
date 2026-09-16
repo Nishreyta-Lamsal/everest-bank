@@ -3,6 +3,11 @@
 import { useSearchParams } from 'next/navigation';
 
 import HeroSlideEditor from './HeroSlideEditor';
+import ContentHeroEditor from './ContentHeroEditor';
+import AboutOverviewEditor from './AboutOverviewEditor';
+import AboutLinksEditor from './AboutLinksEditor';
+import AboutLeadershipEditor from './AboutLeadershipEditor';
+import AboutHistoryEditor from './AboutHistoryEditor';
 import ProductsSectionEditor from './ProductsSectionEditor';
 import LoansPreviewEditor from './LoansPreviewEditor';
 import CardsPreviewEditor from './CardsPreviewEditor';
@@ -18,6 +23,8 @@ import { usePageSection } from '@/hooks/api/admin/use-page-sections';
 type PageSectionEditorProps = {
   slug: string;
 };
+
+const CONTENT_HERO_SECTION_TYPES = new Set(['about_hero', 'content_hero']);
 
 function EditorCard({ children }: { children: React.ReactNode }) {
   return (
@@ -73,8 +80,34 @@ export default function PageSectionEditor({ slug }: PageSectionEditorProps) {
     return <EditorCard>Could not load this section.</EditorCard>;
   }
 
+  if (CONTENT_HERO_SECTION_TYPES.has(section.section_type)) {
+    return <ContentHeroEditor key={section.id} slug={slug} section={section} />;
+  }
+
   if (section.section_type.endsWith('hero')) {
     return <HeroSlideEditor key={section.id} slug={slug} section={section} />;
+  }
+
+  if (section.section_type === 'about_overview') {
+    return (
+      <AboutOverviewEditor key={section.id} slug={slug} section={section} />
+    );
+  }
+
+  if (section.section_type === 'about_links') {
+    return <AboutLinksEditor key={section.id} slug={slug} section={section} />;
+  }
+
+  if (section.section_type === 'about_leadership') {
+    return (
+      <AboutLeadershipEditor key={section.id} slug={slug} section={section} />
+    );
+  }
+
+  if (section.section_type === 'about_history') {
+    return (
+      <AboutHistoryEditor key={section.id} slug={slug} section={section} />
+    );
   }
 
   if (section.section_type.endsWith('products')) {

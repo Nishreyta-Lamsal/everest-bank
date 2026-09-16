@@ -8,7 +8,7 @@ import CardsSection from '@/app/(personal-page)/_components/CardsSection';
 import AppPromoSection from '@/app/(personal-page)/_components/AppPromoSection';
 import CsrSection from '@/app/(personal-page)/_components/CsrSection';
 import TrustSection from '@/components/shared/TrustSection';
-import NewsSection from '@/components/shared/news/NewsSection';
+import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 import { usePageEditor } from '@/store/PageEditorContext';
 
@@ -48,7 +48,7 @@ export default function PersonalPagePreview({
       <AppPromoSection sections={sections} />
       <CsrSection sections={sections} />
       <TrustSection sections={sections} />
-      <NewsSection />
+      <PreviewNewsSection />
       <ContactSection />
     </main>
   );

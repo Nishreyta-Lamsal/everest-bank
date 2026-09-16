@@ -4,7 +4,7 @@ import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import ProfileHeroSection from '@/app/about/profile/_components/ProfileHeroSection';
 import ProfileStatsSection from '@/app/about/profile/_components/ProfileStatsSection';
 import ProfileContentSection from '@/app/about/profile/_components/ProfileContentSection';
-import NewsSection from '@/components/shared/news/NewsSection';
+import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 import { usePageEditor } from '@/store/PageEditorContext';
 
@@ -24,7 +24,6 @@ const fallbackBreadcrumbItems = [
   { label: 'About', href: ROUTE.ABOUT },
   { label: 'Profile' },
 ];
-
 
 export default function ProfilePagePreview({ slug }: ProfilePagePreviewProps) {
   const { drafts, draftVisibility } = usePageEditor();
@@ -49,7 +48,7 @@ export default function ProfilePagePreview({ slug }: ProfilePagePreviewProps) {
       <ProfileHeroSection sections={sections} />
       <ProfileStatsSection sections={sections} />
       <ProfileContentSection sections={sections} />
-      <NewsSection />
+      <PreviewNewsSection />
       <ContactSection />
     </main>
   );
