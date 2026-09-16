@@ -165,6 +165,26 @@ export function useFormSubmissions(
   });
 }
 
+export function useExportSubmissions(slug: string) {
+  return useMutation({
+    mutationFn: (params?: ListSubmissionsParams) =>
+      formService.exportSubmissions(slug, params),
+    onSuccess: ({ blob, filename }) => {
+      // Object URL rather than a data URI: a CSV of thousands of rows would
+      // otherwise be base64 encoded into the document.
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    },
+  });
+}
+
 export function useUpdateSubmissionStatus(slug: string) {
   const queryClient = useQueryClient();
 

@@ -13,6 +13,7 @@ import SubmissionsTable from './SubmissionsTable';
 
 import { useCapability, useMe } from '@/hooks/api/admin/use-auth';
 import {
+  useExportSubmissions,
   useForm,
   useFormFields,
   useFormSubmissions,
@@ -45,13 +46,17 @@ export default function SubmissionsShell({ slug }: SubmissionsShellProps) {
 
   const { data: form } = useForm(slug);
   const { data: fields = [] } = useFormFields(slug);
-  const { data, isPending, isError, refetch } = useFormSubmissions(
-    slug,
+  const filterParams =
     statusFilter === 'all'
       ? undefined
-      : { status: statusFilter as SubmissionStatus },
+      : { status: statusFilter as SubmissionStatus };
+
+  const { data, isPending, isError, refetch } = useFormSubmissions(
+    slug,
+    filterParams,
   );
   const updateStatus = useUpdateSubmissionStatus(slug);
+  const exportSubmissions = useExportSubmissions(slug);
 
   const submissions: FormSubmission[] = data?.results ?? [];
   const selected =
@@ -95,16 +100,36 @@ export default function SubmissionsShell({ slug }: SubmissionsShellProps) {
                     {form?.title ?? 'this form'}.
                   </p>
                 </div>
-                <div className="w-[180px]">
-                  <Select
-                    variant="filled"
-                    size="medium"
-                    options={FILTER_OPTIONS}
-                    value={statusFilter}
-                    onValueChange={setStatusFilter}
-                  />
+                <div className="flex items-center gap-3">
+                  <div className="w-[180px]">
+                    <Select
+                      variant="filled"
+                      size="medium"
+                      options={FILTER_OPTIONS}
+                      value={statusFilter}
+                      onValueChange={setStatusFilter}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    // Exports what the filter currently shows, not everything.
+                    onClick={() => exportSubmissions.mutate(filterParams)}
+                    disabled={
+                      exportSubmissions.isPending || submissions.length === 0
+                    }
+                  >
+                    <icon.fileText />
+                    {exportSubmissions.isPending ? 'Preparing…' : 'Export CSV'}
+                  </Button>
                 </div>
               </section>
+
+              {exportSubmissions.isError && (
+                <p role="alert" className="text-paragraph-sm text-red-600">
+                  Could not export submissions. Please try again.
+                </p>
+              )}
 
               <Card variant="primary" className="w-full overflow-hidden px-2">
                 {isPending && (

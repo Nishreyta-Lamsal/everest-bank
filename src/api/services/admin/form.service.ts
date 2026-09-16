@@ -169,6 +169,32 @@ export const formService = {
     return response.data.data;
   },
 
+  /**
+   * CSV of every submission, as a Blob. Fetched through axios rather than a
+   * plain link so the auth cookie and CSRF handling apply, and so a 403 is a
+   * real error instead of a downloaded error page.
+   */
+  exportSubmissions: async (
+    slug: string,
+    params?: ListSubmissionsParams,
+  ): Promise<{ blob: Blob; filename: string }> => {
+    const response = await axiosClient.get(
+      `forms/${slug}/submissions/export/`,
+      {
+        params,
+        responseType: 'blob',
+      },
+    );
+
+    const disposition = String(response.headers['content-disposition'] ?? '');
+    const match = disposition.match(/filename="?([^"]+)"?/);
+
+    return {
+      blob: response.data as Blob,
+      filename: match?.[1] ?? `${slug}-submissions.csv`,
+    };
+  },
+
   updateSubmissionStatus: async (
     submissionId: number,
     status: SubmissionStatus,
