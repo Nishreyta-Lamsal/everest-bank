@@ -35,7 +35,6 @@ export default function PagesListRow({ page }: PagesListRowProps) {
       className="flex w-full items-center"
     >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
-        <icon.dragHandle className="size-4 shrink-0 text-slate-950" />
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex shrink-0 items-center rounded-[4px] bg-slate-100 p-3">
             <icon.pageText className="size-6 text-slate-950" />

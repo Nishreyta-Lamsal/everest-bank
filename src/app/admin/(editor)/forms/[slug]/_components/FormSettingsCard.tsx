@@ -48,7 +48,7 @@ export default function FormSettingsCard({
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <FieldLabel label="Form name">
+      <FieldLabel label="Form title">
         <Input
           variant="default"
           size="medium"
@@ -73,7 +73,7 @@ export default function FormSettingsCard({
       </FieldLabel>
 
       <div className="flex w-full items-start gap-3">
-        <FieldLabel label="Submit button text">
+        <FieldLabel label="Submit button label">
           <Input
             variant="default"
             size="medium"
@@ -83,16 +83,6 @@ export default function FormSettingsCard({
           />
         </FieldLabel>
       </div>
-
-      <FieldLabel label="Thank-you message">
-        <Input
-          variant="default"
-          size="medium"
-          placeholder="Your application has been submitted."
-          value={draft.success_message}
-          onChange={(event) => update({ success_message: event.target.value })}
-        />
-      </FieldLabel>
 
       <div className="flex justify-end">
         <Button

@@ -16,7 +16,6 @@ export type ListNewsParams = {
   status?: NewsStatus;
 };
 
-/** Mirrors `PatchedNewsWrite` from the API schema — every field optional. */
 export type UpdateNewsPayload = {
   slug?: string;
   news_type?: string;
@@ -24,12 +23,23 @@ export type UpdateNewsPayload = {
   title_ne?: string;
   content?: unknown;
   content_ne?: unknown;
-  /** Publication date, `YYYY-MM-DD`. */
   date?: string;
   expires_on?: string | null;
-  /** Cover image id from `POST /api/v1/media/`. */
   media?: number | null;
-  /** PDF/document id from `POST /api/v1/media/`. */
+  document?: number | null;
+  status?: NewsStatus;
+  is_pinned?: boolean;
+};
+
+export type CreateNewsPayload = {
+  slug?: string;
+  title: string;
+  title_ne?: string;
+  content?: unknown;
+  content_ne?: unknown;
+  date: string;
+  expires_on?: string | null;
+  media?: number | null;
   document?: number | null;
   status?: NewsStatus;
   is_pinned?: boolean;
@@ -40,6 +50,15 @@ export const newsService = {
     const response = await axiosClient.get<ApiResponse<NewsListData>>('news/', {
       params,
     });
+
+    return response.data.data;
+  },
+
+  create: async (payload: CreateNewsPayload): Promise<NewsRead> => {
+    const response = await axiosClient.post<ApiResponse<NewsRead>>(
+      'news/',
+      payload,
+    );
 
     return response.data.data;
   },

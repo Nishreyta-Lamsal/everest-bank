@@ -33,11 +33,34 @@ export type UpdateNoticePayload = {
   is_pinned?: boolean;
 };
 
+export type CreateNoticePayload = {
+  slug?: string;
+  title: string;
+  title_ne?: string;
+  content?: unknown;
+  content_ne?: unknown;
+  date: string;
+  expires_on?: string | null;
+  media?: number | null;
+  document?: number | null;
+  status?: NewsStatus;
+  is_pinned?: boolean;
+};
+
 export const noticeService = {
   list: async (params?: ListNoticesParams): Promise<NoticeListData> => {
     const response = await axiosClient.get<ApiResponse<NoticeListData>>(
       'notices/',
       { params },
+    );
+
+    return response.data.data;
+  },
+
+  create: async (payload: CreateNoticePayload): Promise<NoticeRead> => {
+    const response = await axiosClient.post<ApiResponse<NoticeRead>>(
+      'notices/',
+      payload,
     );
 
     return response.data.data;
