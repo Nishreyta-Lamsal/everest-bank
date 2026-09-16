@@ -81,7 +81,7 @@ export function Select({
       <SelectPrimitive.Portal>
         <SelectPrimitive.Positioner
           sideOffset={4}
-          className="z-50 outline-none"
+          className="z-101 outline-none"
         >
           <SelectPrimitive.Popup className="border-black-alpha-10 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-lg border bg-white p-1 shadow-lg outline-none">
             {options.map((option) => (

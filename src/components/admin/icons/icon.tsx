@@ -18,6 +18,7 @@ import { ImageIcon } from './ImageIcon';
 import { ImagesIcon } from './ImagesIcon';
 import { MainLogo } from './MainLogo';
 import { MegaphoneIcon } from './MegaphoneIcon';
+import { MoreDotsIcon } from './MoreDotsIcon';
 import { NewspaperIcon } from './NewspaperIcon';
 import { OpenLinkIcon } from './OpenLinkIcon';
 import { PageTextIcon } from './PageTextIcon';
@@ -52,6 +53,7 @@ export const icon = {
   images: ImagesIcon,
   mainLogo: MainLogo,
   megaphone: MegaphoneIcon,
+  moreDots: MoreDotsIcon,
   newspaper: NewspaperIcon,
   openLink: OpenLinkIcon,
   pageText: PageTextIcon,
