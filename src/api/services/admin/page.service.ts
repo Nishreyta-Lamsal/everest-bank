@@ -2,15 +2,21 @@ import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse, PageDetail, PageListData } from '@/types/admin';
 
+export type PageKind = 'page' | 'product' | 'product_type';
+
 export type ListPagesParams = {
+  kind?: PageKind;
   ordering?: string;
+  parent?: number;
 };
 
 export const pageService = {
   list: async (params?: ListPagesParams): Promise<PageListData> => {
     const response = await axiosClient.get<ApiResponse<PageListData>>(
       'pages/',
-      { params },
+      {
+        params: { kind: 'page', ...params },
+      },
     );
 
     return response.data.data;

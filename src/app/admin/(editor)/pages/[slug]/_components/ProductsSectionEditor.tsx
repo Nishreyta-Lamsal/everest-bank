@@ -10,9 +10,16 @@ import { Card } from '@/components/admin/ui/card';
 
 import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
-import { localizedContent, mergeLocalizedContent } from '@/lib/admin/section-content';
+import {
+  localizedContent,
+  mergeLocalizedContent,
+} from '@/lib/admin/section-content';
 
-import type { PageSectionRead, ProductCard, ProductsContent } from '@/types/admin';
+import type {
+  PageSectionRead,
+  ProductCard,
+  ProductsContent,
+} from '@/types/admin';
 
 type ProductsSectionEditorProps = {
   slug: string;
@@ -28,7 +35,8 @@ export default function ProductsSectionEditor({
   const content = localizedContent<ProductsContent>(section.content);
   const updateSection = useUpdatePageSection(slug, section.id);
   const uploadMedia = useUploadMedia();
-  const { registerPublishHandler } = usePageEditor();
+  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
+    usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [topCards, setTopCards] = useState<ProductCard[]>(
@@ -58,13 +66,17 @@ export default function ProductsSectionEditor({
     },
   ];
 
+  function buildContent() {
+    return mergeLocalizedContent<ProductsContent>(section.content, {
+      top_cards: topCards,
+      bottom_cards: bottomCards,
+    });
+  }
+
   async function publishChanges() {
     await updateSection.mutateAsync({
       is_visible: shownOnPage,
-      content: mergeLocalizedContent<ProductsContent>(section.content, {
-        top_cards: topCards,
-        bottom_cards: bottomCards,
-      }),
+      content: buildContent(),
     });
   }
 
@@ -74,6 +86,18 @@ export default function ProductsSectionEditor({
 
     return () => registerPublishHandler(null);
   });
+
+  // Mirror the in-progress fields into the shared draft so the live preview
+  // re-renders as they change.
+  useEffect(() => {
+    setDraftContent(section.id, buildContent());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section.id, topCards, bottomCards]);
+
+  useEffect(() => {
+    setDraftVisibility(section.id, shownOnPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section.id, shownOnPage]);
 
   return (
     <Card className="w-full">

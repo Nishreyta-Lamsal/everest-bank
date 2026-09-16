@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for commented-out delete controls
-import { icon } from '@/components/admin/icons';
 import { Input } from '@/components/admin/ui/input';
 import LinkTargetSelect from './LinkTargetSelect';
 

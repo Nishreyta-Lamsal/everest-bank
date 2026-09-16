@@ -118,6 +118,53 @@ export type HeroContent = {
   carousel_aria_label?: string;
 };
 
+export type ContentHeroContent = {
+  image?: SectionMedia;
+  heading?: string;
+  button?: SectionLink;
+};
+
+export type AboutOverviewContent = {
+  intro?: string;
+  stats?: {
+    label: string;
+    value: string;
+  }[];
+  cards?: {
+    href: string;
+    title: string;
+    link_label: string;
+  }[];
+  center_image?: SectionMedia;
+};
+
+export type AboutLinksContent = {
+  cards?: {
+    href: string;
+    image: SectionMedia;
+    title: string;
+  }[];
+};
+
+export type AboutLeadershipContent = {
+  heading?: string;
+  description?: string;
+  people?: {
+    name: string;
+    role: string;
+    image: SectionMedia;
+  }[];
+  cta?: SectionLink;
+};
+
+export type AboutHistoryContent = {
+  heading?: string;
+  intro?: string;
+  body?: string;
+  image?: SectionMedia;
+  cta?: SectionLink;
+};
+
 export type LocalizedContent<T> = T & Partial<Record<'en' | 'ne', T>>;
 
 export const PRODUCT_CARD_ICONS = [
