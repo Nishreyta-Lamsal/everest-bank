@@ -91,7 +91,9 @@ export type SubmissionStatus = 'new' | 'reviewed' | 'archived';
 
 export type FormSubmission = {
   id: number;
-  payload: Record<string, unknown> | null;
+  form: string;
+  /** Decrypted server-side. Null when the payload cannot be decrypted. */
+  data: Record<string, unknown> | null;
   status: SubmissionStatus;
   status_label: string;
   ip_address: string | null;
