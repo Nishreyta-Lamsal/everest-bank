@@ -9,7 +9,6 @@ import { usePageEditor } from '@/store/PageEditorContext';
 import { Card } from '@/components/admin/ui/card';
 
 import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import {
   localizedContent,
   mergeLocalizedContent,
@@ -34,7 +33,6 @@ export default function ProductsSectionEditor({
 }: ProductsSectionEditorProps) {
   const content = localizedContent<ProductsContent>(section.content);
   const updateSection = useUpdatePageSection(slug, section.id);
-  const uploadMedia = useUploadMedia();
   const { registerPublishHandler, setDraftContent, setDraftVisibility } =
     usePageEditor();
 
@@ -125,32 +123,6 @@ export default function ProductsSectionEditor({
                     setCards(cards.map((c, i) => (i === index ? next : c)))
                   }
                   onRemove={() => setCards(cards.filter((_, i) => i !== index))}
-                  isUploadingDecoration={uploadMedia.isPending}
-                  onDecorationUpload={(file) =>
-                    uploadMedia.mutate(
-                      { file },
-                      {
-                        onSuccess: (media) => {
-                          if (!media.file_url) return;
-
-                          setCards(
-                            cards.map((c, i) =>
-                              i === index
-                                ? {
-                                    ...c,
-                                    decoration_src: {
-                                      src: media.file_url,
-                                      alt: media.alt_text || media.title || '',
-                                      media_id: media.id,
-                                    },
-                                  }
-                                : c,
-                            ),
-                          );
-                        },
-                      },
-                    )
-                  }
                 />
               ))}
             </div>

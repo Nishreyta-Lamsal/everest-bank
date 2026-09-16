@@ -108,6 +108,7 @@ export type HeroContent = {
   image?: SectionMedia;
   subtext?: string;
   headline_lines?: string[];
+  highlights?: string[];
   primary_button?: SectionLink;
   secondary_button?: SectionLink;
   video_chip?: {
@@ -162,6 +163,58 @@ export type AboutHistoryContent = {
   intro?: string;
   body?: string;
   image?: SectionMedia;
+  cta?: SectionLink;
+};
+
+export type BusinessFinancingContent = {
+  heading?: string;
+  media_card?: {
+    href: string;
+    image: SectionMedia;
+    label: string;
+  };
+  content_cards?: {
+    href: string;
+    image: SectionMedia;
+    title: string;
+    link_label: string;
+    description: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessDigitalBankingContent = {
+  heading?: string;
+  image?: SectionMedia;
+  features?: {
+    icon: string;
+    label: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessIndustriesContent = {
+  heading?: string;
+  description?: string;
+  side_image?: SectionMedia;
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    link_label: string;
+    description: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessRelationshipManagersContent = {
+  heading?: string;
+  description?: string;
+  managers?: {
+    name: string;
+    role: string;
+    image: SectionMedia;
+  }[];
   cta?: SectionLink;
 };
 
