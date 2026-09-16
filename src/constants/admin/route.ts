@@ -6,5 +6,6 @@ export const ADMIN_ROUTE = {
   PRODUCT_NEW: '/admin/products/new',
   NOTICES_AND_NEWS: '/admin/notices-and-news',
   MENU_ITEMS: '/admin/menu-items',
+  FORMS: '/admin/forms',
   ASSETS: '/admin/assets',
 };
