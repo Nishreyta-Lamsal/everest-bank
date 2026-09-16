@@ -8,6 +8,10 @@ import AboutOverviewEditor from './AboutOverviewEditor';
 import AboutLinksEditor from './AboutLinksEditor';
 import AboutLeadershipEditor from './AboutLeadershipEditor';
 import AboutHistoryEditor from './AboutHistoryEditor';
+import BusinessFinancingEditor from './BusinessFinancingEditor';
+import BusinessDigitalBankingEditor from './BusinessDigitalBankingEditor';
+import BusinessIndustriesEditor from './BusinessIndustriesEditor';
+import BusinessRelationshipManagersEditor from './BusinessRelationshipManagersEditor';
 import ProductsSectionEditor from './ProductsSectionEditor';
 import LoansPreviewEditor from './LoansPreviewEditor';
 import CardsPreviewEditor from './CardsPreviewEditor';
@@ -25,6 +29,8 @@ type PageSectionEditorProps = {
 };
 
 const CONTENT_HERO_SECTION_TYPES = new Set(['about_hero', 'content_hero']);
+
+const TRUST_BANNER_SECTION_TYPES = new Set(['trust', 'business_trust']);
 
 function EditorCard({ children }: { children: React.ReactNode }) {
   return (
@@ -110,6 +116,42 @@ export default function PageSectionEditor({ slug }: PageSectionEditorProps) {
     );
   }
 
+  if (section.section_type === 'business_financing') {
+    return (
+      <BusinessFinancingEditor key={section.id} slug={slug} section={section} />
+    );
+  }
+
+  if (section.section_type === 'business_digital_banking') {
+    return (
+      <BusinessDigitalBankingEditor
+        key={section.id}
+        slug={slug}
+        section={section}
+      />
+    );
+  }
+
+  if (section.section_type === 'business_industries') {
+    return (
+      <BusinessIndustriesEditor
+        key={section.id}
+        slug={slug}
+        section={section}
+      />
+    );
+  }
+
+  if (section.section_type === 'business_relationship_managers') {
+    return (
+      <BusinessRelationshipManagersEditor
+        key={section.id}
+        slug={slug}
+        section={section}
+      />
+    );
+  }
+
   if (section.section_type.endsWith('products')) {
     return (
       <ProductsSectionEditor key={section.id} slug={slug} section={section} />
@@ -136,7 +178,7 @@ export default function PageSectionEditor({ slug }: PageSectionEditorProps) {
     return <CsrSectionEditor key={section.id} slug={slug} section={section} />;
   }
 
-  if (section.section_type === 'trust') {
+  if (TRUST_BANNER_SECTION_TYPES.has(section.section_type)) {
     return <TrustBannerEditor key={section.id} slug={slug} section={section} />;
   }
 

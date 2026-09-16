@@ -11,7 +11,11 @@ import { Input } from '@/components/admin/ui/input';
 
 import { localizedContent } from '@/lib/admin/section-content';
 
-import type { PageSectionRead, SectionMedia, TrustContent } from '@/types/admin';
+import type {
+  PageSectionRead,
+  SectionMedia,
+  TrustContent,
+} from '@/types/admin';
 
 type TrustBannerEditorProps = {
   slug: string;
@@ -61,31 +65,33 @@ export default function TrustBannerEditor({
         />
       </FieldLabel>
 
-      <div className="flex w-full flex-col gap-2">
-        <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
-          Banner images
-        </p>
-        {images.length > 0 && (
-          <div className="flex w-full flex-wrap items-center gap-2">
-            {images.map((image, index) => (
-              <ImagePreview
-                key={index}
-                src={image.src}
-                alt={image.alt}
-                onRemove={() => setImages(images.filter((_, i) => i !== index))}
-              />
-            ))}
-          </div>
-        )}
-        <ImageDropzone
-          isUploading={isUploading}
-          onFileSelected={(file) =>
-            uploadImage(file, (media) =>
-              setImages((current) => [...current, media]),
-            )
-          }
-        />
-      </div>
+      <FieldLabel label="Banner images">
+        <div className="flex w-full flex-col gap-2">
+          {images.length > 0 && (
+            <div className="flex w-full flex-wrap items-center gap-2">
+              {images.map((image, index) => (
+                <ImagePreview
+                  key={index}
+                  src={image.src}
+                  alt={image.alt}
+                  onRemove={() =>
+                    setImages(images.filter((_, i) => i !== index))
+                  }
+                  isUploading={isUploading}
+                />
+              ))}
+            </div>
+          )}
+          <ImageDropzone
+            isUploading={isUploading}
+            onFileSelected={(file) =>
+              uploadImage(file, (media) =>
+                setImages((current) => [...current, media]),
+              )
+            }
+          />
+        </div>
+      </FieldLabel>
     </SectionEditorShell>
   );
 }

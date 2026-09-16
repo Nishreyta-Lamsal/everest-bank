@@ -1,0 +1,151 @@
+'use client';
+
+import { useState } from 'react';
+
+import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
+import FieldPairRow from '@/components/admin/shared/FieldPairRow';
+import MediaField from '@/components/admin/shared/MediaField';
+import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
+import SectionEditorShell from './SectionEditorShell';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
+import { Input } from '@/components/admin/ui/input';
+import { Textarea } from '@/components/admin/ui/textarea';
+
+import { localizedContent } from '@/lib/admin/section-content';
+
+import type { BusinessIndustriesContent, PageSectionRead } from '@/types/admin';
+
+type BusinessIndustriesEditorProps = {
+  slug: string;
+  section: PageSectionRead;
+};
+
+type IndustryCard = NonNullable<BusinessIndustriesContent['cards']>[number];
+
+export default function BusinessIndustriesEditor({
+  slug,
+  section,
+}: BusinessIndustriesEditorProps) {
+  const content = localizedContent<BusinessIndustriesContent>(section.content);
+
+  const [heading, setHeading] = useState(content.heading ?? '');
+  const [description, setDescription] = useState(content.description ?? '');
+  const [sideImage, setSideImage] = useState(content.side_image);
+  const [cards, setCards] = useState<IndustryCard[]>(content.cards ?? []);
+  const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
+  const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
+
+  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
+    useSectionEditor<BusinessIndustriesContent>(slug, section, () => ({
+      heading,
+      description,
+      side_image: sideImage,
+      cards,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
+
+  function updateCard(index: number, next: IndustryCard) {
+    setCards(cards.map((card, i) => (i === index ? next : card)));
+  }
+
+  function removeCard(index: number) {
+    setCards(cards.filter((_, i) => i !== index));
+  }
+
+  return (
+    <SectionEditorShell
+      title={section.label}
+      description="Heading, description, side image, industry cards and the section link"
+      shownOnPage={shownOnPage}
+      onShownOnPageChange={setShownOnPage}
+      isError={isError}
+    >
+      <FieldLabel label="Heading">
+        <Textarea
+          variant="filled"
+          size="medium"
+          value={heading}
+          onChange={(event) => setHeading(event.target.value)}
+        />
+      </FieldLabel>
+
+      <FieldLabel label="Description">
+        <Textarea
+          variant="filled"
+          size="medium"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+      </FieldLabel>
+
+      <MediaField
+        label="Side image"
+        media={sideImage}
+        isUploading={isUploading}
+        onUpload={(file) => uploadImage(file, setSideImage)}
+        onRemove={() => setSideImage(undefined)}
+      />
+
+      <div className="flex w-full flex-col gap-3">
+        <p className="text-[16px] font-semibold text-neutral-900">
+          Industry cards
+        </p>
+
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className="flex w-full flex-col gap-3 rounded-[6px] border border-[#e6ecf4] p-3"
+          >
+            <p className="min-w-0 truncate text-[13px] font-semibold text-neutral-900">
+              Card {index + 1}
+              {card.title ? ` · ${card.title}` : ''}
+            </p>
+
+            <FieldPairRow
+              label="Title and description"
+              primaryValue={card.title ?? ''}
+              onPrimaryChange={(title) => updateCard(index, { ...card, title })}
+              secondaryValue={card.description ?? ''}
+              onSecondaryChange={(description) =>
+                updateCard(index, { ...card, description })
+              }
+              onRemove={() => removeCard(index)}
+              removeLabel={`Remove card ${index + 1}`}
+            />
+
+            <FieldLabel label="Link label">
+              <Input
+                variant="filled"
+                size="medium"
+                value={card.link_label ?? ''}
+                onChange={(event) =>
+                  updateCard(index, { ...card, link_label: event.target.value })
+                }
+              />
+            </FieldLabel>
+
+            <FieldLabel label="Links to">
+              <LinkTargetSelect
+                value={card.href ?? ''}
+                onChange={(href) => updateCard(index, { ...card, href })}
+              />
+            </FieldLabel>
+          </div>
+        ))}
+      </div>
+
+      <ButtonFieldGroup
+        label="Section link"
+        buttonLabel={ctaLabel}
+        onButtonLabelChange={setCtaLabel}
+        linkTarget={ctaHref}
+        onLinkTargetChange={setCtaHref}
+        onRemove={() => {
+          setCtaLabel('');
+          setCtaHref('');
+        }}
+      />
+    </SectionEditorShell>
+  );
+}
