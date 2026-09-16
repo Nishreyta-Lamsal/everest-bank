@@ -67,10 +67,10 @@ export default function FormBannerCard({
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <p className="text-paragraph-lg-bold text-neutral-900">Page images</p>
+      <p className="text-paragraph-lg-bold text-neutral-900">Page sections</p>
 
       <MediaField
-        label="Top image (optional)"
+        label="Hero image (optional)"
         media={
           banner?.file_url
             ? { src: banner.file_url, alt: banner.alt_text }

@@ -31,7 +31,6 @@ type FormFieldEditorProps = {
   isSaving: boolean;
   onSave: (payload: Partial<FormFieldWritePayload>) => void;
   onDelete: () => void;
-  onClose: () => void;
   /** Fires on every edit so the preview can show the field before it saves. */
   onDraftChange: (field: FormField) => void;
 };
@@ -41,7 +40,6 @@ export default function FormFieldEditor({
   isSaving,
   onSave,
   onDelete,
-  onClose,
   onDraftChange,
 }: FormFieldEditorProps) {
   // The parent keys this component on the field id, so selecting a different
@@ -77,18 +75,6 @@ export default function FormFieldEditor({
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <p className="text-paragraph-lg-bold text-neutral-900">Edit field</p>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close field editor"
-          className="hover:bg-black-alpha-5 flex size-7 cursor-pointer items-center justify-center rounded-lg text-slate-500"
-        >
-          <icon.close className="size-4" />
-        </button>
-      </div>
-
       <FieldLabel label="Label">
         <Input
           variant="default"
@@ -282,7 +268,7 @@ export default function FormFieldEditor({
           onClick={save}
           disabled={isSaving}
         >
-          {isSaving ? 'Saving…' : 'Save field'}
+          {isSaving ? 'Saving…' : 'Save'}
         </Button>
       </div>
     </div>

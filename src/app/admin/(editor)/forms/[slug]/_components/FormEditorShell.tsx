@@ -22,7 +22,6 @@ import {
   useForm,
   useFormFields,
   usePublishForm,
-  useReorderFormFields,
   useUpdateForm,
   useUpdateFormField,
 } from '@/hooks/api/admin/use-forms';
@@ -58,9 +57,6 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
   const createField = useCreateFormField(slug);
   const updateField = useUpdateFormField(slug);
   const deleteField = useDeleteFormField(slug);
-  const reorderFields = useReorderFormFields(slug);
-
-  const selectedField = fields.find((field) => field.id === selectedFieldId);
 
   // Saved form and fields, with any unsaved edits laid over the top, so the
   // preview shows work in progress without needing a save first.
@@ -78,13 +74,6 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
       : fields.map((field) =>
           field.id === debouncedFieldDraft.id ? debouncedFieldDraft : field,
         );
-
-  function move(index: number, direction: -1 | 1) {
-    const next = [...fields];
-    const target = index + direction;
-    [next[index], next[target]] = [next[target], next[index]];
-    reorderFields.mutate(next.map((field) => field.id));
-  }
 
   async function addField() {
     const field = await createField.mutateAsync({
@@ -160,7 +149,7 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
             <Card className="flex w-full flex-col gap-3">
               <div className="flex items-center justify-between">
                 <p className="text-paragraph-lg-bold text-neutral-900">
-                  Fields
+                  Input fields
                 </p>
                 <Button
                   type="button"
@@ -175,19 +164,47 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
               </div>
 
               <div className="flex w-full flex-col gap-1">
-                {fields.map((field, index) => (
-                  <FormFieldRow
-                    key={field.id}
-                    field={field}
-                    isSelected={field.id === selectedFieldId}
-                    isFirst={index === 0}
-                    isLast={index === fields.length - 1}
-                    disabled={reorderFields.isPending}
-                    onSelect={() => setSelectedFieldId(field.id)}
-                    onMoveUp={() => move(index, -1)}
-                    onMoveDown={() => move(index, 1)}
-                  />
-                ))}
+                {fields.map((field) => {
+                  const isOpen = field.id === selectedFieldId;
+
+                  return (
+                    <div
+                      key={field.id}
+                      className="flex w-full flex-col overflow-hidden rounded-lg"
+                    >
+                      <FormFieldRow
+                        field={field}
+                        isOpen={isOpen}
+                        onToggle={() => {
+                          setSelectedFieldId(isOpen ? null : field.id);
+                          setFieldDraft(null);
+                        }}
+                      />
+
+                      {isOpen && (
+                        <div className="rounded-b-lg bg-slate-50 p-4">
+                          <FormFieldEditor
+                            key={field.id}
+                            field={field}
+                            isSaving={updateField.isPending}
+                            onSave={(payload) =>
+                              updateField.mutate({
+                                fieldId: field.id,
+                                payload,
+                              })
+                            }
+                            onDraftChange={setFieldDraft}
+                            onDelete={() => {
+                              deleteField.mutate(field.id);
+                              setSelectedFieldId(null);
+                              setFieldDraft(null);
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
 
                 {fields.length === 0 && (
                   <p className="py-6 text-center text-[12px] text-neutral-700/68">
@@ -196,32 +213,6 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
                 )}
               </div>
             </Card>
-
-            {selectedField && (
-              <Card className="flex w-full flex-col gap-6">
-                <FormFieldEditor
-                  key={selectedField.id}
-                  field={selectedField}
-                  isSaving={updateField.isPending}
-                  onSave={(payload) =>
-                    updateField.mutate({
-                      fieldId: selectedField.id,
-                      payload,
-                    })
-                  }
-                  onDraftChange={setFieldDraft}
-                  onDelete={() => {
-                    deleteField.mutate(selectedField.id);
-                    setSelectedFieldId(null);
-                    setFieldDraft(null);
-                  }}
-                  onClose={() => {
-                    setSelectedFieldId(null);
-                    setFieldDraft(null);
-                  }}
-                />
-              </Card>
-            )}
           </div>
 
           <div className="hidden min-h-0 w-[600px] shrink-0 xl:block">

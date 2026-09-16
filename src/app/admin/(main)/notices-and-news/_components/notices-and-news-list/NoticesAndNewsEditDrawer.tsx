@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
 import { isAxiosError } from 'axios';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import RichTextEditor from '@/components/admin/shared/RichTextEditor';
@@ -11,17 +11,30 @@ import { Drawer } from '@/components/admin/ui/drawer';
 import { Input } from '@/components/admin/ui/input';
 import { Select } from '@/components/admin/ui/select';
 
-import { useUpdateNews } from '@/hooks/api/admin/use-news';
-import { useUpdateNotice } from '@/hooks/api/admin/use-notices';
+import { useCreateNews, useUpdateNews } from '@/hooks/api/admin/use-news';
+import {
+  useCreateNotice,
+  useUpdateNotice,
+} from '@/hooks/api/admin/use-notices';
 
-import type { NewsStatus, NoticesAndNewsEntry } from '@/types/admin';
+import { newsSchema, type NewsFormValues } from '@/schemas/admin/news-schema';
+import {
+  noticeSchema,
+  type NoticeFormValues,
+} from '@/schemas/admin/notice-schema';
+
+import type { NoticesAndNewsEntry } from '@/types/admin';
 
 type NoticesAndNewsEditDrawerProps = {
-  entry: NoticesAndNewsEntry;
+  entry: NoticesAndNewsEntry | null;
   kind: 'notice' | 'news';
   isOpen: boolean;
   onClose: () => void;
 };
+
+type FormValues = NoticeFormValues | NewsFormValues;
+
+const FORM_ID = 'notices-and-news-form';
 
 const STATUS_OPTIONS = [
   { label: 'Draft', value: 'draft' },
@@ -59,37 +72,84 @@ export default function NoticesAndNewsEditDrawer({
   isOpen,
   onClose,
 }: NoticesAndNewsEditDrawerProps) {
-  const [title, setTitle] = useState(entry.title);
-  const [description, setDescription] = useState(() =>
-    readDescription(entry.content),
-  );
-  const [date, setDate] = useState(entry.date ?? '');
-  const [status, setStatus] = useState<NewsStatus>(entry.status);
+  const isCreating = entry === null;
 
-  const updateNews = useUpdateNews(entry.id);
-  const updateNotice = useUpdateNotice(entry.id);
-  const mutation = kind === 'news' ? updateNews : updateNotice;
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(kind === 'news' ? newsSchema : noticeSchema),
+    defaultValues: {
+      title: entry?.title ?? '',
+      description: readDescription(entry?.content),
+      date: entry?.date ?? new Date().toISOString().slice(0, 10),
+      status: entry?.status ?? 'draft',
+    },
+  });
 
-  function handleSave() {
+  const createNews = useCreateNews();
+  const createNotice = useCreateNotice();
+  const updateNews = useUpdateNews(entry?.id ?? 0);
+  const updateNotice = useUpdateNotice(entry?.id ?? 0);
+
+  const mutation = isCreating
+    ? kind === 'news'
+      ? createNews
+      : createNotice
+    : kind === 'news'
+      ? updateNews
+      : updateNotice;
+
+  const onSubmit = handleSubmit((values) => {
+    if (isCreating) {
+      const create = kind === 'news' ? createNews : createNotice;
+
+      create.mutate(
+        {
+          title: values.title,
+          date: values.date,
+          content: { description: values.description },
+          status: values.status,
+        },
+        { onSuccess: onClose },
+      );
+
+      return;
+    }
+
+    if (!entry) return;
+
     const existingContent =
       entry.content && typeof entry.content === 'object' ? entry.content : {};
+    const payload = {
+      title: values.title,
+      content: { ...existingContent, description: values.description },
+      date: values.date,
+      status: values.status,
+    };
 
-    mutation.mutate(
-      {
-        title,
-        content: { ...existingContent, description },
-        ...(date ? { date } : {}),
-        status,
-      },
-      { onSuccess: onClose },
-    );
-  }
+    if (kind === 'news') {
+      updateNews.mutate(payload, { onSuccess: onClose });
+    } else {
+      updateNotice.mutate(payload, { onSuccess: onClose });
+    }
+  });
 
   return (
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      title={kind === 'news' ? 'Edit news article' : 'Edit notice'}
+      title={
+        isCreating
+          ? kind === 'news'
+            ? 'Add news article'
+            : 'Add notice'
+          : kind === 'news'
+            ? 'Edit news article'
+            : 'Edit notice'
+      }
       className="max-w-[900px]"
       footer={
         <>
@@ -102,58 +162,95 @@ export default function NoticesAndNewsEditDrawer({
             Cancel
           </Button>
           <Button
-            type="button"
+            type="submit"
+            form={FORM_ID}
             variant="primary"
-            onClick={handleSave}
-            disabled={mutation.isPending || !title.trim()}
+            disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending
+              ? 'Saving…'
+              : isCreating
+                ? 'Create'
+                : 'Save changes'}
           </Button>
         </>
       }
     >
-      <FieldLabel label="Title">
-        <Input
-          variant="filled"
-          size="medium"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-      </FieldLabel>
+      <form
+        id={FORM_ID}
+        onSubmit={onSubmit}
+        noValidate
+        className="flex w-full flex-col gap-4"
+      >
+        <FieldLabel label="Title">
+          <Input
+            variant="filled"
+            size="medium"
+            aria-invalid={Boolean(errors.title)}
+            {...register('title')}
+          />
+          {errors.title && (
+            <p className="text-[12px] text-red-600">{errors.title.message}</p>
+          )}
+        </FieldLabel>
 
-      <FieldLabel label="Description">
-        <RichTextEditor
-          value={description}
-          onChange={setDescription}
-          placeholder="Enter description"
-        />
-      </FieldLabel>
+        <FieldLabel label="Description">
+          <Controller
+            control={control}
+            name="description"
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Enter description"
+              />
+            )}
+          />
+          {errors.description && (
+            <p className="text-[12px] text-red-600">
+              {errors.description.message}
+            </p>
+          )}
+        </FieldLabel>
 
-      <FieldLabel label="Publication date">
-        <Input
-          type="date"
-          variant="filled"
-          size="medium"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-        />
-      </FieldLabel>
+        <FieldLabel label="Publication date">
+          <Input
+            type="date"
+            variant="filled"
+            size="medium"
+            aria-invalid={Boolean(errors.date)}
+            {...register('date')}
+          />
+          {errors.date && (
+            <p className="text-[12px] text-red-600">{errors.date.message}</p>
+          )}
+        </FieldLabel>
 
-      <FieldLabel label="Status">
-        <Select
-          variant="default"
-          size="medium"
-          options={STATUS_OPTIONS}
-          value={status}
-          onValueChange={(value) => setStatus(value as NewsStatus)}
-        />
-      </FieldLabel>
+        <FieldLabel label="Status">
+          <Controller
+            control={control}
+            name="status"
+            render={({ field }) => (
+              <Select
+                variant="default"
+                size="medium"
+                options={STATUS_OPTIONS}
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+          {errors.status && (
+            <p className="text-[12px] text-red-600">{errors.status.message}</p>
+          )}
+        </FieldLabel>
 
-      {mutation.isError && (
-        <p className="text-[12px] text-red-600">
-          {readApiError(mutation.error)}
-        </p>
-      )}
+        {mutation.isError && (
+          <p className="text-[12px] text-red-600">
+            {readApiError(mutation.error)}
+          </p>
+        )}
+      </form>
     </Drawer>
   );
 }

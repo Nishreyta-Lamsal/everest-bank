@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import NoticesAndNewsFilterTabs from './notices-and-news-filters/NoticesAndNewsFilterTabs';
 import NoticesAndNewsListCard from './notices-and-news-list/NoticesAndNewsListCard';
+import NoticesAndNewsEditDrawer from './notices-and-news-list/NoticesAndNewsEditDrawer';
 
 import { useNews } from '@/hooks/api/admin/use-news';
 import { useNotices } from '@/hooks/api/admin/use-notices';
@@ -12,6 +13,7 @@ import type { NoticesAndNewsTab } from './notices-and-news-filters/NoticesAndNew
 
 export default function NoticesAndNewsContent() {
   const [activeTab, setActiveTab] = useState<NoticesAndNewsTab>('notice');
+  const [isAddOpen, setIsAddOpen] = useState(false);
 
   const notices = useNotices({ page_size: 100 });
   const news = useNews({ page_size: 100 });
@@ -29,6 +31,7 @@ export default function NoticesAndNewsContent() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         counts={counts}
+        onAdd={() => setIsAddOpen(true)}
       />
       <NoticesAndNewsListCard
         items={active.data?.results ?? []}
@@ -39,6 +42,15 @@ export default function NoticesAndNewsContent() {
           activeTab === 'notice' ? 'No notices yet.' : 'No news articles yet.'
         }
       />
+
+      {isAddOpen && (
+        <NoticesAndNewsEditDrawer
+          entry={null}
+          kind={activeTab}
+          isOpen={isAddOpen}
+          onClose={() => setIsAddOpen(false)}
+        />
+      )}
     </>
   );
 }

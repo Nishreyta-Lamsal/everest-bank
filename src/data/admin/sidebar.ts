@@ -18,14 +18,12 @@ export const contentNavItems: SidebarNavItemData[] = [
     label: 'Notices and News',
     icon: icon.newspaper,
   },
-  { href: ADMIN_ROUTE.MENU_ITEMS, label: 'Menu Items', icon: icon.textBlock },
   { href: ADMIN_ROUTE.FORMS, label: 'Forms', icon: icon.fileText },
   { href: ADMIN_ROUTE.ASSETS, label: 'Assets', icon: icon.images },
 ];
 
 export const sidebarNavGroups: SidebarNavGroupData[] = [
   { title: 'Content', items: contentNavItems },
-  { title: 'Bank Data' },
   { title: 'Tools' },
   { title: 'Settings' },
 ];

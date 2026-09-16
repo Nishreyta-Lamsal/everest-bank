@@ -57,8 +57,13 @@ export default function NewFormDialog({
   });
 
   return (
-    <Modal isOpen={open} onClose={close} title="New form" className="max-w-md">
-      <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
+    <Modal
+      isOpen={open}
+      onClose={close}
+      title="New form"
+      className="h-auto w-[90vw] max-w-md"
+    >
+      <form onSubmit={onSubmit} className="flex w-full flex-col gap-4 p-6">
         <FieldLabel label="Form name">
           <Input
             variant="default"
