@@ -9,16 +9,23 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 
-type PublishHandler = () => Promise<void>;
+import { pageSectionService } from '@/api/services/admin/page-section.service';
+
+import type { BulkUpdatePageSectionItem } from '@/api/services/admin/page-section.service';
 
 /** Unsaved section content, keyed by section id. Cleared once published. */
 type DraftContentMap = Record<number, Record<string, unknown>>;
+type SectionDraft = {
+  slug: string;
+  item: BulkUpdatePageSectionItem;
+};
 
 type PageEditorContextValue = {
-  registerPublishHandler: (handler: PublishHandler | null) => void;
+  registerSectionDraft: (sectionId: number, draft: SectionDraft | null) => void;
   publish: () => Promise<void>;
   isPublishing: boolean;
   canPublish: boolean;
+  publishError: unknown;
   drafts: DraftContentMap;
   setDraftContent: (
     sectionId: number,
@@ -33,17 +40,27 @@ const PageEditorContext = createContext<PageEditorContextValue | null>(null);
 export function PageEditorProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
 
-  const handlerRef = useRef<PublishHandler | null>(null);
+  const draftsRef = useRef<Map<number, SectionDraft>>(new Map());
   const [isPublishing, setIsPublishing] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
+  const [publishError, setPublishError] = useState<unknown>(null);
   const [drafts, setDrafts] = useState<DraftContentMap>({});
   const [draftVisibility, setDraftVisibilityMap] = useState<
     Record<number, boolean>
   >({});
 
-  function registerPublishHandler(handler: PublishHandler | null) {
-    handlerRef.current = handler;
-    setCanPublish(Boolean(handler));
+  function registerSectionDraft(sectionId: number, draft: SectionDraft | null) {
+    if (draft) {
+      draftsRef.current.set(sectionId, draft);
+    } else {
+      draftsRef.current.delete(sectionId);
+    }
+
+    setCanPublish((current) => {
+      const next = draftsRef.current.size > 0;
+
+      return current === next ? current : next;
+    });
   }
 
   function setDraftContent(
@@ -61,11 +78,25 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
   }
 
   async function publish() {
-    if (!handlerRef.current) return;
+    const sectionDrafts = [...draftsRef.current.values()];
+
+    if (sectionDrafts.length === 0) return;
+
+    const bySlug = new Map<string, BulkUpdatePageSectionItem[]>();
+
+    for (const draft of sectionDrafts) {
+      const items = bySlug.get(draft.slug) ?? [];
+
+      items.push(draft.item);
+      bySlug.set(draft.slug, items);
+    }
 
     setIsPublishing(true);
+    setPublishError(null);
     try {
-      await handlerRef.current();
+      for (const [slug, items] of bySlug) {
+        await pageSectionService.bulkUpdate(slug, items);
+      }
 
       // Saved content now comes back from the server, so local drafts would
       // only shadow it with the same values.
@@ -73,6 +104,8 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
       setDraftVisibilityMap({});
 
       router.refresh();
+    } catch (error) {
+      setPublishError(error);
     } finally {
       setIsPublishing(false);
     }
@@ -81,10 +114,11 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
   return (
     <PageEditorContext.Provider
       value={{
-        registerPublishHandler,
+        registerSectionDraft,
         publish,
         isPublishing,
         canPublish,
+        publishError,
         drafts,
         setDraftContent,
         draftVisibility,

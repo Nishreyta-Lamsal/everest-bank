@@ -36,13 +36,19 @@ export default function RemittanceHeroEditor({
   );
   const [tracking, setTracking] = useState(content.tracking ?? {});
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<RemittanceHeroContent>(slug, section, () => ({
-      headline,
-      subtext,
-      slides,
-      tracking,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<RemittanceHeroContent>(slug, section, () => ({
+    headline,
+    subtext,
+    slides,
+    tracking,
+  }));
 
   function updateTracking(next: Partial<RemittanceHeroContent['tracking']>) {
     setTracking((current) => ({ ...current, ...next }));
@@ -61,6 +67,7 @@ export default function RemittanceHeroEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Headline">
         <Textarea

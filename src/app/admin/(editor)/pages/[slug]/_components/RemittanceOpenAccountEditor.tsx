@@ -42,13 +42,19 @@ export default function RemittanceOpenAccountEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<RemittanceOpenAccountContent>(slug, section, () => ({
-      heading,
-      video: { src: videoSrc, poster },
-      features,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<RemittanceOpenAccountContent>(slug, section, () => ({
+    heading,
+    video: { src: videoSrc, poster },
+    features,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updateFeature(index: number, next: Feature) {
     setFeatures(features.map((feature, i) => (i === index ? next : feature)));
@@ -61,6 +67,7 @@ export default function RemittanceOpenAccountEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Input

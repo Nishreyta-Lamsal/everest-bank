@@ -4,7 +4,7 @@ import type { Page } from '@/types/admin';
 
 type ProductsListProps = {
   items: Page[];
-  onSelect: (id: number) => void;
+  onSelect: (page: Page) => void;
 };
 
 export default function ProductsList({ items, onSelect }: ProductsListProps) {
@@ -14,7 +14,7 @@ export default function ProductsList({ items, onSelect }: ProductsListProps) {
         <ProductsListRow
           key={page.id}
           page={page}
-          onSelect={() => onSelect(page.id)}
+          onSelect={() => onSelect(page)}
         />
       ))}
     </div>

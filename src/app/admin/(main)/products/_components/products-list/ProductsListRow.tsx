@@ -1,10 +1,8 @@
-import Link from 'next/link';
+'use client';
 
 import { icon } from '@/components/admin/icons';
 
 import { cn } from '@/lib/utils';
-
-import { ADMIN_ROUTE } from '@/constants/admin';
 
 import type { Page } from '@/types/admin';
 
@@ -26,10 +24,10 @@ export default function ProductsListRow({
   const meta = `${page.path} · ${sectionsLabel} · ${updatedLabel}`;
 
   return (
-    <Link
-      href={`${ADMIN_ROUTE.PRODUCTS}/${page.slug}`}
+    <button
+      type="button"
       onClick={onSelect}
-      className="flex w-full items-center"
+      className="flex w-full cursor-pointer items-center text-left"
     >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
         <div className="flex min-w-0 items-center gap-3">
@@ -57,6 +55,6 @@ export default function ProductsListRow({
         </span>
         <icon.chevronRight className="size-[16px] shrink-0 text-[#7d7c7d]" />
       </div>
-    </Link>
+    </button>
   );
 }

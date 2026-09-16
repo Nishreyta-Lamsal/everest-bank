@@ -42,13 +42,19 @@ export default function BusinessFinancingEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<BusinessFinancingContent>(slug, section, () => ({
-      heading,
-      media_card: mediaCard,
-      content_cards: contentCards,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<BusinessFinancingContent>(slug, section, () => ({
+    heading,
+    media_card: mediaCard,
+    content_cards: contentCards,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updateMediaCard(next: Partial<MediaCard>) {
     setMediaCard((current) => ({ ...(current as MediaCard), ...next }));
@@ -69,6 +75,7 @@ export default function BusinessFinancingEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Textarea

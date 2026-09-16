@@ -1,24 +1,56 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { Card } from '@/components/admin/ui/card';
+import { icon } from '@/components/admin/icons';
 import ProductsList from './ProductsList';
 
 import { useProducts } from '@/store/ProductsProvider';
 
 import { usePages } from '@/hooks/api/admin/use-pages';
 
+import { ADMIN_ROUTE } from '@/constants/admin';
+
 export default function ProductsListCard() {
-  const { pageId, setProductTypeId } = useProducts();
+  const router = useRouter();
+  const { pageId, productType, setProductType } = useProducts();
+
+  // One level down from the tab: the product types under it, or — once a type
+  // is picked — the products under that type.
+  const isDrilledIn = productType !== undefined;
 
   const { data, isPending, isError, refetch } = usePages(
-    { kind: 'product_type', parent: pageId },
-    { enabled: pageId !== undefined },
+    isDrilledIn
+      ? { kind: 'product', parent: productType.id }
+      : { kind: 'product_type', parent: pageId },
+    { enabled: isDrilledIn || pageId !== undefined },
   );
 
   const items = data?.pages ?? [];
+  const emptyLabel = isDrilledIn
+    ? 'No products under this type yet.'
+    : 'No products yet.';
 
   return (
     <Card variant="primary" className="w-full overflow-hidden px-4 py-3">
+      {isDrilledIn && (
+        <div className="flex items-center gap-2 border-b border-black/3 px-4 pt-1 pb-3">
+          <button
+            type="button"
+            onClick={() => setProductType(undefined)}
+            className="text-paragraph-sm-medium flex cursor-pointer items-center gap-1.5 text-neutral-700 transition-colors hover:text-slate-950"
+          >
+            <icon.arrowLeft className="size-4" />
+            All product types
+          </button>
+          <span className="text-neutral-700/40">/</span>
+          <p className="text-paragraph-sm-medium min-w-0 truncate text-slate-950">
+            {productType.title}
+          </p>
+        </div>
+      )}
+
       {isPending && (
         <div className="flex w-full flex-col divide-y divide-black/3">
           {Array.from({ length: 5 }).map((_, index) => (
@@ -41,7 +73,7 @@ export default function ProductsListCard() {
           <button
             type="button"
             onClick={() => refetch()}
-            className="text-paragraph-sm-medium text-slate-950 underline"
+            className="text-paragraph-sm-medium cursor-pointer text-slate-950 underline"
           >
             Try again
           </button>
@@ -50,14 +82,24 @@ export default function ProductsListCard() {
 
       {!isPending && !isError && items.length === 0 && (
         <div className="flex h-[148px] items-center justify-center px-4">
-          <p className="text-paragraph-sm text-neutral-700/68">
-            No products yet.
-          </p>
+          <p className="text-paragraph-sm text-neutral-700/68">{emptyLabel}</p>
         </div>
       )}
 
       {items.length > 0 && (
-        <ProductsList items={items} onSelect={setProductTypeId} />
+        <ProductsList
+          items={items}
+          onSelect={(page) => {
+            // A product type opens its children; a product opens its editor.
+            if (isDrilledIn) {
+              router.push(`${ADMIN_ROUTE.PRODUCTS}/${page.slug}`);
+
+              return;
+            }
+
+            setProductType({ id: page.id, title: page.title });
+          }}
+        />
       )}
     </Card>
   );

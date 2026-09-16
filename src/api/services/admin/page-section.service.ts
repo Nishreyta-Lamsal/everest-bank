@@ -8,6 +8,14 @@ export type UpdatePageSectionPayload = {
   content?: Record<string, unknown>;
 };
 
+export type BulkUpdatePageSectionItem = {
+  id: number;
+  section_type: string;
+  position?: number;
+  is_visible?: boolean;
+  content?: Record<string, unknown>;
+};
+
 export const pageSectionService = {
   retrieve: async (
     slug: string,
@@ -28,6 +36,18 @@ export const pageSectionService = {
     const response = await axiosClient.patch<ApiResponse<PageSectionRead>>(
       `pages/${slug}/sections/${sectionId}/`,
       payload,
+    );
+
+    return response.data.data;
+  },
+
+  bulkUpdate: async (
+    slug: string,
+    items: BulkUpdatePageSectionItem[],
+  ): Promise<PageSectionRead[]> => {
+    const response = await axiosClient.patch<ApiResponse<PageSectionRead[]>>(
+      `pages/${slug}/sections/`,
+      items,
     );
 
     return response.data.data;

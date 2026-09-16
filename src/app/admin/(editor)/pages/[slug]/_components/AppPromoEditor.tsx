@@ -43,21 +43,27 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
     content.app_store_badges ?? [],
   );
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<AppPromoContent>(slug, section, () => ({
-      heading,
-      badges,
-      qr_code: qrCode && {
-        ...qrCode,
-        caption_lines: qrCaption
-          .split('\n')
-          .map((line) => line.trim())
-          .filter(Boolean),
-      },
-      hero_image: heroImage,
-      phone_mockup: phoneMockup,
-      app_store_badges: storeBadges,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<AppPromoContent>(slug, section, () => ({
+    heading,
+    badges,
+    qr_code: qrCode && {
+      ...qrCode,
+      caption_lines: qrCaption
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean),
+    },
+    hero_image: heroImage,
+    phone_mockup: phoneMockup,
+    app_store_badges: storeBadges,
+  }));
 
   function updateBadge(index: number, next: AppPromoBadge) {
     setBadges(badges.map((badge, i) => (i === index ? next : badge)));
@@ -70,6 +76,7 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Textarea

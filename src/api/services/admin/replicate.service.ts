@@ -2,12 +2,27 @@ import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse, PageReplicateResult } from '@/types/admin';
 
+export type ReplicateHierarchyNode = {
+  id?: number;
+  slug?: string;
+  title?: string;
+  title_ne?: string;
+  path?: string;
+  icon?: string;
+  position?: number;
+  is_active?: boolean;
+  show_in_menu?: boolean;
+  promo_label?: string;
+  promo_label_ne?: string;
+  promo_href?: string;
+  promo_is_active?: boolean;
+};
+
 export type ReplicatePagePayload = {
   source_id: number;
-  product: {
-    slug: string;
-    title: string;
-  };
+  page?: ReplicateHierarchyNode;
+  product_type?: ReplicateHierarchyNode;
+  product?: ReplicateHierarchyNode;
 };
 
 export const replicateService = {

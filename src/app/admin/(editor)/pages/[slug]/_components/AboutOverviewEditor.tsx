@@ -34,13 +34,19 @@ export default function AboutOverviewEditor({
   const [cards, setCards] = useState<OverviewCard[]>(content.cards ?? []);
   const [centerImage, setCenterImage] = useState(content.center_image);
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<AboutOverviewContent>(slug, section, () => ({
-      intro,
-      stats,
-      cards,
-      center_image: centerImage,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<AboutOverviewContent>(slug, section, () => ({
+    intro,
+    stats,
+    cards,
+    center_image: centerImage,
+  }));
 
   function updateStat(index: number, next: OverviewStat) {
     setStats(stats.map((stat, i) => (i === index ? next : stat)));
@@ -61,6 +67,7 @@ export default function AboutOverviewEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Intro">
         <Textarea

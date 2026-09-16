@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import { usePageEditor } from '@/store/PageEditorContext';
 
-import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { mergeLocalizedContent } from '@/lib/admin/section-content';
 
@@ -15,10 +14,13 @@ export function useSectionEditor<T extends object>(
   section: PageSectionRead,
   buildContent: () => Partial<T>,
 ) {
-  const updateSection = useUpdatePageSection(slug, section.id);
   const uploadMedia = useUploadMedia();
-  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
-    usePageEditor();
+  const {
+    registerSectionDraft,
+    setDraftContent,
+    setDraftVisibility,
+    publishError,
+  } = usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
 
@@ -39,30 +41,34 @@ export function useSectionEditor<T extends object>(
     );
   }
 
-  async function publishChanges() {
-    await updateSection.mutateAsync({
-      is_visible: shownOnPage,
-      content: mergeLocalizedContent<T>(section.content, buildContent()),
-    });
-  }
-
-  useEffect(function () {
-    registerPublishHandler(publishChanges);
-
-    return function () {
-      registerPublishHandler(null);
-    };
-  });
-
-  // Mirror the in-progress fields into the shared draft so the live preview
-  // re-renders as they change. `buildContent` is a new closure every render,
-  // so the serialized content is what decides whether anything actually moved.
+  // `buildContent` is a new closure every render, so the serialized content is
+  // what decides whether anything actually moved.
   const draftContent = mergeLocalizedContent<T>(
     section.content,
     buildContent(),
   );
   const serializedDraft = JSON.stringify(draftContent);
 
+  // Re-registers each render so the payload reflects the latest field values;
+  // the context ignores no-op registrations.
+  useEffect(function () {
+    registerSectionDraft(section.id, {
+      slug,
+      item: {
+        id: section.id,
+        section_type: section.section_type,
+        is_visible: shownOnPage,
+        content: draftContent,
+      },
+    });
+
+    return function () {
+      registerSectionDraft(section.id, null);
+    };
+  });
+
+  // Mirror the in-progress fields into the shared draft so the live preview
+  // re-renders as they change.
   useEffect(
     function () {
       setDraftContent(section.id, draftContent);
@@ -84,6 +90,7 @@ export function useSectionEditor<T extends object>(
     setShownOnPage,
     uploadImage,
     isUploading: uploadMedia.isPending,
-    isError: updateSection.isError,
+    isError: Boolean(publishError),
+    error: publishError,
   };
 }

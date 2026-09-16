@@ -45,16 +45,22 @@ export default function CardsPreviewEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<CardsPreviewContent>(slug, section, () => ({
-      heading_lines: headingLines
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean),
-      tiles,
-      background_image: background,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<CardsPreviewContent>(slug, section, () => ({
+    heading_lines: headingLines
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean),
+    tiles,
+    background_image: background,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updateTile(index: number, next: CardsPreviewTile) {
     setTiles(tiles.map((tile, i) => (i === index ? next : tile)));
@@ -67,6 +73,7 @@ export default function CardsPreviewEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading (one line per row)">
         <Textarea
