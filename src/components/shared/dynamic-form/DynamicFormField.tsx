@@ -18,6 +18,14 @@ type DynamicFormFieldProps = {
   values: FormValues;
 };
 
+/**
+ * The shared field components size their own label. These forms need the small
+ * uppercase label the design uses, so it is overridden here rather than by
+ * changing a component the rest of the site shares.
+ */
+const LABEL_CLASSES =
+  '[&>label]:text-[11px] [&>label]:font-semibold [&>label]:uppercase [&>label]:tracking-wide [&>label]:text-neutral-700';
+
 /** Native input types that TextField can render directly. */
 const TEXT_INPUT_TYPES: Record<string, string> = {
   text: 'text',
@@ -39,6 +47,9 @@ export default function DynamicFormField({
   if (field.field_type === 'textarea') {
     return (
       <Textarea
+        // Textarea takes no variant prop, so the tinted row the other fields
+        // get from variant="secondary" is applied directly here.
+        className={`${LABEL_CLASSES} [&>div]:bg-grey-bluish-grey [&>div]:rounded-[4px]`}
         label={label}
         hint={field.help_text || undefined}
         error={error}
@@ -53,6 +64,8 @@ export default function DynamicFormField({
 
     return (
       <SelectField
+        variant="secondary"
+        className={LABEL_CLASSES}
         label={label}
         hint={field.help_text || undefined}
         error={error}
@@ -115,6 +128,8 @@ export default function DynamicFormField({
 
   return (
     <TextField
+      variant="secondary"
+      className={LABEL_CLASSES}
       label={label}
       hint={field.help_text || undefined}
       error={error}

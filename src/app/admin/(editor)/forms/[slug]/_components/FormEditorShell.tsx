@@ -10,10 +10,12 @@ import LivePreview from '../../../pages/[slug]/_components/LivePreview';
 import FormEditorHeader from './FormEditorHeader';
 import FormFieldRow from './FormFieldRow';
 import FormFieldEditor from './FormFieldEditor';
+import FormBannerCard from './FormBannerCard';
 import FormPreview from './FormPreview';
 import FormSettingsCard from './FormSettingsCard';
 
 import { useCapability } from '@/hooks/api/admin/use-auth';
+import { useDebounce } from '@/hooks/useDebounce';
 import {
   useCreateFormField,
   useDeleteFormField,
@@ -26,6 +28,7 @@ import {
 } from '@/hooks/api/admin/use-forms';
 
 import type { FormFieldWritePayload } from '@/api/services/admin/form.service';
+import type { FormSettingsDraft } from './FormSettingsCard';
 
 type FormEditorShellProps = {
   slug: string;
@@ -33,6 +36,13 @@ type FormEditorShellProps = {
 
 export default function FormEditorShell({ slug }: FormEditorShellProps) {
   const [selectedFieldId, setSelectedFieldId] = useState<number | null>(null);
+  const [settingsDraft, setSettingsDraft] = useState<FormSettingsDraft | null>(
+    null,
+  );
+
+  // The preview follows unsaved text edits, but only once typing pauses, so
+  // the scaled preview frame is not re-rendered on every keystroke.
+  const debouncedDraft = useDebounce(settingsDraft, 300);
 
   const { data: form, isPending, isError } = useForm(slug);
   const { data: fields = [] } = useFormFields(slug);
@@ -46,6 +56,9 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
   const reorderFields = useReorderFormFields(slug);
 
   const selectedField = fields.find((field) => field.id === selectedFieldId);
+
+  // Saved form, with any unsaved settings text laid over the top.
+  const previewForm = form ? { ...form, ...(debouncedDraft ?? {}) } : undefined;
 
   function move(index: number, direction: -1 | 1) {
     const next = [...fields];
@@ -101,6 +114,26 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
                 form={form}
                 isSaving={updateForm.isPending}
                 onSave={(payload) => updateForm.mutate(payload)}
+                onDraftChange={setSettingsDraft}
+              />
+            </Card>
+
+            <Card className="flex w-full flex-col gap-6">
+              <FormBannerCard
+                banner={form.banner}
+                sidebarCards={form.sidebar_cards}
+                isSaving={updateForm.isPending}
+                onBannerChange={(banner) => updateForm.mutate({ banner })}
+                onSidebarCardsChange={(cards) =>
+                  updateForm.mutate({
+                    // image_url is server-derived; only the id is writable.
+                    sidebar_cards: cards.map(({ title, href, image_id }) => ({
+                      title,
+                      href,
+                      image_id,
+                    })),
+                  })
+                }
               />
             </Card>
 
@@ -168,7 +201,7 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
 
           <div className="hidden min-h-0 w-[600px] shrink-0 xl:block">
             <LivePreview>
-              <FormPreview form={form} fields={fields} />
+              <FormPreview form={previewForm ?? form} fields={fields} />
             </LivePreview>
           </div>
         </main>

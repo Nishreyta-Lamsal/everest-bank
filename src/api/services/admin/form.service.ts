@@ -30,6 +30,7 @@ export type FormWritePayload = {
   submit_label?: string;
   success_message?: string;
   status?: FormStatus;
+  /** Write takes a plain media id; reads return the nested media. */
   banner?: number | null;
   sidebar_cards?: FormSidebarCard[];
   is_active?: boolean;

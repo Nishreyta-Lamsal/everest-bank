@@ -9,30 +9,42 @@ import { Textarea } from '@/components/admin/ui/textarea';
 
 import type { FormDetail } from '@/types/admin';
 
+export type FormSettingsDraft = {
+  title: string;
+  description: string;
+  submit_label: string;
+  success_message: string;
+};
+
 type FormSettingsCardProps = {
   form: FormDetail;
   isSaving: boolean;
-  onSave: (payload: {
-    title: string;
-    description: string;
-    submit_label: string;
-    success_message: string;
-  }) => void;
+  onSave: (payload: FormSettingsDraft) => void;
+  /** Fires on every keystroke so the preview can follow along, debounced. */
+  onDraftChange: (draft: FormSettingsDraft) => void;
 };
 
 export default function FormSettingsCard({
   form,
   isSaving,
   onSave,
+  onDraftChange,
 }: FormSettingsCardProps) {
   // Keyed on the form slug by the parent, so a refetch never clobbers what
   // the user is currently typing.
-  const [draft, setDraft] = useState({
+  const [draft, setDraft] = useState<FormSettingsDraft>({
     title: form.title,
     description: form.description,
     submit_label: form.submit_label,
     success_message: form.success_message,
   });
+
+  function update(patch: Partial<FormSettingsDraft>) {
+    const next = { ...draft, ...patch };
+
+    setDraft(next);
+    onDraftChange(next);
+  }
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -41,9 +53,7 @@ export default function FormSettingsCard({
           variant="default"
           size="medium"
           value={draft.title}
-          onChange={(event) =>
-            setDraft((current) => ({ ...current, title: event.target.value }))
-          }
+          onChange={(event) => update({ title: event.target.value })}
         />
       </FieldLabel>
 
@@ -58,12 +68,7 @@ export default function FormSettingsCard({
         <Textarea
           rows={2}
           value={draft.description}
-          onChange={(event) =>
-            setDraft((current) => ({
-              ...current,
-              description: event.target.value,
-            }))
-          }
+          onChange={(event) => update({ description: event.target.value })}
         />
       </FieldLabel>
 
@@ -74,12 +79,7 @@ export default function FormSettingsCard({
             size="medium"
             placeholder="Submit"
             value={draft.submit_label}
-            onChange={(event) =>
-              setDraft((current) => ({
-                ...current,
-                submit_label: event.target.value,
-              }))
-            }
+            onChange={(event) => update({ submit_label: event.target.value })}
           />
         </FieldLabel>
       </div>
@@ -90,12 +90,7 @@ export default function FormSettingsCard({
           size="medium"
           placeholder="Your application has been submitted."
           value={draft.success_message}
-          onChange={(event) =>
-            setDraft((current) => ({
-              ...current,
-              success_message: event.target.value,
-            }))
-          }
+          onChange={(event) => update({ success_message: event.target.value })}
         />
       </FieldLabel>
 

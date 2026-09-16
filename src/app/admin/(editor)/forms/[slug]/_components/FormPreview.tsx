@@ -72,10 +72,15 @@ export default function FormPreview({ form, fields }: FormPreviewProps) {
 
   return (
     <div className="flex w-full flex-col bg-[#f4f2f0]">
-      {form.banner !== null && (
-        <div className="flex h-[180px] w-full items-center justify-center bg-slate-200">
-          <p className="text-[12px] text-neutral-600">Banner image</p>
-        </div>
+      {form.banner?.file_url && (
+        /* The preview is scaled inside a transformed container, where
+           next/image mis-sizes, so a plain img is used here. */
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={form.banner.file_url}
+          alt={form.banner.alt_text || form.title}
+          className="h-[180px] w-full object-cover"
+        />
       )}
 
       <div className="flex w-full items-center justify-between border-y border-black/5 bg-white px-10 py-5">

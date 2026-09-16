@@ -59,8 +59,17 @@ export type FormField = {
 
 export type FormSidebarCard = {
   title: string;
-  image_id?: number | null;
   href?: string;
+  /** Kept for editing; image_url is the resolved version for previewing. */
+  image_id?: number | null;
+  image_url?: string | null;
+};
+
+export type FormBanner = {
+  id: number;
+  title: string;
+  file_url: string | null;
+  alt_text: string;
 };
 
 export type Form = {
@@ -73,7 +82,7 @@ export type Form = {
   success_message: string;
   status: FormStatus;
   status_label: string;
-  banner: number | null;
+  banner: FormBanner | null;
   sidebar_cards: FormSidebarCard[];
   is_active: boolean;
   fields_count: number;
