@@ -3,12 +3,15 @@ import type { ReactNode } from 'react';
 import SlideEditorHeader from './SlideEditorHeader';
 import { Card } from '@/components/admin/ui/card';
 
+import { readApiError } from '@/lib/admin/read-api-error';
+
 type SectionEditorShellProps = {
   title: string;
   description: string;
   shownOnPage: boolean;
   onShownOnPageChange: (shown: boolean) => void;
   isError?: boolean;
+  error?: unknown;
   children: ReactNode;
 };
 
@@ -18,6 +21,7 @@ export default function SectionEditorShell({
   shownOnPage,
   onShownOnPageChange,
   isError,
+  error,
   children,
 }: SectionEditorShellProps) {
   return (
@@ -31,7 +35,9 @@ export default function SectionEditorShell({
         />
         {children}
         {isError && (
-          <p className="text-[12px] text-red-600">Could not publish changes.</p>
+          <p className="text-[12px] text-red-600">
+            {readApiError(error, 'Could not publish changes.')}
+          </p>
         )}
       </div>
     </Card>

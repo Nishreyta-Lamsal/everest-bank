@@ -35,13 +35,19 @@ export default function AboutLeadershipEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<AboutLeadershipContent>(slug, section, () => ({
-      heading,
-      description,
-      people,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<AboutLeadershipContent>(slug, section, () => ({
+    heading,
+    description,
+    people,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updatePerson(index: number, next: LeadershipPerson) {
     setPeople(people.map((person, i) => (i === index ? next : person)));
@@ -54,6 +60,7 @@ export default function AboutLeadershipEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Input

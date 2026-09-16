@@ -13,7 +13,7 @@ export default function ProductsFilterTabs() {
 
   const pages = data?.pages ?? [];
 
-  const { pageId, setPageId } = useProducts();
+  const { pageId, setPageId, setProductType } = useProducts();
 
   const firstPageId = pages[0]?.id;
   const activeTab = pageId ?? firstPageId;
@@ -33,7 +33,10 @@ export default function ProductsFilterTabs() {
           <button
             key={page.id}
             type="button"
-            onClick={() => setPageId(page.id)}
+            onClick={() => {
+              setPageId(page.id);
+              setProductType(undefined);
+            }}
             className={cn(
               'text-paragraph-sm-medium flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2',
               active

@@ -32,12 +32,18 @@ export default function TrustBannerEditor({
   const [description, setDescription] = useState(content.description ?? '');
   const [images, setImages] = useState<SectionMedia[]>(content.images ?? []);
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<TrustContent>(slug, section, () => ({
-      title,
-      description,
-      images,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<TrustContent>(slug, section, () => ({
+    title,
+    description,
+    images,
+  }));
 
   return (
     <SectionEditorShell
@@ -46,6 +52,7 @@ export default function TrustBannerEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Title">
         <Input

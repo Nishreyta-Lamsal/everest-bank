@@ -72,9 +72,7 @@ export default function HeroSectionCard() {
           }
           linkTarget={secondaryButton.linkTarget}
           onLinkTargetChange={(linkTarget) =>
-            setSecondaryButton(
-              (button) => button && { ...button, linkTarget },
-            )
+            setSecondaryButton((button) => button && { ...button, linkTarget })
           }
           onRemove={() => setSecondaryButton(null)}
         />

@@ -36,12 +36,18 @@ export default function LoansPreviewEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<LoansPreviewContent>(slug, section, () => ({
-      heading,
-      cards,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<LoansPreviewContent>(slug, section, () => ({
+    heading,
+    cards,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updateCard(index: number, next: LoansPreviewCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -54,6 +60,7 @@ export default function LoansPreviewEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Textarea

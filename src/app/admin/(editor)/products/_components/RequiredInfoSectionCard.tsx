@@ -39,10 +39,7 @@ export default function RequiredInfoSectionCard() {
   }
 
   function addRequirement() {
-    setRequirements((current) => [
-      ...current,
-      { title: '', description: '' },
-    ]);
+    setRequirements((current) => [...current, { title: '', description: '' }]);
   }
 
   return (

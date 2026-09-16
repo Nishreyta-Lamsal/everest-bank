@@ -28,10 +28,16 @@ export default function AboutLinksEditor({
 
   const [cards, setCards] = useState<AboutLinkCard[]>(content.cards ?? []);
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<AboutLinksContent>(slug, section, () => ({
-      cards,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<AboutLinksContent>(slug, section, () => ({
+    cards,
+  }));
 
   function updateCard(index: number, next: AboutLinkCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -44,6 +50,7 @@ export default function AboutLinksEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <div className="flex w-full flex-col gap-3">
         {cards.map((card, index) => (

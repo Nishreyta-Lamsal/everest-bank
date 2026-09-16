@@ -58,9 +58,7 @@ export default function ProductInfoSectionCard() {
               updateRow(index, { ...row, title: value })
             }
             secondaryValue={row.value}
-            onSecondaryChange={(value) =>
-              updateRow(index, { ...row, value })
-            }
+            onSecondaryChange={(value) => updateRow(index, { ...row, value })}
             onRemove={() => removeRow(index)}
             removeLabel={`Remove information ${index + 1}`}
           />

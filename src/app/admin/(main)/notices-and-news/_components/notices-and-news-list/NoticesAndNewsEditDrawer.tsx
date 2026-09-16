@@ -28,7 +28,6 @@ const STATUS_OPTIONS = [
   { label: 'Published', value: 'published' },
 ];
 
-/** Prefers the API's own validation message over a generic failure notice. */
 function readApiError(error: unknown) {
   const fallback = 'Could not save changes.';
 

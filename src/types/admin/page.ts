@@ -79,7 +79,10 @@ export type SectionType =
   | 'remittance_why'
   | 'remittance_trust'
   | 'remittance_open_account'
-  | 'remittance_faqs';
+  | 'remittance_faqs'
+  | 'saving_hero'
+  | 'saving_documents'
+  | 'saving_steps';
 
 export type PageSectionRead = {
   id: number;
@@ -317,6 +320,121 @@ export type RemittanceFaqsContent = {
   items?: {
     question: string;
     answer: string;
+  }[];
+};
+
+export type ContentBreadcrumbsContent = {
+  items?: {
+    label: string;
+    href?: string;
+  }[];
+};
+
+export type LoanHeroContent = {
+  title?: string;
+  description?: string;
+  image?: SectionMedia;
+  primary_cta?: SectionLink;
+  secondary_cta?: SectionLink;
+};
+
+export type LoanStatsContent = {
+  items?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type LoanEligibilityContent = {
+  heading?: string;
+  applicant_types?: string[];
+  requirements_href?: string;
+};
+
+export type LoanApplyChecklistContent = {
+  heading?: string;
+  image?: SectionMedia;
+  apply_href?: string;
+  items?: {
+    title: string;
+    description: string;
+  }[];
+};
+
+export type LoanFinancingContent = {
+  heading?: string;
+  cta_href?: string;
+  cta_label?: string;
+  cards?: {
+    href: string;
+    title: string;
+    image: SectionMedia;
+  }[];
+};
+
+export type LoanProcessContent = {
+  heading?: string;
+  apply_href?: string;
+  steps?: {
+    number: string;
+    title: string;
+    image: SectionMedia;
+  }[];
+};
+
+export type LoanImpactContent = {
+  heading?: string;
+  description?: string;
+  apply_href?: string;
+  stats?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type LoanFaqsContent = {
+  heading?: string;
+  items?: {
+    question: string;
+    answer: string;
+  }[];
+};
+
+export type LoanGlanceContent = {
+  heading?: string;
+  image?: SectionMedia;
+  contact_href?: string;
+  download_href?: string;
+  items?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type SavingHeroContent = {
+  heading?: string;
+  button?: SectionLink;
+};
+
+/**
+ * `saving_documents` and `saving_steps` reuse the loan checklist and process
+ * shapes, so they share those editors.
+ */
+export type SavingDocumentsContent = {
+  image?: SectionMedia;
+  cta?: SectionLink;
+  steps?: {
+    title: string;
+    description: string;
+  }[];
+};
+
+export type SavingStepsContent = {
+  cta?: SectionLink;
+  steps?: {
+    number: string;
+    title: string;
+    image: SectionMedia;
   }[];
 };
 

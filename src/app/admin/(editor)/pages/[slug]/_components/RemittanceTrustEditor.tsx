@@ -40,14 +40,20 @@ export default function RemittanceTrustEditor({
   const [avatars, setAvatars] = useState<TrustAvatar[]>(content.avatars ?? []);
   const [cards, setCards] = useState<TrustCard[]>(content.cards ?? []);
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<RemittanceTrustContent>(slug, section, () => ({
-      heading,
-      image,
-      count_label: countLabel,
-      avatars,
-      cards,
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<RemittanceTrustContent>(slug, section, () => ({
+    heading,
+    image,
+    count_label: countLabel,
+    avatars,
+    cards,
+  }));
 
   function updateCard(index: number, next: TrustCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -60,6 +66,7 @@ export default function RemittanceTrustEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Input

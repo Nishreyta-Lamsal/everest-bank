@@ -31,7 +31,7 @@ export default function RemittanceServicesEditor({
 
   const [cards, setCards] = useState<ServiceCard[]>(content.cards ?? []);
 
-  const { shownOnPage, setShownOnPage, isError } =
+  const { shownOnPage, setShownOnPage, isError, error } =
     useSectionEditor<RemittanceServicesContent>(slug, section, () => ({
       cards,
     }));
@@ -47,6 +47,7 @@ export default function RemittanceServicesEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <div className="flex w-full flex-col gap-3">
         {cards.map((card, index) => (

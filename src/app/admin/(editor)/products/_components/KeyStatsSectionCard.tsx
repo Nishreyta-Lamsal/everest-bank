@@ -47,9 +47,7 @@ export default function KeyStatsSectionCard() {
           variant="secondary"
           size="large"
           className="w-full"
-          onClick={() =>
-            setStats((current) => [...current, { ...EMPTY_STAT }])
-          }
+          onClick={() => setStats((current) => [...current, { ...EMPTY_STAT }])}
         >
           <icon.plus />
           Add stat

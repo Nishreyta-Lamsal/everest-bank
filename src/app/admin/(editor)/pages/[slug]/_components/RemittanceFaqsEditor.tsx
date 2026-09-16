@@ -32,7 +32,7 @@ export default function RemittanceFaqsEditor({
   const [heading, setHeading] = useState(content.heading ?? '');
   const [items, setItems] = useState<FaqItem[]>(content.items ?? []);
 
-  const { shownOnPage, setShownOnPage, isError } =
+  const { shownOnPage, setShownOnPage, isError, error } =
     useSectionEditor<RemittanceFaqsContent>(slug, section, () => ({
       heading,
       items,
@@ -53,6 +53,7 @@ export default function RemittanceFaqsEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Input

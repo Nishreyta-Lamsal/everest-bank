@@ -8,7 +8,7 @@ import { usePageEditor } from '@/store/PageEditorContext';
 // import { Button } from '@/components/admin/ui/button';
 import { Card } from '@/components/admin/ui/card';
 
-import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
+import { readApiError } from '@/lib/admin/read-api-error';
 import {
   localizedContent,
   mergeLocalizedContent,
@@ -32,9 +32,12 @@ export default function ProductsSectionEditor({
   section,
 }: ProductsSectionEditorProps) {
   const content = localizedContent<ProductsContent>(section.content);
-  const updateSection = useUpdatePageSection(slug, section.id);
-  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
-    usePageEditor();
+  const {
+    registerSectionDraft,
+    setDraftContent,
+    setDraftVisibility,
+    publishError,
+  } = usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [topCards, setTopCards] = useState<ProductCard[]>(
@@ -71,18 +74,19 @@ export default function ProductsSectionEditor({
     });
   }
 
-  async function publishChanges() {
-    await updateSection.mutateAsync({
-      is_visible: shownOnPage,
-      content: buildContent(),
-    });
-  }
-
-  // Re-register each render so the handler closes over the latest field values.
+  // Re-registers each render so the payload reflects the latest field values.
   useEffect(() => {
-    registerPublishHandler(publishChanges);
+    registerSectionDraft(section.id, {
+      slug,
+      item: {
+        id: section.id,
+        section_type: section.section_type,
+        is_visible: shownOnPage,
+        content: buildContent(),
+      },
+    });
 
-    return () => registerPublishHandler(null);
+    return () => registerSectionDraft(section.id, null);
   });
 
   // Mirror the in-progress fields into the shared draft so the live preview
@@ -138,8 +142,10 @@ export default function ProductsSectionEditor({
           </div>
         ))}
 
-        {updateSection.isError && (
-          <p className="text-[12px] text-red-600">Could not publish changes.</p>
+        {Boolean(publishError) && (
+          <p className="text-[12px] text-red-600">
+            {readApiError(publishError, 'Could not publish changes.')}
+          </p>
         )}
       </div>
     </Card>

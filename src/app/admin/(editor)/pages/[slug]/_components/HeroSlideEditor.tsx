@@ -14,8 +14,8 @@ import { Card } from '@/components/admin/ui/card';
 import { Input } from '@/components/admin/ui/input';
 import { Textarea } from '@/components/admin/ui/textarea';
 
-import { useUpdatePageSection } from '@/hooks/api/admin/use-page-sections';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
+import { readApiError } from '@/lib/admin/read-api-error';
 import {
   localizedContent,
   mergeLocalizedContent,
@@ -38,10 +38,13 @@ export default function HeroSlideEditor({
   section,
 }: HeroSlideEditorProps) {
   const content = localizedContent<HeroContent>(section.content);
-  const updateSection = useUpdatePageSection(slug, section.id);
   const uploadMedia = useUploadMedia();
-  const { registerPublishHandler, setDraftContent, setDraftVisibility } =
-    usePageEditor();
+  const {
+    registerSectionDraft,
+    setDraftContent,
+    setDraftVisibility,
+    publishError,
+  } = usePageEditor();
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [headline, setHeadline] = useState(
@@ -191,18 +194,19 @@ export default function HeroSlideEditor({
     });
   }
 
-  async function publishChanges() {
-    await updateSection.mutateAsync({
-      is_visible: shownOnPage,
-      content: buildContent(),
-    });
-  }
-
-  // Re-register each render so the handler closes over the latest field values.
+  // Re-registers each render so the payload reflects the latest field values.
   useEffect(() => {
-    registerPublishHandler(publishChanges);
+    registerSectionDraft(section.id, {
+      slug,
+      item: {
+        id: section.id,
+        section_type: section.section_type,
+        is_visible: shownOnPage,
+        content: buildContent(),
+      },
+    });
 
-    return () => registerPublishHandler(null);
+    return () => registerSectionDraft(section.id, null);
   });
 
   // Mirror the in-progress fields into the shared draft so the live preview
@@ -404,8 +408,10 @@ export default function HeroSlideEditor({
             </div>
           </div>
         )}
-        {updateSection.isError && (
-          <p className="text-[12px] text-red-600">Could not publish changes.</p>
+        {Boolean(publishError) && (
+          <p className="text-[12px] text-red-600">
+            {readApiError(publishError, 'Could not publish changes.')}
+          </p>
         )}
       </div>
     </Card>

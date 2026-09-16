@@ -47,16 +47,22 @@ export default function CsrSectionEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const { shownOnPage, setShownOnPage, uploadImage, isUploading, isError } =
-    useSectionEditor<CsrContent>(slug, section, () => ({
-      heading,
-      description,
-      cards,
-      main_image: mainImage,
-      customer_count: customerCount,
-      customer_avatars: avatars,
-      cta: { label: ctaLabel, href: ctaHref },
-    }));
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<CsrContent>(slug, section, () => ({
+    heading,
+    description,
+    cards,
+    main_image: mainImage,
+    customer_count: customerCount,
+    customer_avatars: avatars,
+    cta: { label: ctaLabel, href: ctaHref },
+  }));
 
   function updateCard(index: number, next: CsrCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -69,6 +75,7 @@ export default function CsrSectionEditor({
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
+      error={error}
     >
       <FieldLabel label="Heading">
         <Textarea
