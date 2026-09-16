@@ -1,70 +1,176 @@
 'use client';
 
-import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
 
+import ProductSectionCard from './ProductSectionCard';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
 import { Select } from '@/components/admin/ui/select';
 
-const PRODUCT_TYPE_OPTIONS = [
-  { label: 'Loan', value: 'loan' },
-  { label: 'Account', value: 'account' },
-  { label: 'Card', value: 'card' },
-  { label: 'Remittance', value: 'remittance' },
-];
+import { cn } from '@/lib/utils';
+
+import { usePages } from '@/hooks/api/admin/use-pages';
+
+import {
+  productIdentitySchema,
+  type ProductIdentityFormValues,
+} from '@/schemas/admin/product-identity-schema';
 
 export default function ProductIdentityCard() {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('loan');
-  const [urlPath, setUrlPath] = useState('');
+  const {
+    control,
+    register,
+    watch,
+    resetField,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProductIdentityFormValues>({
+    resolver: zodResolver(productIdentitySchema),
+    defaultValues: {
+      name: '',
+      type: '',
+      slug: '',
+      replicateFromId: undefined,
+    },
+  });
+
+  const type = watch('type');
+
+  const { data } = usePages({ kind: 'product_type' });
+
+  const productTypeId = type ? Number(type) : undefined;
+
+  const { data: productsData } = usePages(
+    { kind: 'product', parent: productTypeId },
+    { enabled: Boolean(type) },
+  );
+
+  const productTypeOptions = (data?.pages ?? []).map((page) => ({
+    label: page.title,
+    value: String(page.id),
+  }));
+
+  const products = productsData?.pages ?? [];
+
+  const onSubmit = handleSubmit(() => {});
 
   return (
-    <div className="flex w-full flex-col gap-3">
-      <div className="flex w-full items-center justify-between gap-3">
-        <p className="text-paragraph-lg-bold min-w-0 truncate text-neutral-900">
-          {name || 'Page name goes here'}
-        </p>
-        <span className="text-paragraph-sm-medium flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#edf2f7] px-3 py-2 text-[#65738a]">
-          Draft
-        </span>
-      </div>
+    <ProductSectionCard title="Product Details">
+      <form
+        onSubmit={onSubmit}
+        noValidate
+        className="flex w-full flex-col gap-3"
+      >
+        <div className="flex w-full items-center gap-3">
+          <FieldLabel label="Product name">
+            <Input
+              variant="default"
+              size="medium"
+              placeholder="Enter product name"
+              aria-invalid={Boolean(errors.name)}
+              {...register('name')}
+            />
+            {errors.name && (
+              <p className="text-paragraph-sm text-red-600">
+                {errors.name.message}
+              </p>
+            )}
+          </FieldLabel>
 
-      <div className="flex w-full items-center gap-3">
-        <FieldLabel label="Product name">
-          <Input
-            variant="default"
-            size="medium"
-            placeholder="Everest Agriculture Loan"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </FieldLabel>
+          <FieldLabel label="Slug">
+            <Input
+              variant="default"
+              size="medium"
+              placeholder="Enter slug"
+              aria-invalid={Boolean(errors.slug)}
+              {...register('slug')}
+            />
+            {errors.slug && (
+              <p className="text-paragraph-sm text-red-600">
+                {errors.slug.message}
+              </p>
+            )}
+          </FieldLabel>
+        </div>
 
         <FieldLabel label="Type">
-          <Select
-            variant="filled"
-            size="medium"
-            options={PRODUCT_TYPE_OPTIONS}
-            value={type}
-            onValueChange={setType}
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <Select
+                variant="default"
+                size="medium"
+                options={productTypeOptions}
+                value={field.value}
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  resetField('replicateFromId');
+                }}
+                className={cn(errors.type && 'border-red-600')}
+              />
+            )}
           />
+          {errors.type && (
+            <p className="text-paragraph-sm text-red-600">
+              {errors.type.message}
+            </p>
+          )}
         </FieldLabel>
-      </div>
 
-      <FieldLabel label="URL path">
-        <div className="flex w-full items-center gap-4">
-          <p className="text-[12px] font-medium whitespace-nowrap text-neutral-900 opacity-[0.68]">
-            everestbankltd.com/
-          </p>
-          <Input
-            variant="default"
-            size="medium"
-            placeholder="loans/agriculture"
-            value={urlPath}
-            onChange={(event) => setUrlPath(event.target.value)}
-          />
-        </div>
-      </FieldLabel>
-    </div>
+        <FieldLabel label="Replicate design from">
+          {products.length === 0 && (
+            <p className="text-paragraph-mini text-neutral-700/68">
+              No products found for this type.
+            </p>
+          )}
+
+          {products.length > 0 && (
+            <Controller
+              control={control}
+              name="replicateFromId"
+              render={({ field }) => (
+                <div role="radiogroup" className="flex flex-wrap gap-2">
+                  {products.map((product) => {
+                    const selected = product.id === field.value;
+
+                    return (
+                      <button
+                        key={product.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={selected}
+                        onClick={() => field.onChange(product.id)}
+                        className={cn(
+                          'text-paragraph-sm-medium cursor-pointer rounded-full border px-4 py-2 transition-colors',
+                          selected
+                            ? 'border-transparent bg-slate-950 text-white'
+                            : 'border-black-alpha-10 bg-white-alpha-50 text-neutral-700',
+                        )}
+                      >
+                        {product.title}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            />
+          )}
+          {errors.replicateFromId && (
+            <p className="text-paragraph-sm text-red-600">
+              {errors.replicateFromId.message}
+            </p>
+          )}
+        </FieldLabel>
+
+        {type && (
+          <Button type="submit" variant="outline" size="default">
+            Replicate design
+          </Button>
+        )}
+      </form>
+    </ProductSectionCard>
   );
 }

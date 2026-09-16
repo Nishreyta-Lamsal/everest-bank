@@ -1,28 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
+
+import { useProducts } from '@/store/ProductsProvider';
 
 import { cn } from '@/lib/utils';
 
-import { productsFilters } from '@/data/admin';
+import { usePages } from '@/hooks/api/admin/use-pages';
 
 export default function ProductsFilterTabs() {
-  const [activeLabel, setActiveLabel] = useState(
-    () =>
-      productsFilters.find((filter) => filter.active)?.label ??
-      productsFilters[0]?.label,
-  );
+  const { data } = usePages();
+
+  const pages = data?.pages ?? [];
+
+  const { pageId, setPageId } = useProducts();
+
+  const firstPageId = pages[0]?.id;
+  const activeTab = pageId ?? firstPageId;
+
+  useEffect(() => {
+    if (pageId === undefined && firstPageId !== undefined) {
+      setPageId(firstPageId);
+    }
+  }, [pageId, firstPageId, setPageId]);
 
   return (
     <div className="flex items-start gap-2">
-      {productsFilters.map((filter) => {
-        const active = filter.label === activeLabel;
+      {pages.map((page) => {
+        const active = page.id === activeTab;
 
         return (
           <button
-            key={filter.label}
+            key={page.id}
             type="button"
-            onClick={() => setActiveLabel(filter.label)}
+            onClick={() => setPageId(page.id)}
             className={cn(
               'text-paragraph-sm-medium flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2',
               active
@@ -30,8 +41,7 @@ export default function ProductsFilterTabs() {
                 : 'bg-white/50 text-neutral-700',
             )}
           >
-            <p>{filter.label}</p>
-            <p>{filter.count}</p>
+            <p>{page.title}</p>
           </button>
         );
       })}

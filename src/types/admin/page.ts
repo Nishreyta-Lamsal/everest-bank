@@ -1,10 +1,22 @@
+export type PageKind = 'page' | 'product' | 'product_type';
+
 export type Page = {
   id: number;
   slug: string;
   path: string;
   title: string;
   title_ne?: string;
+  kind: PageKind;
+  parent: number | null;
+  parent_slug: string | null;
+  icon?: string;
+  position: number;
   is_active?: boolean;
+  show_in_menu?: boolean;
+  promo_label?: string;
+  promo_label_ne?: string;
+  promo_href?: string;
+  promo_is_active?: boolean;
   sections_count: number;
   created_at: string;
   updated_at: string;

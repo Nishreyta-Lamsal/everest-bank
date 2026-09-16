@@ -6,50 +6,39 @@ import { cn } from '@/lib/utils';
 
 import { ADMIN_ROUTE } from '@/constants/admin';
 
-import type { ProductsListEntry, ProductsListStatus } from '@/data/admin';
-
-const statusStyles: Record<
-  ProductsListStatus,
-  { label: string; className: string }
-> = {
-  published: {
-    label: 'Published',
-    className: 'bg-[#ebfef6] text-[#059669]',
-  },
-  draft: {
-    label: 'Draft',
-    className: 'bg-[#edf2f7] text-[#65738a]',
-  },
-};
+import type { Page } from '@/types/admin';
 
 type ProductsListRowProps = {
-  entry: ProductsListEntry;
+  page: Page;
+  onSelect: () => void;
 };
 
-export default function ProductsListRow({ entry }: ProductsListRowProps) {
-  const status = statusStyles[entry.status];
-  const sectionsLabel =
-    entry.sectionsCount !== undefined
-      ? `${entry.sectionsCount} section${entry.sectionsCount === 1 ? '' : 's'}`
-      : undefined;
-  const meta = entry.rateLabel
-    ? `${entry.path} · ${entry.updatedLabel} · ${entry.rateLabel}`
-    : `${entry.path} · ${sectionsLabel} · ${entry.updatedLabel}`;
+export default function ProductsListRow({
+  page,
+  onSelect,
+}: ProductsListRowProps) {
+  const status = page.is_active
+    ? { label: 'Published', className: 'bg-[#ebfef6] text-[#059669]' }
+    : { label: 'Draft', className: 'bg-[#edf2f7] text-[#65738a]' };
+
+  const sectionsLabel = `${page.sections_count} section${page.sections_count === 1 ? '' : 's'}`;
+  const updatedLabel = `updated ${new Date(page.updated_at).toLocaleDateString()}`;
+  const meta = `${page.path} · ${sectionsLabel} · ${updatedLabel}`;
 
   return (
     <Link
-      href={`${ADMIN_ROUTE.PRODUCTS}/${entry.id}`}
+      href={`${ADMIN_ROUTE.PRODUCTS}/${page.slug}`}
+      onClick={onSelect}
       className="flex w-full items-center"
     >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
-        <icon.dragHandle className="size-4 shrink-0 text-slate-950" />
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex shrink-0 items-center rounded-[4px] bg-slate-100 p-3">
             <icon.bank className="size-6 text-slate-950" />
           </div>
           <div className="flex min-w-0 flex-col gap-1.5">
             <p className="truncate text-[16px] leading-[1.3] text-neutral-700">
-              {entry.title}
+              {page.title}
             </p>
             <p className="truncate text-[12px] leading-[1.3] text-neutral-700/68">
               {meta}

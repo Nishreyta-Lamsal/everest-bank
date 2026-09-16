@@ -8,10 +8,14 @@ export function pagesQueryKey(params?: ListPagesParams) {
   return ['pages', 'list', params ?? {}] as const;
 }
 
-export function usePages(params?: ListPagesParams) {
+export function usePages(
+  params?: ListPagesParams,
+  options?: { enabled?: boolean },
+) {
   return useQuery({
     queryKey: pagesQueryKey(params),
     queryFn: () => pageService.list(params),
+    enabled: options?.enabled,
   });
 }
 
