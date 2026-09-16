@@ -106,3 +106,32 @@ export type CursorPage<T> = {
   previous: string | null;
   results: T[];
 };
+
+/** Capability names registered in the backend's common.rbac.CAPABILITIES. */
+export type Capability =
+  | 'content.view'
+  | 'content.edit'
+  | 'content.publish'
+  | 'content.delete'
+  | 'forms.view'
+  | 'forms.edit'
+  | 'forms.publish'
+  | 'forms.delete'
+  | 'submissions.view'
+  | 'submissions.manage'
+  | 'submissions.delete'
+  | 'users.manage'
+  | 'audit.view';
+
+export type UserRole = 'superadmin' | 'admin' | 'editor' | 'viewer';
+
+export type CurrentUser = {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  capabilities: {
+    role: UserRole;
+    capabilities: Capability[];
+  };
+};

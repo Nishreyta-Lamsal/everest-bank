@@ -1,10 +1,11 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { authService } from '@/api/services/admin/auth.service';
 
 import type { LoginRequest } from '@/api/services/admin/auth.service';
+import type { Capability } from '@/types/admin';
 
 import { ADMIN_ROUTE } from '@/constants/admin';
 
@@ -23,4 +24,26 @@ export function useLogin() {
       router.replace(next?.startsWith('/') ? next : ADMIN_ROUTE.DASHBOARD);
     },
   });
+}
+
+export function meQueryKey() {
+  return ['auth', 'me'] as const;
+}
+
+export function useMe() {
+  return useQuery({
+    queryKey: meQueryKey(),
+    queryFn: () => authService.me(),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+/**
+ * Mirrors the backend capability check so the CMS can disable a control
+ * instead of letting the user click it and take a 403.
+ */
+export function useCapability(capability: Capability) {
+  const { data } = useMe();
+
+  return Boolean(data?.capabilities.capabilities.includes(capability));
 }
