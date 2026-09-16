@@ -218,6 +218,74 @@ export type BusinessRelationshipManagersContent = {
   cta?: SectionLink;
 };
 
+export type RemittanceHeroContent = {
+  headline?: string;
+  subtext?: string;
+  slides?: SectionMedia[];
+  tracking?: {
+    hint?: string;
+    aria_label?: string;
+    placeholder?: string;
+    button_label?: string;
+  };
+  carousel_aria_label?: string;
+};
+
+export type RemittanceServicesContent = {
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    subtitle: string;
+  }[];
+};
+
+export type RemittanceWhyContent = {
+  heading?: string;
+  description?: string;
+  image?: SectionMedia;
+  stats?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type RemittanceTrustContent = {
+  heading?: string;
+  image?: SectionMedia;
+  count_label?: string;
+  /** Avatars carry no alt text — the page renders them decoratively. */
+  avatars?: Pick<SectionMedia, 'src' | 'media_id'>[];
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    link_label: string;
+  }[];
+};
+
+export type RemittanceOpenAccountContent = {
+  heading?: string;
+  video?: {
+    /** An external video URL, not an uploaded media file. */
+    src?: string;
+    poster?: SectionMedia;
+  };
+  features?: {
+    icon: string;
+    label: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type RemittanceFaqsContent = {
+  heading?: string;
+  items?: {
+    question: string;
+    answer: string;
+  }[];
+};
+
 export type LocalizedContent<T> = T & Partial<Record<'en' | 'ne', T>>;
 
 export const PRODUCT_CARD_ICONS = [
