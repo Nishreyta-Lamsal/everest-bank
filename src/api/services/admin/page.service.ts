@@ -1,8 +1,11 @@
 import { axiosClient } from '@/lib/api/axios-client';
 
-import type { ApiResponse, PageDetail, PageListData } from '@/types/admin';
-
-export type PageKind = 'page' | 'product' | 'product_type';
+import type {
+  ApiResponse,
+  PageDetail,
+  PageKind,
+  PageListData,
+} from '@/types/admin';
 
 export type ListPagesParams = {
   kind?: PageKind;

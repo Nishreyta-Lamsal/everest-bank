@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
-
 import { QueryProvider } from './query-provider';
+import ProductsProvider from '@/store/ProductsProvider';
+
+import type { ReactNode } from 'react';
 
 type ProviderProps = {
   children: ReactNode;
@@ -8,8 +9,8 @@ type ProviderProps = {
 
 export default function Providers({ children }: ProviderProps) {
   return (
-    <>
-      <QueryProvider>{children}</QueryProvider>
-    </>
+    <QueryProvider>
+      <ProductsProvider>{children}</ProductsProvider>
+    </QueryProvider>
   );
 }

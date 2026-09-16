@@ -1,16 +1,21 @@
 import ProductsListRow from './ProductsListRow';
 
-import type { ProductsListEntry } from '@/data/admin';
+import type { Page } from '@/types/admin';
 
 type ProductsListProps = {
-  items: ProductsListEntry[];
+  items: Page[];
+  onSelect: (id: number) => void;
 };
 
-export default function ProductsList({ items }: ProductsListProps) {
+export default function ProductsList({ items, onSelect }: ProductsListProps) {
   return (
     <div className="flex w-full flex-col divide-y divide-black/3">
-      {items.map((entry) => (
-        <ProductsListRow key={entry.id} entry={entry} />
+      {items.map((page) => (
+        <ProductsListRow
+          key={page.id}
+          page={page}
+          onSelect={() => onSelect(page.id)}
+        />
       ))}
     </div>
   );

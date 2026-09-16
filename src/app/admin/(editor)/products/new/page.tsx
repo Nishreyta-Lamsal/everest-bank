@@ -15,7 +15,7 @@ export default function NewProductPage() {
     <div className="mx-auto w-full">
       <Card className="flex w-full flex-col gap-6">
         <ProductIdentityCard />
-        <HeroSectionCard />
+        {/* <HeroSectionCard />
         <KeyStatsSectionCard />
         <EligibilitySectionCard />
         <RequiredInfoSectionCard />
@@ -23,7 +23,7 @@ export default function NewProductPage() {
         <ApplicationProcessSectionCard />
         <CtaBannerSectionCard />
         <FaqSectionCard />
-        <ProductInfoSectionCard />
+        <ProductInfoSectionCard />  */}
       </Card>
     </div>
   );
