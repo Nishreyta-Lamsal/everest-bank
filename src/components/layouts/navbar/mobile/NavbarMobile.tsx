@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -28,6 +28,10 @@ export default function NavbarMobile({ items }: NavbarMobileProps) {
     items.find((item) =>
       isNavItemActive(pathname, item.href, item.activePrefixes),
     ) ?? items[0];
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   return (
     <div className="flex flex-col lg:hidden">
