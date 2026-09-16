@@ -1,4 +1,5 @@
 import { axiosClient } from '@/lib/api/axios-client';
+import { toMediaPath } from '@/lib/api/media-url';
 
 import type { ApiResponse, Media, MediaUploadInput } from '@/types/admin';
 
@@ -39,6 +40,6 @@ export const mediaService = {
       );
     }
 
-    return media;
+    return { ...media, file_url: toMediaPath(media.file_url) };
   },
 };

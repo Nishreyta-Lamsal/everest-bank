@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/media/:path*',
+        destination: `${apiProxyTarget.replace(/\/$/, '')}/media/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
