@@ -1,4 +1,5 @@
 import { axiosClient } from '@/lib/api/axios-client';
+import { toMediaPath } from '@/lib/api/media-url';
 
 import type { ApiResponse } from '@/types';
 import type { FieldWidth, FormFieldOption, FormFieldType } from '@/types/admin';
@@ -56,6 +57,24 @@ export type SubmitFormErrors = Record<string, string | string[]>;
 
 export type FormLang = 'en' | 'ne';
 
+/**
+ * Media is served same-origin through the `/media/*` rewrite, so absolute
+ * backend URLs are folded down to `/media/...`. Without this next/image
+ * rejects the backend host unless it is listed in remotePatterns.
+ */
+function withMediaPaths(form: PublicForm): PublicForm {
+  return {
+    ...form,
+    banner: form.banner?.file_url
+      ? { ...form.banner, file_url: toMediaPath(form.banner.file_url) }
+      : form.banner,
+    sidebar_cards: form.sidebar_cards.map((card) => ({
+      ...card,
+      image_url: card.image_url ? toMediaPath(card.image_url) : card.image_url,
+    })),
+  };
+}
+
 export const formService = {
   getForm: async (slug: string, lang?: FormLang): Promise<PublicForm> => {
     const response = await axiosClient.get<ApiResponse<PublicForm>>(
@@ -63,7 +82,7 @@ export const formService = {
       { params: lang ? { lang } : undefined },
     );
 
-    return response.data.data;
+    return withMediaPaths(response.data.data);
   },
 
   submit: async (

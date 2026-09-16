@@ -28,6 +28,7 @@ import {
 } from '@/hooks/api/admin/use-forms';
 
 import type { FormFieldWritePayload } from '@/api/services/admin/form.service';
+import type { FormField, FormSidebarCard } from '@/types/admin';
 import type { FormSettingsDraft } from './FormSettingsCard';
 
 type FormEditorShellProps = {
@@ -39,10 +40,14 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
   const [settingsDraft, setSettingsDraft] = useState<FormSettingsDraft | null>(
     null,
   );
+  const [fieldDraft, setFieldDraft] = useState<FormField | null>(null);
+  const [cardsDraft, setCardsDraft] = useState<FormSidebarCard[] | null>(null);
 
   // The preview follows unsaved text edits, but only once typing pauses, so
   // the scaled preview frame is not re-rendered on every keystroke.
   const debouncedDraft = useDebounce(settingsDraft, 300);
+  const debouncedFieldDraft = useDebounce(fieldDraft, 300);
+  const debouncedCardsDraft = useDebounce(cardsDraft, 300);
 
   const { data: form, isPending, isError } = useForm(slug);
   const { data: fields = [] } = useFormFields(slug);
@@ -57,8 +62,22 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
 
   const selectedField = fields.find((field) => field.id === selectedFieldId);
 
-  // Saved form, with any unsaved settings text laid over the top.
-  const previewForm = form ? { ...form, ...(debouncedDraft ?? {}) } : undefined;
+  // Saved form and fields, with any unsaved edits laid over the top, so the
+  // preview shows work in progress without needing a save first.
+  const previewForm = form
+    ? {
+        ...form,
+        ...(debouncedDraft ?? {}),
+        sidebar_cards: debouncedCardsDraft ?? form.sidebar_cards,
+      }
+    : undefined;
+
+  const previewFields =
+    debouncedFieldDraft === null
+      ? fields
+      : fields.map((field) =>
+          field.id === debouncedFieldDraft.id ? debouncedFieldDraft : field,
+        );
 
   function move(index: number, direction: -1 | 1) {
     const next = [...fields];
@@ -124,6 +143,7 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
                 sidebarCards={form.sidebar_cards}
                 isSaving={updateForm.isPending}
                 onBannerChange={(banner) => updateForm.mutate({ banner })}
+                onDraftChange={setCardsDraft}
                 onSidebarCardsChange={(cards) =>
                   updateForm.mutate({
                     // image_url is server-derived; only the id is writable.
@@ -189,11 +209,16 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
                       payload,
                     })
                   }
+                  onDraftChange={setFieldDraft}
                   onDelete={() => {
                     deleteField.mutate(selectedField.id);
                     setSelectedFieldId(null);
+                    setFieldDraft(null);
                   }}
-                  onClose={() => setSelectedFieldId(null)}
+                  onClose={() => {
+                    setSelectedFieldId(null);
+                    setFieldDraft(null);
+                  }}
                 />
               </Card>
             )}
@@ -201,7 +226,7 @@ export default function FormEditorShell({ slug }: FormEditorShellProps) {
 
           <div className="hidden min-h-0 w-[600px] shrink-0 xl:block">
             <LivePreview>
-              <FormPreview form={previewForm ?? form} fields={fields} />
+              <FormPreview form={previewForm ?? form} fields={previewFields} />
             </LivePreview>
           </div>
         </main>

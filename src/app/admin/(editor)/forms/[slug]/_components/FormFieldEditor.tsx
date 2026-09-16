@@ -32,6 +32,8 @@ type FormFieldEditorProps = {
   onSave: (payload: Partial<FormFieldWritePayload>) => void;
   onDelete: () => void;
   onClose: () => void;
+  /** Fires on every edit so the preview can show the field before it saves. */
+  onDraftChange: (field: FormField) => void;
 };
 
 export default function FormFieldEditor({
@@ -40,6 +42,7 @@ export default function FormFieldEditor({
   onSave,
   onDelete,
   onClose,
+  onDraftChange,
 }: FormFieldEditorProps) {
   // The parent keys this component on the field id, so selecting a different
   // field remounts it and these initial values are always the right ones.
@@ -50,7 +53,10 @@ export default function FormFieldEditor({
   const isDynamic = draft.options_source !== 'static';
 
   function set<K extends keyof FormField>(key: K, value: FormField[K]) {
-    setDraft((current) => ({ ...current, [key]: value }));
+    const next = { ...draft, [key]: value };
+
+    setDraft(next);
+    onDraftChange(next);
   }
 
   function save() {

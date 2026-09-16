@@ -1,4 +1,5 @@
 import { axiosClient } from '@/lib/api/axios-client';
+import { toMediaPath } from '@/lib/api/media-url';
 
 import type {
   ApiResponse,
@@ -57,6 +58,24 @@ export type ListSubmissionsParams = {
   cursor?: string;
 };
 
+/**
+ * Same same-origin folding the public service does: the CMS previews these
+ * images, so they must resolve through the `/media/*` rewrite too.
+ */
+function withMediaPaths<T extends FormDetail | Form>(form: T): T {
+  return {
+    ...form,
+    banner:
+      form.banner && form.banner.file_url
+        ? { ...form.banner, file_url: toMediaPath(form.banner.file_url) }
+        : form.banner,
+    sidebar_cards: (form.sidebar_cards ?? []).map((card) => ({
+      ...card,
+      image_url: card.image_url ? toMediaPath(card.image_url) : card.image_url,
+    })),
+  };
+}
+
 export const formService = {
   list: async (params?: ListFormsParams): Promise<CursorPage<Form>> => {
     const response = await axiosClient.get<ApiResponse<CursorPage<Form>>>(
@@ -64,7 +83,10 @@ export const formService = {
       { params },
     );
 
-    return response.data.data;
+    return {
+      ...response.data.data,
+      results: response.data.data.results.map(withMediaPaths),
+    };
   },
 
   retrieve: async (slug: string): Promise<FormDetail> => {
@@ -72,7 +94,7 @@ export const formService = {
       `forms/${slug}/`,
     );
 
-    return response.data.data;
+    return withMediaPaths(response.data.data);
   },
 
   create: async (payload: FormWritePayload): Promise<FormDetail> => {
@@ -81,7 +103,7 @@ export const formService = {
       payload,
     );
 
-    return response.data.data;
+    return withMediaPaths(response.data.data);
   },
 
   update: async (
@@ -93,7 +115,7 @@ export const formService = {
       payload,
     );
 
-    return response.data.data;
+    return withMediaPaths(response.data.data);
   },
 
   remove: async (slug: string): Promise<void> => {
@@ -106,7 +128,7 @@ export const formService = {
       `forms/${slug}/publish/`,
     );
 
-    return response.data.data;
+    return withMediaPaths(response.data.data);
   },
 
   listFields: async (slug: string): Promise<FormField[]> => {

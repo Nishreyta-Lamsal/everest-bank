@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import MediaField from '@/components/admin/shared/MediaField';
 import { icon } from '@/components/admin/icons';
@@ -7,6 +9,7 @@ import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
 
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
+import { useDebounce } from '@/hooks/useDebounce';
 
 import type { FormBanner, FormSidebarCard } from '@/types/admin';
 
@@ -16,6 +19,8 @@ type FormBannerCardProps = {
   isSaving: boolean;
   onBannerChange: (mediaId: number | null) => void;
   onSidebarCardsChange: (cards: FormSidebarCard[]) => void;
+  /** Fires on every edit so the preview can follow along. */
+  onDraftChange: (cards: FormSidebarCard[]) => void;
 };
 
 export default function FormBannerCard({
@@ -24,8 +29,29 @@ export default function FormBannerCard({
   isSaving,
   onBannerChange,
   onSidebarCardsChange,
+  onDraftChange,
 }: FormBannerCardProps) {
   const uploadMedia = useUploadMedia();
+
+  // Cards are edited locally and saved once typing settles. Saving on every
+  // keystroke refetched the form and reset the field under the cursor.
+  const [cards, setCards] = useState(sidebarCards);
+  const debouncedCards = useDebounce(cards, 800);
+  const lastSaved = useRef(JSON.stringify(sidebarCards));
+
+  useEffect(() => {
+    const serialised = JSON.stringify(debouncedCards);
+
+    if (serialised === lastSaved.current) return;
+
+    lastSaved.current = serialised;
+    onSidebarCardsChange(debouncedCards);
+  }, [debouncedCards, onSidebarCardsChange]);
+
+  function change(next: FormSidebarCard[]) {
+    setCards(next);
+    onDraftChange(next);
+  }
 
   async function upload(file: File, onDone: (mediaId: number) => void) {
     const media = await uploadMedia.mutateAsync({ file, alt_text: file.name });
@@ -34,10 +60,8 @@ export default function FormBannerCard({
   }
 
   function updateCard(index: number, patch: Partial<FormSidebarCard>) {
-    onSidebarCardsChange(
-      sidebarCards.map((card, i) =>
-        i === index ? { ...card, ...patch } : card,
-      ),
+    change(
+      cards.map((card, i) => (i === index ? { ...card, ...patch } : card)),
     );
   }
 
@@ -69,16 +93,14 @@ export default function FormBannerCard({
             type="button"
             variant="outline"
             size="small"
-            onClick={() =>
-              onSidebarCardsChange([...sidebarCards, { title: '', href: '' }])
-            }
+            onClick={() => change([...cards, { title: '', href: '' }])}
           >
             <icon.plus />
             Add card
           </Button>
         </div>
 
-        {sidebarCards.map((card, index) => (
+        {cards.map((card, index) => (
           <div
             key={index}
             className="flex w-full flex-col gap-3 rounded-lg bg-slate-50 p-3"
@@ -98,11 +120,7 @@ export default function FormBannerCard({
               <button
                 type="button"
                 aria-label={`Remove ${card.title || 'card'}`}
-                onClick={() =>
-                  onSidebarCardsChange(
-                    sidebarCards.filter((_, i) => i !== index),
-                  )
-                }
+                onClick={() => change(cards.filter((_, i) => i !== index))}
                 className="mt-5 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-red-500 hover:bg-red-50"
               >
                 <icon.trash className="size-4" />
@@ -143,7 +161,7 @@ export default function FormBannerCard({
           </div>
         ))}
 
-        {sidebarCards.length === 0 && (
+        {cards.length === 0 && (
           <p className="py-2 text-[12px] text-neutral-700/68">
             No side images. The form will use the full width.
           </p>
