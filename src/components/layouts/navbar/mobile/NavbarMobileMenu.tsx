@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -14,8 +14,6 @@ import { ROUTE } from '@/constants/route';
 
 import type { MainNavItem } from '@/types';
 
-const TRANSITION_DURATION_MS = 300;
-
 type NavbarMobileMenuProps = {
   activeItem: MainNavItem;
   isOpen: boolean;
@@ -28,45 +26,19 @@ export default function NavbarMobileMenu({
   onClose,
 }: NavbarMobileMenuProps) {
   const [openColumn, setOpenColumn] = useState<string | null>(null);
-  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [isVisible, setIsVisible] = useState(isOpen);
-
-  if (isOpen !== prevIsOpen) {
-    setPrevIsOpen(isOpen);
-    if (isOpen) {
-      setShouldRender(true);
-    } else {
-      setIsVisible(false);
-    }
-  }
 
   useDismissableOverlay(isOpen, onClose);
-
-  useEffect(() => {
-    if (isOpen) {
-      const raf = requestAnimationFrame(() => setIsVisible(true));
-      return () => cancelAnimationFrame(raf);
-    }
-
-    const timeout = setTimeout(
-      () => setShouldRender(false),
-      TRANSITION_DURATION_MS,
-    );
-    return () => clearTimeout(timeout);
-  }, [isOpen]);
-
-  if (!shouldRender) return null;
 
   return (
     <div
       role="dialog"
-      aria-modal="true"
+      aria-modal={isOpen}
       aria-hidden={!isOpen}
       aria-label={`${activeItem.label} menu`}
+      inert={!isOpen}
       className={cn(
         'fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white transition-transform duration-300 ease-in-out lg:hidden',
-        isVisible ? 'translate-x-0' : 'translate-x-full',
+        isOpen ? 'translate-x-0' : 'translate-x-full',
       )}
     >
       <div className="flex items-center justify-between px-4 py-3">
