@@ -3,10 +3,13 @@
 import { useEffect, useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
+import Pill from '@/components/admin/shared/Pill';
 import SlideEditorHeader from './SlideEditorHeader';
 import { usePageEditor } from '@/store/PageEditorContext';
+import { Button } from '@/components/admin/ui/button';
 import { Card } from '@/components/admin/ui/card';
 import { Input } from '@/components/admin/ui/input';
 import { Textarea } from '@/components/admin/ui/textarea';
@@ -42,7 +45,7 @@ export default function HeroSlideEditor({
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [headline, setHeadline] = useState(
-    (content.headline_lines ?? []).join(' '),
+    (content.headline_lines ?? []).join('\n'),
   );
   const [supportingText, setSupportingText] = useState(content.subtext ?? '');
   const [primaryButton, setPrimaryButton] = useState<SlideButtonState | null>(
@@ -62,6 +65,13 @@ export default function HeroSlideEditor({
           }
         : null,
     );
+
+  const [highlights, setHighlights] = useState<string[]>(
+    content.highlights ?? [],
+  );
+  const [newHighlight, setNewHighlight] = useState('');
+
+  const hasVideoChip = Boolean(content.video_chip);
 
   const [videoChipText, setVideoChipText] = useState(
     content.video_chip?.text ?? '',
@@ -98,6 +108,19 @@ export default function HeroSlideEditor({
         },
       },
     );
+  }
+
+  function addHighlight() {
+    const value = newHighlight.trim();
+
+    if (!value) return;
+
+    setHighlights((current) => [...current, value]);
+    setNewHighlight('');
+  }
+
+  function removeHighlight(index: number) {
+    setHighlights((current) => current.filter((_, i) => i !== index));
   }
 
   function removeSlide(index: number) {
@@ -139,6 +162,7 @@ export default function HeroSlideEditor({
         .map((line) => line.trim())
         .filter(Boolean),
       subtext: supportingText,
+      highlights,
       ...(primaryButton
         ? {
             primary_button: {
@@ -155,11 +179,15 @@ export default function HeroSlideEditor({
             },
           }
         : {}),
-      video_chip: {
-        text: videoChipText,
-        link_label: videoChipLink.label,
-        link_href: videoChipLink.linkTarget,
-      },
+      ...(hasVideoChip
+        ? {
+            video_chip: {
+              text: videoChipText,
+              link_label: videoChipLink.label,
+              link_href: videoChipLink.linkTarget,
+            },
+          }
+        : {}),
     });
   }
 
@@ -186,6 +214,7 @@ export default function HeroSlideEditor({
     section.id,
     headline,
     supportingText,
+    highlights,
     slides,
     primaryButton,
     secondaryButton,
@@ -204,33 +233,69 @@ export default function HeroSlideEditor({
         <div className="flex w-full flex-col gap-3">
           <SlideEditorHeader
             title={section.label}
-            description="Headline, description, CTAs, carousel imager"
+            description="Headline, supporting text, highlights, CTAs and carousel images"
             shownOnPage={shownOnPage}
             onShownOnPageChange={setShownOnPage}
           />
           <div className="flex w-full flex-col gap-3">
-            <div className="flex w-full flex-col gap-1">
-              <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
-                Headline
-              </p>
-              <Input
+            <FieldLabel label="Headline (one line per row)">
+              <Textarea
                 variant="filled"
                 size="medium"
                 value={headline}
                 onChange={(event) => setHeadline(event.target.value)}
               />
-            </div>
-            <div className="flex w-full flex-col gap-1">
-              <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
-                Supporting text
-              </p>
+            </FieldLabel>
+            <FieldLabel label="Supporting text">
               <Textarea
                 variant="filled"
                 size="medium"
                 value={supportingText}
                 onChange={(event) => setSupportingText(event.target.value)}
               />
-            </div>
+            </FieldLabel>
+            <FieldLabel label="Highlights">
+              <div className="flex w-full flex-col gap-3">
+                {highlights.length > 0 && (
+                  <div className="flex w-full flex-wrap items-center gap-2">
+                    {highlights.map((highlight, index) => (
+                      <Pill
+                        key={`${highlight}-${index}`}
+                        onRemove={() => removeHighlight(index)}
+                        removeLabel={`Remove ${highlight}`}
+                      >
+                        {highlight}
+                      </Pill>
+                    ))}
+                  </div>
+                )}
+                <div className="flex w-full items-center gap-4">
+                  <Input
+                    variant="default"
+                    size="medium"
+                    placeholder="Account opening in 1–2 days"
+                    value={newHighlight}
+                    onChange={(event) => setNewHighlight(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addHighlight();
+                      }
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="large"
+                    className="shrink-0"
+                    onClick={addHighlight}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </div>
+            </FieldLabel>
+
             <div className="flex w-full flex-col gap-2">
               <p className="text-[12px] font-medium text-slate-950">
                 Right-Side Image
@@ -305,41 +370,40 @@ export default function HeroSlideEditor({
             )}
           </div>
         </div>
-        <div className="flex w-full flex-col gap-3">
-          <div className="flex w-full flex-col gap-1">
-            <p className="text-[16px] font-semibold text-neutral-900">
-              Video chip
-            </p>
-            <p className="text-[12px] text-neutral-700 opacity-[0.72]">
-              Short message shown over the carousel, with its own link.
-            </p>
-          </div>
+        {hasVideoChip && (
           <div className="flex w-full flex-col gap-3">
             <div className="flex w-full flex-col gap-1">
-              <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">
-                Chip text
+              <p className="text-[16px] font-semibold text-neutral-900">
+                Video chip
               </p>
-              <Textarea
-                variant="filled"
-                size="medium"
-                value={videoChipText}
-                onChange={(event) => setVideoChipText(event.target.value)}
+              <p className="text-[12px] text-neutral-700 opacity-[0.72]">
+                Short message shown over the carousel, with its own link.
+              </p>
+            </div>
+            <div className="flex w-full flex-col gap-3">
+              <FieldLabel label="Chip text">
+                <Textarea
+                  variant="filled"
+                  size="medium"
+                  value={videoChipText}
+                  onChange={(event) => setVideoChipText(event.target.value)}
+                />
+              </FieldLabel>
+              <ButtonFieldGroup
+                label="Chip link"
+                buttonLabel={videoChipLink.label}
+                onButtonLabelChange={(label) =>
+                  setVideoChipLink((link) => ({ ...link, label }))
+                }
+                linkTarget={videoChipLink.linkTarget}
+                onLinkTargetChange={(linkTarget) =>
+                  setVideoChipLink((link) => ({ ...link, linkTarget }))
+                }
+                onRemove={() => setVideoChipLink({ label: '', linkTarget: '' })}
               />
             </div>
-            <ButtonFieldGroup
-              label="Chip link"
-              buttonLabel={videoChipLink.label}
-              onButtonLabelChange={(label) =>
-                setVideoChipLink((link) => ({ ...link, label }))
-              }
-              linkTarget={videoChipLink.linkTarget}
-              onLinkTargetChange={(linkTarget) =>
-                setVideoChipLink((link) => ({ ...link, linkTarget }))
-              }
-              onRemove={() => setVideoChipLink({ label: '', linkTarget: '' })}
-            />
           </div>
-        </div>
+        )}
         {updateSection.isError && (
           <p className="text-[12px] text-red-600">Could not publish changes.</p>
         )}

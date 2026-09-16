@@ -120,6 +120,7 @@ export type HeroContent = {
   image?: SectionMedia;
   subtext?: string;
   headline_lines?: string[];
+  highlights?: string[];
   primary_button?: SectionLink;
   secondary_button?: SectionLink;
   video_chip?: {
@@ -175,6 +176,126 @@ export type AboutHistoryContent = {
   body?: string;
   image?: SectionMedia;
   cta?: SectionLink;
+};
+
+export type BusinessFinancingContent = {
+  heading?: string;
+  media_card?: {
+    href: string;
+    image: SectionMedia;
+    label: string;
+  };
+  content_cards?: {
+    href: string;
+    image: SectionMedia;
+    title: string;
+    link_label: string;
+    description: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessDigitalBankingContent = {
+  heading?: string;
+  image?: SectionMedia;
+  features?: {
+    icon: string;
+    label: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessIndustriesContent = {
+  heading?: string;
+  description?: string;
+  side_image?: SectionMedia;
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    link_label: string;
+    description: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type BusinessRelationshipManagersContent = {
+  heading?: string;
+  description?: string;
+  managers?: {
+    name: string;
+    role: string;
+    image: SectionMedia;
+  }[];
+  cta?: SectionLink;
+};
+
+export type RemittanceHeroContent = {
+  headline?: string;
+  subtext?: string;
+  slides?: SectionMedia[];
+  tracking?: {
+    hint?: string;
+    aria_label?: string;
+    placeholder?: string;
+    button_label?: string;
+  };
+  carousel_aria_label?: string;
+};
+
+export type RemittanceServicesContent = {
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    subtitle: string;
+  }[];
+};
+
+export type RemittanceWhyContent = {
+  heading?: string;
+  description?: string;
+  image?: SectionMedia;
+  stats?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type RemittanceTrustContent = {
+  heading?: string;
+  image?: SectionMedia;
+  count_label?: string;
+  /** Avatars carry no alt text — the page renders them decoratively. */
+  avatars?: Pick<SectionMedia, 'src' | 'media_id'>[];
+  cards?: {
+    href: string;
+    icon: string;
+    title: string;
+    link_label: string;
+  }[];
+};
+
+export type RemittanceOpenAccountContent = {
+  heading?: string;
+  video?: {
+    /** An external video URL, not an uploaded media file. */
+    src?: string;
+    poster?: SectionMedia;
+  };
+  features?: {
+    icon: string;
+    label: string;
+  }[];
+  cta?: SectionLink;
+};
+
+export type RemittanceFaqsContent = {
+  heading?: string;
+  items?: {
+    question: string;
+    answer: string;
+  }[];
 };
 
 export type LocalizedContent<T> = T & Partial<Record<'en' | 'ne', T>>;
