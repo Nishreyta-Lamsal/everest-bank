@@ -16,6 +16,7 @@ import type {
   FormSubmission,
   OptionsSource,
   SubmissionStatus,
+  SubmissionSummary,
 } from '@/types/admin';
 
 export type ListFormsParams = {
@@ -188,6 +189,19 @@ export const formService = {
     const response = await axiosClient.get<
       ApiResponse<CursorPage<FormSubmission>>
     >(`forms/${slug}/submissions/`, { params });
+
+    return response.data.data;
+  },
+
+  /** Aggregated counts for the responses dashboard. No applicant answers. */
+  submissionSummary: async (
+    slug: string,
+    params?: ListSubmissionsParams,
+  ): Promise<SubmissionSummary> => {
+    const response = await axiosClient.get<ApiResponse<SubmissionSummary>>(
+      `forms/${slug}/submissions/summary/`,
+      { params },
+    );
 
     return response.data.data;
   },

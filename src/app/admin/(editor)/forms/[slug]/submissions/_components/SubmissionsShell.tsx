@@ -10,6 +10,9 @@ import { Card } from '@/components/admin/ui/card';
 import { Select } from '@/components/admin/ui/select';
 import SubmissionDetailModal from './SubmissionDetailModal';
 import SubmissionsTable from './SubmissionsTable';
+import SummaryPanel from './SummaryPanel';
+
+import { cn } from '@/lib/utils';
 
 import { useCapability, useMe } from '@/hooks/api/admin/use-auth';
 import {
@@ -17,6 +20,7 @@ import {
   useForm,
   useFormFields,
   useFormSubmissions,
+  useSubmissionSummary,
   useUpdateSubmissionStatus,
 } from '@/hooks/api/admin/use-forms';
 
@@ -38,6 +42,7 @@ type SubmissionsShellProps = {
 export default function SubmissionsShell({ slug }: SubmissionsShellProps) {
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [tab, setTab] = useState<'responses' | 'summary'>('responses');
 
   // Applicant PII. The backend restricts this to Admin and Superadmin; this
   // check only decides whether to render the screen or an explanation.
@@ -57,6 +62,12 @@ export default function SubmissionsShell({ slug }: SubmissionsShellProps) {
   );
   const updateStatus = useUpdateSubmissionStatus(slug);
   const exportSubmissions = useExportSubmissions(slug);
+  // Aggregating decrypts every row, so it is only fetched on the summary tab.
+  const summary = useSubmissionSummary(
+    slug,
+    filterParams,
+    canViewSubmissions && tab === 'summary',
+  );
 
   const submissions: FormSubmission[] = data?.results ?? [];
   const selected =
@@ -131,47 +142,97 @@ export default function SubmissionsShell({ slug }: SubmissionsShellProps) {
                 </p>
               )}
 
-              <Card variant="primary" className="w-full overflow-hidden px-2">
-                {isPending && (
-                  <div className="flex h-[148px] items-center justify-center">
-                    <p className="text-paragraph-sm text-neutral-700/68">
-                      Loading submissions…
-                    </p>
-                  </div>
-                )}
+              <div
+                role="tablist"
+                aria-label="Submission views"
+                className="flex items-center gap-2"
+              >
+                {(['responses', 'summary'] as const).map((value) => (
+                  <button
+                    key={value}
+                    role="tab"
+                    type="button"
+                    aria-selected={tab === value}
+                    onClick={() => setTab(value)}
+                    className={cn(
+                      'text-paragraph-sm-medium cursor-pointer rounded-full px-4 py-2 capitalize',
+                      tab === value
+                        ? 'bg-slate-950 text-white'
+                        : 'bg-white/50 text-neutral-700',
+                    )}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
 
-                {isError && (
-                  <div className="flex h-[148px] flex-col items-center justify-center gap-3">
+              {tab === 'summary' ? (
+                summary.isPending ? (
+                  <Card className="flex h-[148px] items-center justify-center">
                     <p className="text-paragraph-sm text-neutral-700/68">
-                      Could not load submissions.
+                      Building summary…
+                    </p>
+                  </Card>
+                ) : summary.isError ? (
+                  <Card className="flex h-[148px] flex-col items-center justify-center gap-3">
+                    <p className="text-paragraph-sm text-neutral-700/68">
+                      Could not build the summary.
                     </p>
                     <Button
                       type="button"
                       variant="outline"
                       size="small"
-                      onClick={() => refetch()}
+                      onClick={() => summary.refetch()}
                     >
                       Try again
                     </Button>
-                  </div>
-                )}
+                  </Card>
+                ) : (
+                  summary.data && <SummaryPanel summary={summary.data} />
+                )
+              ) : (
+                <Card variant="primary" className="w-full overflow-hidden px-2">
+                  {isPending && (
+                    <div className="flex h-[148px] items-center justify-center">
+                      <p className="text-paragraph-sm text-neutral-700/68">
+                        Loading submissions…
+                      </p>
+                    </div>
+                  )}
 
-                {data && submissions.length === 0 && (
-                  <div className="flex h-[148px] items-center justify-center">
-                    <p className="text-paragraph-sm text-neutral-700/68">
-                      No submissions yet.
-                    </p>
-                  </div>
-                )}
+                  {isError && (
+                    <div className="flex h-[148px] flex-col items-center justify-center gap-3">
+                      <p className="text-paragraph-sm text-neutral-700/68">
+                        Could not load submissions.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="small"
+                        onClick={() => refetch()}
+                      >
+                        Try again
+                      </Button>
+                    </div>
+                  )}
 
-                {submissions.length > 0 && (
-                  <SubmissionsTable
-                    submissions={submissions}
-                    fields={fields}
-                    onSelect={(submission) => setSelectedId(submission.id)}
-                  />
-                )}
-              </Card>
+                  {data && submissions.length === 0 && (
+                    <div className="flex h-[148px] items-center justify-center">
+                      <p className="text-paragraph-sm text-neutral-700/68">
+                        No submissions yet.
+                      </p>
+                    </div>
+                  )}
+
+                  {submissions.length > 0 && (
+                    <SubmissionsTable
+                      submissions={submissions}
+                      fields={fields}
+                      onSelect={(submission) => setSelectedId(submission.id)}
+                    />
+                  )}
+                </Card>
+              )}
             </>
           )}
         </main>
