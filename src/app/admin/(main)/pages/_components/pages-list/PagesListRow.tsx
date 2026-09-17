@@ -3,9 +3,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
 import { icon } from '@/components/admin/icons';
 import { Switch } from '@/components/admin/ui/switch';
 
+import { cn } from '@/lib/utils';
 import { formatRelativeTime } from '@/lib/admin/format-relative-time';
 
 import { useUpdatePage } from '@/hooks/api/admin/use-pages';
@@ -19,6 +23,15 @@ type PagesListRowProps = {
 };
 
 export default function PagesListRow({ page }: PagesListRowProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: page.id });
 
   const [showInMenu, setShowInMenu] = useState(Boolean(page.show_in_menu));
 
@@ -37,7 +50,27 @@ export default function PagesListRow({ page }: PagesListRowProps) {
   }
 
   return (
-    <div className="flex w-full items-center">
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={cn(
+        'flex w-full items-center',
+        // Opaque only while dragging, so the lifted row covers the ones it
+        // passes over without altering the list's dividers at rest.
+        isDragging && 'relative z-10 rounded-[8px] bg-white shadow-lg',
+      )}
+    >
+      <button
+        ref={setActivatorNodeRef}
+        type="button"
+        aria-label={`Reorder ${page.title}`}
+        className="flex h-[74px] shrink-0 cursor-grab touch-none items-center pl-2 text-[#7d7c7d] active:cursor-grabbing"
+        {...attributes}
+        {...listeners}
+      >
+        <icon.dragHandle className="size-[16px] shrink-0" />
+      </button>
+
       <Link
         href={`${ADMIN_ROUTE.PAGES}/${page.slug}`}
         className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4"

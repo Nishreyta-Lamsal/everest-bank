@@ -31,6 +31,11 @@ export type UpdatePagePayload = {
   promo_is_active?: boolean;
 };
 
+export type ReorderPagesItem = {
+  slug: string;
+  position: number;
+};
+
 export const pageService = {
   list: async (params?: ListPagesParams): Promise<PageListData> => {
     const response = await axiosClient.get<ApiResponse<PageListData>>(
@@ -59,4 +64,13 @@ export const pageService = {
 
     return response.data.data;
   },
+
+  reorder: async (items: ReorderPagesItem[]): Promise<Page[]> =>
+    Promise.all(
+      items.map((item) =>
+        pageService.update(item.slug, {
+          position: item.position,
+        }),
+      ),
+    ),
 };
