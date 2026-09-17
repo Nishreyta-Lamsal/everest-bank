@@ -19,7 +19,7 @@ export default function NoticesAndNewsListCard({
   emptyLabel,
 }: NoticesAndNewsListCardProps) {
   return (
-    <Card variant="primary" className="w-full overflow-hidden px-4 py-3">
+    <Card variant="primary" className="w-full px-4 py-3">
       <NoticesAndNewsList
         items={items}
         kind={kind}

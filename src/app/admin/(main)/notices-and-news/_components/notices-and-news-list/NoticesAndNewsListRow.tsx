@@ -23,11 +23,13 @@ const statusStyles: Record<NewsStatus, string> = {
 type NoticesAndNewsListRowProps = {
   entry: NoticesAndNewsEntry;
   kind: 'notice' | 'news';
+  openMenuUpward?: boolean;
 };
 
 export default function NoticesAndNewsListRow({
   entry,
   kind,
+  openMenuUpward = false,
 }: NoticesAndNewsListRowProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -110,7 +112,10 @@ export default function NoticesAndNewsListRow({
             {isMenuOpen && (
               <div
                 role="menu"
-                className="absolute top-full right-0 z-10 mt-1 flex min-w-[160px] flex-col rounded-[8px] border border-black/5 bg-white py-1 shadow-lg"
+                className={cn(
+                  'absolute right-0 z-20 flex min-w-[160px] flex-col rounded-[8px] border border-black/5 bg-white py-1 shadow-lg',
+                  openMenuUpward ? 'bottom-full mb-1' : 'top-full mt-1',
+                )}
               >
                 <button
                   type="button"

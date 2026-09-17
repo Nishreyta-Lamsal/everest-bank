@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -10,12 +12,14 @@ import { Button } from '@/components/admin/ui/button';
 import { Drawer } from '@/components/admin/ui/drawer';
 import { Input } from '@/components/admin/ui/input';
 import { Select } from '@/components/admin/ui/select';
+import NoticeMediaField from './NoticeMediaField';
 
 import { useCreateNews, useUpdateNews } from '@/hooks/api/admin/use-news';
 import {
   useCreateNotice,
   useUpdateNotice,
 } from '@/hooks/api/admin/use-notices';
+import { useUploadMedia } from '@/hooks/api/admin/use-media';
 
 import { newsSchema, type NewsFormValues } from '@/schemas/admin/news-schema';
 import {
@@ -89,10 +93,14 @@ export default function NoticesAndNewsEditDrawer({
     },
   });
 
+  const [mediaFile, setMediaFile] = useState<File | null>(null);
+  const [isMediaCleared, setIsMediaCleared] = useState(false);
+
   const createNews = useCreateNews();
   const createNotice = useCreateNotice();
   const updateNews = useUpdateNews(entry?.id ?? 0);
   const updateNotice = useUpdateNotice(entry?.id ?? 0);
+  const uploadMedia = useUploadMedia();
 
   const mutation = isCreating
     ? kind === 'news'
@@ -102,7 +110,34 @@ export default function NoticesAndNewsEditDrawer({
       ? updateNews
       : updateNotice;
 
-  const onSubmit = handleSubmit((values) => {
+  const isSaving = mutation.isPending || uploadMedia.isPending;
+
+  // Only notices carry an attachment; news articles are text-only.
+  const hasMedia = kind === 'notice';
+
+  /**
+   * The notice endpoints take a media id, not a file, so a newly picked file is
+   * uploaded to the library first and its id attached. `undefined` leaves the
+   * existing attachment untouched; `null` detaches it.
+   */
+  async function resolveMediaId() {
+    if (!hasMedia) return undefined;
+
+    if (mediaFile) {
+      const uploaded = await uploadMedia.mutateAsync({
+        file: mediaFile,
+        title: mediaFile.name,
+      });
+
+      return uploaded.id;
+    }
+
+    return isMediaCleared ? null : undefined;
+  }
+
+  const onSubmit = handleSubmit(async (values) => {
+    const media = await resolveMediaId();
+
     if (isCreating) {
       const create = kind === 'news' ? createNews : createNotice;
 
@@ -112,6 +147,7 @@ export default function NoticesAndNewsEditDrawer({
           date: values.date,
           content: { description: values.description },
           status: values.status,
+          ...(media === undefined ? {} : { media }),
         },
         { onSuccess: onClose },
       );
@@ -128,6 +164,7 @@ export default function NoticesAndNewsEditDrawer({
       content: { ...existingContent, description: values.description },
       date: values.date,
       status: values.status,
+      ...(media === undefined ? {} : { media }),
     };
 
     if (kind === 'news') {
@@ -157,7 +194,7 @@ export default function NoticesAndNewsEditDrawer({
             type="button"
             variant="secondary"
             onClick={onClose}
-            disabled={mutation.isPending}
+            disabled={isSaving}
           >
             Cancel
           </Button>
@@ -165,13 +202,9 @@ export default function NoticesAndNewsEditDrawer({
             type="submit"
             form={FORM_ID}
             variant="primary"
-            disabled={mutation.isPending}
+            disabled={isSaving}
           >
-            {mutation.isPending
-              ? 'Saving…'
-              : isCreating
-                ? 'Create'
-                : 'Save changes'}
+            {isSaving ? 'Saving…' : isCreating ? 'Create' : 'Save changes'}
           </Button>
         </>
       }
@@ -212,6 +245,27 @@ export default function NoticesAndNewsEditDrawer({
             </p>
           )}
         </FieldLabel>
+
+        {hasMedia && (
+          <FieldLabel label="Media">
+            <NoticeMediaField
+              existing={entry?.media ?? null}
+              value={mediaFile}
+              onChange={(file) => {
+                setMediaFile(file);
+                if (file) setIsMediaCleared(false);
+              }}
+              isCleared={isMediaCleared}
+              onClear={() => setIsMediaCleared(true)}
+              disabled={isSaving}
+            />
+            {uploadMedia.isError && (
+              <p className="text-[12px] text-red-600">
+                {readApiError(uploadMedia.error)}
+              </p>
+            )}
+          </FieldLabel>
+        )}
 
         <FieldLabel label="Publication date">
           <Input
