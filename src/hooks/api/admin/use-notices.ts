@@ -41,3 +41,14 @@ export function useUpdateNotice(noticeId: number) {
     },
   });
 }
+
+export function useDeleteNotice() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => noticeService.remove(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['notices'] });
+    },
+  });
+}

@@ -4,9 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 
 import { icon } from '@/components/admin/icons';
 import NoticesAndNewsEditDrawer from './NoticesAndNewsEditDrawer';
+import { ConfirmDialog } from '@/components/admin/ui/confirm-dialog';
+
+import { useDeleteNews } from '@/hooks/api/admin/use-news';
+import { useDeleteNotice } from '@/hooks/api/admin/use-notices';
 
 import { cn } from '@/lib/utils';
 import { formatUpdatedLabel } from '@/lib/admin/format-updated-label';
+import { readApiError } from '@/lib/admin/read-api-error';
 
 import type { NewsStatus, NoticesAndNewsEntry } from '@/types/admin';
 
@@ -26,7 +31,12 @@ export default function NoticesAndNewsListRow({
 }: NoticesAndNewsListRowProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const deleteNews = useDeleteNews();
+  const deleteNotice = useDeleteNotice();
+  const deleteMutation = kind === 'news' ? deleteNews : deleteNotice;
 
   const statusClassName = statusStyles[entry.status] ?? statusStyles.draft;
   const meta = formatUpdatedLabel(entry.updated_at);
@@ -114,6 +124,18 @@ export default function NoticesAndNewsListRow({
                   <icon.edit className="size-4 shrink-0 text-slate-600" />
                   Edit
                 </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setIsDeleteOpen(true);
+                  }}
+                  className="flex cursor-pointer items-center gap-2 px-3 py-2 text-left text-[14px] text-red-600 transition-colors hover:bg-red-50"
+                >
+                  <icon.trash className="size-4 shrink-0" />
+                  Delete
+                </button>
               </div>
             )}
           </div>
@@ -128,6 +150,32 @@ export default function NoticesAndNewsListRow({
           onClose={() => setIsEditOpen(false)}
         />
       )}
+
+      <ConfirmDialog
+        isOpen={isDeleteOpen}
+        onClose={() => {
+          setIsDeleteOpen(false);
+          deleteMutation.reset();
+        }}
+        onConfirm={() =>
+          deleteMutation.mutate(entry.id, {
+            onSuccess: () => setIsDeleteOpen(false),
+          })
+        }
+        title={kind === 'news' ? 'Delete news article?' : 'Delete notice?'}
+        description={
+          <>
+            <span className="font-medium text-neutral-900">{entry.title}</span>
+            {' will be permanently removed. This cannot be undone.'}
+          </>
+        }
+        isPending={deleteMutation.isPending}
+        error={
+          deleteMutation.isError
+            ? readApiError(deleteMutation.error, 'Could not delete this item.')
+            : undefined
+        }
+      />
     </>
   );
 }
