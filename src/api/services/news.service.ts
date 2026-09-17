@@ -4,13 +4,6 @@ import type { ApiResponse, MediaBrief } from '@/types';
 
 export type NewsStatus = 'draft' | 'published';
 
-export type NewsTypeBrief = {
-  id: number;
-  slug: string;
-  label: string;
-  label_ne: string;
-};
-
 type NewsContentBlock = {
   type: 'paragraph';
   text: string;
@@ -24,9 +17,10 @@ export type NewsContent = {
 export type News = {
   id: number;
   slug: string;
-  news_type: NewsTypeBrief;
   title: string;
+  title_ne: string;
   content: NewsContent;
+  content_ne: NewsContent;
   date: string;
   expires_on: string | null;
   media: MediaBrief | null;
@@ -40,20 +34,7 @@ export type News = {
   updated_at: string;
 };
 
-export type NewsCategoryCount = {
-  slug: string;
-  label: string;
-  position: number;
-  count: number;
-};
-
-export type NewsCategoryCounts = {
-  all: number;
-  types: NewsCategoryCount[];
-};
-
 export type NewsListData = {
-  category_counts: NewsCategoryCounts;
   count: number;
   next: string | null;
   previous: string | null;
@@ -68,11 +49,14 @@ export type NewsLang = 'en' | 'ne';
 
 export type NewsListParams = {
   cursor?: string;
+  date?: string;
+  date_from?: string;
+  date_to?: string;
   is_pinned?: boolean;
   lang?: NewsLang;
-  news_type?: string;
   ordering?: string;
   page_size?: number;
+  search?: string;
   status?: NewsStatus;
 };
 

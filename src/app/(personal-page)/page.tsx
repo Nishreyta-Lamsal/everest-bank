@@ -39,7 +39,7 @@ export default async function PersonalPage() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <main>
         <HeroSection sections={sections} />
-        <ProductsSection />
+        <ProductsSection sections={sections} />
         <MountainDivider />
         <LoansSection sections={sections} />
         <CardsSection sections={sections} />

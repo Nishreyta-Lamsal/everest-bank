@@ -8,6 +8,8 @@ import Navbar from '@/components/layouts/navbar/Navbar';
 import BottomNavigationBar from '@/components/layouts/navbar/BottomNavigationBar';
 import SideFixedMenu from '@/components/shared/SideFixedMenu';
 
+import { getMainNavItems } from '@/lib/get-main-nav-items';
+
 import './globals.css';
 
 const inter = Inter({
@@ -64,7 +66,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default async function RootLayout({ children }: LayoutProps<'/'>) {
+  const mainNavItems = await getMainNavItems();
+
   return (
     <html
       lang="en"
@@ -73,7 +77,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body className="flex min-h-full flex-col pb-14.5 lg:pb-0">
         <Providers>
           <SiteChrome>
-            <Navbar />
+            <Navbar items={mainNavItems} />
           </SiteChrome>
 
           {children}
@@ -81,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <SiteChrome>
             <Footer />
             <SideFixedMenu />
-            <BottomNavigationBar />
+            <BottomNavigationBar items={mainNavItems} />
           </SiteChrome>
         </Providers>
       </body>

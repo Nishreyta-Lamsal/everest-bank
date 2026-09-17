@@ -11,6 +11,7 @@ type MediaFieldProps = {
   onUpload: (file: File) => void;
   onRemove?: () => void;
   isUploading?: boolean;
+  previewSize?: 'small' | 'large';
 };
 
 export default function MediaField({
@@ -19,6 +20,7 @@ export default function MediaField({
   onUpload,
   onRemove,
   isUploading,
+  previewSize,
 }: MediaFieldProps) {
   return (
     <FieldLabel label={label}>
@@ -27,6 +29,7 @@ export default function MediaField({
         onRemove={onRemove}
         isUploading={isUploading}
         preview={media?.src ? { src: media.src, alt: media.alt } : undefined}
+        previewSize={previewSize}
       />
     </FieldLabel>
   );

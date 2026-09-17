@@ -41,7 +41,7 @@ export default function PersonalPagePreview({
   return (
     <main>
       <HeroSection sections={sections} />
-      <ProductsSection />
+      <ProductsSection sections={sections} />
       <MountainDivider />
       <LoansSection sections={sections} />
       <CardsSection sections={sections} />

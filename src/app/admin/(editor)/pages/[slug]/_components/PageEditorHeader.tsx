@@ -42,10 +42,6 @@ export default function PageEditorHeader({
         </a>
       </div>
       <div className="flex items-center gap-3">
-        <Button variant="secondary" size="large">
-          <icon.eye />
-          Preview
-        </Button>
         <Button
           variant="primary"
           size="large"

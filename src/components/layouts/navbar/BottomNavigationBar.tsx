@@ -7,11 +7,16 @@ import { icon } from '@/components/icons';
 
 import { cn, isNavItemActive, toIconKey } from '@/lib/utils';
 
-import { mainNavItems } from '@/data';
-
+import type { MainNavItem } from '@/types';
 import type { ComponentType, SVGProps } from 'react';
 
-export default function BottomNavigationBar() {
+type BottomNavigationBarProps = {
+  items: MainNavItem[];
+};
+
+export default function BottomNavigationBar({
+  items,
+}: BottomNavigationBarProps) {
   const pathname = usePathname();
 
   return (
@@ -19,7 +24,7 @@ export default function BottomNavigationBar() {
       aria-label="Primary"
       className="fixed inset-x-0 bottom-0 z-40 flex w-full items-center bg-white shadow-[0px_-1px_5px_rgba(0,0,0,0.08)] lg:hidden"
     >
-      {mainNavItems.map((item, index) => {
+      {items.map((item, index) => {
         const isActive = isNavItemActive(
           pathname,
           item.href,
@@ -39,7 +44,7 @@ export default function BottomNavigationBar() {
               'flex flex-1 flex-col items-center gap-1 py-2.5 transition-colors',
               isActive ? 'bg-red-500 text-white' : 'text-red-500',
               index === 0 && 'pl-4',
-              index === mainNavItems.length - 1 && 'pr-4',
+              index === items.length - 1 && 'pr-4',
             )}
           >
             <Icon className="size-[18px] shrink-0" />
