@@ -1,12 +1,19 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 
-import type { LoanStat } from '../_data';
+import { getSectionContent } from '@/lib/get-section-content';
+
+import type { LoanPageSection } from '@/api/services/personal/loan-page.service';
 
 type LoanStatsSectionProps = {
-  stats: LoanStat[];
+  sections?: LoanPageSection[];
 };
 
-export default function LoanStatsSection({ stats }: LoanStatsSectionProps) {
+export default function LoanStatsSection({ sections }: LoanStatsSectionProps) {
+  const content = getSectionContent(sections, 'loan_stats');
+  const stats = content?.items ?? [];
+
+  if (!stats.length) return null;
+
   return (
     <section className="w-full py-8 lg:py-12">
       <LayoutWrapper>

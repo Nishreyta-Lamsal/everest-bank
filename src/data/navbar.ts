@@ -11,7 +11,11 @@ import type {
 
 export const utilityNavItems: UtilityNavItem[] = [
   { label: 'Notice', href: ROUTE.NOTICE, icon: icon.bell },
-  { label: 'Auction Notice', href: '#', icon: icon.gavel },
+  {
+    label: 'Auction Notice',
+    href: ROUTE.AUCTION_NOTICE,
+    icon: icon.gavel,
+  },
   { label: 'Calendar 2026', href: '#', icon: icon.calendar },
   { label: 'Forex Rates', href: ROUTE.FOREX_RATES, icon: icon.trendingUp },
   { label: 'Cyber Security', href: '#', icon: icon.shieldCheck },

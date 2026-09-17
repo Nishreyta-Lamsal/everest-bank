@@ -9,16 +9,18 @@ import type {
 
 export type ListNewsParams = {
   cursor?: string;
+  date?: string;
+  date_from?: string;
+  date_to?: string;
   is_pinned?: boolean;
-  news_type?: string;
   ordering?: string;
   page_size?: number;
+  search?: string;
   status?: NewsStatus;
 };
 
 export type UpdateNewsPayload = {
   slug?: string;
-  news_type?: string;
   title?: string;
   title_ne?: string;
   content?: unknown;

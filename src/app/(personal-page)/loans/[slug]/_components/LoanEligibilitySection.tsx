@@ -6,17 +6,25 @@ import Button from '@/components/ui/buttons/Button';
 import SelectField from '@/components/ui/inputs/SelectField';
 import TextField from '@/components/ui/inputs/TextField';
 
+import { getSectionContent } from '@/lib/get-section-content';
+
 import { loanTypeOptions } from '../_data';
 
-import type { LoanEligibility } from '../_data';
+import type { LoanPageSection } from '@/api/services/personal/loan-page.service';
 
 type LoanEligibilitySectionProps = {
-  data: LoanEligibility;
+  sections?: LoanPageSection[];
 };
 
 export default function LoanEligibilitySection({
-  data,
+  sections,
 }: LoanEligibilitySectionProps) {
+  const content = getSectionContent(sections, 'loan_eligibility');
+
+  if (!content) return null;
+
+  const { heading, applicant_types, requirements_href } = content;
+
   return (
     <section className="w-full py-16 lg:py-15">
       <LayoutWrapper>
@@ -24,10 +32,10 @@ export default function LoanEligibilitySection({
           <div className="flex flex-col items-start gap-10 lg:gap-12 lg:py-8">
             <div className="flex flex-col gap-10 lg:gap-12">
               <h2 className="font-heading text-heading-h3-mobile-md text-grey-500 lg:text-heading-h2-desktop-md w-full lg:w-[528px]">
-                {data.heading}
+                {heading}
               </h2>
               <ul className="flex flex-col items-start gap-4">
-                {data.applicantTypes.map((type) => (
+                {applicant_types.map((type) => (
                   <li key={type} className="flex items-center gap-2">
                     <icon.circleCheck className="text-grey-400 size-[20px] lg:size-[24px]" />
                     <span className="font-heading text-title-3-mobile lg:text-title-0-desktop text-grey-400">
@@ -38,7 +46,7 @@ export default function LoanEligibilitySection({
               </ul>
             </div>
             <Link
-              href={data.requirementsHref}
+              href={requirements_href}
               className="block w-full lg:inline-block lg:w-auto"
             >
               <Button

@@ -14,6 +14,8 @@ export const ROUTE = {
   DEPOSIT_ACCOUNTS: '/deposit-accounts',
   SAVING_ACCOUNT: '/deposit-accounts/saving-account',
   NOTICE: '/notice',
+  NEWS: '/news',
+  AUCTION_NOTICE: '/auction-notice',
   FOREX_RATES: '/forex-rates',
   ATM: '/atm',
   BRANCHES: '/branches',
