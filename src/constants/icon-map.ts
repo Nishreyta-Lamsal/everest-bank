@@ -20,4 +20,8 @@ export const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   'map-pin': icon.mapPin,
   'shield-check': icon.shieldCheck,
   'speed-clock': icon.speedClock,
+  worldwide: icon.worldwide,
+  'security-shield': icon.securityShield,
+  signal: icon.signal,
+  headset: icon.headset,
 };

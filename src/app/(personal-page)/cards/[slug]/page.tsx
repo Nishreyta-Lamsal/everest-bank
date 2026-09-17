@@ -1,12 +1,15 @@
 import { notFound } from 'next/navigation';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
 import CardsTrustBarSection from '../_components/CardsTrustBarSection';
 import CardDetailSection from './_components/CardDetailSection';
 
-import { ROUTE } from '@/constants';
-import { cardDetails } from './_data';
+import { cardPageService } from '@/api/services/personal/card-page.service';
+
+import { getQueryClient } from '@/lib/get-query-client';
+import { getSectionContent } from '@/lib/get-section-content';
 
 type CardsDetailsPageProps = {
   params: Promise<{ slug: string }>;
@@ -17,29 +20,44 @@ export default async function CardsDetailsPage({
 }: CardsDetailsPageProps) {
   const { slug } = await params;
 
-  const cardDetail = cardDetails.find((item) => item.slug === slug);
+  const queryClient = getQueryClient();
 
-  if (!cardDetail) {
+  const result = await queryClient
+    .fetchQuery({
+      queryKey: ['card-page', slug],
+      queryFn: () => cardPageService.getCardPage(slug),
+    })
+    .catch(() => null);
+
+  if (!result) {
     notFound();
   }
 
-  const breadcrumbItems = [
-    { label: 'Cards', href: ROUTE.CARDS },
-    { label: cardDetail.breadcrumbLabel },
-  ];
+  const { sections, title } = result.data;
+
+  const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
+  const breadcrumbItems = breadcrumbsContent?.items?.length
+    ? breadcrumbsContent.items
+    : [{ label: title }];
+
+  const hero = getSectionContent(sections, 'card_product_hero');
 
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <ContentHeroSection
-        image={cardDetail.hero.image}
-        imageAlt={cardDetail.hero.imageAlt}
-        heading={cardDetail.hero.heading}
-        buttonLabel={cardDetail.hero.buttonLabel}
-        buttonHref={cardDetail.hero.buttonHref}
-      />
-      <CardsTrustBarSection />
-      <CardDetailSection detail={cardDetail} />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        {hero && (
+          <ContentHeroSection
+            image={hero.image.src}
+            imageAlt={hero.image.alt}
+            heading={hero.heading}
+            buttonLabel={hero.button.label}
+            buttonHref={hero.button.href}
+          />
+        )}
+        <CardsTrustBarSection sections={sections} />
+        <CardDetailSection sections={sections} />
+      </main>
+    </HydrationBoundary>
   );
 }

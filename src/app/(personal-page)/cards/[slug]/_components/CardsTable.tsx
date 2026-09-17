@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
 
-import type { CardLimitsTableRow } from '../_data';
+import type { CardTableRow } from '@/api/services/personal/card-page.service';
 
 type CardsTableProps = {
   heading: string;
   columnHeaders: [string, string, string];
-  rows: CardLimitsTableRow[];
+  rows: CardTableRow[];
 };
 
 export default function CardsTable({
@@ -47,12 +47,12 @@ export default function CardsTable({
                 <td
                   className={cn(
                     'border-b border-[#eaecf0] py-4',
-                    row.isGroupHeader ? 'px-6' : 'pr-8 pl-10',
+                    row.is_group_header ? 'px-6' : 'pr-8 pl-10',
                   )}
                 >
                   <span
                     className={cn(
-                      row.isGroupHeader
+                      row.is_group_header
                         ? 'font-heading text-title-4-desktop text-grey-500'
                         : 'text-body-4-desktop text-grey-400',
                     )}

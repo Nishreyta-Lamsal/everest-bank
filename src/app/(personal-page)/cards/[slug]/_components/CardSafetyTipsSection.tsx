@@ -1,9 +1,9 @@
 import CardFeatureList from './CardFeatureList';
 
-import type { CardSafetyTipsSection as CardSafetyTipsSectionData } from '../_data';
+import type { CardSafetyTips } from '@/api/services/personal/card-page.service';
 
 type CardSafetyTipsSectionProps = {
-  data: CardSafetyTipsSectionData;
+  data: CardSafetyTips;
 };
 
 export default function CardSafetyTipsSection({
@@ -17,24 +17,24 @@ export default function CardSafetyTipsSection({
       <CardFeatureList items={data.items} />
 
       <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">
-        <span className="font-medium">{data.termsLead} </span>
-        {data.termsBody}{' '}
-        <span className="text-red-500 underline">{data.termsLinkLabel}</span>
+        <span className="font-medium">{data.terms_lead} </span>
+        {data.terms_body}{' '}
+        <span className="text-red-500 underline">{data.terms_link_label}</span>
       </p>
 
       <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">
-        <span className="font-medium">{data.contactLead} </span>
-        {data.contactBody}
+        <span className="font-medium">{data.contact_lead} </span>
+        {data.contact_body}
       </p>
 
       <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">
-        <span className="font-medium">{data.huntingLineLabel} </span>
-        {data.huntingLineValue}
+        <span className="font-medium">{data.hunting_line_label} </span>
+        {data.hunting_line_value}
       </p>
 
       <p className="text-body-2-mobile lg:text-body-2-desktop text-grey-500">
-        <span className="font-medium">{data.mailLabel} </span>
-        {data.mailValue}
+        <span className="font-medium">{data.mail_label} </span>
+        {data.mail_value}
       </p>
     </div>
   );

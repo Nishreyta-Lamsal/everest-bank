@@ -2,42 +2,54 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
-import type { CardFace } from '../_data';
+import type { MediaWithAlt } from '@/types';
+
+type CardOverviewCard = {
+  key: string;
+  face: MediaWithAlt;
+};
 
 type CardOverviewSectionProps = {
   heading: string;
   description: string;
-  cardFaces: CardFace[];
+  cards: CardOverviewCard[];
   brandsHeading: string;
   brands: string[];
+  selectedKey: string;
+  onSelectKey: (key: string) => void;
 };
 
 export default function CardOverviewSection({
   heading,
   description,
-  cardFaces,
+  cards,
   brandsHeading,
   brands,
+  selectedKey,
+  onSelectKey,
 }: CardOverviewSectionProps) {
   return (
     <div className="flex w-full flex-col items-start gap-8 lg:gap-[54px]">
       <div className="flex w-full flex-wrap items-start gap-4">
-        {cardFaces.map((face, index) => (
-          <div
-            key={face.image}
+        {cards.map(({ key, face }) => (
+          <button
+            key={key}
+            type="button"
+            aria-pressed={selectedKey === key}
+            onClick={() => onSelectKey(key)}
             className={cn(
-              'relative aspect-[87/55] w-full max-w-[175px] flex-1 overflow-hidden rounded-[8px]',
-              index === 0 &&
+              'relative aspect-[87/55] w-full max-w-[175px] flex-1 cursor-pointer overflow-hidden rounded-[8px]',
+              selectedKey === key &&
                 'border-4 border-white shadow-[0_0_0_6px_rgba(186,32,37,0.5)]',
             )}
           >
             <Image
-              src={face.image}
-              alt={face.imageAlt}
+              src={face.src}
+              alt={face.alt}
               fill
               className="h-full w-full object-cover"
             />
-          </div>
+          </button>
         ))}
       </div>
 

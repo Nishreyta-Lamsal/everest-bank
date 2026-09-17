@@ -1,10 +1,10 @@
 import { icon } from '@/components/icons';
 
-import type { CardContentBlock } from '../_data';
+import type { CardHowToUseBlock } from '@/api/services/personal/card-page.service';
 
 type CardHowToUseSectionProps = {
   heading: string;
-  blocks: CardContentBlock[];
+  blocks: CardHowToUseBlock[];
 };
 
 export default function CardHowToUseSection({
