@@ -1,7 +1,11 @@
+import Link from 'next/link';
+
 import { icon } from '@/components/admin/icons';
 import { Button } from '@/components/admin/ui/button';
 
 import { cn } from '@/lib/utils';
+
+import { ADMIN_ROUTE } from '@/constants/admin';
 
 import { tabs } from '../_data/dashboard-tabs';
 
@@ -42,10 +46,12 @@ export default function DashboardTabs({
             );
           })}
         </div>
-        <Button variant="secondary">
-          <icon.edit />
-          Post a notice
-        </Button>
+        <Link href={ADMIN_ROUTE.NOTICES_AND_NEWS}>
+          <Button variant="secondary">
+            <icon.edit />
+            Post a notice
+          </Button>
+        </Link>
       </div>
       <div className="h-px w-full bg-[rgba(0,0,0,0.08)]" />
     </div>

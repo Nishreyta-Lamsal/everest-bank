@@ -1,18 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import ProductCardFieldGroup from './ProductCardFieldGroup';
-import SlideEditorHeader from './SlideEditorHeader';
-import { usePageEditor } from '@/store/PageEditorContext';
-// import { Button } from '@/components/admin/ui/button';
-import { Card } from '@/components/admin/ui/card';
+import SectionEditorShell from './SectionEditorShell';
+import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 
-import { readApiError } from '@/lib/admin/read-api-error';
-import {
-  localizedContent,
-  mergeLocalizedContent,
-} from '@/lib/admin/section-content';
+import { localizedContent } from '@/lib/admin/section-content';
 
 import type {
   PageSectionRead,
@@ -32,14 +26,7 @@ export default function ProductsSectionEditor({
   section,
 }: ProductsSectionEditorProps) {
   const content = localizedContent<ProductsContent>(section.content);
-  const {
-    registerSectionDraft,
-    setDraftContent,
-    setDraftVisibility,
-    publishError,
-  } = usePageEditor();
 
-  const [shownOnPage, setShownOnPage] = useState(section.is_visible);
   const [topCards, setTopCards] = useState<ProductCard[]>(
     content.top_cards ?? [],
   );
@@ -47,107 +34,98 @@ export default function ProductsSectionEditor({
     content.bottom_cards ?? [],
   );
 
+  const {
+    shownOnPage,
+    setShownOnPage,
+    uploadImage,
+    isUploading,
+    isError,
+    error,
+  } = useSectionEditor<ProductsContent>(slug, section, () => ({
+    top_cards: topCards,
+    bottom_cards: bottomCards,
+  }));
+
   const groups: Array<{
     key: CardGroup;
     heading: string;
     cards: ProductCard[];
     setCards: (cards: ProductCard[]) => void;
+    showMedia: boolean;
   }> = [
     {
       key: 'top_cards',
       heading: 'Top row cards',
       cards: topCards,
       setCards: setTopCards,
+      showMedia: true,
     },
     {
       key: 'bottom_cards',
       heading: 'Bottom row cards',
       cards: bottomCards,
       setCards: setBottomCards,
+      showMedia: false,
     },
   ];
 
-  function buildContent() {
-    return mergeLocalizedContent<ProductsContent>(section.content, {
-      top_cards: topCards,
-      bottom_cards: bottomCards,
-    });
-  }
-
-  // Re-registers each render so the payload reflects the latest field values.
-  useEffect(() => {
-    registerSectionDraft(section.id, {
-      slug,
-      item: {
-        id: section.id,
-        section_type: section.section_type,
-        is_visible: shownOnPage,
-        content: buildContent(),
-      },
-    });
-
-    return () => registerSectionDraft(section.id, null);
-  });
-
-  // Mirror the in-progress fields into the shared draft so the live preview
-  // re-renders as they change.
-  useEffect(() => {
-    setDraftContent(section.id, buildContent());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section.id, topCards, bottomCards]);
-
-  useEffect(() => {
-    setDraftVisibility(section.id, shownOnPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section.id, shownOnPage]);
-
   return (
-    <Card className="w-full">
-      <div className="flex w-full flex-col gap-8">
-        <SlideEditorHeader
-          title={section.label}
-          description="Cards shown in this section, with icons and links"
-          shownOnPage={shownOnPage}
-          onShownOnPageChange={setShownOnPage}
-        />
-
-        {groups.map(({ key, heading, cards, setCards }) => (
-          <div key={key} className="flex w-full flex-col gap-3">
-            <p className="text-[16px] font-semibold text-neutral-900">
-              {heading}
-            </p>
-
-            <div className="flex w-full flex-col gap-4">
-              {cards.map((card, index) => (
-                <ProductCardFieldGroup
-                  key={index}
-                  label={`Card ${index + 1}`}
-                  card={card}
-                  onChange={(next) =>
-                    setCards(cards.map((c, i) => (i === index ? next : c)))
-                  }
-                  onRemove={() => setCards(cards.filter((_, i) => i !== index))}
-                />
-              ))}
-            </div>
-
-            {/* <Button
-              variant="secondary"
-              size="small"
-              className="self-start"
-              onClick={() => setCards([...cards, { title: '', subtitle: '' }])}
-            >
-              Add card
-            </Button> */}
-          </div>
-        ))}
-
-        {Boolean(publishError) && (
-          <p className="text-[12px] text-red-600">
-            {readApiError(publishError, 'Could not publish changes.')}
+    <SectionEditorShell
+      title={section.label}
+      description="Cards shown in this section, with icons and links"
+      shownOnPage={shownOnPage}
+      onShownOnPageChange={setShownOnPage}
+      isError={isError}
+      error={error}
+    >
+      {groups.map(({ key, heading, cards, setCards, showMedia }) => (
+        <div key={key} className="flex w-full flex-col gap-3">
+          <p className="text-[16px] font-semibold text-neutral-900">
+            {heading}
           </p>
-        )}
-      </div>
-    </Card>
+
+          <div className="flex w-full flex-col gap-4">
+            {cards.map((card, index) => (
+              <ProductCardFieldGroup
+                key={index}
+                label={`Card ${index + 1}`}
+                card={card}
+                onChange={(next) =>
+                  setCards(cards.map((c, i) => (i === index ? next : c)))
+                }
+                onRemove={() => setCards(cards.filter((_, i) => i !== index))}
+                showMedia={showMedia}
+                isUploading={isUploading}
+                onMediaUpload={(file) =>
+                  uploadImage(file, (media) =>
+                    setCards(
+                      cards.map((c, i) =>
+                        i === index ? { ...c, decoration_src: media } : c,
+                      ),
+                    ),
+                  )
+                }
+                onMediaRemove={() =>
+                  setCards(
+                    cards.map((c, i) =>
+                      i === index ? { ...c, decoration_src: undefined } : c,
+                    ),
+                  )
+                }
+              />
+            ))}
+          </div>
+
+          {/* <Button
+            variant="secondary"
+            size="small"
+            className="self-start"
+            onClick={() => setCards([...cards, { title: '', subtitle: '' }])}
+          >
+            Add card
+          </Button> */}
+        </div>
+      ))}
+    </SectionEditorShell>
   );
 }
