@@ -2,6 +2,7 @@ import { axiosClient } from '@/lib/api/axios-client';
 
 import type {
   ApiResponse,
+  Page,
   PageDetail,
   PageKind,
   PageListData,
@@ -11,6 +12,23 @@ export type ListPagesParams = {
   kind?: PageKind;
   ordering?: string;
   parent?: number;
+};
+
+export type UpdatePagePayload = {
+  slug?: string;
+  path?: string;
+  title?: string;
+  title_ne?: string;
+  kind?: PageKind;
+  parent?: number | null;
+  icon?: string;
+  position?: number;
+  is_active?: boolean;
+  show_in_menu?: boolean;
+  promo_label?: string;
+  promo_label_ne?: string;
+  promo_href?: string;
+  promo_is_active?: boolean;
 };
 
 export const pageService = {
@@ -28,6 +46,15 @@ export const pageService = {
   retrieve: async (slug: string): Promise<PageDetail> => {
     const response = await axiosClient.get<ApiResponse<PageDetail>>(
       `pages/${slug}/`,
+    );
+
+    return response.data.data;
+  },
+
+  update: async (slug: string, payload: UpdatePagePayload): Promise<Page> => {
+    const response = await axiosClient.patch<ApiResponse<Page>>(
+      `pages/${slug}/`,
+      payload,
     );
 
     return response.data.data;

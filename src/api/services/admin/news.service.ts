@@ -74,4 +74,8 @@ export const newsService = {
 
     return response.data.data;
   },
+
+  remove: async (newsId: number): Promise<void> => {
+    await axiosClient.delete(`news/${newsId}/`);
+  },
 };

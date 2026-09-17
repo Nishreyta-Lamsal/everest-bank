@@ -41,3 +41,14 @@ export function useUpdateNews(newsId: number) {
     },
   });
 }
+
+export function useDeleteNews() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => newsService.remove(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['news'] });
+    },
+  });
+}

@@ -1,8 +1,11 @@
 'use client';
 
-import { icon } from '@/components/admin/icons';
+import { useState } from 'react';
 
-import { cn } from '@/lib/utils';
+import { icon } from '@/components/admin/icons';
+import { Switch } from '@/components/admin/ui/switch';
+
+import { useUpdatePage } from '@/hooks/api/admin/use-pages';
 
 import type { Page } from '@/types/admin';
 
@@ -15,21 +18,31 @@ export default function ProductsListRow({
   page,
   onSelect,
 }: ProductsListRowProps) {
-  const status = page.is_active
-    ? { label: 'Published', className: 'bg-[#ebfef6] text-[#059669]' }
-    : { label: 'Draft', className: 'bg-[#edf2f7] text-[#65738a]' };
+
+  const [showInMenu, setShowInMenu] = useState(Boolean(page.show_in_menu));
+
+  const updatePage = useUpdatePage(page.slug);
 
   const sectionsLabel = `${page.sections_count} section${page.sections_count === 1 ? '' : 's'}`;
   const updatedLabel = `updated ${new Date(page.updated_at).toLocaleDateString()}`;
   const meta = `${page.path} · ${sectionsLabel} · ${updatedLabel}`;
 
+  function handleShowInMenuChange(next: boolean) {
+    setShowInMenu(next);
+
+    updatePage.mutate(
+      { show_in_menu: next },
+      { onError: () => setShowInMenu(!next) },
+    );
+  }
+
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="flex w-full cursor-pointer items-center text-left"
-    >
-      <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
+    <div className="flex w-full items-center">
+      <button
+        type="button"
+        onClick={onSelect}
+        className="flex h-[74px] min-w-0 flex-1 cursor-pointer items-center gap-4 px-4 text-left"
+      >
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex shrink-0 items-center rounded-[4px] bg-slate-100 p-3">
             <icon.bank className="size-6 text-slate-950" />
@@ -43,18 +56,29 @@ export default function ProductsListRow({
             </p>
           </div>
         </div>
-      </div>
+      </button>
+
       <div className="flex h-[74px] shrink-0 items-center gap-4 px-4">
-        <span
-          className={cn(
-            'text-paragraph-sm-medium flex items-center justify-center gap-1.5 rounded-full px-3 py-2',
-            status.className,
-          )}
+        <label className="flex cursor-pointer items-center gap-2">
+          <span className="text-paragraph-sm-medium text-neutral-700">
+            Show in menu
+          </span>
+          <Switch
+            checked={showInMenu}
+            disabled={updatePage.isPending}
+            onCheckedChange={handleShowInMenuChange}
+          />
+        </label>
+
+        <button
+          type="button"
+          onClick={onSelect}
+          aria-label={`Open ${page.title}`}
+          className="flex cursor-pointer items-center"
         >
-          {status.label}
-        </span>
-        <icon.chevronRight className="size-[16px] shrink-0 text-[#7d7c7d]" />
+          <icon.chevronRight className="size-[16px] shrink-0 text-[#7d7c7d]" />
+        </button>
       </div>
-    </button>
+    </div>
   );
 }

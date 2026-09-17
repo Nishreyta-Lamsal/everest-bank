@@ -1,40 +1,47 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { icon } from '@/components/admin/icons';
+import { Switch } from '@/components/admin/ui/switch';
 
-import { cn } from '@/lib/utils';
 import { formatRelativeTime } from '@/lib/admin/format-relative-time';
+
+import { useUpdatePage } from '@/hooks/api/admin/use-pages';
 
 import { ADMIN_ROUTE } from '@/constants/admin';
 
 import type { Page } from '@/types/admin';
-
-const statusStyles = {
-  published: {
-    label: 'Published',
-    className: 'bg-[#ebfef6] text-[#059669]',
-  },
-  draft: {
-    label: 'Draft',
-    className: 'bg-[#edf2f7] text-[#65738a]',
-  },
-} as const;
 
 type PagesListRowProps = {
   page: Page;
 };
 
 export default function PagesListRow({ page }: PagesListRowProps) {
-  const status = statusStyles[page.is_active === false ? 'draft' : 'published'];
+
+  const [showInMenu, setShowInMenu] = useState(Boolean(page.show_in_menu));
+
+  const updatePage = useUpdatePage(page.slug);
+
   const sectionsLabel = `${page.sections_count} section${page.sections_count === 1 ? '' : 's'}`;
   const updatedLabel = `updated ${formatRelativeTime(page.updated_at)}`;
 
+  function handleShowInMenuChange(next: boolean) {
+    setShowInMenu(next);
+
+    updatePage.mutate(
+      { show_in_menu: next },
+      { onError: () => setShowInMenu(!next) },
+    );
+  }
+
   return (
-    <Link
-      href={`${ADMIN_ROUTE.PAGES}/${page.slug}`}
-      className="flex w-full items-center"
-    >
-      <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
+    <div className="flex w-full items-center">
+      <Link
+        href={`${ADMIN_ROUTE.PAGES}/${page.slug}`}
+        className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4"
+      >
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex shrink-0 items-center rounded-[4px] bg-slate-100 p-3">
             <icon.pageText className="size-6 text-slate-950" />
@@ -48,18 +55,28 @@ export default function PagesListRow({ page }: PagesListRowProps) {
             </p>
           </div>
         </div>
-      </div>
+      </Link>
+
       <div className="flex h-[74px] shrink-0 items-center gap-4 px-4">
-        <span
-          className={cn(
-            'text-paragraph-sm-medium flex items-center justify-center gap-1.5 rounded-full px-3 py-2',
-            status.className,
-          )}
+        <label className="flex cursor-pointer items-center gap-2">
+          <span className="text-paragraph-sm-medium text-neutral-700">
+            Show in menu
+          </span>
+          <Switch
+            checked={showInMenu}
+            disabled={updatePage.isPending}
+            onCheckedChange={handleShowInMenuChange}
+          />
+        </label>
+
+        <Link
+          href={`${ADMIN_ROUTE.PAGES}/${page.slug}`}
+          aria-label={`Open ${page.title}`}
+          className="flex items-center"
         >
-          {status.label}
-        </span>
-        <icon.chevronRight className="size-[16px] shrink-0 text-[#7d7c7d]" />
+          <icon.chevronRight className="size-[16px] shrink-0 text-[#7d7c7d]" />
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }
