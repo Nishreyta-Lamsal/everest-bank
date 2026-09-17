@@ -4,13 +4,23 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { icon } from '@/components/icons';
 
-import type { LoanImpact } from '../_data';
+import { getSectionContent } from '@/lib/get-section-content';
+
+import type { LoanPageSection } from '@/api/services/personal/loan-page.service';
 
 type LoanImpactSectionProps = {
-  data: LoanImpact;
+  sections?: LoanPageSection[];
 };
 
-export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
+export default function LoanImpactSection({
+  sections,
+}: LoanImpactSectionProps) {
+  const content = getSectionContent(sections, 'loan_impact');
+
+  if (!content?.stats.length) return null;
+
+  const { stats, heading, description, apply_href } = content;
+
   return (
     <section className="relative w-full overflow-hidden bg-red-600 py-16 lg:py-30">
       <LayoutWrapper>
@@ -25,16 +35,16 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
 
           <div className="flex w-full flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h0-desktop-md w-full text-white lg:w-[675px]">
-              {data.heading}
+              {heading}
             </h2>
             <p className="text-body-3-mobile lg:text-body-2-desktop text-white-90 w-full lg:w-[410px]">
-              {data.description}
+              {description}
             </p>
           </div>
 
           <div className="flex w-full flex-col items-start gap-10 lg:w-auto lg:flex-row lg:items-end lg:gap-18">
             <Link
-              href={data.applyHref}
+              href={apply_href}
               className="order-2 flex h-[154px] w-full shrink-0 flex-col items-start justify-between rounded-lg rounded-tl-[60px] bg-red-700 p-8 transition-colors duration-200 hover:bg-red-800 lg:order-1 lg:h-auto lg:w-[340px] lg:justify-start lg:gap-10"
             >
               <icon.greenEnergy className="size-[32px] text-white lg:size-[52px]" />
@@ -44,7 +54,7 @@ export default function LoanImpactSection({ data }: LoanImpactSectionProps) {
             </Link>
 
             <div className="order-1 flex w-full flex-col items-start gap-12 lg:order-2 lg:w-auto lg:gap-17">
-              {data.stats.map((stat) => (
+              {stats.map((stat) => (
                 <div
                   key={stat.label}
                   className="flex flex-col items-start gap-4 lg:gap-5.75"

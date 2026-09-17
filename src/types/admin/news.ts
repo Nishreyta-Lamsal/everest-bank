@@ -1,12 +1,5 @@
 export type NewsStatus = 'draft' | 'published';
 
-export type NewsTypeBrief = {
-  id: number;
-  slug: string;
-  label: string;
-  label_ne: string;
-};
-
 export type NewsMediaBrief = {
   id: number;
   title?: string;
@@ -18,7 +11,6 @@ export type NewsMediaBrief = {
 export type NewsRead = {
   id: number;
   slug: string;
-  news_type: NewsTypeBrief | null;
   title: string;
   title_ne: string;
   content: unknown;
@@ -36,20 +28,7 @@ export type NewsRead = {
   updated_at: string;
 };
 
-export type NewsCategoryCountType = {
-  slug: string;
-  label: string;
-  position: number;
-  count: number;
-};
-
-export type NewsCategoryCounts = {
-  all: number;
-  types: NewsCategoryCountType[];
-};
-
 export type NewsListData = {
-  category_counts: NewsCategoryCounts;
   count: number;
   next: string | null;
   previous: string | null;

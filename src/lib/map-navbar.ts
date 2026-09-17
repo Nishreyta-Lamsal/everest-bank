@@ -1,13 +1,9 @@
-import type {
-  MenuSummary,
-  MenuTreeData,
-  MenuTreeItem,
-} from '@/api/services/menu.service';
+import type { HierarchyNode } from '@/api/services/hierarchy.service';
 import type { MainNavItem, MegaMenuColumn, MegaMenuLink } from '@/types';
 
-/** The list endpoint doesn't return an icon for top-level tabs; the tree's
- * own item icons are a different concern (per-column, not per-tab), so tabs
- * fall back to a small fixed lookup by slug. */
+/** The hierarchy endpoint doesn't return an icon for top-level tabs; the
+ * tree's own node icons are a different concern (per-column, not per-tab),
+ * so tabs fall back to a small fixed lookup by slug. */
 const TAB_ICON_BY_SLUG: Record<string, string> = {
   personal: 'people',
   business: 'briefcase',
@@ -30,35 +26,40 @@ function normalizeHref(href: string): string {
   return href;
 }
 
-function toMegaMenuLink(item: MenuTreeItem): MegaMenuLink {
-  return { label: item.label, href: normalizeHref(item.custom_url) };
+function visibleChildren(items: HierarchyNode[]): HierarchyNode[] {
+  return items.filter((item) => item.show_in_menu);
 }
 
-function toMegaMenuColumn(item: MenuTreeItem): MegaMenuColumn {
+function toMegaMenuLink(item: HierarchyNode): MegaMenuLink {
+  return { label: item.title, href: normalizeHref(item.path) };
+}
+
+function toMegaMenuColumn(item: HierarchyNode): MegaMenuColumn {
   return {
-    label: item.label,
+    label: item.title,
     icon: item.icon,
-    links: item.children.map(toMegaMenuLink),
-    explore: item.explore
-      ? { label: item.explore.label, href: normalizeHref(item.explore.href) }
+    links: visibleChildren(item.children).map(toMegaMenuLink),
+    explore: item.explore_label
+      ? { label: item.explore_label, href: normalizeHref(item.explore_href) }
       : undefined,
   };
 }
 
-export function toMainNavItem(
-  menu: MenuSummary,
-  tree: MenuTreeData,
-): MainNavItem {
+export function toMainNavItem(page: HierarchyNode): MainNavItem {
   return {
-    label: menu.label,
-    href: normalizeHref(menu.custom_url),
-    icon: TAB_ICON_BY_SLUG[menu.slug] ?? 'bank',
+    label: page.title,
+    href: normalizeHref(page.path),
+    icon: TAB_ICON_BY_SLUG[page.slug] ?? 'bank',
     megaMenu: {
-      columns: tree.items.map(toMegaMenuColumn),
+      columns: visibleChildren(page.children).map(toMegaMenuColumn),
       cta: {
-        label: tree.promo.label || `Explore ${tree.menu_label}`,
-        href: normalizeHref(tree.promo.href),
+        label: page.promo_label || `Explore ${page.title}`,
+        href: normalizeHref(page.promo_href),
       },
     },
   };
+}
+
+export function toMainNavItems(pages: HierarchyNode[]): MainNavItem[] {
+  return visibleChildren(pages).map(toMainNavItem);
 }

@@ -5,18 +5,26 @@ import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import { icon } from '@/components/icons';
 import Button from '@/components/ui/buttons/Button';
 
-import type { LoanHero } from '../_data';
+import { getSectionContent } from '@/lib/get-section-content';
+
+import type { LoanPageSection } from '@/api/services/personal/loan-page.service';
 
 type LoanHeroSectionProps = {
-  data: LoanHero;
+  sections?: LoanPageSection[];
 };
 
-export default function LoanHeroSection({ data }: LoanHeroSectionProps) {
+export default function LoanHeroSection({ sections }: LoanHeroSectionProps) {
+  const content = getSectionContent(sections, 'loan_hero');
+
+  if (!content) return null;
+
+  const { title, description, image, primary_cta, secondary_cta } = content;
+
   return (
     <section className="relative h-[312px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[528px] lg:bg-[#fff5ed]">
       <Image
-        src={data.image}
-        alt={data.imageAlt}
+        src={image.src}
+        alt={image.alt}
         fill
         priority
         className="object-cover"
@@ -27,41 +35,41 @@ export default function LoanHeroSection({ data }: LoanHeroSectionProps) {
         <LayoutWrapper>
           <div className="flex max-w-[260px] flex-col items-start gap-4 lg:max-w-[713px] lg:gap-8">
             <h1 className="font-heading text-display-1-mobile-md lg:text-display-1-desktop-md text-white">
-              {data.title}
+              {title}
             </h1>
             <div className="flex flex-col items-start gap-4">
               <p className="lg:text-body-2-desktop hidden text-white/90 lg:block lg:w-[646px]">
-                {data.description}
+                {description}
               </p>
               <div className="flex items-start gap-2 lg:hidden">
-                <Link href={data.primaryCta.href}>
+                <Link href={primary_cta.href}>
                   <Button
                     variant="primary"
                     size="sm"
                     rightIcon={<icon.arrowUpRight className="size-3.5" />}
                   >
-                    {data.primaryCta.label}
+                    {primary_cta.label}
                   </Button>
                 </Link>
-                <Link href={data.secondaryCta.href}>
+                <Link href={secondary_cta.href}>
                   <Button variant="tertiary-white" size="sm">
-                    {data.secondaryCta.label}
+                    {secondary_cta.label}
                   </Button>
                 </Link>
               </div>
               <div className="hidden items-start gap-4 lg:flex">
-                <Link href={data.primaryCta.href}>
+                <Link href={primary_cta.href}>
                   <Button
                     variant="primary"
                     size="lg"
                     rightIcon={<icon.arrowUpRight />}
                   >
-                    {data.primaryCta.label}
+                    {primary_cta.label}
                   </Button>
                 </Link>
-                <Link href={data.secondaryCta.href}>
+                <Link href={secondary_cta.href}>
                   <Button variant="tertiary-white" size="lg">
-                    {data.secondaryCta.label}
+                    {secondary_cta.label}
                   </Button>
                 </Link>
               </div>

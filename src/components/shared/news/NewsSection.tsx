@@ -7,9 +7,9 @@ import NewsList from './NewsList';
 import { newsService } from '@/api/services/news.service';
 
 import { getQueryClient } from '@/lib/get-query-client';
+import { stripHtml } from '@/lib/utils';
 
 import { ROUTE } from '@/constants';
-import { newsCards } from '@/data';
 
 import type { News } from '@/api/services/news.service';
 
@@ -27,22 +27,22 @@ export default async function NewsSection() {
       queryKey: newsQueryKey,
       queryFn: () =>
         newsService.getNewsList({
-          is_pinned: true,
           page_size: NEWS_CARD_COUNT,
         }),
     });
+
     results = data.results;
   } catch {
     results = [];
   }
 
-  const items = results.length
-    ? results.map((news) => ({
-        headline: news.title,
-        description: news.content.description ?? '',
-        href: '#',
-      }))
-    : newsCards;
+  console.log(results);
+
+  const items = results.map((news) => ({
+    headline: news.title,
+    description: stripHtml(news.content.description ?? ''),
+    href: '#',
+  }));
 
   return (
     <section className="w-full py-16 lg:py-30">
@@ -52,7 +52,7 @@ export default async function NewsSection() {
             Stay updated With Everest Bank
           </h2>
           <Link
-            href={ROUTE.NOTICE}
+            href={ROUTE.NEWS}
             className="order-3 block w-full lg:order-0 lg:inline-block lg:w-auto"
           >
             <Button variant="secondary" size="md" className="w-full lg:w-auto">
