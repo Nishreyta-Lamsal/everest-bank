@@ -48,8 +48,13 @@ export default function NoticesAndNewsList({
 
   return (
     <div className="flex w-full flex-col divide-y divide-black/3">
-      {items.map((entry) => (
-        <NoticesAndNewsListRow key={entry.id} entry={entry} kind={kind} />
+      {items.map((entry, index) => (
+        <NoticesAndNewsListRow
+          key={entry.id}
+          entry={entry}
+          kind={kind}
+          openMenuUpward={index === items.length - 1 && items.length > 1}
+        />
       ))}
     </div>
   );
