@@ -18,6 +18,11 @@ export const contentNavItems: SidebarNavItemData[] = [
     label: 'Notices and News',
     icon: icon.newspaper,
   },
+  {
+    href: ADMIN_ROUTE.FOREX_RATES,
+    label: 'Forex Rates',
+    icon: icon.percent,
+  },
   { href: ADMIN_ROUTE.FORMS, label: 'Forms', icon: icon.fileText },
   { href: ADMIN_ROUTE.ASSETS, label: 'Assets', icon: icon.images },
 ];

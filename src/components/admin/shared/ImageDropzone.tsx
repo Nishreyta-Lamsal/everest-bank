@@ -18,6 +18,7 @@ type ImageDropzoneProps = {
     src: string;
     alt?: string;
   };
+  previewSize?: 'small' | 'large';
 };
 
 export default function ImageDropzone({
@@ -26,6 +27,7 @@ export default function ImageDropzone({
   isUploading,
   error,
   preview,
+  previewSize = 'large',
 }: ImageDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -44,7 +46,7 @@ export default function ImageDropzone({
         <ImagePreview
           src={preview.src}
           alt={preview.alt}
-          size="large"
+          size={previewSize}
           onReplace={onFileSelected}
           onRemove={onRemove}
           isUploading={isUploading}
