@@ -9,4 +9,5 @@ export const ADMIN_ROUTE = {
   MENU_ITEMS: '/admin/menu-items',
   FORMS: '/admin/forms',
   ASSETS: '/admin/assets',
+  FOOTER: '/admin/footer',
 };

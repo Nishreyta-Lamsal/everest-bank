@@ -6,3 +6,4 @@ export * from './page';
 export * from './media';
 export * from './form';
 export * from './forex';
+export * from './footer';
