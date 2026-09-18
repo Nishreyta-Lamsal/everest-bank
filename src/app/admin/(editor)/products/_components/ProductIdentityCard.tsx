@@ -12,6 +12,7 @@ import FieldLabel from '@/components/admin/shared/FieldLabel';
 import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
 import { Select } from '@/components/admin/ui/select';
+import { usePageEditor } from '@/store/PageEditorContext';
 
 import { cn } from '@/lib/utils';
 
@@ -43,6 +44,7 @@ function readApiError(error: unknown) {
 
 export default function ProductIdentityCard() {
   const replicatePage = useReplicatePage();
+  const { setPreviewSlug } = usePageEditor();
 
   // The replicated page is edited in place rather than on a separate route, so
   // its sections are kept here and rendered below the details.
@@ -97,7 +99,14 @@ export default function ProductIdentityCard() {
           title: values.name,
         },
       },
-      { onSuccess: setReplicated },
+      {
+        onSuccess: (result) => {
+          setReplicated(result);
+          // The layout renders the preview, so it learns the new slug here
+          // rather than from the route, which stays on `new`.
+          setPreviewSlug(result.slug);
+        },
+      },
     );
   });
 

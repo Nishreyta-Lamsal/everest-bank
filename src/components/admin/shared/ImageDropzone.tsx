@@ -27,7 +27,7 @@ export default function ImageDropzone({
   isUploading,
   error,
   preview,
-  previewSize = 'large',
+  previewSize = 'small',
 }: ImageDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -40,24 +40,19 @@ export default function ImageDropzone({
     }
   }
 
-  if (preview) {
-    return (
-      <div className="flex w-full flex-col gap-1">
+  return (
+    <div className="flex w-full flex-col gap-2">
+      {/* The dropzone stays available below, so the thumbnail only needs to
+          show the current image and offer removal. */}
+      {preview && (
         <ImagePreview
           src={preview.src}
           alt={preview.alt}
           size={previewSize}
-          onReplace={onFileSelected}
           onRemove={onRemove}
           isUploading={isUploading}
         />
-        {error && <p className="text-[12px] text-red-600">{error}</p>}
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex w-full flex-col gap-1">
+      )}
       <button
         type="button"
         disabled={isUploading}

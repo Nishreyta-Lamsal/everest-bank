@@ -50,6 +50,7 @@ export default function LoanProcessEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, the application steps and the apply link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

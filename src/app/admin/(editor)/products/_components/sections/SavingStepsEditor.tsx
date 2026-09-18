@@ -49,6 +49,7 @@ export default function SavingStepsEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="The steps to open an account and the section link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

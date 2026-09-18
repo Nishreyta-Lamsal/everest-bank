@@ -36,6 +36,7 @@ export default function SavingHeroEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading and the hero button"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

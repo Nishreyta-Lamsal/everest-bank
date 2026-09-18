@@ -53,6 +53,7 @@ export default function LoanFinancingEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, the financing cards and the section link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

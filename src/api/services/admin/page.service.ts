@@ -65,6 +65,10 @@ export const pageService = {
     return response.data.data;
   },
 
+  destroy: async (slug: string): Promise<void> => {
+    await axiosClient.delete(`pages/${slug}/`);
+  },
+
   reorder: async (items: ReorderPagesItem[]): Promise<Page[]> =>
     Promise.all(
       items.map((item) =>

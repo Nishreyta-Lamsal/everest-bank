@@ -2,15 +2,22 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
+import PreviewFrame from '@/components/admin/shared/PreviewFrame';
 import { icon } from '@/components/admin/icons';
 
 const FRAME_WIDTH = 1400;
 
 type LivePreviewProps = {
+  hasPreview?: boolean;
   children: ReactNode;
 };
 
-export default function LivePreview({ children }: LivePreviewProps) {
+export default function LivePreview({
+  hasPreview,
+  children,
+}: LivePreviewProps) {
+  const showPreview = hasPreview ?? Boolean(children);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -54,18 +61,22 @@ export default function LivePreview({ children }: LivePreviewProps) {
         ref={containerRef}
         className="min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto rounded-[12px] border border-slate-200 bg-white"
       >
-        {children ? (
+        {showPreview ? (
           <div style={{ height: scale ? contentHeight * scale : 0 }}>
             <div
               ref={contentRef}
-              inert
-              className="pointer-events-none origin-top-left select-none"
+              className="origin-top-left"
               style={{
                 width: `${FRAME_WIDTH}px`,
                 transform: `scale(${scale})`,
               }}
             >
-              {children}
+              <PreviewFrame
+                width={FRAME_WIDTH}
+                bodyClassName="flex min-h-full flex-col"
+              >
+                {children}
+              </PreviewFrame>
             </div>
           </div>
         ) : (

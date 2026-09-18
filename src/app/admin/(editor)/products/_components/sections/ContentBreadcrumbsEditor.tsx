@@ -39,6 +39,7 @@ export default function ContentBreadcrumbsEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="The trail of links shown above the page content"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

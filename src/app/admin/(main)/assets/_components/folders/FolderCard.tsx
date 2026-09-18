@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import ActionMenu from '../ActionMenu';
+import ActionMenu from '@/components/admin/shared/ActionMenu';
 import { useFolderDroppable } from '../dnd/media-dnd';
 import { ConfirmDialog } from '@/components/admin/ui/confirm-dialog';
 import { Button } from '@/components/admin/ui/button';

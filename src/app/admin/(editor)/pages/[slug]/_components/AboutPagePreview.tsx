@@ -10,9 +10,11 @@ import AboutHistorySection from '@/app/about/_components/AboutHistorySection';
 import TrustSection from '@/components/shared/TrustSection';
 import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
+import PreviewSectionHighlight from '@/components/admin/shared/PreviewSectionHighlight';
 import { usePageEditor } from '@/store/PageEditorContext';
 
 import { usePage } from '@/hooks/api/admin/use-pages';
+import { useActiveSectionType } from '@/hooks/admin/use-active-section-type';
 import { toPreviewSections } from '@/lib/admin/preview-sections';
 
 import type { AboutPageSection } from '@/api/services/about/about-page.service';
@@ -27,6 +29,8 @@ export default function AboutPagePreview({ slug }: AboutPagePreviewProps) {
   const { drafts, draftVisibility } = usePageEditor();
   const { data: page } = usePage(slug);
 
+  const activeSectionType = useActiveSectionType(slug);
+
   const sections = toPreviewSections(
     page?.sections,
     drafts,
@@ -36,13 +40,43 @@ export default function AboutPagePreview({ slug }: AboutPagePreviewProps) {
   return (
     <main className="relative">
       <Breadcrumbs items={breadcrumbItems} />
-      <AboutHeroSection sections={sections} />
-      <AboutOverviewSection sections={sections} />
+      <PreviewSectionHighlight
+        sectionType="about_hero"
+        activeSectionType={activeSectionType}
+      >
+        <AboutHeroSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="about_overview"
+        activeSectionType={activeSectionType}
+      >
+        <AboutOverviewSection sections={sections} />
+      </PreviewSectionHighlight>
       <MountainDivider />
-      <AboutLinksSection sections={sections} />
-      <AboutLeadershipSection sections={sections} />
-      <AboutHistorySection sections={sections} />
-      <TrustSection sections={sections} />
+      <PreviewSectionHighlight
+        sectionType="about_links"
+        activeSectionType={activeSectionType}
+      >
+        <AboutLinksSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="about_leadership"
+        activeSectionType={activeSectionType}
+      >
+        <AboutLeadershipSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="about_history"
+        activeSectionType={activeSectionType}
+      >
+        <AboutHistorySection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="trust"
+        activeSectionType={activeSectionType}
+      >
+        <TrustSection sections={sections} />
+      </PreviewSectionHighlight>
       <PreviewNewsSection />
       <ContactSection />
     </main>

@@ -35,6 +35,7 @@ export default function LoanStatsEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="The headline figures shown across this section"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

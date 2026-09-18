@@ -1,10 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { icon } from '@/components/admin/icons';
 
 import { cn } from '@/lib/utils';
+
+const MENU_WIDTH = 168;
+const VIEWPORT_MARGIN = 8;
 
 export type ActionMenuItem = {
   label: string;
@@ -25,14 +29,56 @@ export default function ActionMenu({
   className,
 }: ActionMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(
+    function () {
+      if (!isOpen) return;
+
+      function place() {
+        const trigger = triggerRef.current;
+
+        if (!trigger) return;
+
+        const rect = trigger.getBoundingClientRect();
+        const left = Math.min(
+          rect.right - MENU_WIDTH,
+          window.innerWidth - MENU_WIDTH - VIEWPORT_MARGIN,
+        );
+
+        setPosition({
+          top: rect.bottom + 4,
+          left: Math.max(VIEWPORT_MARGIN, left),
+        });
+      }
+
+      place();
+
+      window.addEventListener('resize', place);
+      // A scroll anywhere can move the trigger, so the menu follows it.
+      window.addEventListener('scroll', place, true);
+
+      return function () {
+        window.removeEventListener('resize', place);
+        window.removeEventListener('scroll', place, true);
+      };
+    },
+    [isOpen],
+  );
 
   useEffect(
     function () {
       if (!isOpen) return;
 
       function handlePointerDown(event: MouseEvent) {
-        if (!menuRef.current?.contains(event.target as Node)) {
+        const target = event.target as Node;
+
+        if (
+          !menuRef.current?.contains(target) &&
+          !triggerRef.current?.contains(target)
+        ) {
           setIsOpen(false);
         }
       }
@@ -53,8 +99,9 @@ export default function ActionMenu({
   );
 
   return (
-    <div ref={menuRef} className={cn('relative', className)}>
+    <div className={cn('relative', className)}>
       <button
+        ref={triggerRef}
         type="button"
         onClick={(event) => {
           event.stopPropagation();
@@ -68,43 +115,51 @@ export default function ActionMenu({
         <icon.moreDots className="size-4" />
       </button>
 
-      {isOpen && (
-        <div
-          role="menu"
-          className="absolute top-full right-0 z-20 mt-1 flex min-w-[168px] flex-col rounded-[8px] border border-black/5 bg-white py-1 shadow-lg"
-        >
-          {items.map((item) => {
-            const ItemIcon = icon[item.iconKey];
+      {isOpen &&
+        createPortal(
+          <div
+            ref={menuRef}
+            role="menu"
+            style={{
+              top: `${position.top}px`,
+              left: `${position.left}px`,
+              width: `${MENU_WIDTH}px`,
+            }}
+            className="fixed z-100 flex flex-col rounded-[8px] border border-black/5 bg-white py-1 shadow-lg"
+          >
+            {items.map((item) => {
+              const ItemIcon = icon[item.iconKey];
 
-            return (
-              <button
-                key={item.label}
-                type="button"
-                role="menuitem"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setIsOpen(false);
-                  item.onSelect();
-                }}
-                className={cn(
-                  'flex cursor-pointer items-center gap-2 px-3 py-2 text-left text-[14px] transition-colors',
-                  item.isDestructive
-                    ? 'text-red-600 hover:bg-red-50'
-                    : 'text-neutral-900 hover:bg-slate-50',
-                )}
-              >
-                <ItemIcon
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  role="menuitem"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setIsOpen(false);
+                    item.onSelect();
+                  }}
                   className={cn(
-                    'size-4 shrink-0',
-                    !item.isDestructive && 'text-slate-600',
+                    'flex cursor-pointer items-center gap-2 px-3 py-2 text-left text-[14px] transition-colors',
+                    item.isDestructive
+                      ? 'text-red-600 hover:bg-red-50'
+                      : 'text-neutral-900 hover:bg-slate-50',
                   )}
-                />
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
-      )}
+                >
+                  <ItemIcon
+                    className={cn(
+                      'size-4 shrink-0',
+                      !item.isDestructive && 'text-slate-600',
+                    )}
+                  />
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

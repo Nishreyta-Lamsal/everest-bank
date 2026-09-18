@@ -38,6 +38,7 @@ export default function LoanFaqsEditor({ slug, section }: LoanFaqsEditorProps) {
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Section heading and the question and answer pairs"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

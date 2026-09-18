@@ -10,9 +10,11 @@ import CsrSection from '@/app/(personal-page)/_components/CsrSection';
 import TrustSection from '@/components/shared/TrustSection';
 import PreviewNewsSection from './PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
+import PreviewSectionHighlight from '@/components/admin/shared/PreviewSectionHighlight';
 import { usePageEditor } from '@/store/PageEditorContext';
 
 import { usePage } from '@/hooks/api/admin/use-pages';
+import { useActiveSectionType } from '@/hooks/admin/use-active-section-type';
 import { toPreviewSections } from '@/lib/admin/preview-sections';
 
 import type { PersonalPageSection } from '@/api/services/personal/personal-page.service';
@@ -32,6 +34,8 @@ export default function PersonalPagePreview({
   const { drafts, draftVisibility } = usePageEditor();
   const { data: page } = usePage(slug);
 
+  const activeSectionType = useActiveSectionType(slug);
+
   const sections = toPreviewSections(
     page?.sections,
     drafts,
@@ -40,14 +44,49 @@ export default function PersonalPagePreview({
 
   return (
     <main>
-      <HeroSection sections={sections} />
-      <ProductsSection sections={sections} />
+      <PreviewSectionHighlight
+        sectionType="hero"
+        activeSectionType={activeSectionType}
+      >
+        <HeroSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="products"
+        activeSectionType={activeSectionType}
+      >
+        <ProductsSection sections={sections} />
+      </PreviewSectionHighlight>
       <MountainDivider />
-      <LoansSection sections={sections} />
-      <CardsSection sections={sections} />
-      <AppPromoSection sections={sections} />
-      <CsrSection sections={sections} />
-      <TrustSection sections={sections} />
+      <PreviewSectionHighlight
+        sectionType="loans_preview"
+        activeSectionType={activeSectionType}
+      >
+        <LoansSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="cards_preview"
+        activeSectionType={activeSectionType}
+      >
+        <CardsSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="app_promo"
+        activeSectionType={activeSectionType}
+      >
+        <AppPromoSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="csr"
+        activeSectionType={activeSectionType}
+      >
+        <CsrSection sections={sections} />
+      </PreviewSectionHighlight>
+      <PreviewSectionHighlight
+        sectionType="trust"
+        activeSectionType={activeSectionType}
+      >
+        <TrustSection sections={sections} />
+      </PreviewSectionHighlight>
       <PreviewNewsSection />
       <ContactSection />
     </main>

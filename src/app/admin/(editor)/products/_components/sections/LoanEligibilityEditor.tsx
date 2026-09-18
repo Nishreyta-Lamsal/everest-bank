@@ -55,6 +55,7 @@ export default function LoanEligibilityEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, who can apply and the requirements link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
