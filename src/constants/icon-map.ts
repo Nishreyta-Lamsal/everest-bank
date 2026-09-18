@@ -24,4 +24,8 @@ export const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   'security-shield': icon.securityShield,
   signal: icon.signal,
   headset: icon.headset,
+  network: icon.network,
+  savings: icon.savings,
+  eye: icon.eye,
+  target: icon.targetArrow,
 };

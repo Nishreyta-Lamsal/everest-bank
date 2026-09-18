@@ -1,46 +1,53 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import FilterButton from '@/components/ui/buttons/FilterButton';
 import GlobalSearchInput from '@/components/ui/inputs/GlobalSearchInput';
 import AccountFinderList from './AccountFinderList';
 
-import {
-  accountFinderCards,
-  accountFinderCategories,
-} from '../../_data/account-finder';
+import { getSectionContent } from '@/lib/get-section-content';
 
-import type { AccountFinderCard, AccountFinderCategory } from '../../_types';
+import { accountFinderCategories } from '../../_data/account-finder';
+
+import type { DepositDetailsPageSection } from '@/api/services/personal/deposit-accounts/deposit-details-page.service';
+import type { AccountFinderCategory } from '../../_types';
 
 type AccountFinderSectionProps = {
-  heading?: string;
-  categories?: AccountFinderCategory[];
-  cards?: AccountFinderCard[];
+  sections?: DepositDetailsPageSection[];
 };
 
 export default function AccountFinderSection({
-  heading = 'Find Your Perfect Savings Account',
-  categories = accountFinderCategories,
-  cards = accountFinderCards,
-}: AccountFinderSectionProps = {}) {
+  sections,
+}: AccountFinderSectionProps) {
+  const content = getSectionContent(sections, 'saving_account_finder');
+
+  const apiCategories: AccountFinderCategory[] =
+    content?.categories?.map((category) => ({
+      label: category.label,
+      accounts: category.accounts.map((account) => ({
+        title: account.title,
+        href: account.href,
+        image: account.image?.src ?? null,
+        imageAlt: account.image?.alt ?? '',
+      })),
+    })) ?? [];
+
+  const categories = apiCategories.length
+    ? apiCategories
+    : accountFinderCategories;
+  const heading = content?.heading || 'Find Your Perfect Savings Account';
+
   const [search, setSearch] = useState('');
-  const [activeCategory, setActiveCategory] = useState(
-    categories[0]?.slug ?? '',
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const activeCategory = categories[activeIndex] ?? categories[0];
+
+  const query = search.trim().toLowerCase();
+  const filteredAccounts = (activeCategory?.accounts ?? []).filter(
+    (account) => query === '' || account.title.toLowerCase().includes(query),
   );
-
-  const filteredCards = useMemo(() => {
-    const query = search.trim().toLowerCase();
-
-    return cards.filter((card) => {
-      const matchesCategory = card.categories.includes(activeCategory);
-      const matchesSearch =
-        query === '' || card.title.toLowerCase().includes(query);
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [search, activeCategory, cards]);
 
   return (
     <section className="w-full bg-white py-15 lg:py-22">
@@ -64,16 +71,16 @@ export default function AccountFinderSection({
             aria-label="Filter savings accounts by audience"
             className="scrollbar-hidden flex w-full items-start gap-4 overflow-x-auto"
           >
-            {categories.map((category) => {
-              const isActive = category.slug === activeCategory;
+            {categories.map((category, index) => {
+              const isActive = index === activeIndex;
 
               return (
                 <FilterButton
-                  key={category.slug}
+                  key={category.label}
                   variant="filled"
                   active={isActive}
                   aria-pressed={isActive}
-                  onClick={() => setActiveCategory(category.slug)}
+                  onClick={() => setActiveIndex(index)}
                 >
                   {category.label}
                 </FilterButton>
@@ -81,7 +88,7 @@ export default function AccountFinderSection({
             })}
           </div>
 
-          <AccountFinderList cards={filteredCards} />
+          <AccountFinderList accounts={filteredAccounts} />
         </div>
       </LayoutWrapper>
     </section>

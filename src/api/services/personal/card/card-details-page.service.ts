@@ -105,23 +105,25 @@ type CardProductHeroSection = SectionOf<
 type CardsTrustBarSection = SectionOf<'cards_trust_bar', CardsTrustBarContent>;
 type CardOverviewSection = SectionOf<'card_overview', CardOverviewContent>;
 
-export type CardPageSection =
+export type CardDetailsPageSection =
   | ContentBreadcrumbsSection
   | CardProductHeroSection
   | CardsTrustBarSection
   | CardOverviewSection;
 
-type CardPageData = Omit<PageData, 'sections'> & {
-  sections: CardPageSection[];
+type CardDetailsPageData = Omit<PageData, 'sections'> & {
+  sections: CardDetailsPageSection[];
 };
 
-export type CardPageResponse = Omit<PageResponse, 'data'> & {
-  data: CardPageData;
+export type CardDetailsPageResponse = Omit<PageResponse, 'data'> & {
+  data: CardDetailsPageData;
 };
 
-export const cardPageService = {
-  getCardPage: async (routeSlug: string): Promise<CardPageResponse> => {
-    const response = await axiosClient.get<CardPageResponse>(
+export const cardDetailsPageService = {
+  getCardDetailsPage: async (
+    routeSlug: string,
+  ): Promise<CardDetailsPageResponse> => {
+    const response = await axiosClient.get<CardDetailsPageResponse>(
       `/public/pages/personal-${routeSlug}/`,
     );
 

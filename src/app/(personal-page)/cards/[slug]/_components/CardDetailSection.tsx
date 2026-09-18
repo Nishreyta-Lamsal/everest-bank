@@ -15,10 +15,10 @@ import { getSectionContent } from '@/lib/get-section-content';
 import { socialLinks } from '@/data';
 import { relatedPages } from '../_data';
 
-import type { CardPageSection } from '@/api/services/personal/card-page.service';
+import type { CardDetailsPageSection } from '@/api/services/personal/card/card-details-page.service';
 
 type CardDetailSectionProps = {
-  sections?: CardPageSection[];
+  sections?: CardDetailsPageSection[];
 };
 
 export default function CardDetailSection({

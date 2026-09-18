@@ -1,3 +1,5 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import CardsHeroSection from './_components/CardsHeroSection';
 import CardsTrustBarSection from './_components/CardsTrustBarSection';
@@ -7,27 +9,57 @@ import CardsCreditSection from './_components/CardsCreditSection';
 import CardsDebitSection from './_components/CardsDebitSection';
 import CardsTravelSection from './_components/CardsTravelSection';
 import CardsProcessSection from './_components/process/CardsProcessSection';
-import FaqSection from '@/components/shared/faqs/FaqSection';
+import CardsFaqsSection from './_components/CardsFaqsSection';
 import ExploreServicesSection from '@/components/shared/ExploreServicesSection';
 
-import { cardFaqs } from './_data';
+import { cardPageService } from '@/api/services/personal/card/card-page.service';
 
-const breadcrumbItems = [{ label: 'Cards' }];
+import { getQueryClient } from '@/lib/get-query-client';
+import { getSectionContent } from '@/lib/get-section-content';
 
-export default function CardsPage() {
+import type { CardPageSection } from '@/api/services/personal/card/card-page.service';
+
+export const cardPageQueryKey = ['card-page'] as const;
+
+const fallbackBreadcrumbItems = [{ label: 'Cards' }];
+
+export default async function CardsPage() {
+  const queryClient = getQueryClient();
+
+  let sections: CardPageSection[] | undefined;
+
+  try {
+    const { data } = await queryClient.fetchQuery({
+      queryKey: cardPageQueryKey,
+      queryFn: cardPageService.getCardPage,
+    });
+    sections = data.sections;
+  } catch {
+    sections = undefined;
+  }
+
+  const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
+  const apiBreadcrumbItems =
+    breadcrumbsContent?.items?.filter((item) => Boolean(item?.label)) ?? [];
+  const breadcrumbItems = apiBreadcrumbItems.length
+    ? apiBreadcrumbItems
+    : fallbackBreadcrumbItems;
+
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <CardsHeroSection />
-      <CardsTrustBarSection />
-      <CardsNetworkSection />
-      <MountainDivider />
-      <CardsCreditSection />
-      <CardsDebitSection />
-      <CardsTravelSection />
-      <CardsProcessSection />
-      <FaqSection heading="Quick FAQs for Everest cards" items={cardFaqs} />
-      <ExploreServicesSection />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        <CardsHeroSection sections={sections} />
+        <CardsTrustBarSection sections={sections} />
+        <CardsNetworkSection sections={sections} />
+        <MountainDivider />
+        <CardsCreditSection sections={sections} />
+        <CardsDebitSection sections={sections} />
+        <CardsTravelSection sections={sections} />
+        <CardsProcessSection sections={sections} />
+        <CardsFaqsSection sections={sections} />
+        <ExploreServicesSection />
+      </main>
+    </HydrationBoundary>
   );
 }

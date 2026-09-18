@@ -2,7 +2,6 @@ import PersonalPage from '@/app/(personal-page)/page';
 import CardsPage from '@/app/(personal-page)/cards/page';
 import LoanServicesPage from '@/app/(personal-page)/loans/page';
 import DepositAccountsPage from '@/app/(personal-page)/deposit-accounts/page';
-import SavingAccountPage from '@/app/(personal-page)/deposit-accounts/saving-account/page';
 import AtmPage from '@/app/(personal-page)/atm/page';
 import BranchesPage from '@/app/(personal-page)/branches/page';
 import ForexRatesPage from '@/app/(personal-page)/forex-rates/page';
@@ -28,7 +27,6 @@ export const PAGE_PREVIEW_COMPONENTS: Record<string, ComponentType> = {
   cards: CardsPage,
   loans: LoanServicesPage,
   'deposit-accounts': DepositAccountsPage,
-  'saving-account': SavingAccountPage,
   atm: AtmPage,
   branches: BranchesPage,
   'forex-rates': ForexRatesPage,

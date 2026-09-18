@@ -1,34 +1,63 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
-import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
-import ContentStatsSection from '@/components/shared/content/ContentStatsSection';
+import CorporateMissionAndVisionHeroSection from './_components/CorporateMissionAndVisionHeroSection';
+import CorporateMissionAndVisionStatsSection from './_components/CorporateMissionAndVisionStatsSection';
 import CorporateMissionAndVisionContentSection from './_components/CorporateMissionAndVisionContentSection';
 import NewsSection from '@/components/shared/news/NewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 
-import { corporateMissionAndVisionStats } from './_data/stats';
+import { aboutCorporateMissionAndVisionPageService } from '@/api/services/about/about-corporate-mission-and-vision-page.service';
+
+import { getQueryClient } from '@/lib/get-query-client';
+import { getSectionContent } from '@/lib/get-section-content';
 
 import { ROUTE } from '@/constants';
 
-const breadcrumbItems = [
+import type { AboutCorporateMissionAndVisionPageSection } from '@/api/services/about/about-corporate-mission-and-vision-page.service';
+
+export const aboutCorporateMissionAndVisionPageQueryKey = [
+  'about-corporate-mission-and-vision-page',
+] as const;
+
+const fallbackBreadcrumbItems = [
   { label: 'About', href: ROUTE.ABOUT },
   { label: 'Corporate Mission & Vision' },
 ];
 
-export default function CorporateMissionAndVisionPage() {
+export default async function CorporateMissionAndVisionPage() {
+  const queryClient = getQueryClient();
+
+  let sections: AboutCorporateMissionAndVisionPageSection[] | undefined;
+
+  try {
+    const { data } = await queryClient.fetchQuery({
+      queryKey: aboutCorporateMissionAndVisionPageQueryKey,
+      queryFn:
+        aboutCorporateMissionAndVisionPageService.getAboutCorporateMissionAndVisionPageData,
+    });
+    sections = data.sections;
+  } catch {
+    sections = undefined;
+  }
+
+  const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
+  const apiBreadcrumbItems =
+    breadcrumbsContent?.items?.filter((item) => Boolean(item?.label)) ?? [];
+  const breadcrumbItems = apiBreadcrumbItems.length
+    ? apiBreadcrumbItems
+    : fallbackBreadcrumbItems;
+
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <ContentHeroSection
-        image="/images/about/profile/hero-bg.png"
-        imageAlt="Signage on the exterior of an Everest Bank branch"
-        heading="Corporate Mission & Vision"
-        buttonLabel="Contact Near Branch"
-        buttonHref={ROUTE.BRANCHES}
-      />
-      <ContentStatsSection stats={corporateMissionAndVisionStats} />
-      <CorporateMissionAndVisionContentSection />
-      <NewsSection />
-      <ContactSection />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        <CorporateMissionAndVisionHeroSection sections={sections} />
+        <CorporateMissionAndVisionStatsSection sections={sections} />
+        <CorporateMissionAndVisionContentSection sections={sections} />
+        <NewsSection />
+        <ContactSection />
+      </main>
+    </HydrationBoundary>
   );
 }

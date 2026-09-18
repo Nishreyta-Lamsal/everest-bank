@@ -11,7 +11,7 @@ import { usePage } from '@/hooks/api/admin/use-pages';
 import { toPreviewSections } from '@/lib/admin/preview-sections';
 import { getSectionContent } from '@/lib/get-section-content';
 
-import type { CardPageSection } from '@/api/services/personal/card-page.service';
+import type { CardDetailsPageSection } from '@/api/services/personal/card/card-details-page.service';
 
 type CardPagePreviewProps = {
   slug: string;
@@ -25,7 +25,7 @@ export default function CardPagePreview({ slug }: CardPagePreviewProps) {
     page?.sections,
     drafts,
     draftVisibility,
-  ) as CardPageSection[] | undefined;
+  ) as CardDetailsPageSection[] | undefined;
 
   const breadcrumbs = getSectionContent(sections, 'content_breadcrumbs');
   const breadcrumbItems = breadcrumbs?.items?.length

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-import type { CardTableRow } from '@/api/services/personal/card-page.service';
+import type { CardTableRow } from '@/api/services/personal/card/card-details-page.service';
 
 type CardsTableProps = {
   heading: string;

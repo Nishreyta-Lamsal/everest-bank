@@ -1,61 +1,64 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
-import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
-import ProductListSection from '@/components/shared/product-list/ProductListSection';
+import DepositHeroSection from './_components/DepositHeroSection';
+import DepositProductsSection from './_components/DepositProductsSection';
 import MountainDivider from '@/components/shared/MountainDivider';
-import StatsHighlightSection from '@/components/shared/stats/StatsHighlightSection';
-import RecommendationSection from '@/components/shared/recommendation/RecommendationSection';
-import OpenAccountSection from '@/components/shared/OpenAccountSection';
-import FaqSection from '@/components/shared/faqs/FaqSection';
+import DepositStatsSection from './_components/DepositStatsSection';
+import DepositRecommendationSection from './_components/DepositRecommendationSection';
+import DepositOpenAccountSection from './_components/DepositOpenAccountSection';
+import DepositFaqsSection from './_components/DepositFaqsSection';
 import ExploreServicesSection from '@/components/shared/ExploreServicesSection';
 
-import { depositProducts, depositProductsImage } from './_data/products';
-import { depositStats, depositStatsImage } from './_data/stats';
-import { idealAccountImage, idealAccountRows } from './_data/ideal-account';
-import { depositFaqs } from './_data/faqs';
+import { depositPageService } from '@/api/services/personal/deposit-accounts/deposit-page.service';
 
-const breadcrumbItems = [{ label: 'Accounts' }, { label: 'Deposit Accounts' }];
+import { getQueryClient } from '@/lib/get-query-client';
+import { getSectionContent } from '@/lib/get-section-content';
 
-export default function DepositAccountsPage() {
+import type { DepositPageSection } from '@/api/services/personal/deposit-accounts/deposit-page.service';
+
+export const depositPageQueryKey = ['deposit-page'] as const;
+
+const fallbackBreadcrumbItems = [
+  { label: 'Accounts' },
+  { label: 'Deposit Accounts' },
+];
+
+export default async function DepositAccountsPage() {
+  const queryClient = getQueryClient();
+
+  let sections: DepositPageSection[] | undefined;
+
+  try {
+    const { data } = await queryClient.fetchQuery({
+      queryKey: depositPageQueryKey,
+      queryFn: depositPageService.getDepositPage,
+    });
+    sections = data.sections;
+  } catch {
+    sections = undefined;
+  }
+
+  const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
+  const apiBreadcrumbItems =
+    breadcrumbsContent?.items?.filter((item) => Boolean(item?.label)) ?? [];
+  const breadcrumbItems = apiBreadcrumbItems.length
+    ? apiBreadcrumbItems
+    : fallbackBreadcrumbItems;
+
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <ContentHeroSection
-        image="/images/deposit-accounts/deposit-accounts-hero.png"
-        imageAlt="A woman smiling as she puts a banknote into a piggy bank at home"
-        heading="Deposit Accounts"
-        buttonLabel="Open Your Account in 3 Minutes"
-        buttonHref="#"
-        secondaryButtonHref="#"
-        secondaryButtonAriaLabel="Explore all deposit accounts"
-      />
-      <ProductListSection
-        products={depositProducts}
-        image={depositProductsImage.src}
-        imageAlt={depositProductsImage.alt}
-      />
-      <MountainDivider />
-      <StatsHighlightSection
-        heading="Trusted by customers for decades, Everest Bank delivers reliable banking solutions for every stage of life."
-        stats={depositStats}
-        image={depositStatsImage.src}
-        imageAlt={depositStatsImage.alt}
-      />
-      <RecommendationSection
-        heading="Find Your Ideal Account"
-        labelHeading="Need"
-        valueHeading="Recommended Account"
-        rows={idealAccountRows}
-        primaryCtaLabel="Open Your Account in 3 Minutes"
-        secondaryCtaLabel="Talk to the nearest bank"
-        image={idealAccountImage.src}
-        imageAlt={idealAccountImage.alt}
-      />
-      <OpenAccountSection />
-      <FaqSection
-        heading="Quick FAQs for Deposit Accounts"
-        items={depositFaqs}
-      />
-      <ExploreServicesSection />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        <DepositHeroSection sections={sections} />
+        <DepositProductsSection sections={sections} />
+        <MountainDivider />
+        <DepositStatsSection sections={sections} />
+        <DepositRecommendationSection sections={sections} />
+        <DepositOpenAccountSection sections={sections} />
+        <DepositFaqsSection sections={sections} />
+        <ExploreServicesSection />
+      </main>
+    </HydrationBoundary>
   );
 }

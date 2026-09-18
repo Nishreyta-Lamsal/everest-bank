@@ -54,6 +54,7 @@ export type NoticeListParams = {
   date_to?: string;
   is_pinned?: boolean;
   lang?: NoticeLang;
+  notice_type?: string;
   ordering?: string;
   page_size?: number;
   search?: string;

@@ -9,13 +9,37 @@ import Button from '@/components/ui/buttons/Button';
 
 import { useScrollStepper } from '@/hooks/animations/useScrollStepper';
 
+import { getSectionContent } from '@/lib/get-section-content';
+
 import { cardProcessSteps } from '../../_data';
 
-export default function CardsProcessSection() {
-  const { sectionRef, activeIndex, onSelect } = useScrollStepper(
-    cardProcessSteps.length,
-  );
-  const activeStep = cardProcessSteps[activeIndex];
+import type { CardPageSection } from '@/api/services/personal/card/card-page.service';
+import type { CardProcessStep } from '../../_data';
+
+type CardsProcessSectionProps = {
+  sections?: CardPageSection[];
+};
+
+export default function CardsProcessSection({
+  sections,
+}: CardsProcessSectionProps) {
+  const content = getSectionContent(sections, 'cards_process');
+
+  const steps: CardProcessStep[] = content?.steps?.length
+    ? content.steps.map((step) => ({
+        number: step.number,
+        title: step.title,
+        description: step.description,
+        image: step.image.src,
+        alt: step.image.alt,
+      }))
+    : cardProcessSteps;
+
+  const { sectionRef, activeIndex, onSelect } = useScrollStepper(steps.length);
+  const activeStep = steps[activeIndex];
+
+  const buttonHref = content?.button?.href || '#';
+  const buttonLabel = content?.button?.label || 'Apply for your card';
 
   return (
     <section ref={sectionRef} className="w-full py-16 lg:py-15">
@@ -23,18 +47,18 @@ export default function CardsProcessSection() {
         <div className="flex w-full flex-col items-start gap-10 lg:gap-12">
           <div className="flex w-full flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="font-heading text-heading-h3-mobile-md lg:text-heading-h2-desktop-md text-grey-500 w-full lg:w-[561px]">
-              Getting your card takes three steps.
+              {content?.heading || 'Getting your card takes three steps.'}
             </h2>
-            <Link href="#" className="hidden lg:inline-block">
+            <Link href={buttonHref} className="hidden lg:inline-block">
               <Button variant="secondary" size="md">
-                Apply for your card
+                {buttonLabel}
               </Button>
             </Link>
           </div>
 
           <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
             <CardsProcessList
-              steps={cardProcessSteps}
+              steps={steps}
               activeIndex={activeIndex}
               onSelect={onSelect}
             />
@@ -49,9 +73,9 @@ export default function CardsProcessSection() {
             </div>
           </div>
 
-          <Link href="#" className="w-full lg:hidden">
+          <Link href={buttonHref} className="w-full lg:hidden">
             <Button variant="secondary" size="sm" className="w-full">
-              Apply for your card
+              {buttonLabel}
             </Button>
           </Link>
         </div>
