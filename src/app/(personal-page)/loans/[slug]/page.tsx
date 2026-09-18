@@ -37,8 +37,6 @@ export default async function LoansPage({ params }: LoansPageProps) {
     notFound();
   }
 
-  console.log(result.data.sections[0].content);
-
   const { sections, title } = result.data;
 
   const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');

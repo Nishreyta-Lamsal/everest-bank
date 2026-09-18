@@ -55,6 +55,7 @@ export default function LoanGlanceEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, image, the summary rows and the section links"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

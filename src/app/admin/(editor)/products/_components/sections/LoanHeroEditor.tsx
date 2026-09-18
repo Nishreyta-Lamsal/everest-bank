@@ -56,6 +56,7 @@ export default function LoanHeroEditor({ slug, section }: LoanHeroEditorProps) {
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Title, description, image and the hero buttons"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

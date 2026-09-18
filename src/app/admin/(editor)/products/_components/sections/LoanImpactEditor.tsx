@@ -47,6 +47,7 @@ export default function LoanImpactEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, description, the impact figures and the apply link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

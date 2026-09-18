@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import ProductActions from './ProductActions';
 import { icon } from '@/components/admin/icons';
 import { Switch } from '@/components/admin/ui/switch';
 
@@ -11,14 +12,15 @@ import type { Page } from '@/types/admin';
 
 type ProductsListRowProps = {
   page: Page;
+  canDelete?: boolean;
   onSelect: () => void;
 };
 
 export default function ProductsListRow({
   page,
+  canDelete,
   onSelect,
 }: ProductsListRowProps) {
-
   const [showInMenu, setShowInMenu] = useState(Boolean(page.show_in_menu));
 
   const updatePage = useUpdatePage(page.slug);
@@ -69,6 +71,8 @@ export default function ProductsListRow({
             onCheckedChange={handleShowInMenuChange}
           />
         </label>
+
+        {canDelete && <ProductActions page={page} />}
 
         <button
           type="button"

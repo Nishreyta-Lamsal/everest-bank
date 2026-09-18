@@ -53,6 +53,7 @@ export default function LoanApplyChecklistEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, image, the checklist steps and the apply link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

@@ -50,6 +50,7 @@ export default function SavingDocumentsEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Image, the required documents and the section link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}

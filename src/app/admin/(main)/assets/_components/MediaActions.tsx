@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import ActionMenu from './ActionMenu';
+import ActionMenu from '@/components/admin/shared/ActionMenu';
 import MoveToFolderDialog from './MoveToFolderDialog';
 import { ConfirmDialog } from '@/components/admin/ui/confirm-dialog';
 

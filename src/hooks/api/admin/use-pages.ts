@@ -89,3 +89,14 @@ export function useUpdatePage(slug: string) {
     },
   });
 }
+
+export function useDeletePage(slug: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => pageService.destroy(slug),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['pages'] });
+    },
+  });
+}

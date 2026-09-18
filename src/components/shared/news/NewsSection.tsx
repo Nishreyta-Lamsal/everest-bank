@@ -36,8 +36,6 @@ export default async function NewsSection() {
     results = [];
   }
 
-  console.log(results);
-
   const items = results.map((news) => ({
     headline: news.title,
     description: stripHtml(news.content.description ?? ''),

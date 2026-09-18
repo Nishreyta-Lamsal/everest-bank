@@ -89,6 +89,7 @@ export default function ProductsListCard() {
       {items.length > 0 && (
         <ProductsList
           items={items}
+          canDelete={isDrilledIn}
           onSelect={(page) => {
             // A product type opens its children; a product opens its editor.
             if (isDrilledIn) {
