@@ -2,15 +2,22 @@ import { useRef, useState } from 'react';
 
 import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
 
+import { useIsPreviewFrame } from '@/store/PreviewFrameContext';
+
 const STEP_SCROLL_DISTANCE = 500;
 
 export function useScrollStepper(stepCount: number) {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const isPreviewFrame = useIsPreviewFrame();
 
   useGSAP(
     () => {
+      // Pinning reserves scroll distance against the main window, which the
+      // preview iframe doesn't have, it would only show up as dead space.
+      if (isPreviewFrame) return;
+
       const mm = gsap.matchMedia();
 
       mm.add('(min-width: 1024px)', () => {
@@ -37,7 +44,7 @@ export function useScrollStepper(stepCount: number) {
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [stepCount] },
+    { scope: sectionRef, dependencies: [stepCount, isPreviewFrame] },
   );
 
   function handleSelect(index: number) {

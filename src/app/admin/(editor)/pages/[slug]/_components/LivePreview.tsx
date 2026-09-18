@@ -41,7 +41,11 @@ export default function LivePreview({
     if (!content) return;
 
     const observer = new ResizeObserver(([entry]) => {
-      setContentHeight(entry.contentRect.height);
+      const next = Math.ceil(entry.contentRect.height);
+
+      setContentHeight((current) =>
+        Math.abs(current - next) > 1 ? next : current,
+      );
     });
 
     observer.observe(content);

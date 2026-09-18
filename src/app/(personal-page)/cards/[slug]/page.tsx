@@ -48,8 +48,11 @@ export default async function CardsDetailsPage({
         <Breadcrumbs items={breadcrumbItems} />
         {hero && (
           <ContentHeroSection
-            image={hero.image.src}
-            imageAlt={hero.image.alt}
+            image={hero.image?.src || '/images/cards/card-showcase-bg.png'}
+            imageAlt={
+              hero.image?.alt ||
+              'A hand holding an Everest Bank Visa card in front of Kathmandu Durbar Square at sunset'
+            }
             heading={hero.heading}
             buttonLabel={hero.button.label}
             buttonHref={hero.button.href}

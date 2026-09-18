@@ -11,6 +11,7 @@ import { icon } from '@/components/icons';
 
 import { gsap, useGSAP } from '@/lib/gsap';
 import { getSectionContent } from '@/lib/get-section-content';
+import { useIsPreviewFrame } from '@/store/PreviewFrameContext';
 
 import { iconMap } from '@/constants';
 import { businessIndustryCards } from '../_data';
@@ -27,6 +28,7 @@ export default function BusinessIndustriesSection({
   const sectionRef = useRef<HTMLElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const isPreviewFrame = useIsPreviewFrame();
 
   const content = getSectionContent(sections, 'business_industries');
 
@@ -53,6 +55,10 @@ export default function BusinessIndustriesSection({
 
   useGSAP(
     () => {
+      // Pinning reserves scroll distance against the main window, which the
+      // preview iframe doesn't have, it would only show up as dead space.
+      if (isPreviewFrame) return;
+
       const mm = gsap.matchMedia();
 
       mm.add('(min-width: 1024px)', () => {
@@ -89,7 +95,7 @@ export default function BusinessIndustriesSection({
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [cards.length] },
+    { scope: sectionRef, dependencies: [cards.length, isPreviewFrame] },
   );
 
   return (

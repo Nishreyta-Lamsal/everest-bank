@@ -36,6 +36,8 @@ export type SectionType =
   | 'trust'
   | 'cards_hero'
   | 'cards_trust_bar'
+  | 'card_product_hero'
+  | 'card_overview'
   | 'cards_network'
   | 'cards_credit_offers'
   | 'cards_debit_offers'
@@ -82,7 +84,8 @@ export type SectionType =
   | 'remittance_faqs'
   | 'saving_hero'
   | 'saving_documents'
-  | 'saving_steps';
+  | 'saving_steps'
+  | 'saving_account_finder';
 
 export type PageSectionRead = {
   id: number;
@@ -160,6 +163,42 @@ export type ContentHeroContent = {
   image?: SectionMedia;
   heading?: string;
   button?: SectionLink;
+};
+
+export type ContentStatsContent = {
+  stats?: {
+    label: string;
+    value: string;
+  }[];
+};
+
+/** A body block is either headed paragraphs or a row of images. */
+export type ContentTextBlock = {
+  type?: undefined;
+  heading: string;
+  paragraphs: string[];
+};
+
+export type ContentImagesBlock = {
+  type: 'images';
+  images: SectionMedia[];
+  layout?: 'full_width';
+};
+
+export type ContentBodyContent = {
+  blocks?: (ContentTextBlock | ContentImagesBlock)[];
+};
+
+export type ContentSidebarContent = {
+  social_links?: {
+    href: string;
+    slug: string;
+    label: string;
+  }[];
+  related_pages?: {
+    href: string;
+    title: string;
+  }[];
 };
 
 export type AboutOverviewContent = {
@@ -421,6 +460,7 @@ export type SavingHeroContent = {
  * shapes, so they share those editors.
  */
 export type SavingDocumentsContent = {
+  heading?: string;
   image?: SectionMedia;
   cta?: SectionLink;
   steps?: {
@@ -430,11 +470,99 @@ export type SavingDocumentsContent = {
 };
 
 export type SavingStepsContent = {
+  heading?: string;
   cta?: SectionLink;
   steps?: {
     number: string;
     title: string;
     image: SectionMedia;
+  }[];
+};
+
+export type CardProductHeroContent = {
+  image?: SectionMedia;
+  heading?: string;
+  button?: SectionLink;
+};
+
+export type CardsTrustBarContent = {
+  label?: string;
+  badges?: {
+    icon: string;
+    label: string;
+  }[];
+};
+
+export type CardTableContent = {
+  heading: string;
+  column_headers: [string, string, string];
+  rows: {
+    label: string;
+    nepal?: string;
+    india?: string;
+    is_group_header?: boolean;
+  }[];
+};
+
+export type CardHowToUseBlockContent =
+  | { type: 'text'; lead?: string; body: string }
+  | { type: 'list'; items: string[] };
+
+export type CardVariantContent = {
+  key: string;
+  face?: SectionMedia;
+  brand?: string;
+  title?: string;
+  features?: {
+    heading: string;
+    items: string[];
+  };
+  procedure?: {
+    heading: string;
+    items: string[];
+  };
+  fee_tables?: CardTableContent[];
+  limits_table?: CardTableContent;
+  how_to_use?: {
+    heading: string;
+    blocks: CardHowToUseBlockContent[];
+  };
+  eligibility?: {
+    heading: string;
+    description: string;
+  };
+  safety_tips?: {
+    items: string[];
+    heading: string;
+    mail_label: string;
+    mail_value: string;
+    terms_body: string;
+    terms_lead: string;
+    contact_body: string;
+    contact_lead: string;
+    terms_link_label: string;
+    hunting_line_label: string;
+    hunting_line_value: string;
+  };
+};
+
+export type CardOverviewContent = {
+  heading?: string;
+  description?: string;
+  brands_heading?: string;
+  brands?: string[];
+  variants?: CardVariantContent[];
+};
+
+export type SavingAccountFinderContent = {
+  heading?: string;
+  categories?: {
+    label: string;
+    accounts?: {
+      href: string;
+      title: string;
+      image: SectionMedia;
+    }[];
   }[];
 };
 

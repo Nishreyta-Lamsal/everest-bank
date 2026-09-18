@@ -11,6 +11,8 @@ type ProductCardProps = {
   image: string;
   title: string;
   ctaLabel?: string;
+  /** Widths the card renders at, for picking the right image source. */
+  sizes?: string;
 } & Omit<ComponentPropsWithoutRef<typeof Link>, 'href' | 'children'>;
 
 export default function ProductCard({
@@ -18,6 +20,7 @@ export default function ProductCard({
   image,
   title,
   ctaLabel = 'Apply now',
+  sizes = '(min-width: 1024px) 33vw, 100vw',
   className,
   ...otherProps
 }: ProductCardProps) {
@@ -35,6 +38,7 @@ export default function ProductCard({
           src={image}
           alt={title}
           fill
+          sizes={sizes}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>

@@ -17,8 +17,8 @@ export default function AccountFinderList({ cards }: AccountFinderListProps) {
 
   return (
     <div className="flex w-full flex-wrap items-center gap-6">
-      {cards.map((card) => (
-        <AccountFinderCard key={card.title} card={card} />
+      {cards.map((card, index) => (
+        <AccountFinderCard key={index} card={card} />
       ))}
     </div>
   );
