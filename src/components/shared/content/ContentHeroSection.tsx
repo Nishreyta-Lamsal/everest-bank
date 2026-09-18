@@ -30,6 +30,7 @@ export default function ContentHeroSection({
         src={image}
         alt={imageAlt}
         fill
+        sizes="100vw"
         priority
         className="object-cover"
       />

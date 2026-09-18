@@ -70,6 +70,7 @@ export default function HeroImageCarousel({
           src={slide.src}
           alt={slide.alt}
           fill
+          sizes="(min-width: 1280px) 620px, (min-width: 1024px) 304px, 100vw"
           aria-hidden={index !== activeIndex}
           className={cn(
             'rounded-tl-xl rounded-tr-[64px] rounded-br-xl rounded-bl-xl object-cover transition-opacity duration-500 lg:rounded-tl-2xl lg:rounded-tr-[61px] lg:rounded-br-2xl lg:rounded-bl-2xl xl:rounded-tr-[124px]',

@@ -16,7 +16,7 @@ type ContentBreadcrumbsContent = {
 };
 
 type CardProductHeroContent = {
-  image: MediaWithAlt;
+  image: Partial<MediaWithAlt>;
   heading: string;
   button: LinkAction;
 };
@@ -62,7 +62,7 @@ export type CardSafetyTips = {
 
 type CardVariant = {
   key: string;
-  face: MediaWithAlt;
+  face: Partial<MediaWithAlt>;
   brand: string;
   title: string;
   features: {
@@ -90,7 +90,7 @@ type CardOverviewContent = {
   heading: string;
   description: string;
   brands_heading: string;
-  brands: string[];
+  brands?: string[];
   variants: CardVariant[];
 };
 

@@ -15,17 +15,21 @@ export default function AccountFinderCard({ card }: AccountFinderCardProps) {
       href={card.href}
       className="group relative flex h-[250px] w-full shrink-0 flex-col overflow-hidden rounded-lg sm:w-[calc(50%-12px)] lg:w-[405px]"
     >
-      <Image
-        src={card.image}
-        alt={card.imageAlt}
-        fill
-        className="object-cover transition-transform duration-300 group-hover:scale-105"
-      />
+      {card.image && (
+        <Image
+          src={card.image}
+          alt={card.imageAlt}
+          fill
+          sizes="(min-width: 1024px) 405px, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      )}
       {card.overlayImage && (
         <Image
           src={card.overlayImage}
           alt={card.overlayImageAlt ?? ''}
           fill
+          sizes="(min-width: 1024px) 405px, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       )}

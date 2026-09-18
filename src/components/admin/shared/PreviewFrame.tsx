@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
+import { PreviewFrameProvider } from '@/store/PreviewFrameContext';
+
 type PreviewFrameProps = {
   /** The width the page is rendered at inside the frame. */
   width: number;
@@ -65,7 +67,11 @@ export default function PreviewFrame({
       if (!mountNode) return;
 
       const observer = new ResizeObserver(function () {
-        setContentHeight(mountNode.scrollHeight);
+        const next = Math.ceil(mountNode.scrollHeight);
+
+        setContentHeight((current) =>
+          Math.abs(current - next) > 1 ? next : current,
+        );
       });
 
       observer.observe(mountNode);
@@ -83,7 +89,11 @@ export default function PreviewFrame({
       className="block border-0"
       style={{ width: `${width}px`, height: `${contentHeight}px` }}
     >
-      {mountNode && createPortal(children, mountNode)}
+      {mountNode &&
+        createPortal(
+          <PreviewFrameProvider>{children}</PreviewFrameProvider>,
+          mountNode,
+        )}
     </iframe>
   );
 }

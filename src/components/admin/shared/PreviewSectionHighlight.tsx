@@ -26,14 +26,17 @@ export default function PreviewSectionHighlight({
   children,
 }: PreviewSectionHighlightProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const wasActiveRef = useRef(false);
 
   const isActive = Boolean(sectionType) && activeSectionType === sectionType;
 
   useEffect(
     function () {
-      if (!isActive) return;
+      if (isActive && !wasActiveRef.current) {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
 
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      wasActiveRef.current = isActive;
     },
     [isActive],
   );

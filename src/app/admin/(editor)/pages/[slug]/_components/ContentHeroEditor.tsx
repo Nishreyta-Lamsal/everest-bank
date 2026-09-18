@@ -45,6 +45,7 @@ export default function ContentHeroEditor({
   return (
     <SectionEditorShell
       title={section.label}
+      sectionType={section.section_type}
       description="Heading, background image and the hero button"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
