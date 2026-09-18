@@ -64,7 +64,7 @@ export default async function CardsPage() {
         <CardsTravelSection sections={sections} />
         <CardsProcessSection sections={sections} />
         <CardsFaqsSection sections={sections} />
-        <ExploreServicesSection />
+        <ExploreServicesSection screen="cards" />
       </main>
     </HydrationBoundary>
   );

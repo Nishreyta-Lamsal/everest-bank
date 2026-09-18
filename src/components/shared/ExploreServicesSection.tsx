@@ -10,12 +10,18 @@ const PLACEHOLDER_IMAGE = '/images/cards/explore-digital-banking.jpg';
 type ExploreServicesSectionProps = {
   /** Which card group to render. Lets one component serve several sections. */
   slug?: string;
+  /**
+   * Which page this is, so editors can limit a card to certain pages.
+   * Omitted means every card in the group renders.
+   */
+  screen?: string;
 };
 
 export default async function ExploreServicesSection({
   slug = 'explore-services',
+  screen,
 }: ExploreServicesSectionProps) {
-  const group = await getCardGroup(slug, exploreServicesFallback);
+  const group = await getCardGroup(slug, exploreServicesFallback, screen);
 
   // A group with no cards renders nothing rather than an empty heading.
   if (group.cards.length === 0) return null;

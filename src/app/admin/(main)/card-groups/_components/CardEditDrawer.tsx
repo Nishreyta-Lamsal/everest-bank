@@ -19,7 +19,7 @@ import {
 } from '@/hooks/api/admin/use-card-groups';
 
 import type { CardWritePayload } from '@/api/services/admin/card-group.service';
-import type { Card, Media } from '@/types/admin';
+import type { Card, CardScreen, Media } from '@/types/admin';
 
 const LINK_TO_URL = '__url__';
 
@@ -27,12 +27,14 @@ type CardEditDrawerProps = {
   groupSlug: string;
   /** Null means the drawer is creating a new card. */
   card: Card | null;
+  screens: CardScreen[];
   onClose: () => void;
 };
 
 export default function CardEditDrawer({
   groupSlug,
   card,
+  screens,
   onClose,
 }: CardEditDrawerProps) {
   const isNew = card === null;
@@ -50,6 +52,7 @@ export default function CardEditDrawer({
     page: card?.page ?? null,
     href: card?.href ?? '',
     cta_label: card?.cta_label ?? '',
+    screens: card?.screens ?? [],
     is_active: card?.is_active ?? true,
   });
   const [error, setError] = useState<string | null>(null);
@@ -192,6 +195,41 @@ export default function CardEditDrawer({
             onChange={(event) => set('cta_label', event.target.value)}
           />
         </FieldLabel>
+
+        <div className="flex w-full flex-col gap-2 border-t border-black/5 pt-4">
+          <p className="text-[13px] text-neutral-900">Shown on</p>
+          <p className="text-[12px] text-neutral-700/68">
+            Tick nothing to show this card on every page.
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {screens.map((screen) => {
+              const checked = (draft.screens ?? []).includes(screen.key);
+
+              return (
+                <label
+                  key={screen.key}
+                  className="flex cursor-pointer items-center gap-2 text-[13px] text-neutral-800"
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() =>
+                      set(
+                        'screens',
+                        checked
+                          ? (draft.screens ?? []).filter(
+                              (key) => key !== screen.key,
+                            )
+                          : [...(draft.screens ?? []), screen.key],
+                      )
+                    }
+                  />
+                  {screen.label}
+                </label>
+              );
+            })}
+          </div>
+        </div>
 
         <div className="flex items-center justify-between gap-3 border-t border-black/5 pt-4">
           <div className="flex flex-col">

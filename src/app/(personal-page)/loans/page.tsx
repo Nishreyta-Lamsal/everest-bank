@@ -60,7 +60,7 @@ export default function LoanServicesPage() {
       />
       <OpenAccountSection />
       <FaqSection heading="Quick FAQs for Loan Services" items={loanFaqs} />
-      <ExploreServicesSection />
+      <ExploreServicesSection screen="loans" />
     </main>
   );
 }

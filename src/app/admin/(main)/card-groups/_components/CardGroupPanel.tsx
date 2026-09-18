@@ -126,6 +126,17 @@ export default function CardGroupPanel({ slug }: CardGroupPanelProps) {
                 </span>
                 <span className="truncate text-[12px] text-neutral-700/68">
                   {card.page ? `Page: ${card.resolved_href}` : card.href}
+                  {' · '}
+                  {card.screens.length === 0
+                    ? 'every page'
+                    : card.screens
+                        .map(
+                          (key) =>
+                            group.available_screens.find(
+                              (screen) => screen.key === key,
+                            )?.label ?? key,
+                        )
+                        .join(', ')}
                 </span>
               </button>
 
@@ -147,6 +158,7 @@ export default function CardGroupPanel({ slug }: CardGroupPanelProps) {
           key={drawer.mode === 'edit' ? drawer.card.id : 'new'}
           groupSlug={slug}
           card={drawer.mode === 'edit' ? drawer.card : null}
+          screens={group.available_screens}
           onClose={() => setDrawer({ mode: 'closed' })}
         />
       )}

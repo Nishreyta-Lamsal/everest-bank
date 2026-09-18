@@ -5,9 +5,10 @@ import type { ApiResponse } from '@/types';
 import type { PublicCardGroup } from '@/types/admin';
 
 export const publicCardGroupService = {
-  get: async (slug: string): Promise<PublicCardGroup> => {
+  get: async (slug: string, screen?: string): Promise<PublicCardGroup> => {
     const response = await axiosClient.get<ApiResponse<PublicCardGroup>>(
       `public/card-groups/${slug}/`,
+      { params: screen ? { screen } : undefined },
     );
 
     const group = response.data.data;
@@ -32,9 +33,10 @@ export const publicCardGroupService = {
 export async function getCardGroup(
   slug: string,
   fallback: PublicCardGroup,
+  screen?: string,
 ): Promise<PublicCardGroup> {
   try {
-    return await publicCardGroupService.get(slug);
+    return await publicCardGroupService.get(slug, screen);
   } catch {
     return fallback;
   }

@@ -65,7 +65,7 @@ export default async function SMEBankingPage() {
         <SmeFinancingSection sections={sections} />
         <SmeOpenAccountSection sections={sections} />
         <SmeFaqsSection sections={sections} />
-        <ExploreServicesSection />
+        <ExploreServicesSection screen="sme-banking" />
       </main>
     </HydrationBoundary>
   );

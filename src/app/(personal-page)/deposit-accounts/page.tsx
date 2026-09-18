@@ -63,7 +63,7 @@ export default async function DepositAccountsPage() {
         <DepositRecommendationSection sections={sections} />
         <DepositOpenAccountSection sections={sections} />
         <DepositFaqsSection sections={sections} />
-        <ExploreServicesSection />
+        <ExploreServicesSection screen="deposit-accounts" />
       </main>
     </HydrationBoundary>
   );
