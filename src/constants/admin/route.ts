@@ -11,4 +11,5 @@ export const ADMIN_ROUTE = {
   ASSETS: '/admin/assets',
   FOOTER: '/admin/footer',
   LOCATIONS: '/admin/locations',
+  CARD_GROUPS: '/admin/card-groups',
 };

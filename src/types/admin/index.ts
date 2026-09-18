@@ -8,3 +8,4 @@ export * from './form';
 export * from './forex';
 export * from './footer';
 export * from './location';
+export * from './card-group';
