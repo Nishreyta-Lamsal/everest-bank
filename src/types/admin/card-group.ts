@@ -12,10 +12,17 @@ export type Card = {
   /** Where the card actually links: the page's path, or href. */
   resolved_href: string;
   cta_label: string;
+  /** Screen keys this card is limited to. Empty means every screen. */
+  screens: string[];
   position: number;
   is_active: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type CardScreen = {
+  key: string;
+  label: string;
 };
 
 export type CardGroup = {
@@ -31,6 +38,8 @@ export type CardGroup = {
 
 export type CardGroupDetail = CardGroup & {
   cards: Card[];
+  /** Screens the CMS can offer, defined in the backend so both agree. */
+  available_screens: CardScreen[];
 };
 
 /** Public shape: already flattened, nothing to resolve. */

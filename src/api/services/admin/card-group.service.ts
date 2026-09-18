@@ -21,6 +21,8 @@ export type CardWritePayload = {
   page?: string | null;
   href?: string;
   cta_label?: string;
+  /** Screen keys. Empty or omitted means the card shows on every screen. */
+  screens?: string[];
   position?: number;
   is_active?: boolean;
 };
