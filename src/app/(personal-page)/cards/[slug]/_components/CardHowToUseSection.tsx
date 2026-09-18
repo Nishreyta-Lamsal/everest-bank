@@ -1,6 +1,6 @@
 import { icon } from '@/components/icons';
 
-import type { CardHowToUseBlock } from '@/api/services/personal/card-page.service';
+import type { CardHowToUseBlock } from '@/api/services/personal/card/card-details-page.service';
 
 type CardHowToUseSectionProps = {
   heading: string;

@@ -1,6 +1,6 @@
 import CardFeatureList from './CardFeatureList';
 
-import type { CardSafetyTips } from '@/api/services/personal/card-page.service';
+import type { CardSafetyTips } from '@/api/services/personal/card/card-details-page.service';
 
 type CardSafetyTipsSectionProps = {
   data: CardSafetyTips;

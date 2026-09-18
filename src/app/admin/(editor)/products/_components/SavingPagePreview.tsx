@@ -2,7 +2,7 @@
 
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import MountainHeroSection from '@/components/shared/MountainHeroSection';
-import AccountFinderSection from '@/app/(personal-page)/deposit-accounts/saving-account/_components/account-finder/AccountFinderSection';
+import AccountFinderSection from '@/app/(personal-page)/deposit-accounts/[slug]/_components/account-finder/AccountFinderSection';
 import ProcessSection from '@/components/shared/process/ProcessSection';
 import StepSection from '@/components/shared/step/StepSection';
 import PreviewSectionHighlight from '@/components/admin/shared/PreviewSectionHighlight';
@@ -11,8 +11,8 @@ import { usePageEditor } from '@/store/PageEditorContext';
 import { usePage } from '@/hooks/api/admin/use-pages';
 import { toPreviewSections } from '@/lib/admin/preview-sections';
 import { getSectionContent } from '@/lib/get-section-content';
-import { toAccountFinderView } from '@/lib/admin/account-finder-view';
 
+import type { DepositDetailsPageSection } from '@/api/services/personal/deposit-accounts/deposit-details-page.service';
 import type {
   ContentBreadcrumbsContent,
   SavingAccountFinderContent,
@@ -55,8 +55,6 @@ export default function SavingPagePreview({ slug }: SavingPagePreviewProps) {
   const documents = getSectionContent(sections, 'saving_documents');
   const steps = getSectionContent(sections, 'saving_steps');
 
-  const finderView = toAccountFinderView(finder);
-
   return (
     <main className="relative">
       <Breadcrumbs items={breadcrumbItems} tone="dark" />
@@ -78,9 +76,7 @@ export default function SavingPagePreview({ slug }: SavingPagePreviewProps) {
           activeSectionType={focusedSectionType}
         >
           <AccountFinderSection
-            heading={finder.heading}
-            categories={finderView.categories}
-            cards={finderView.cards}
+            sections={sections as DepositDetailsPageSection[] | undefined}
           />
         </PreviewSectionHighlight>
       )}

@@ -1,61 +1,66 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
-import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
-import ProductListSection from '@/components/shared/product-list/ProductListSection';
+import SmeHeroSection from './_components/SmeHeroSection';
+import SmeProductsSection from './_components/SmeProductsSection';
 import MountainDivider from '@/components/shared/MountainDivider';
-import StatsHighlightSection from '@/components/shared/stats/StatsHighlightSection';
-import RecommendationSection from '@/components/shared/recommendation/RecommendationSection';
-import OpenAccountSection from '@/components/shared/OpenAccountSection';
-import FaqSection from '@/components/shared/faqs/FaqSection';
+import SmeStatsSection from './_components/SmeStatsSection';
+import SmeFinancingSection from './_components/SmeFinancingSection';
+import SmeOpenAccountSection from './_components/SmeOpenAccountSection';
+import SmeFaqsSection from './_components/SmeFaqsSection';
 import ExploreServicesSection from '@/components/shared/ExploreServicesSection';
 
-import { ROUTE } from '@/constants';
-import { smeProducts, smeProductsImage } from './_data/products';
-import { smeStats, smeStatsImage } from './_data/stats';
-import { financingImage, financingRows } from './_data/financing';
-import { smeFaqs } from './_data/faqs';
+import { smePageService } from '@/api/services/business/sme-page.service';
 
-const breadcrumbItems = [
+import { getQueryClient } from '@/lib/get-query-client';
+import { getSectionContent } from '@/lib/get-section-content';
+
+import { ROUTE } from '@/constants';
+
+import type { SmePageSection } from '@/api/services/business/sme-page.service';
+
+export const smePageQueryKey = ['sme-page'] as const;
+
+const fallbackBreadcrumbItems = [
   { label: 'Business', href: ROUTE.BUSINESS },
   { label: 'SME Banking' },
 ];
 
-export default function SMEBankingPage() {
+export default async function SMEBankingPage() {
+  const queryClient = getQueryClient();
+
+  let sections: SmePageSection[] | undefined;
+
+  try {
+    const { data } = await queryClient.fetchQuery({
+      queryKey: smePageQueryKey,
+      queryFn: smePageService.getSmePage,
+    });
+    sections = data.sections;
+  } catch {
+    sections = undefined;
+  }
+
+  const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
+  const apiBreadcrumbItems =
+    breadcrumbsContent?.items?.filter((item) => Boolean(item?.label)) ?? [];
+  const breadcrumbItems = apiBreadcrumbItems.length
+    ? apiBreadcrumbItems
+    : fallbackBreadcrumbItems;
+
   return (
-    <main className="relative">
-      <Breadcrumbs items={breadcrumbItems} />
-      <ContentHeroSection
-        image="/images/business/sme-banking-hero.png"
-        imageAlt="A potter shaping clay pots, representing a small business Everest Bank supports"
-        heading="SME Banking"
-        buttonLabel="Open a Business Account"
-        buttonHref="#"
-        secondaryButtonHref="#"
-      />
-      <ProductListSection
-        products={smeProducts}
-        image={smeProductsImage.src}
-        imageAlt={smeProductsImage.alt}
-      />
-      <MountainDivider />
-      <StatsHighlightSection
-        heading="Supporting Nepal’s businesses with tailored financial solutions and dedicated relationship managers."
-        stats={smeStats}
-        image={smeStatsImage.src}
-        imageAlt={smeStatsImage.alt}
-      />
-      <RecommendationSection
-        heading="Find the Right Financing"
-        labelHeading="Business Stage"
-        valueHeading="Recommended Solution"
-        rows={financingRows}
-        primaryCtaLabel="Open Business Account"
-        secondaryCtaLabel="Talk to an Expert"
-        image={financingImage.src}
-        imageAlt={financingImage.alt}
-      />
-      <OpenAccountSection />
-      <FaqSection heading="Quick FAQs for SME Banking" items={smeFaqs} />
-      <ExploreServicesSection />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="relative">
+        <Breadcrumbs items={breadcrumbItems} />
+        <SmeHeroSection sections={sections} />
+        <SmeProductsSection sections={sections} />
+        <MountainDivider />
+        <SmeStatsSection sections={sections} />
+        <SmeFinancingSection sections={sections} />
+        <SmeOpenAccountSection sections={sections} />
+        <SmeFaqsSection sections={sections} />
+        <ExploreServicesSection />
+      </main>
+    </HydrationBoundary>
   );
 }

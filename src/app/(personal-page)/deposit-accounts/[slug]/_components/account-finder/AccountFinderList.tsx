@@ -1,13 +1,15 @@
 import AccountFinderCard from './AccountFinderCard';
 
-import type { AccountFinderCard as AccountFinderCardType } from '../../_types';
+import type { AccountFinderAccount } from '../../_types';
 
 type AccountFinderListProps = {
-  cards: AccountFinderCardType[];
+  accounts: AccountFinderAccount[];
 };
 
-export default function AccountFinderList({ cards }: AccountFinderListProps) {
-  if (cards.length === 0) {
+export default function AccountFinderList({
+  accounts,
+}: AccountFinderListProps) {
+  if (accounts.length === 0) {
     return (
       <p className="text-body-3-desktop text-grey-400 w-full py-10 text-center">
         No savings accounts found. Try a different filter or search term.
@@ -17,8 +19,8 @@ export default function AccountFinderList({ cards }: AccountFinderListProps) {
 
   return (
     <div className="flex w-full flex-wrap items-center gap-6">
-      {cards.map((card, index) => (
-        <AccountFinderCard key={index} card={card} />
+      {accounts.map((account, index) => (
+        <AccountFinderCard key={index} account={account} />
       ))}
     </div>
   );

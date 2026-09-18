@@ -6,10 +6,11 @@ import { iconMap } from '@/constants';
 import { icon } from '@/components/icons';
 import { cardTrustBadges } from '../_data';
 
-import type { CardPageSection } from '@/api/services/personal/card-page.service';
+import type { CardDetailsPageSection } from '@/api/services/personal/card/card-details-page.service';
+import type { CardPageSection } from '@/api/services/personal/card/card-page.service';
 
 type CardsTrustBarSectionProps = {
-  sections?: CardPageSection[];
+  sections?: (CardPageSection | CardDetailsPageSection)[];
 };
 
 export default function CardsTrustBarSection({

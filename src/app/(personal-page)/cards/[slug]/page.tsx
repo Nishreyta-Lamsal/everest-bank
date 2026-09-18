@@ -6,7 +6,7 @@ import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
 import CardsTrustBarSection from '../_components/CardsTrustBarSection';
 import CardDetailSection from './_components/CardDetailSection';
 
-import { cardPageService } from '@/api/services/personal/card-page.service';
+import { cardDetailsPageService } from '@/api/services/personal/card/card-details-page.service';
 
 import { getQueryClient } from '@/lib/get-query-client';
 import { getSectionContent } from '@/lib/get-section-content';
@@ -24,8 +24,8 @@ export default async function CardsDetailsPage({
 
   const result = await queryClient
     .fetchQuery({
-      queryKey: ['card-page', slug],
-      queryFn: () => cardPageService.getCardPage(slug),
+      queryKey: ['card-details-page', slug],
+      queryFn: () => cardDetailsPageService.getCardDetailsPage(slug),
     })
     .catch(() => null);
 

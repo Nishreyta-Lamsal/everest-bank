@@ -4,12 +4,25 @@ import Link from 'next/link';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import Button from '@/components/ui/buttons/Button';
 
-export default function CardsHeroSection() {
+import { getSectionContent } from '@/lib/get-section-content';
+
+import type { CardPageSection } from '@/api/services/personal/card/card-page.service';
+
+type CardsHeroSectionProps = {
+  sections?: CardPageSection[];
+};
+
+export default function CardsHeroSection({ sections }: CardsHeroSectionProps) {
+  const content = getSectionContent(sections, 'cards_hero');
+
   return (
     <section className="relative h-[312px] w-full overflow-hidden lg:h-[528px]">
       <Image
-        src="/images/cards/card-showcase-bg.png"
-        alt="A hand holding an Everest Bank Visa card in front of Kathmandu Durbar Square at sunset"
+        src={content?.image?.src || '/images/cards/card-showcase-bg.png'}
+        alt={
+          content?.image?.alt ||
+          'A hand holding an Everest Bank Visa card in front of Kathmandu Durbar Square at sunset'
+        }
         fill
         priority
         className="object-cover"
@@ -20,11 +33,14 @@ export default function CardsHeroSection() {
         <LayoutWrapper>
           <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="font-heading text-heading-h2-mobile-md md:text-display-1-mobile-md lg:text-display-1-desktop-md max-w-[280px] text-white lg:max-w-[535px]">
-              Cards built for the way Nepal pays.
+              {content?.heading || 'Cards built for the way Nepal pays.'}
             </h1>
-            <Link href="#" className="w-full lg:w-auto">
+            <Link
+              href={content?.button?.href || '#'}
+              className="w-full lg:w-auto"
+            >
               <Button variant="primary" size="lg" className="w-full lg:w-auto">
-                Apply for your card
+                {content?.button?.label || 'Apply for your card'}
               </Button>
             </Link>
           </div>
