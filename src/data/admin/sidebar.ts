@@ -29,6 +29,7 @@ export const contentNavItems: SidebarNavItemData[] = [
 
 export const otherNavItems: SidebarNavItemData[] = [
   { href: ADMIN_ROUTE.FOOTER, label: 'Footer', icon: icon.pageText },
+  { href: ADMIN_ROUTE.LOCATIONS, label: 'Locations', icon: icon.bank },
 ];
 
 export const sidebarNavGroups: SidebarNavGroupData[] = [

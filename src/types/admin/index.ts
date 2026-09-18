@@ -7,3 +7,4 @@ export * from './media';
 export * from './form';
 export * from './forex';
 export * from './footer';
+export * from './location';

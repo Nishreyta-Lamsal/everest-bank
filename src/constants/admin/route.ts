@@ -10,4 +10,5 @@ export const ADMIN_ROUTE = {
   FORMS: '/admin/forms',
   ASSETS: '/admin/assets',
   FOOTER: '/admin/footer',
+  LOCATIONS: '/admin/locations',
 };
