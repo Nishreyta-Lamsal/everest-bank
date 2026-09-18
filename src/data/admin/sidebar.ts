@@ -27,8 +27,13 @@ export const contentNavItems: SidebarNavItemData[] = [
   { href: ADMIN_ROUTE.ASSETS, label: 'Assets', icon: icon.images },
 ];
 
+export const otherNavItems: SidebarNavItemData[] = [
+  { href: ADMIN_ROUTE.FOOTER, label: 'Footer', icon: icon.pageText },
+];
+
 export const sidebarNavGroups: SidebarNavGroupData[] = [
   { title: 'Content', items: contentNavItems },
+  { title: 'Other', items: otherNavItems },
   { title: 'Tools' },
   { title: 'Settings' },
 ];
