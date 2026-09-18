@@ -21,6 +21,12 @@ import type { CardPageSection } from '@/api/services/personal/card/card-page.ser
 
 export const cardPageQueryKey = ['card-page'] as const;
 
+/**
+ * Sections on this page are CMS-managed, so it is rebuilt at most once a
+ * minute instead of being prerendered once at build time.
+ */
+export const revalidate = 60;
+
 const fallbackBreadcrumbItems = [{ label: 'Cards' }];
 
 export default async function CardsPage() {

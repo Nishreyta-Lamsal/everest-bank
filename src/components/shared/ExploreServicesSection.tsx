@@ -1,24 +1,42 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ProductCard from '@/components/ui/cards/ProductCard';
 
-import { exploreServiceCards } from '@/data';
+import { getCardGroup } from '@/api/services/card-group.service';
 
-export default function ExploreServicesSection() {
+import { exploreServicesFallback } from '@/data';
+
+const PLACEHOLDER_IMAGE = '/images/cards/explore-digital-banking.jpg';
+
+type ExploreServicesSectionProps = {
+  /** Which card group to render. Lets one component serve several sections. */
+  slug?: string;
+};
+
+export default async function ExploreServicesSection({
+  slug = 'explore-services',
+}: ExploreServicesSectionProps) {
+  const group = await getCardGroup(slug, exploreServicesFallback);
+
+  // A group with no cards renders nothing rather than an empty heading.
+  if (group.cards.length === 0) return null;
+
   return (
     <section className="w-full bg-white py-16 lg:py-20">
       <LayoutWrapper>
         <div className="flex w-full flex-col items-start gap-8 lg:gap-12">
           <h2 className="font-heading text-heading-h2-mobile-md lg:text-heading-h2-desktop-md text-grey-500">
-            Explore more of our services
+            {group.title}
           </h2>
           <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-            {exploreServiceCards.map((card) => (
+            {group.cards.map((card) => (
               <ProductCard
-                key={card.title}
+                key={card.slug}
                 href={card.href}
-                image={card.image}
+                // An editor can add a card before choosing its image; the
+                // placeholder keeps the row from collapsing.
+                image={card.image_url ?? PLACEHOLDER_IMAGE}
                 title={card.title}
-                ctaLabel="Explore more"
+                ctaLabel={card.cta_label || 'Explore more'}
                 className="lg:flex-1"
               />
             ))}
