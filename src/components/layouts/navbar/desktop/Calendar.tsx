@@ -25,7 +25,12 @@ export default function Calendar({ label }: CalendarProps) {
         <icon.calendar className="size-[16px] shrink-0" />
         {label}
       </button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={label}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={label}
+        className="h-[90vh]"
+      >
         <iframe
           src={CALENDAR_PDF_EMBED_URL}
           title={label}

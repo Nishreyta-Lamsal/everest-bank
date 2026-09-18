@@ -69,11 +69,17 @@ export default function SelectField({
         className={cn(fieldElementClasses({ variant }), 'appearance-none pr-6')}
         aria-invalid={isError}
         aria-describedby={describedBy}
-        defaultValue={defaultValue ?? (placeholder ? '' : undefined)}
+        // A controlled select drives its own value; setting both warns.
+        defaultValue={
+          selectProps.value !== undefined
+            ? undefined
+            : (defaultValue ?? (placeholder ? '' : undefined))
+        }
         {...selectProps}
       >
         {placeholder && (
-          <option value="" disabled hidden>
+          // Selectable when controlled, so picking it clears the filter.
+          <option value="" disabled={selectProps.value === undefined}>
             {placeholder}
           </option>
         )}

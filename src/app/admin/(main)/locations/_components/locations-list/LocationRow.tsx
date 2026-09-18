@@ -14,7 +14,7 @@ export default function LocationRow({ location, onEdit }: LocationRowProps) {
     <button
       type="button"
       onClick={onEdit}
-      className="hover:bg-black-alpha-5 flex w-full cursor-pointer items-center text-left transition-colors"
+      className="flex w-full cursor-pointer items-center text-left"
     >
       <div className="flex h-[74px] min-w-0 flex-1 items-center gap-4 px-4">
         <div className="flex shrink-0 items-center rounded-[4px] bg-slate-100 p-3">

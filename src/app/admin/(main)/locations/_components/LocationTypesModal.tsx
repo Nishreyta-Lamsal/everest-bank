@@ -57,7 +57,7 @@ export default function LocationTypesModal({
 
   return (
     <Modal isOpen onClose={onClose} title="Location types" className="max-w-md">
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-3 px-5 py-4">
         <ul className="flex w-full flex-col gap-2">
           {types.map((type) => (
             <li key={type.slug} className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export default function LocationTypesModal({
                 type="button"
                 aria-label={`Delete ${type.label}`}
                 onClick={() => remove(type.slug, type.locations_count ?? 0)}
-                className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-red-500 hover:bg-red-50"
+                className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-colors hover:text-red-700"
               >
                 <icon.trash className="size-4" />
               </button>
@@ -118,8 +118,8 @@ export default function LocationTypesModal({
         )}
 
         <p className="text-[12px] text-neutral-700/68">
-          Renaming a type changes its label everywhere. Its internal key stays
-          the same, so public pages keep working.
+          Renaming a type updates it everywhere it appears on the website.
+          Your locations stay linked to it, so nothing breaks.
         </p>
       </div>
     </Modal>

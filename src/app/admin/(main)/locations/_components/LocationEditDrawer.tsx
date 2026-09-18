@@ -91,10 +91,10 @@ export default function LocationEditDrawer({
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="flex-1 cursor-default bg-black/20"
+        className="animate-in fade-in absolute inset-0 cursor-default bg-black/20 duration-200"
       />
 
-      <aside className="flex h-full w-full max-w-[520px] flex-col gap-4 overflow-y-auto bg-white p-5 shadow-xl">
+      <aside className="animate-in slide-in-from-right relative flex h-full w-full max-w-[520px] flex-col gap-4 overflow-y-auto bg-white px-6 pt-5 pb-0 shadow-xl duration-300 ease-out">
         <div className="flex items-center justify-between">
           <p className="text-paragraph-lg-bold text-neutral-900">
             {isNew ? 'Add location' : 'Edit location'}
@@ -103,7 +103,7 @@ export default function LocationEditDrawer({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="hover:bg-black-alpha-5 flex size-8 cursor-pointer items-center justify-center rounded-lg text-slate-500"
+            className="flex size-8 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition-colors hover:text-red-500"
           >
             <icon.close className="size-4" />
           </button>
@@ -243,7 +243,7 @@ export default function LocationEditDrawer({
           </p>
         )}
 
-        <div className="flex items-center justify-between gap-2 border-t border-black/5 pt-4">
+        <div className="sticky bottom-0 -mx-6 mt-auto flex items-center justify-between gap-2 border-t border-black/5 bg-white px-6 pt-4 pb-5">
           {!isNew ? (
             <Button
               type="button"

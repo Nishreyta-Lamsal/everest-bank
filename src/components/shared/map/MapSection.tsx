@@ -10,17 +10,32 @@ import type { MapLocation } from '@/types';
 type MapSectionProps = {
   locations: MapLocation[];
   resultsLabel?: string;
+  isLoading?: boolean;
 };
 
 export default function MapSection({
   locations,
   resultsLabel,
+  isLoading,
 }: MapSectionProps) {
-  const [activeLocationId, setActiveLocationId] = useState(locations[0].id);
+  const [activeLocationId, setActiveLocationId] = useState<number | null>(null);
 
   const activeLocation =
     locations.find((location) => location.id === activeLocationId) ??
     locations[0];
+
+  // Filters can match nothing, and there is no map to show for no location.
+  if (!activeLocation) {
+    return (
+      <section className="w-full pt-6 pb-8 lg:py-8">
+        <LayoutWrapper>
+          <p className="text-grey-400 py-12 text-center">
+            {isLoading ? 'Loading…' : 'No locations match these filters.'}
+          </p>
+        </LayoutWrapper>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full pt-6 pb-8 lg:py-8">
@@ -37,7 +52,7 @@ export default function MapSection({
           />
           <MapLocationList
             locations={locations}
-            activeLocationId={activeLocationId}
+            activeLocationId={activeLocation.id}
             onSelectLocation={setActiveLocationId}
             resultsLabel={resultsLabel}
           />

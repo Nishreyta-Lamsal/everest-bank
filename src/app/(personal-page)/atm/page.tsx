@@ -27,6 +27,7 @@ export default async function AtmPage() {
       <Breadcrumbs items={breadcrumbItems} tone="dark" />
       <AtmHeroSection />
       <MapExplorer
+        locationType="atm"
         locations={locations}
         searchPlaceholder="ATM name, address"
         resultsLabel="ATMs found"

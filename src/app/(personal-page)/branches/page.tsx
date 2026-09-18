@@ -27,6 +27,7 @@ export default async function BranchesPage() {
       <Breadcrumbs items={breadcrumbItems} tone="dark" />
       <BranchesHeroSection />
       <MapExplorer
+        locationType="branch"
         locations={locations}
         searchPlaceholder="Branch name, address"
         resultsLabel="branches found"

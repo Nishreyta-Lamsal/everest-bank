@@ -1,7 +1,12 @@
 import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse } from '@/types';
-import type { Location, LocationListData } from '@/types/admin';
+import type {
+  DistrictBrief,
+  Location,
+  LocationListData,
+  ProvinceBrief,
+} from '@/types/admin';
 import type { MapLocation } from '@/types';
 
 export type PublicLocationParams = {
@@ -23,6 +28,11 @@ export function toMapLocation(location: Location): MapLocation {
   };
 }
 
+/** These list endpoints are paginated, so the rows sit under `results`. */
+function toRows<T>(data: { results: T[] } | T[]): T[] {
+  return Array.isArray(data) ? data : data.results;
+}
+
 export const publicLocationService = {
   list: async (params?: PublicLocationParams): Promise<Location[]> => {
     const response = await axiosClient.get<ApiResponse<LocationListData>>(
@@ -31,6 +41,23 @@ export const publicLocationService = {
     );
 
     return response.data.data.results;
+  },
+
+  listProvinces: async (): Promise<ProvinceBrief[]> => {
+    const response = await axiosClient.get<
+      ApiResponse<{ results: ProvinceBrief[] } | ProvinceBrief[]>
+    >('public/provinces/', { params: { page_size: 100 } });
+
+    return toRows(response.data.data);
+  },
+
+  /** Districts of one province, for the dependent picker. */
+  listDistricts: async (province?: string): Promise<DistrictBrief[]> => {
+    const response = await axiosClient.get<
+      ApiResponse<{ results: DistrictBrief[] } | DistrictBrief[]>
+    >('public/districts/', { params: { province, page_size: 100 } });
+
+    return toRows(response.data.data);
   },
 };
 
