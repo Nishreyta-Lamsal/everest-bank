@@ -44,7 +44,7 @@ export default function SubmissionDetailModal({
       title={`Submission #${submission.id}`}
       className="max-w-lg"
     >
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 px-5 py-4">
         <div className="flex items-center justify-between gap-3">
           <span
             className={cn(

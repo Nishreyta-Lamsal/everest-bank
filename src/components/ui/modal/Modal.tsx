@@ -75,7 +75,7 @@ export default function Modal({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-4"
+      className="animate-in fade-in fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-4 duration-200"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -87,11 +87,11 @@ export default function Modal({
         aria-labelledby={titleId}
         tabIndex={-1}
         className={cn(
-          'flex h-[90vh] w-[90vw] max-w-[1200px] flex-col rounded-lg bg-white shadow-lg outline-none',
+          'animate-in fade-in zoom-in-95 flex max-h-[90vh] w-[90vw] max-w-[1200px] flex-col rounded-lg bg-white shadow-lg outline-none duration-150 ease-out',
           className,
         )}
       >
-        <div className="border-grey-50 flex items-center justify-between border-b px-6 py-4">
+        <div className="border-grey-50 flex items-center justify-between border-b px-5 py-5">
           <h2 id={titleId} className="text-heading-h5-desktop-md text-grey-500">
             {title}
           </h2>
@@ -104,7 +104,9 @@ export default function Modal({
             <icon.close className="size-[20px]" />
           </button>
         </div>
-        <div className="flex flex-1 flex-col overflow-hidden">{children}</div>
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>,
     document.body,

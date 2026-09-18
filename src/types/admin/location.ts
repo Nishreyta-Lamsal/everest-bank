@@ -2,10 +2,10 @@ export type LocationTypeBrief = {
   id: number;
   slug: string;
   label: string;
+  label_ne?: string;
 };
 
 export type LocationType = LocationTypeBrief & {
-  label_ne?: string;
   position: number;
   is_active: boolean;
   locations_count?: number;
@@ -17,6 +17,7 @@ export type ProvinceBrief = {
   id: number;
   slug: string;
   name: string;
+  name_ne?: string;
 };
 
 export type DistrictBrief = ProvinceBrief & {

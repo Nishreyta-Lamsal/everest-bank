@@ -11,6 +11,7 @@ import type { MapLocation } from '@/types';
 type MapGridSectionProps = {
   locations: MapLocation[];
   resultsLabel?: string;
+  isLoading?: boolean;
 };
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -18,6 +19,7 @@ const DEFAULT_PAGE_SIZE = 20;
 export default function MapGridSection({
   locations,
   resultsLabel = 'locations found',
+  isLoading,
 }: MapGridSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -41,7 +43,13 @@ export default function MapGridSection({
           <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-400 w-full">
             Total Search: {locations.length} {resultsLabel}
           </p>
-          <MapLocationGrid locations={visibleLocations} />
+          {locations.length === 0 ? (
+            <p className="text-grey-400 w-full py-12 text-center">
+              {isLoading ? 'Loading…' : 'No locations match these filters.'}
+            </p>
+          ) : (
+            <MapLocationGrid locations={visibleLocations} />
+          )}
           <Pagination
             currentPage={page}
             totalPages={totalPages}

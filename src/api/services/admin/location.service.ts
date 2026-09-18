@@ -75,10 +75,13 @@ export const locationService = {
   },
 
   listTypes: async (): Promise<LocationType[]> => {
-    const response =
-      await axiosClient.get<ApiResponse<LocationType[]>>('locations/types/');
+    const response = await axiosClient.get<
+      ApiResponse<{ results: LocationType[] } | LocationType[]>
+    >('locations/types/', { params: { page_size: 100 } });
 
-    return response.data.data;
+    const data = response.data.data;
+
+    return Array.isArray(data) ? data : data.results;
   },
 
   createType: async (

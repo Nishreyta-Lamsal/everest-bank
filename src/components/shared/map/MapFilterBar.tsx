@@ -12,6 +12,12 @@ type MapFilterBarProps = {
   onViewChange: (view: MapView) => void;
   provinceOptions?: SelectFieldOption[];
   districtOptions?: SelectFieldOption[];
+  province: string;
+  onProvinceChange: (province: string) => void;
+  district: string;
+  onDistrictChange: (district: string) => void;
+  search: string;
+  onSearchChange: (search: string) => void;
   searchPlaceholder?: string;
 };
 
@@ -25,6 +31,12 @@ export default function MapFilterBar({
   onViewChange,
   provinceOptions = [],
   districtOptions = [],
+  province,
+  onProvinceChange,
+  district,
+  onDistrictChange,
+  search,
+  onSearchChange,
   searchPlaceholder = 'Name, address',
 }: MapFilterBarProps) {
   return (
@@ -36,13 +48,20 @@ export default function MapFilterBar({
               label="Province"
               placeholder="All provinces"
               options={provinceOptions}
+              value={province}
+              onChange={(event) => onProvinceChange(event.target.value)}
               variant="secondary"
               className="lg:flex-1"
             />
             <SelectField
               label="District"
-              placeholder="Select a province"
+              placeholder={
+                province ? 'All districts' : 'Select a province'
+              }
               options={districtOptions}
+              value={district}
+              onChange={(event) => onDistrictChange(event.target.value)}
+              disabled={province === ''}
               variant="secondary"
               className="lg:flex-1"
             />
@@ -50,6 +69,8 @@ export default function MapFilterBar({
               label="Search"
               type="text"
               variant="secondary"
+              value={search}
+              onChange={(event) => onSearchChange(event.target.value)}
               placeholder={searchPlaceholder}
               trailingIcon={
                 <icon.search className="text-grey-400 size-4 shrink-0" />
