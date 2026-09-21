@@ -31,8 +31,8 @@ export const otherNavItems: SidebarNavItemData[] = [
   { href: ADMIN_ROUTE.FOOTER, label: 'Footer', icon: icon.pageText },
   { href: ADMIN_ROUTE.LOCATIONS, label: 'Locations', icon: icon.bank },
   {
-    href: ADMIN_ROUTE.CARD_GROUPS,
-    label: 'Card Groups',
+    href: ADMIN_ROUTE.MORE_SERVICES,
+    label: 'More Services',
     icon: icon.images,
   },
 ];

@@ -4,11 +4,11 @@ import { toMediaPath } from '@/lib/api/media-url';
 import type {
   ApiResponse,
   Card,
-  CardGroup,
-  CardGroupDetail,
+  MoreService,
+  MoreServiceDetail,
 } from '@/types/admin';
 
-export type CardGroupWritePayload = {
+export type MoreServiceWritePayload = {
   title: string;
   is_active?: boolean;
 };
@@ -37,28 +37,30 @@ function withMediaPath(card: Card): Card {
     : card;
 }
 
-function withMediaPaths(group: CardGroupDetail): CardGroupDetail {
+function withMediaPaths(group: MoreServiceDetail): MoreServiceDetail {
   return { ...group, cards: group.cards.map(withMediaPath) };
 }
 
-export const cardGroupService = {
-  list: async (): Promise<CardGroup[]> => {
+export const moreServiceService = {
+  list: async (): Promise<MoreService[]> => {
     const response =
-      await axiosClient.get<ApiResponse<CardGroup[]>>('card-groups/');
+      await axiosClient.get<ApiResponse<MoreService[]>>('card-groups/');
 
     return response.data.data;
   },
 
-  retrieve: async (slug: string): Promise<CardGroupDetail> => {
-    const response = await axiosClient.get<ApiResponse<CardGroupDetail>>(
+  retrieve: async (slug: string): Promise<MoreServiceDetail> => {
+    const response = await axiosClient.get<ApiResponse<MoreServiceDetail>>(
       `card-groups/${slug}/`,
     );
 
     return withMediaPaths(response.data.data);
   },
 
-  create: async (payload: CardGroupWritePayload): Promise<CardGroupDetail> => {
-    const response = await axiosClient.post<ApiResponse<CardGroupDetail>>(
+  create: async (
+    payload: MoreServiceWritePayload,
+  ): Promise<MoreServiceDetail> => {
+    const response = await axiosClient.post<ApiResponse<MoreServiceDetail>>(
       'card-groups/',
       payload,
     );
@@ -68,9 +70,9 @@ export const cardGroupService = {
 
   update: async (
     slug: string,
-    payload: Partial<CardGroupWritePayload>,
-  ): Promise<CardGroupDetail> => {
-    const response = await axiosClient.patch<ApiResponse<CardGroupDetail>>(
+    payload: Partial<MoreServiceWritePayload>,
+  ): Promise<MoreServiceDetail> => {
+    const response = await axiosClient.patch<ApiResponse<MoreServiceDetail>>(
       `card-groups/${slug}/`,
       payload,
     );
