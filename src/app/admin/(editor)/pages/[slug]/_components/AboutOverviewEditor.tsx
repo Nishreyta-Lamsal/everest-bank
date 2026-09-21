@@ -34,19 +34,13 @@ export default function AboutOverviewEditor({
   const [cards, setCards] = useState<OverviewCard[]>(content.cards ?? []);
   const [centerImage, setCenterImage] = useState(content.center_image);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<AboutOverviewContent>(slug, section, () => ({
-    intro,
-    stats,
-    cards,
-    center_image: centerImage,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<AboutOverviewContent>(slug, section, () => ({
+      intro,
+      stats,
+      cards,
+      center_image: centerImage,
+    }));
 
   function updateStat(index: number, next: OverviewStat) {
     setStats(stats.map((stat, i) => (i === index ? next : stat)));
@@ -81,8 +75,7 @@ export default function AboutOverviewEditor({
       <MediaField
         label="Center image"
         media={centerImage}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setCenterImage)}
+        onSelect={setCenterImage}
         onRemove={() => setCenterImage(undefined)}
       />
 

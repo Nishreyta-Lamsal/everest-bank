@@ -38,19 +38,13 @@ export default function BusinessDigitalBankingEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<BusinessDigitalBankingContent>(slug, section, () => ({
-    heading,
-    image,
-    features,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<BusinessDigitalBankingContent>(slug, section, () => ({
+      heading,
+      image,
+      features,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateFeature(index: number, next: Feature) {
     setFeatures(features.map((feature, i) => (i === index ? next : feature)));
@@ -77,8 +71,7 @@ export default function BusinessDigitalBankingEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

@@ -10,7 +10,10 @@ import { Input } from '@/components/admin/ui/input';
 
 import { useLogin } from '@/hooks/api/admin/use-auth';
 
-import { loginSchema, type LoginFormValues } from '@/schemas/admin/login-schema';
+import {
+  loginSchema,
+  type LoginFormValues,
+} from '@/schemas/admin/login-schema';
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +35,10 @@ export default function LoginForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="flex w-full flex-col gap-5">
       <div className="flex w-full flex-col gap-1.5">
-        <label htmlFor="email" className="text-paragraph-sm-medium text-slate-900">
+        <label
+          htmlFor="email"
+          className="text-paragraph-sm-medium text-slate-900"
+        >
           Email
         </label>
         <Input

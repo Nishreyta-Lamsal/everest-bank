@@ -38,20 +38,14 @@ export default function LoanHeroEditor({ slug, section }: LoanHeroEditorProps) {
     content.secondary_cta?.href ?? '',
   );
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoanHeroContent>(slug, section, () => ({
-    title,
-    description,
-    image,
-    primary_cta: { label: primaryLabel, href: primaryHref },
-    secondary_cta: { label: secondaryLabel, href: secondaryHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoanHeroContent>(slug, section, () => ({
+      title,
+      description,
+      image,
+      primary_cta: { label: primaryLabel, href: primaryHref },
+      secondary_cta: { label: secondaryLabel, href: secondaryHref },
+    }));
 
   return (
     <SectionEditorShell
@@ -84,8 +78,7 @@ export default function LoanHeroEditor({ slug, section }: LoanHeroEditorProps) {
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

@@ -33,11 +33,8 @@ export default function BuiltForSectionCard() {
     setItems((current) => [...current, { title: '' }]);
   }
 
-  function uploadImage(index: number, file: File) {
-    updateItem(index, {
-      ...items[index],
-      image: { src: URL.createObjectURL(file), alt: '' },
-    });
+  function selectImage(index: number, image: SectionMedia) {
+    updateItem(index, { ...items[index], image });
   }
 
   return (
@@ -59,7 +56,7 @@ export default function BuiltForSectionCard() {
             <MediaField
               label="Right-Side Image"
               media={item.image}
-              onUpload={(file) => uploadImage(index, file)}
+              onSelect={(image) => selectImage(index, image)}
               onRemove={() => updateItem(index, { ...item, image: undefined })}
             />
           </div>

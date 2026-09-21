@@ -19,7 +19,6 @@ type PreviewSectionHighlightProps = {
   children: ReactNode;
 };
 
-
 export default function PreviewSectionHighlight({
   sectionType,
   activeSectionType,

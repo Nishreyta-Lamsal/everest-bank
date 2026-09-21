@@ -40,23 +40,17 @@ export default function BusinessRelationshipManagersEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<BusinessRelationshipManagersContent>(
-    slug,
-    section,
-    () => ({
-      heading,
-      description,
-      managers,
-      cta: { label: ctaLabel, href: ctaHref },
-    }),
-  );
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<BusinessRelationshipManagersContent>(
+      slug,
+      section,
+      () => ({
+        heading,
+        description,
+        managers,
+        cta: { label: ctaLabel, href: ctaHref },
+      }),
+    );
 
   function updateManager(index: number, next: Manager) {
     setManagers(managers.map((manager, i) => (i === index ? next : manager)));
@@ -127,12 +121,7 @@ export default function BusinessRelationshipManagersEditor({
             <MediaField
               label="Portrait"
               media={manager.image}
-              isUploading={isUploading}
-              onUpload={(file) =>
-                uploadImage(file, (image) =>
-                  updateManager(index, { ...manager, image }),
-                )
-              }
+              onSelect={(image) => updateManager(index, { ...manager, image })}
             />
           </div>
         ))}

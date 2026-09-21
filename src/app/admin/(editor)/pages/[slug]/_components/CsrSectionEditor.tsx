@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import MediaField, {
+  toSectionMedia,
+} from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
@@ -47,22 +49,16 @@ export default function CsrSectionEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<CsrContent>(slug, section, () => ({
-    heading,
-    description,
-    cards,
-    main_image: mainImage,
-    customer_count: customerCount,
-    customer_avatars: avatars,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<CsrContent>(slug, section, () => ({
+      heading,
+      description,
+      cards,
+      main_image: mainImage,
+      customer_count: customerCount,
+      customer_avatars: avatars,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateCard(index: number, next: CsrCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -98,8 +94,7 @@ export default function CsrSectionEditor({
       <MediaField
         label="Main image"
         media={mainImage}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setMainImage)}
+        onSelect={setMainImage}
         onRemove={() => setMainImage(undefined)}
       />
 
@@ -195,12 +190,10 @@ export default function CsrSectionEditor({
           </div>
         )}
         <ImageDropzone
-          isUploading={isUploading}
-          onFileSelected={(file) =>
-            uploadImage(file, (media) =>
-              setAvatars((current) => [...current, media]),
-            )
-          }
+          onMediaSelected={(picked) => {
+            const media = toSectionMedia(picked);
+            return setAvatars((current) => [...current, media]);
+          }}
         />
       </div>
 

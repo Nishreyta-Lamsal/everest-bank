@@ -32,20 +32,14 @@ export default function AboutHistoryEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<AboutHistoryContent>(slug, section, () => ({
-    heading,
-    intro,
-    body,
-    image,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<AboutHistoryContent>(slug, section, () => ({
+      heading,
+      intro,
+      body,
+      image,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   return (
     <SectionEditorShell
@@ -86,8 +80,7 @@ export default function AboutHistoryEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

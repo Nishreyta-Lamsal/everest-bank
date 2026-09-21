@@ -10,7 +10,6 @@ import { Textarea } from '@/components/admin/ui/textarea';
 
 import { useFooterDraft } from './FooterDraftContext';
 import { useFooterSettings } from '@/hooks/api/admin/use-footer';
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 
 import type { FooterSettingsWrite, SectionMedia } from '@/types/admin';
 
@@ -18,12 +17,11 @@ type ImageField = 'logo_media' | 'app_qr_media' | 'mountain_banner_media';
 
 export default function FooterSettingsCard() {
   const { data: settings, isPending, isError } = useFooterSettings();
-  const uploadMedia = useUploadMedia();
 
   const { draft: footerDraft, update } = useFooterDraft();
   const draft = footerDraft.settings;
 
-  // Uploads return an id for saving plus a url the field can preview.
+  // A picked asset gives an id for saving plus a url the field can preview.
   const [previews, setPreviews] = useState<Record<string, SectionMedia>>({});
 
   function setField(field: keyof FooterSettingsWrite, value: string | number) {
@@ -33,25 +31,11 @@ export default function FooterSettingsCard() {
     }));
   }
 
-  function uploadImage(field: ImageField, file: File) {
-    uploadMedia.mutate(
-      { file },
-      {
-        onSuccess(media) {
-          if (!media.file_url) return;
+  function selectImage(field: ImageField, media: SectionMedia) {
+    if (media.media_id === undefined) return;
 
-          setField(field, media.id);
-          setPreviews((current) => ({
-            ...current,
-            [field]: {
-              src: media.file_url,
-              alt: media.alt_text || media.title || '',
-              media_id: media.id,
-            },
-          }));
-        },
-      },
-    );
+    setField(field, media.media_id);
+    setPreviews((current) => ({ ...current, [field]: media }));
   }
 
   function imageFor(field: ImageField, url: string | null | undefined) {
@@ -101,14 +85,12 @@ export default function FooterSettingsCard() {
           <MediaField
             label="Logo"
             media={imageFor('logo_media', settings.logo_url)}
-            isUploading={uploadMedia.isPending}
-            onUpload={(file) => uploadImage('logo_media', file)}
+            onSelect={(media) => selectImage('logo_media', media)}
           />
           <MediaField
             label="App QR code"
             media={imageFor('app_qr_media', settings.app_qr_url)}
-            isUploading={uploadMedia.isPending}
-            onUpload={(file) => uploadImage('app_qr_media', file)}
+            onSelect={(media) => selectImage('app_qr_media', media)}
           />
           <MediaField
             label="Mountain banner"
@@ -116,8 +98,7 @@ export default function FooterSettingsCard() {
               'mountain_banner_media',
               settings.mountain_banner_url,
             )}
-            isUploading={uploadMedia.isPending}
-            onUpload={(file) => uploadImage('mountain_banner_media', file)}
+            onSelect={(media) => selectImage('mountain_banner_media', media)}
           />
         </div>
 

@@ -30,18 +30,12 @@ export default function SavingDocumentsEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<SavingDocumentsContent>(slug, section, () => ({
-    image,
-    steps,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<SavingDocumentsContent>(slug, section, () => ({
+      image,
+      steps,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateStep(index: number, next: DocumentStep) {
     setSteps(steps.map((step, i) => (i === index ? next : step)));
@@ -60,8 +54,7 @@ export default function SavingDocumentsEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

@@ -6,7 +6,7 @@ import FieldLabel from '@/components/admin/shared/FieldLabel';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import MediaField from '@/components/admin/shared/MediaField';
 
-import type { ProductCard } from '@/types/admin';
+import type { ProductCard, SectionMedia } from '@/types/admin';
 
 type ProductCardFieldGroupProps = {
   label: string;
@@ -15,7 +15,7 @@ type ProductCardFieldGroupProps = {
   onRemove: () => void;
   showMedia?: boolean;
   isUploading?: boolean;
-  onMediaUpload?: (file: File) => void;
+  onMediaSelect?: (media: SectionMedia) => void;
   onMediaRemove?: () => void;
 };
 
@@ -24,8 +24,7 @@ export default function ProductCardFieldGroup({
   card,
   onChange,
   showMedia = false,
-  isUploading,
-  onMediaUpload,
+  onMediaSelect,
   onMediaRemove,
 }: ProductCardFieldGroupProps) {
   return (
@@ -81,8 +80,7 @@ export default function ProductCardFieldGroup({
           <MediaField
             label="Card image"
             media={card.decoration_src}
-            isUploading={isUploading}
-            onUpload={(file) => onMediaUpload?.(file)}
+            onSelect={(media) => onMediaSelect?.(media)}
             onRemove={onMediaRemove}
             previewSize="small"
           />

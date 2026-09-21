@@ -19,7 +19,6 @@ export default function ProductEditorShell({
   preview,
   children,
 }: ProductEditorShellProps) {
-
   const params = useParams<{ slug?: string }>();
 
   return (

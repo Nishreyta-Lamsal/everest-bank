@@ -39,20 +39,14 @@ export default function CardOverviewEditor({
     content.variants ?? [],
   );
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<CardOverviewContent>(slug, section, () => ({
-    heading,
-    description,
-    brands_heading: brandsHeading,
-    brands,
-    variants,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<CardOverviewContent>(slug, section, () => ({
+      heading,
+      description,
+      brands_heading: brandsHeading,
+      brands,
+      variants,
+    }));
 
   function updateVariant(index: number, next: CardVariantContent) {
     setVariants(variants.map((variant, i) => (i === index ? next : variant)));
@@ -147,12 +141,7 @@ export default function CardOverviewEditor({
           <MediaField
             label="Card face"
             media={variant.face}
-            isUploading={isUploading}
-            onUpload={(file) =>
-              uploadImage(file, (face) =>
-                updateVariant(index, { ...variant, face }),
-              )
-            }
+            onSelect={(face) => updateVariant(index, { ...variant, face })}
           />
 
           <FieldLabel label="Features heading">

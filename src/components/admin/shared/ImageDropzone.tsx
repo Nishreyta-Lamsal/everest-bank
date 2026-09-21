@@ -1,19 +1,23 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import ImagePreview from './ImagePreview';
+import MediaPickerDialog from './media-picker/MediaPickerDialog';
 import { icon } from '@/components/admin/icons';
 
 import { cn } from '@/lib/utils';
 
-const ACCEPTED_TYPES = 'image/png,image/jpeg,image/webp';
+import type { Media, MediaType } from '@/types/admin';
 
 type ImageDropzoneProps = {
-  onFileSelected: (file: File) => void;
+  onMediaSelected: (media: Media) => void;
   onRemove?: () => void;
   isUploading?: boolean;
   error?: string;
+  mediaType?: MediaType;
+  pickerTitle?: string;
+  selectedId?: number;
   preview?: {
     src: string;
     alt?: string;
@@ -21,24 +25,25 @@ type ImageDropzoneProps = {
   previewSize?: 'small' | 'large';
 };
 
+/**
+ * Everything the CMS uses must be catalogued in the media library, so this
+ * opens the picker rather than the browser's file dialog — uploading a new
+ * file happens inside the picker, which registers it as it goes.
+ */
 export default function ImageDropzone({
-  onFileSelected,
+  onMediaSelected,
   onRemove,
   isUploading,
   error,
+  mediaType = 'image',
+  pickerTitle,
+  selectedId,
   preview,
   previewSize = 'small',
 }: ImageDropzoneProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-  function handleFiles(files: FileList | null) {
-    const file = files?.[0];
-
-    if (file) {
-      onFileSelected(file);
-    }
-  }
+  const isImage = mediaType === 'image';
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -56,21 +61,11 @@ export default function ImageDropzone({
       <button
         type="button"
         disabled={isUploading}
-        onClick={() => inputRef.current?.click()}
-        onDragOver={(event) => {
-          event.preventDefault();
-          setIsDragging(true);
-        }}
-        onDragLeave={() => setIsDragging(false)}
-        onDrop={(event) => {
-          event.preventDefault();
-          setIsDragging(false);
-          handleFiles(event.dataTransfer.files);
-        }}
-        aria-label="Upload image"
+        onClick={() => setIsPickerOpen(true)}
+        aria-label={isImage ? 'Choose an image' : 'Choose a file'}
+        aria-haspopup="dialog"
         className={cn(
           'flex w-full cursor-pointer items-center justify-center gap-3 rounded-[6px] border border-dashed border-[#cfd9e8] bg-[rgba(0,0,0,0.03)] px-px py-[17px]',
-          isDragging && 'border-blue-500 bg-blue-50',
           isUploading && 'cursor-not-allowed opacity-60',
         )}
       >
@@ -79,23 +74,27 @@ export default function ImageDropzone({
         </div>
         <div className="flex flex-col items-start gap-0.5 text-left">
           <p className="text-[14px] leading-[21px] font-semibold tracking-[-0.35px] text-slate-500">
-            {isUploading ? 'Uploading…' : 'Click to add an image'}
+            {isUploading
+              ? 'Uploading…'
+              : isImage
+                ? 'Click to choose an image'
+                : 'Click to choose a file'}
           </p>
           <p className="text-[12px] leading-[18px] text-slate-400">
-            or drag and drop — PNG, JPG, WEBP
+            Pick from assets, or upload a new one there
           </p>
         </div>
       </button>
-      <input
-        ref={inputRef}
-        type="file"
-        accept={ACCEPTED_TYPES}
-        hidden
-        onChange={(event) => {
-          handleFiles(event.target.files);
-          event.target.value = '';
-        }}
+
+      <MediaPickerDialog
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        onSelect={onMediaSelected}
+        mediaType={mediaType}
+        selectedId={selectedId}
+        title={pickerTitle ?? (isImage ? 'Select an image' : 'Select a file')}
       />
+
       {error && <p className="text-[12px] text-red-600">{error}</p>}
     </div>
   );

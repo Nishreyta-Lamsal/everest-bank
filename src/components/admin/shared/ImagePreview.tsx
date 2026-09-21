@@ -1,21 +1,24 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useState } from 'react';
 
 import { icon } from '@/components/admin/icons';
+import MediaPickerDialog from './media-picker/MediaPickerDialog';
 
 import { cn } from '@/lib/utils';
 
-const ACCEPTED_TYPES = 'image/png,image/jpeg,image/webp';
+import type { Media, MediaType } from '@/types/admin';
 
 type ImagePreviewProps = {
   src: string;
   alt?: string;
   size?: 'small' | 'large';
-  onReplace?: (file: File) => void;
+  /** Replacing picks another library asset rather than uploading a file. */
+  onReplace?: (media: Media) => void;
   onRemove?: () => void;
   isUploading?: boolean;
+  mediaType?: MediaType;
 };
 
 const sizeClasses = {
@@ -30,8 +33,9 @@ export default function ImagePreview({
   onReplace,
   onRemove,
   isUploading,
+  mediaType = 'image',
 }: ImagePreviewProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const image = (
     <Image
@@ -54,7 +58,7 @@ export default function ImagePreview({
         <button
           type="button"
           disabled={isUploading}
-          onClick={() => inputRef.current?.click()}
+          onClick={() => setIsPickerOpen(true)}
           aria-label="Replace image"
           className="absolute inset-0 block cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
         >
@@ -73,20 +77,12 @@ export default function ImagePreview({
       )}
 
       {onReplace && (
-        <input
-          ref={inputRef}
-          type="file"
-          accept={ACCEPTED_TYPES}
-          hidden
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-
-            if (file) {
-              onReplace(file);
-            }
-
-            event.target.value = '';
-          }}
+        <MediaPickerDialog
+          isOpen={isPickerOpen}
+          onClose={() => setIsPickerOpen(false)}
+          onSelect={onReplace}
+          mediaType={mediaType}
+          title="Replace image"
         />
       )}
 

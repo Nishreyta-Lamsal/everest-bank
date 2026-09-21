@@ -27,7 +27,7 @@ import {
   type NoticeFormValues,
 } from '@/schemas/admin/notice-schema';
 
-import type { NoticesAndNewsEntry } from '@/types/admin';
+import type { Media, NoticesAndNewsEntry } from '@/types/admin';
 
 type NoticesAndNewsEditDrawerProps = {
   entry: NoticesAndNewsEntry | null;
@@ -93,7 +93,7 @@ export default function NoticesAndNewsEditDrawer({
     },
   });
 
-  const [mediaFile, setMediaFile] = useState<File | null>(null);
+  const [pickedMedia, setPickedMedia] = useState<Media | null>(null);
   const [isMediaCleared, setIsMediaCleared] = useState(false);
 
   const createNews = useCreateNews();
@@ -116,27 +116,20 @@ export default function NoticesAndNewsEditDrawer({
   const hasMedia = kind === 'notice';
 
   /**
-   * The notice endpoints take a media id, not a file, so a newly picked file is
-   * uploaded to the library first and its id attached. `undefined` leaves the
-   * existing attachment untouched; `null` detaches it.
+   * The notice endpoints take a media id, and the picker only ever hands back
+   * library assets. `undefined` leaves the existing attachment untouched;
+   * `null` detaches it.
    */
-  async function resolveMediaId() {
+  function resolveMediaId() {
     if (!hasMedia) return undefined;
 
-    if (mediaFile) {
-      const uploaded = await uploadMedia.mutateAsync({
-        file: mediaFile,
-        title: mediaFile.name,
-      });
-
-      return uploaded.id;
-    }
+    if (pickedMedia) return pickedMedia.id;
 
     return isMediaCleared ? null : undefined;
   }
 
   const onSubmit = handleSubmit(async (values) => {
-    const media = await resolveMediaId();
+    const media = resolveMediaId();
 
     if (isCreating) {
       const create = kind === 'news' ? createNews : createNotice;
@@ -250,10 +243,10 @@ export default function NoticesAndNewsEditDrawer({
           <FieldLabel label="Media">
             <NoticeMediaField
               existing={entry?.media ?? null}
-              value={mediaFile}
-              onChange={(file) => {
-                setMediaFile(file);
-                if (file) setIsMediaCleared(false);
+              value={pickedMedia}
+              onChange={(media) => {
+                setPickedMedia(media);
+                if (media) setIsMediaCleared(false);
               }}
               isCleared={isMediaCleared}
               onClear={() => setIsMediaCleared(true)}

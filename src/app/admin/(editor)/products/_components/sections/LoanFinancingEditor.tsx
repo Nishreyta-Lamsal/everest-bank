@@ -32,19 +32,13 @@ export default function LoanFinancingEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta_label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta_href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoanFinancingContent>(slug, section, () => ({
-    heading,
-    cards,
-    cta_label: ctaLabel,
-    cta_href: ctaHref,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoanFinancingContent>(slug, section, () => ({
+      heading,
+      cards,
+      cta_label: ctaLabel,
+      cta_href: ctaHref,
+    }));
 
   function updateCard(index: number, next: FinancingCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -93,12 +87,7 @@ export default function LoanFinancingEditor({
           <MediaField
             label="Image"
             media={card.image}
-            isUploading={isUploading}
-            onUpload={(file) =>
-              uploadImage(file, (image) =>
-                updateCard(index, { ...card, image }),
-              )
-            }
+            onSelect={(image) => updateCard(index, { ...card, image })}
           />
 
           <FieldLabel label="Links to">

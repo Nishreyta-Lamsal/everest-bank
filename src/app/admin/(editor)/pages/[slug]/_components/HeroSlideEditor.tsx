@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
 import Pill from '@/components/admin/shared/Pill';
 import SlideEditorHeader from './SlideEditorHeader';
@@ -14,14 +15,18 @@ import { Card } from '@/components/admin/ui/card';
 import { Input } from '@/components/admin/ui/input';
 import { Textarea } from '@/components/admin/ui/textarea';
 
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { readApiError } from '@/lib/admin/read-api-error';
 import {
   localizedContent,
   mergeLocalizedContent,
 } from '@/lib/admin/section-content';
 
-import type { HeroContent, PageSectionRead, SectionMedia } from '@/types/admin';
+import type {
+  HeroContent,
+  Media,
+  PageSectionRead,
+  SectionMedia,
+} from '@/types/admin';
 
 type SlideButtonState = {
   label: string;
@@ -38,7 +43,6 @@ export default function HeroSlideEditor({
   section,
 }: HeroSlideEditorProps) {
   const content = localizedContent<HeroContent>(section.content);
-  const uploadMedia = useUploadMedia();
   const {
     registerSectionDraft,
     setDraftContent,
@@ -92,24 +96,11 @@ export default function HeroSlideEditor({
     ),
   );
 
-  function handleFileSelected(file: File) {
-    uploadMedia.mutate(
-      { file },
-      {
-        onSuccess: (media) => {
-          if (!media.file_url) return;
+  function handleMediaSelected(picked: Media) {
+    const selected = toSectionMedia(picked);
 
-          const uploaded: SectionMedia = {
-            src: media.file_url,
-            alt: media.alt_text || media.title || '',
-            media_id: media.id,
-          };
-
-          setSlides((current) =>
-            isSingleImageHero ? [uploaded] : [...current, uploaded],
-          );
-        },
-      },
+    setSlides((current) =>
+      isSingleImageHero ? [selected] : [...current, selected],
     );
   }
 
@@ -130,24 +121,11 @@ export default function HeroSlideEditor({
     setSlides((current) => current.filter((_, i) => i !== index));
   }
 
-  function handleSlideReplace(index: number, file: File) {
-    uploadMedia.mutate(
-      { file },
-      {
-        onSuccess: (media) => {
-          if (!media.file_url) return;
+  function handleSlideReplace(index: number, picked: Media) {
+    const selected = toSectionMedia(picked);
 
-          const uploaded: SectionMedia = {
-            src: media.file_url,
-            alt: media.alt_text || media.title || '',
-            media_id: media.id,
-          };
-
-          setSlides((current) =>
-            current.map((slide, i) => (i === index ? uploaded : slide)),
-          );
-        },
-      },
+    setSlides((current) =>
+      current.map((slide, i) => (i === index ? selected : slide)),
     );
   }
 
@@ -311,22 +289,13 @@ export default function HeroSlideEditor({
                       key={`${slide.media_id ?? 'slide'}-${index}`}
                       src={slide.src}
                       alt={slide.alt}
-                      onReplace={(file) => handleSlideReplace(index, file)}
+                      onReplace={(picked) => handleSlideReplace(index, picked)}
                       onRemove={() => removeSlide(index)}
-                      isUploading={uploadMedia.isPending}
                     />
                   ))}
                 </div>
               )}
-              <ImageDropzone
-                onFileSelected={handleFileSelected}
-                isUploading={uploadMedia.isPending}
-                error={
-                  uploadMedia.isError
-                    ? (uploadMedia.error?.message ?? 'Could not upload image.')
-                    : undefined
-                }
-              />
+              <ImageDropzone onMediaSelected={handleMediaSelected} />
             </div>
           </div>
         </div>

@@ -36,18 +36,12 @@ export default function LoansPreviewEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoansPreviewContent>(slug, section, () => ({
-    heading,
-    cards,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoansPreviewContent>(slug, section, () => ({
+      heading,
+      cards,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateCard(index: number, next: LoansPreviewCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -115,12 +109,7 @@ export default function LoansPreviewEditor({
             <MediaField
               label="Card image"
               media={card.image}
-              isUploading={isUploading}
-              onUpload={(file) =>
-                uploadImage(file, (media) =>
-                  updateCard(index, { ...card, image: media }),
-                )
-              }
+              onSelect={(media) => updateCard(index, { ...card, image: media })}
               onRemove={() => updateCard(index, { ...card, image: undefined })}
             />
           </div>

@@ -45,7 +45,6 @@ export default function PagesList({ items }: PagesListProps) {
 
     if (oldIndex === -1 || newIndex === -1) return;
 
-
     const reordered = arrayMove(items, oldIndex, newIndex);
     const changed = reordered
       .map((page, index) => ({

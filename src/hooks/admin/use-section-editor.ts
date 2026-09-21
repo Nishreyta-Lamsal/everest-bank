@@ -4,17 +4,15 @@ import { useEffect, useState } from 'react';
 
 import { usePageEditor } from '@/store/PageEditorContext';
 
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { mergeLocalizedContent } from '@/lib/admin/section-content';
 
-import type { PageSectionRead, SectionMedia } from '@/types/admin';
+import type { Media, PageSectionRead, SectionMedia } from '@/types/admin';
 
 export function useSectionEditor<T extends object>(
   slug: string,
   section: PageSectionRead,
   buildContent: () => Partial<T>,
 ) {
-  const uploadMedia = useUploadMedia();
   const {
     registerSectionDraft,
     setDraftContent,
@@ -24,21 +22,21 @@ export function useSectionEditor<T extends object>(
 
   const [shownOnPage, setShownOnPage] = useState(section.is_visible);
 
-  function uploadImage(file: File, onUploaded: (media: SectionMedia) => void) {
-    uploadMedia.mutate(
-      { file },
-      {
-        onSuccess(media) {
-          if (!media.file_url) return;
+  /**
+   * The picker uploads into the media library itself, so a section only has
+   * to store the chosen asset.
+   */
+  function selectImage(
+    media: Media,
+    onSelected: (media: SectionMedia) => void,
+  ) {
+    if (!media.file_url) return;
 
-          onUploaded({
-            src: media.file_url,
-            alt: media.alt_text || media.title || '',
-            media_id: media.id,
-          });
-        },
-      },
-    );
+    onSelected({
+      src: media.file_url,
+      alt: media.alt_text || media.title || '',
+      media_id: media.id,
+    });
   }
 
   // `buildContent` is a new closure every render, so the serialized content is
@@ -88,8 +86,7 @@ export function useSectionEditor<T extends object>(
   return {
     shownOnPage,
     setShownOnPage,
-    uploadImage,
-    isUploading: uploadMedia.isPending,
+    selectImage,
     isError: Boolean(publishError),
     error: publishError,
   };

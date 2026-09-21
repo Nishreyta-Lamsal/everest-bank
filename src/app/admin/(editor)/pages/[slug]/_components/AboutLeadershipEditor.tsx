@@ -35,19 +35,13 @@ export default function AboutLeadershipEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<AboutLeadershipContent>(slug, section, () => ({
-    heading,
-    description,
-    people,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<AboutLeadershipContent>(slug, section, () => ({
+      heading,
+      description,
+      people,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updatePerson(index: number, next: LeadershipPerson) {
     setPeople(people.map((person, i) => (i === index ? next : person)));
@@ -118,12 +112,7 @@ export default function AboutLeadershipEditor({
             <MediaField
               label="Portrait"
               media={person.image}
-              isUploading={isUploading}
-              onUpload={(file) =>
-                uploadImage(file, (image) =>
-                  updatePerson(index, { ...person, image }),
-                )
-              }
+              onSelect={(image) => updatePerson(index, { ...person, image })}
             />
           </div>
         ))}
