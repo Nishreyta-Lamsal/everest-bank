@@ -77,12 +77,14 @@ export type SectionType =
   | 'content_body'
   | 'content_sidebar'
   | 'content_people'
+  | 'content_jobs'
   | 'remittance_hero'
   | 'remittance_services'
   | 'remittance_why'
   | 'remittance_trust'
   | 'remittance_open_account'
   | 'remittance_faqs'
+  | 'remittance_representatives'
   | 'saving_hero'
   | 'saving_documents'
   | 'saving_steps'
@@ -387,6 +389,36 @@ export type ContentBreadcrumbsContent = {
   items?: {
     label: string;
     href?: string;
+  }[];
+};
+
+export type ContentJobsContent = {
+  groups?: {
+    heading: string;
+    jobs: {
+      id: string;
+      title: string;
+      location: string;
+      apply_href: string;
+      apply_label: string;
+      description: string;
+      employment_type: string;
+    }[];
+  }[];
+};
+
+export type RemittanceRepresentativesContent = {
+  groups?: {
+    heading: string;
+    representatives: {
+      id: string;
+      fax: string;
+      name: string;
+      email: string;
+      phone: string;
+      address: string;
+      contact_name: string;
+    }[];
   }[];
 };
 
