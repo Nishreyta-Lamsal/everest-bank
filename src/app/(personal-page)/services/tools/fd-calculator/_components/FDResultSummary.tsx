@@ -3,7 +3,6 @@ type FDResultSummaryProps = {
   principal: number;
   interestEarned: number;
   tenureLabel: string;
-  compoundingLabel: string;
 };
 
 function formatRupees(value: number) {
@@ -15,7 +14,6 @@ export default function FDResultSummary({
   principal,
   interestEarned,
   tenureLabel,
-  compoundingLabel,
 }: FDResultSummaryProps) {
   const investedShare =
     maturityValue > 0 ? (principal / maturityValue) * 100 : 0;
@@ -28,7 +26,7 @@ export default function FDResultSummary({
             Maturity Value
           </p>
           <p className="text-body-4-mobile lg:text-body-4-desktop">
-            after {tenureLabel} (Compounding {compoundingLabel})
+            after {tenureLabel}
           </p>
         </div>
         <p className="font-heading text-title-0-mobile-md lg:text-heading-h3-desktop-md">

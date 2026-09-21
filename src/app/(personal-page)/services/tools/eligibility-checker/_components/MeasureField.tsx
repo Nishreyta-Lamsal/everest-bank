@@ -34,7 +34,7 @@ export default function MeasureField({
     const numericValue = Number(rawValue.replace(/[^\d.]/g, ''));
 
     if (!Number.isNaN(numericValue)) {
-      onValueChange(numericValue);
+      onValueChange(Math.min(Math.max(numericValue, min), max));
     }
   }
 

@@ -2,14 +2,16 @@ import { useId } from 'react';
 
 import { icon } from '@/components/icons';
 
-import { loanTypeOptions } from '../_data/eligibility-checker';
+import type { LoanTypeOption } from '../_data/eligibility-checker';
 
 type LoanTypeFieldProps = {
+  options: LoanTypeOption[];
   value: string;
   onValueChange: (value: string) => void;
 };
 
 export default function LoanTypeField({
+  options,
   value,
   onValueChange,
 }: LoanTypeFieldProps) {
@@ -30,7 +32,7 @@ export default function LoanTypeField({
           onChange={(event) => onValueChange(event.target.value)}
           className="text-body-2-mobile-md lg:text-body-2-desktop-md text-grey-300 border-grey-300/50 h-full w-full cursor-pointer appearance-none rounded-[8px] border bg-transparent px-4 pr-10 outline-none"
         >
-          {loanTypeOptions.map((option) => (
+          {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

@@ -1,6 +1,6 @@
-export type TenureUnit = 'years' | 'months';
+import type { CalculatorRange, FdCalculatorConfig } from '@/types/admin';
 
-export type CompoundingFrequency = 'quarterly' | 'half-yearly' | 'yearly';
+export type TenureUnit = 'years' | 'months';
 
 export type SliderRange = {
   min: number;
@@ -8,44 +8,31 @@ export type SliderRange = {
   step: number;
 };
 
-export type CompoundingOption = {
-  label: string;
-  value: CompoundingFrequency;
-  periodsPerYear: number;
-};
-
-export const depositAmountRange: SliderRange = {
-  min: 10000,
-  max: 10000000,
-  step: 10000,
-};
-
-export const interestRateRange: SliderRange = {
-  min: 1,
-  max: 15,
-  step: 0.1,
-};
-
-export const tenureRanges: Record<TenureUnit, SliderRange> = {
-  years: { min: 1, max: 20, step: 1 },
-  months: { min: 1, max: 240, step: 1 },
-};
-
 export const tenureUnitOptions: { label: string; value: TenureUnit }[] = [
   { label: 'Years', value: 'years' },
   { label: 'Months', value: 'months' },
 ];
 
-export const compoundingOptions: CompoundingOption[] = [
-  { label: 'Quarterly', value: 'quarterly', periodsPerYear: 4 },
-  { label: 'Half-Yearly', value: 'half-yearly', periodsPerYear: 2 },
-  { label: 'Yearly', value: 'yearly', periodsPerYear: 1 },
-];
+export const periodsPerYear = 1;
 
-export const fdCalculatorDefaults = {
-  depositAmount: 10000,
-  interestRate: 0,
-  tenure: 0,
-  tenureUnit: 'years' as TenureUnit,
-  compounding: 'quarterly' as CompoundingFrequency,
+export const fdCalculatorFallback: FdCalculatorConfig = {
+  deposit_amount: { min: 10000, max: 50000000, default: 500000 },
+  interest_rate: { min: 5, max: 10, default: 9 },
+  tenure_years: { min: 1, max: 10, default: 3 },
 };
+
+export function toSliderRange(
+  range: CalculatorRange,
+  step: number,
+): SliderRange {
+  return { min: range.min, max: range.max, step };
+}
+
+export function toTenureRanges(
+  range: CalculatorRange,
+): Record<TenureUnit, SliderRange> {
+  return {
+    years: { min: range.min, max: range.max, step: 1 },
+    months: { min: range.min * 12, max: range.max * 12, step: 1 },
+  };
+}

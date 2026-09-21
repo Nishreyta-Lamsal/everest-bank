@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import CalculatorUnavailable from '../../_components/CalculatorUnavailable';
 import LoanTypeField from './LoanTypeField';
 import AmountField from './AmountField';
 import MeasureField from './MeasureField';
@@ -11,26 +12,39 @@ import {
   calculateEligibleAmount,
   calculateMonthlyEmi,
 } from '@/utils/calculator';
+import { usePublicCalculator } from '@/hooks/api/use-calculators';
 
 import {
   eligibilityCheckerDefaults,
-  interestRateRange,
+  eligibilityCheckerFallback,
   maxEmiShareOfDisposableIncome,
   tenureRange,
+  toLoanTypeOptions,
+  toSliderRange,
 } from '../_data/eligibility-checker';
 
 export default function EligibilityChecker() {
-  const [loanType, setLoanType] = useState(eligibilityCheckerDefaults.loanType);
+  const { data: calculator, isPending } = usePublicCalculator('eligibility');
+  const config = calculator?.config ?? eligibilityCheckerFallback;
+
+  const interestRateRange = toSliderRange(config.interest_rate, 0.1);
+  const loanTypeOptions = toLoanTypeOptions(config);
+
+  const [loanType, setLoanType] = useState(config.default_loan_type);
   const [monthlyIncome, setMonthlyIncome] = useState(
-    eligibilityCheckerDefaults.monthlyIncome,
+    config.gross_monthly_income.default,
   );
   const [monthlyExpenses, setMonthlyExpenses] = useState(
     eligibilityCheckerDefaults.monthlyExpenses,
   );
   const [tenure, setTenure] = useState(eligibilityCheckerDefaults.tenure);
   const [interestRate, setInterestRate] = useState(
-    eligibilityCheckerDefaults.interestRate,
+    config.interest_rate.default,
   );
+
+  if (!isPending && !calculator) {
+    return <CalculatorUnavailable />;
+  }
 
   const months = tenure * 12;
   const disposableIncome = Math.max(monthlyIncome - monthlyExpenses, 0);
@@ -47,7 +61,11 @@ export default function EligibilityChecker() {
   return (
     <div className="flex w-full flex-col gap-10 lg:gap-8">
       <div className="flex flex-col gap-6">
-        <LoanTypeField value={loanType} onValueChange={setLoanType} />
+        <LoanTypeField
+          options={loanTypeOptions}
+          value={loanType}
+          onValueChange={setLoanType}
+        />
 
         <div className="border-cream-75 w-full border-t" />
 

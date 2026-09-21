@@ -4,33 +4,41 @@ import { useState } from 'react';
 
 import { icon } from '@/components/icons';
 import SliderField from '../../_components/SliderField';
+import CalculatorUnavailable from '../../_components/CalculatorUnavailable';
 import EMIResultSummary from './EMIResultSummary';
 
 import { calculateMonthlyEmi } from '@/utils/calculator';
+import { usePublicCalculator } from '@/hooks/api/use-calculators';
 
 import {
-  emiCalculatorDefaults,
-  interestRateRange,
-  loanAmountRange,
-  tenureRanges,
   tenureUnitOptions,
+  toTenureRanges,
+  toSliderRange,
+  emiCalculatorFallback,
 } from '../_data/emi-calculator';
 
 import type { TenureUnit } from '../_data/emi-calculator';
 
 export default function EMICalculator() {
-  const [loanAmount, setLoanAmount] = useState(
-    emiCalculatorDefaults.loanAmount,
-  );
+  const { data: calculator, isPending } = usePublicCalculator('emi');
+  const config = calculator?.config ?? emiCalculatorFallback;
+
+  const loanAmountRange = toSliderRange(config.loan_amount, 50000);
+  const interestRateRange = toSliderRange(config.interest_rate, 0.1);
+  const tenureRanges = toTenureRanges(config.tenure_years);
+
+  const [loanAmount, setLoanAmount] = useState(config.loan_amount.default);
   const [interestRate, setInterestRate] = useState(
-    emiCalculatorDefaults.interestRate,
+    config.interest_rate.default,
   );
-  const [tenure, setTenure] = useState(emiCalculatorDefaults.tenure);
-  const [tenureUnit, setTenureUnit] = useState<TenureUnit>(
-    emiCalculatorDefaults.tenureUnit,
-  );
+  const [tenure, setTenure] = useState(config.tenure_years.default);
+  const [tenureUnit, setTenureUnit] = useState<TenureUnit>('years');
 
   const tenureRange = tenureRanges[tenureUnit];
+
+  if (!isPending && !calculator) {
+    return <CalculatorUnavailable />;
+  }
 
   const months = tenureUnit === 'years' ? tenure * 12 : tenure;
   const monthlyEmi = calculateMonthlyEmi(loanAmount, interestRate, months);
