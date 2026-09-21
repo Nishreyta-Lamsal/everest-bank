@@ -5,6 +5,7 @@ import ContentHeroEditor from '../../../pages/[slug]/_components/ContentHeroEdit
 import ContentStatsEditor from './ContentStatsEditor';
 import ContentBodyEditor from './ContentBodyEditor';
 import ContentSidebarEditor from './ContentSidebarEditor';
+import ContentPeopleEditor from './ContentPeopleEditor';
 import CardsTrustBarEditor from './CardsTrustBarEditor';
 import CardOverviewEditor from './CardOverviewEditor';
 import LoanHeroEditor from './LoanHeroEditor';
@@ -50,6 +51,8 @@ export default function ProductSectionEditor({
       return <ContentBodyEditor slug={slug} section={section} />;
     case 'content_sidebar':
       return <ContentSidebarEditor slug={slug} section={section} />;
+    case 'content_people':
+      return <ContentPeopleEditor slug={slug} section={section} />;
     case 'loan_hero':
       return <LoanHeroEditor slug={slug} section={section} />;
     case 'loan_stats':

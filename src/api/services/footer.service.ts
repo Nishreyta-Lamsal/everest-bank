@@ -1,6 +1,7 @@
 import { axiosClient } from '@/lib/api/axios-client';
 
 import type { ApiResponse } from '@/types';
+import type { SocialLink } from './social-links.service';
 
 export type FooterLang = 'en' | 'ne';
 
@@ -15,12 +16,6 @@ export type FooterApiColumn = {
   slug: string;
   label: string;
   links: FooterApiLink[];
-};
-
-export type FooterApiSocialLink = {
-  slug: string;
-  label: string;
-  href: string;
 };
 
 export type FooterApiBrand = {
@@ -44,7 +39,7 @@ export type FooterApiSupport = {
 
 export type FooterData = {
   columns: FooterApiColumn[];
-  social_links: FooterApiSocialLink[];
+  social_links: SocialLink[];
   brand: FooterApiBrand;
   banner: FooterApiBanner;
   support: FooterApiSupport;

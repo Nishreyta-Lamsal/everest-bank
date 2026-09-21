@@ -5,11 +5,11 @@ import ContentSidebar from '@/components/shared/content/ContentSidebar';
 import { getSectionContent } from '@/lib/get-section-content';
 
 import { profileBodyBlocks } from '../_data/body-blocks';
-import { relatedPages } from '../_data/related-pages';
 
 import { socialIconMap } from '@/constants';
 import { socialLinks } from '@/data';
 
+import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutProfilePageSection } from '@/api/services/about/about-profile-page.service';
 import type { FooterSocialLink } from '@/types';
 
@@ -32,10 +32,12 @@ export type ProfileBodyBlock = ProfileTextBlock | ProfileImagesBlock;
 
 type ProfileContentSectionProps = {
   sections?: AboutProfilePageSection[];
+  relatedPages?: ContentSidebarLink[];
 };
 
 export default function ProfileContentSection({
   sections,
+  relatedPages,
 }: ProfileContentSectionProps) {
   const bodyContent = getSectionContent(sections, 'content_body');
   const sidebarContent = getSectionContent(sections, 'content_sidebar');
@@ -63,12 +65,7 @@ export default function ProfileContentSection({
 
   const blocks = apiBlocks.length ? apiBlocks : profileBodyBlocks;
 
-  const apiLinks =
-    sidebarContent?.related_pages?.filter(
-      (page) => Boolean(page?.title) && Boolean(page?.href),
-    ) ?? [];
-
-  const links = apiLinks.length ? apiLinks : relatedPages;
+  const links = relatedPages ?? [];
 
   const apiSocialLinks: FooterSocialLink[] =
     sidebarContent?.social_links?.flatMap((link) => {

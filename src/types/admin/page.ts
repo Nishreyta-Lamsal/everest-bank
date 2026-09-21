@@ -76,6 +76,7 @@ export type SectionType =
   | 'content_stats'
   | 'content_body'
   | 'content_sidebar'
+  | 'content_people'
   | 'remittance_hero'
   | 'remittance_services'
   | 'remittance_why'
@@ -108,6 +109,10 @@ export type PageDetail = {
   created_at: string;
   updated_at: string;
   sections: PageSectionRead[];
+  related_pages: {
+    title: string;
+    href: string;
+  }[];
 };
 
 export type PageReplicateResult = {
@@ -185,8 +190,13 @@ export type ContentImagesBlock = {
   layout?: 'full_width';
 };
 
+export type ContentQuoteBlock = {
+  type: 'quote';
+  title: string;
+};
+
 export type ContentBodyContent = {
-  blocks?: (ContentTextBlock | ContentImagesBlock)[];
+  blocks?: (ContentTextBlock | ContentImagesBlock | ContentQuoteBlock)[];
 };
 
 export type ContentSidebarContent = {
@@ -198,6 +208,17 @@ export type ContentSidebarContent = {
   related_pages?: {
     href: string;
     title: string;
+  }[];
+};
+
+export type ContentPeopleContent = {
+  category?: string;
+  people?: {
+    id?: string;
+    name: string;
+    title: string;
+    image?: SectionMedia;
+    position?: number;
   }[];
 };
 
