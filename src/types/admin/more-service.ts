@@ -25,7 +25,7 @@ export type CardScreen = {
   label: string;
 };
 
-export type CardGroup = {
+export type MoreService = {
   id: number;
   slug: string;
   title: string;
@@ -36,7 +36,7 @@ export type CardGroup = {
   updated_at: string;
 };
 
-export type CardGroupDetail = CardGroup & {
+export type MoreServiceDetail = MoreService & {
   cards: Card[];
   /** Screens the CMS can offer, defined in the backend so both agree. */
   available_screens: CardScreen[];
@@ -52,7 +52,7 @@ export type PublicCard = {
   position: number;
 };
 
-export type PublicCardGroup = {
+export type PublicMoreService = {
   slug: string;
   title: string;
   cards: PublicCard[];

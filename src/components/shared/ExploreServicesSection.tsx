@@ -1,7 +1,7 @@
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ProductCard from '@/components/ui/cards/ProductCard';
 
-import { getCardGroup } from '@/api/services/card-group.service';
+import { getMoreService } from '@/api/services/more-service.service';
 
 import { exploreServicesFallback } from '@/data';
 
@@ -21,7 +21,7 @@ export default async function ExploreServicesSection({
   slug = 'explore-services',
   screen,
 }: ExploreServicesSectionProps) {
-  const group = await getCardGroup(slug, exploreServicesFallback, screen);
+  const group = await getMoreService(slug, exploreServicesFallback, screen);
 
   // A group with no cards renders nothing rather than an empty heading.
   if (group.cards.length === 0) return null;

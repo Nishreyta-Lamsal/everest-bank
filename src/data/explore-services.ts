@@ -1,6 +1,6 @@
 import { ROUTE } from '@/constants';
 
-import type { PublicCardGroup } from '@/types/admin';
+import type { PublicMoreService } from '@/types/admin';
 
 export type ExploreServiceCard = {
   title: string;
@@ -32,7 +32,7 @@ export const exploreServiceCards: ExploreServiceCard[] = [
  * The cards are managed in the CMS; this is only rendered when the API cannot
  * be reached, so the section never disappears mid-page.
  */
-export const exploreServicesFallback: PublicCardGroup = {
+export const exploreServicesFallback: PublicMoreService = {
   slug: 'explore-services',
   title: 'Explore more of our services',
   cards: exploreServiceCards.map((card, index) => ({
