@@ -167,6 +167,7 @@ export default function CardListRow({
         <CardEditDrawer
           groupSlug={groupSlug}
           card={card}
+          screens={screens}
           isOpen={isEditOpen}
           onClose={() => setIsEditOpen(false)}
         />
