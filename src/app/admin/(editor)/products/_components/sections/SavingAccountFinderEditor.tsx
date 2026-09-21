@@ -37,17 +37,11 @@ export default function SavingAccountFinderEditor({
     content.categories ?? [],
   );
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<SavingAccountFinderContent>(slug, section, () => ({
-    heading,
-    categories,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<SavingAccountFinderContent>(slug, section, () => ({
+      heading,
+      categories,
+    }));
 
   function updateCategory(index: number, next: FinderCategory) {
     setCategories(
@@ -136,14 +130,11 @@ export default function SavingAccountFinderEditor({
                 <MediaField
                   label="Image"
                   media={account.image}
-                  isUploading={isUploading}
-                  onUpload={(file) =>
-                    uploadImage(file, (image) =>
-                      updateAccount(categoryIndex, accountIndex, {
-                        ...account,
-                        image,
-                      }),
-                    )
+                  onSelect={(image) =>
+                    updateAccount(categoryIndex, accountIndex, {
+                      ...account,
+                      image,
+                    })
                   }
                 />
 

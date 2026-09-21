@@ -28,16 +28,10 @@ export default function AboutLinksEditor({
 
   const [cards, setCards] = useState<AboutLinkCard[]>(content.cards ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<AboutLinksContent>(slug, section, () => ({
-    cards,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<AboutLinksContent>(slug, section, () => ({
+      cards,
+    }));
 
   function updateCard(index: number, next: AboutLinkCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -77,12 +71,7 @@ export default function AboutLinksEditor({
             <MediaField
               label="Image"
               media={card.image}
-              isUploading={isUploading}
-              onUpload={(file) =>
-                uploadImage(file, (image) =>
-                  updateCard(index, { ...card, image }),
-                )
-              }
+              onSelect={(image) => updateCard(index, { ...card, image })}
             />
 
             <FieldLabel label="Links to">

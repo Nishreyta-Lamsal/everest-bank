@@ -36,20 +36,14 @@ export default function BusinessIndustriesEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<BusinessIndustriesContent>(slug, section, () => ({
-    heading,
-    description,
-    side_image: sideImage,
-    cards,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<BusinessIndustriesContent>(slug, section, () => ({
+      heading,
+      description,
+      side_image: sideImage,
+      cards,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateCard(index: number, next: IndustryCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -89,8 +83,7 @@ export default function BusinessIndustriesEditor({
       <MediaField
         label="Side image"
         media={sideImage}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setSideImage)}
+        onSelect={setSideImage}
         onRemove={() => setSideImage(undefined)}
       />
 

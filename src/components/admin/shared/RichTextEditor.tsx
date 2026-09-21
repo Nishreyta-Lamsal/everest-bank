@@ -11,12 +11,13 @@ import { Placeholder } from '@tiptap/extensions';
 import { icon } from '@/components/admin/icons';
 import { RichTextVideo } from './RichTextVideo';
 import { Select } from '@/components/admin/ui/select';
+import MediaPickerDialog from './media-picker/MediaPickerDialog';
 
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 
 import { cn } from '@/lib/utils';
 
 import type { Editor } from '@tiptap/react';
+import type { Media } from '@/types/admin';
 import type { ReactNode } from 'react';
 
 type RichTextEditorProps = {
@@ -39,8 +40,6 @@ const ALIGN_OPTIONS = [
   { label: 'Right', value: 'right' },
 ];
 
-const IMAGE_TYPES = 'image/png,image/jpeg,image/webp,image/gif';
-const VIDEO_TYPES = 'video/mp4,video/webm,video/ogg';
 
 type ToolbarButtonProps = {
   onClick: () => void;
@@ -104,14 +103,14 @@ export default function RichTextEditor({
   placeholder,
   className,
 }: RichTextEditorProps) {
-  const imageInputRef = useRef<HTMLInputElement>(null);
-  const videoInputRef = useRef<HTMLInputElement>(null);
+  const [pickerKind, setPickerKind] = useState<'image' | 'video' | null>(
+    null,
+  );
   const selectionRef = useRef<{ from: number; to: number } | null>(null);
 
   const [isLinkOpen, setIsLinkOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
 
-  const uploadMedia = useUploadMedia();
 
   const editor = useEditor({
     extensions: [
@@ -192,21 +191,14 @@ export default function RichTextEditor({
     setLinkUrl('');
   }
 
-  function uploadAndInsert(file: File, kind: 'image' | 'video') {
-    uploadMedia.mutate(
-      { file },
-      {
-        onSuccess: (media) => {
-          if (!media.file_url || !editor) return;
+  function insertMedia(media: Media, kind: 'image' | 'video') {
+    if (!media.file_url || !editor) return;
 
-          if (kind === 'image') {
-            editor.chain().focus().setImage({ src: media.file_url }).run();
-          } else {
-            editor.chain().focus().setVideo({ src: media.file_url }).run();
-          }
-        },
-      },
-    );
+    if (kind === 'image') {
+      editor.chain().focus().setImage({ src: media.file_url }).run();
+    } else {
+      editor.chain().focus().setVideo({ src: media.file_url }).run();
+    }
   }
 
   return (
@@ -325,15 +317,13 @@ export default function RichTextEditor({
 
         <ToolbarButton
           label="Insert image"
-          disabled={uploadMedia.isPending}
-          onClick={() => imageInputRef.current?.click()}
+          onClick={() => setPickerKind('image')}
         >
           <icon.image className="size-4" />
         </ToolbarButton>
         <ToolbarButton
           label="Insert video"
-          disabled={uploadMedia.isPending}
-          onClick={() => videoInputRef.current?.click()}
+          onClick={() => setPickerKind('video')}
         >
           <icon.video className="size-4" />
         </ToolbarButton>
@@ -399,39 +389,14 @@ export default function RichTextEditor({
         </div>
       )}
 
-      {uploadMedia.isPending && (
-        <p className="border-b border-black/8 px-4 py-2 text-[12px] text-slate-500">
-          Uploading…
-        </p>
-      )}
-
       <EditorContent editor={editor} />
 
-      <input
-        ref={imageInputRef}
-        type="file"
-        accept={IMAGE_TYPES}
-        hidden
-        onChange={(event) => {
-          const file = event.target.files?.[0];
-
-          if (file) uploadAndInsert(file, 'image');
-
-          event.target.value = '';
-        }}
-      />
-      <input
-        ref={videoInputRef}
-        type="file"
-        accept={VIDEO_TYPES}
-        hidden
-        onChange={(event) => {
-          const file = event.target.files?.[0];
-
-          if (file) uploadAndInsert(file, 'video');
-
-          event.target.value = '';
-        }}
+      <MediaPickerDialog
+        isOpen={pickerKind !== null}
+        onClose={() => setPickerKind(null)}
+        onSelect={(media) => insertMedia(media, pickerKind ?? 'image')}
+        mediaType={pickerKind ?? 'image'}
+        title={pickerKind === 'video' ? 'Insert a video' : 'Insert an image'}
       />
     </div>
   );

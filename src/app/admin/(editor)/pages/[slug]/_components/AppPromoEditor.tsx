@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import MediaField, {
+  toSectionMedia,
+} from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
@@ -43,27 +45,21 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
     content.app_store_badges ?? [],
   );
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<AppPromoContent>(slug, section, () => ({
-    heading,
-    badges,
-    qr_code: qrCode && {
-      ...qrCode,
-      caption_lines: qrCaption
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean),
-    },
-    hero_image: heroImage,
-    phone_mockup: phoneMockup,
-    app_store_badges: storeBadges,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<AppPromoContent>(slug, section, () => ({
+      heading,
+      badges,
+      qr_code: qrCode && {
+        ...qrCode,
+        caption_lines: qrCaption
+          .split('\n')
+          .map((line) => line.trim())
+          .filter(Boolean),
+      },
+      hero_image: heroImage,
+      phone_mockup: phoneMockup,
+      app_store_badges: storeBadges,
+    }));
 
   function updateBadge(index: number, next: AppPromoBadge) {
     setBadges(badges.map((badge, i) => (i === index ? next : badge)));
@@ -145,11 +141,8 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
       <MediaField
         label="QR code image"
         media={qrCode}
-        isUploading={isUploading}
-        onUpload={(file) =>
-          uploadImage(file, (media) =>
-            setQrCode({ ...media, caption_lines: qrCode?.caption_lines }),
-          )
+        onSelect={(media) =>
+          setQrCode({ ...media, caption_lines: qrCode?.caption_lines })
         }
         onRemove={() => setQrCode(undefined)}
       />
@@ -166,16 +159,14 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
       <MediaField
         label="Hero image"
         media={heroImage}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setHeroImage)}
+        onSelect={setHeroImage}
         onRemove={() => setHeroImage(undefined)}
       />
 
       <MediaField
         label="Phone mockup"
         media={phoneMockup}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setPhoneMockup)}
+        onSelect={setPhoneMockup}
         onRemove={() => setPhoneMockup(undefined)}
       />
 
@@ -198,12 +189,10 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
           </div>
         )}
         <ImageDropzone
-          isUploading={isUploading}
-          onFileSelected={(file) =>
-            uploadImage(file, (media) =>
-              setStoreBadges((current) => [...current, media]),
-            )
-          }
+          onMediaSelected={(picked) => {
+            const media = toSectionMedia(picked);
+            return setStoreBadges((current) => [...current, media]);
+          }}
         />
       </div>
     </SectionEditorShell>

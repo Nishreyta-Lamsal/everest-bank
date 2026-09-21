@@ -30,18 +30,12 @@ export default function LoanProcessEditor({
   const [applyHref, setApplyHref] = useState(content.apply_href ?? '');
   const [steps, setSteps] = useState<ProcessStep[]>(content.steps ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoanProcessContent>(slug, section, () => ({
-    heading,
-    apply_href: applyHref,
-    steps,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoanProcessContent>(slug, section, () => ({
+      heading,
+      apply_href: applyHref,
+      steps,
+    }));
 
   function updateStep(index: number, next: ProcessStep) {
     setSteps(steps.map((step, i) => (i === index ? next : step)));
@@ -102,12 +96,7 @@ export default function LoanProcessEditor({
           <MediaField
             label="Image"
             media={step.image}
-            isUploading={isUploading}
-            onUpload={(file) =>
-              uploadImage(file, (image) =>
-                updateStep(index, { ...step, image }),
-              )
-            }
+            onSelect={(image) => updateStep(index, { ...step, image })}
           />
         </div>
       ))}

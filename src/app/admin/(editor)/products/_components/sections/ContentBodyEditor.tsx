@@ -37,14 +37,8 @@ export default function ContentBodyEditor({
 
   const [blocks, setBlocks] = useState<BodyBlock[]>(content.blocks ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<ContentBodyContent>(slug, section, () => ({ blocks }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<ContentBodyContent>(slug, section, () => ({ blocks }));
 
   function updateBlock(index: number, next: BodyBlock) {
     setBlocks(blocks.map((block, i) => (i === index ? next : block)));
@@ -87,11 +81,8 @@ export default function ContentBodyEditor({
                 key={imageIndex}
                 label={`Image ${imageIndex + 1}`}
                 media={image}
-                isUploading={isUploading}
-                onUpload={(file) =>
-                  uploadImage(file, (uploaded) =>
-                    updateImage(index, block, imageIndex, uploaded),
-                  )
+                onSelect={(uploaded) =>
+                  updateImage(index, block, imageIndex, uploaded)
                 }
               />
             ))}

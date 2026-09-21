@@ -42,19 +42,13 @@ export default function BusinessFinancingEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<BusinessFinancingContent>(slug, section, () => ({
-    heading,
-    media_card: mediaCard,
-    content_cards: contentCards,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<BusinessFinancingContent>(slug, section, () => ({
+      heading,
+      media_card: mediaCard,
+      content_cards: contentCards,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateMediaCard(next: Partial<MediaCard>) {
     setMediaCard((current) => ({ ...(current as MediaCard), ...next }));
@@ -101,10 +95,7 @@ export default function BusinessFinancingEditor({
         <MediaField
           label="Image"
           media={mediaCard?.image}
-          isUploading={isUploading}
-          onUpload={(file) =>
-            uploadImage(file, (image) => updateMediaCard({ image }))
-          }
+          onSelect={(image) => updateMediaCard({ image })}
         />
 
         <FieldLabel label="Links to">
@@ -145,12 +136,7 @@ export default function BusinessFinancingEditor({
             <MediaField
               label="Image"
               media={card.image}
-              isUploading={isUploading}
-              onUpload={(file) =>
-                uploadImage(file, (image) =>
-                  updateCard(index, { ...card, image }),
-                )
-              }
+              onSelect={(image) => updateCard(index, { ...card, image })}
             />
 
             <FieldLabel label="Link label">

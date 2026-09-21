@@ -34,17 +34,11 @@ export default function ProductsSectionEditor({
     content.bottom_cards ?? [],
   );
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<ProductsContent>(slug, section, () => ({
-    top_cards: topCards,
-    bottom_cards: bottomCards,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<ProductsContent>(slug, section, () => ({
+      top_cards: topCards,
+      bottom_cards: bottomCards,
+    }));
 
   const groups: Array<{
     key: CardGroup;
@@ -95,13 +89,10 @@ export default function ProductsSectionEditor({
                 }
                 onRemove={() => setCards(cards.filter((_, i) => i !== index))}
                 showMedia={showMedia}
-                isUploading={isUploading}
-                onMediaUpload={(file) =>
-                  uploadImage(file, (media) =>
-                    setCards(
-                      cards.map((c, i) =>
-                        i === index ? { ...c, decoration_src: media } : c,
-                      ),
+                onMediaSelect={(media) =>
+                  setCards(
+                    cards.map((c, i) =>
+                      i === index ? { ...c, decoration_src: media } : c,
                     ),
                   )
                 }

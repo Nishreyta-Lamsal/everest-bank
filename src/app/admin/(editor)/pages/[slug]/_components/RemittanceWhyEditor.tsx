@@ -36,19 +36,13 @@ export default function RemittanceWhyEditor({
   const [image, setImage] = useState(content.image);
   const [stats, setStats] = useState<WhyStat[]>(content.stats ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<RemittanceWhyContent>(slug, section, () => ({
-    heading,
-    description,
-    image,
-    stats,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<RemittanceWhyContent>(slug, section, () => ({
+      heading,
+      description,
+      image,
+      stats,
+    }));
 
   function updateStat(index: number, next: WhyStat) {
     setStats(stats.map((stat, i) => (i === index ? next : stat)));
@@ -88,8 +82,7 @@ export default function RemittanceWhyEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

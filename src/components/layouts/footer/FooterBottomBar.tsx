@@ -36,7 +36,7 @@ export default function FooterBottomBar() {
         </a>
         <span aria-hidden="true">|</span>
         <a href="https://prixa.org" target="_blank" rel="noopener noreferrer">
-          Powered by: Prixa Technologies
+          Powered by: Snowberry
         </a>
       </div>
     </div>

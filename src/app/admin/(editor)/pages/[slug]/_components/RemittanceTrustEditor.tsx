@@ -6,7 +6,9 @@ import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import MediaField, {
+  toSectionMedia,
+} from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -40,20 +42,14 @@ export default function RemittanceTrustEditor({
   const [avatars, setAvatars] = useState<TrustAvatar[]>(content.avatars ?? []);
   const [cards, setCards] = useState<TrustCard[]>(content.cards ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<RemittanceTrustContent>(slug, section, () => ({
-    heading,
-    image,
-    count_label: countLabel,
-    avatars,
-    cards,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<RemittanceTrustContent>(slug, section, () => ({
+      heading,
+      image,
+      count_label: countLabel,
+      avatars,
+      cards,
+    }));
 
   function updateCard(index: number, next: TrustCard) {
     setCards(cards.map((card, i) => (i === index ? next : card)));
@@ -80,8 +76,7 @@ export default function RemittanceTrustEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 
@@ -103,18 +98,16 @@ export default function RemittanceTrustEditor({
                 <ImagePreview
                   key={`${avatar.media_id ?? 'avatar'}-${index}`}
                   src={avatar.src}
-                  isUploading={isUploading}
-                  onReplace={(file) =>
-                    uploadImage(file, (media) =>
-                      setAvatars((current) =>
-                        current.map((item, i) =>
-                          i === index
-                            ? { src: media.src, media_id: media.media_id }
-                            : item,
-                        ),
+                  onReplace={(picked) => {
+                    const media = toSectionMedia(picked);
+                    return setAvatars((current) =>
+                      current.map((item, i) =>
+                        i === index
+                          ? { src: media.src, media_id: media.media_id }
+                          : item,
                       ),
-                    )
-                  }
+                    );
+                  }}
                   onRemove={() =>
                     setAvatars(avatars.filter((_, i) => i !== index))
                   }
@@ -123,15 +116,13 @@ export default function RemittanceTrustEditor({
             </div>
           )}
           <ImageDropzone
-            isUploading={isUploading}
-            onFileSelected={(file) =>
-              uploadImage(file, (media) =>
-                setAvatars((current) => [
-                  ...current,
-                  { src: media.src, media_id: media.media_id },
-                ]),
-              )
-            }
+            onMediaSelected={(picked) => {
+              const media = toSectionMedia(picked);
+              return setAvatars((current) => [
+                ...current,
+                { src: media.src, media_id: media.media_id },
+              ]);
+            }}
           />
         </div>
       </FieldLabel>

@@ -17,7 +17,8 @@ import { useLocations } from '@/hooks/api/admin/use-locations';
 import type { Location } from '@/types/admin';
 
 /** What the drawer is doing: closed, creating, or editing a row. */
-type DrawerState = { mode: 'closed' } | { mode: 'new' } | { mode: 'edit'; location: Location };
+type DrawerState =
+  { mode: 'closed' } | { mode: 'new' } | { mode: 'edit'; location: Location };
 
 export default function LocationsScreen() {
   const [typeSlug, setTypeSlug] = useState('all');
@@ -45,10 +46,7 @@ export default function LocationsScreen() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setTypesOpen(true)}
-          >
+          <Button variant="outline" onClick={() => setTypesOpen(true)}>
             Manage types
           </Button>
           <Button variant="primary" onClick={() => setDrawer({ mode: 'new' })}>
@@ -80,7 +78,10 @@ export default function LocationsScreen() {
         {isPending && (
           <div className="flex w-full flex-col divide-y divide-black/3">
             {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="flex h-[74px] items-center gap-4 px-4">
+              <div
+                key={index}
+                className="flex h-[74px] items-center gap-4 px-4"
+              >
                 <div className="size-[48px] shrink-0 animate-pulse rounded-[4px] bg-slate-100" />
                 <div className="flex min-w-0 flex-1 flex-col gap-2">
                   <div className="h-[14px] w-[180px] animate-pulse rounded bg-slate-100" />

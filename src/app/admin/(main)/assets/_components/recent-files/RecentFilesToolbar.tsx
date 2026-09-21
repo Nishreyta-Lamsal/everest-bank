@@ -11,11 +11,14 @@ import type { Media, MediaFolder } from '@/types/admin';
 
 export type ViewMode = 'grid' | 'table';
 
+/**
+ * The media endpoint validates `ordering` against a fixed list and 400s on
+ * anything else, so only values confirmed against it belong here.
+ */
 const SORT_OPTIONS = [
   { label: 'Newest first', value: '-created_at' },
   { label: 'Oldest first', value: 'created_at' },
   { label: 'Title A–Z', value: 'title' },
-  { label: 'Largest first', value: '-file_size' },
 ];
 
 type RecentFilesToolbarProps = {

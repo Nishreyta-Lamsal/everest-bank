@@ -32,19 +32,13 @@ export default function LoanApplyChecklistEditor({
   const [applyHref, setApplyHref] = useState(content.apply_href ?? '');
   const [items, setItems] = useState<ChecklistItem[]>(content.items ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoanApplyChecklistContent>(slug, section, () => ({
-    heading,
-    image,
-    apply_href: applyHref,
-    items,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoanApplyChecklistContent>(slug, section, () => ({
+      heading,
+      image,
+      apply_href: applyHref,
+      items,
+    }));
 
   function updateItem(index: number, next: ChecklistItem) {
     setItems(items.map((item, i) => (i === index ? next : item)));
@@ -72,8 +66,7 @@ export default function LoanApplyChecklistEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

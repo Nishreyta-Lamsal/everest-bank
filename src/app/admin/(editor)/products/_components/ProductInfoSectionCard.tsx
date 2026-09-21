@@ -43,9 +43,7 @@ export default function ProductInfoSectionCard() {
         <MediaField
           label="Right-Side Image"
           media={image}
-          onUpload={(file) =>
-            setImage({ src: URL.createObjectURL(file), alt: '' })
-          }
+          onSelect={setImage}
           onRemove={() => setImage(undefined)}
         />
 

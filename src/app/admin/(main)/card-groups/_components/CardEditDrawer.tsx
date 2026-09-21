@@ -10,7 +10,6 @@ import { Input } from '@/components/admin/ui/input';
 import { Select } from '@/components/admin/ui/select';
 import { Switch } from '@/components/admin/ui/switch';
 
-import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { usePages } from '@/hooks/api/admin/use-pages';
 import {
   useCreateCard,
@@ -19,7 +18,7 @@ import {
 } from '@/hooks/api/admin/use-card-groups';
 
 import type { CardWritePayload } from '@/api/services/admin/card-group.service';
-import type { Card, CardScreen, Media } from '@/types/admin';
+import type { Card, CardScreen, SectionMedia } from '@/types/admin';
 
 const LINK_TO_URL = '__url__';
 
@@ -40,12 +39,19 @@ export default function CardEditDrawer({
   const isNew = card === null;
 
   const { data: pagesData } = usePages();
-  const uploadMedia = useUploadMedia();
   const createCard = useCreateCard(groupSlug);
   const updateCard = useUpdateCard(groupSlug);
   const deleteCard = useDeleteCard(groupSlug);
 
-  const [image, setImage] = useState<Media | null>(card?.image ?? null);
+  const [image, setImage] = useState<SectionMedia | null>(
+    card?.image?.file_url
+      ? {
+          src: card.image.file_url,
+          alt: card.image.alt_text ?? '',
+          media_id: card.image.id,
+        }
+      : null,
+  );
   const [draft, setDraft] = useState<CardWritePayload>({
     title: card?.title ?? '',
     image: card?.image?.id ?? null,
@@ -74,11 +80,11 @@ export default function CardEditDrawer({
     setDraft((current) => ({ ...current, [key]: value }));
   }
 
-  async function upload(file: File) {
-    const media = await uploadMedia.mutateAsync({ file, alt_text: file.name });
+  function selectImage(media: SectionMedia) {
+    if (media.media_id === undefined) return;
 
     setImage(media);
-    set('image', media.id);
+    set('image', media.media_id);
   }
 
   async function save() {
@@ -146,13 +152,8 @@ export default function CardEditDrawer({
 
         <MediaField
           label="Image"
-          media={
-            image?.file_url
-              ? { src: image.file_url, alt: image.alt_text ?? draft.title }
-              : undefined
-          }
-          isUploading={uploadMedia.isPending}
-          onUpload={upload}
+          media={image ?? undefined}
+          onSelect={selectImage}
           onRemove={() => {
             setImage(null);
             set('image', null);

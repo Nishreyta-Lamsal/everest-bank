@@ -33,20 +33,14 @@ export default function LoanGlanceEditor({
   const [downloadHref, setDownloadHref] = useState(content.download_href ?? '');
   const [items, setItems] = useState<GlanceItem[]>(content.items ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<LoanGlanceContent>(slug, section, () => ({
-    heading,
-    image,
-    contact_href: contactHref,
-    download_href: downloadHref,
-    items,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<LoanGlanceContent>(slug, section, () => ({
+      heading,
+      image,
+      contact_href: contactHref,
+      download_href: downloadHref,
+      items,
+    }));
 
   function updateItem(index: number, next: GlanceItem) {
     setItems(items.map((item, i) => (i === index ? next : item)));
@@ -74,8 +68,7 @@ export default function LoanGlanceEditor({
       <MediaField
         label="Image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

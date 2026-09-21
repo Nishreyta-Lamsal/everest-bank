@@ -5,6 +5,7 @@ import { useState } from 'react';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -36,19 +37,13 @@ export default function RemittanceHeroEditor({
   );
   const [tracking, setTracking] = useState(content.tracking ?? {});
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<RemittanceHeroContent>(slug, section, () => ({
-    headline,
-    subtext,
-    slides,
-    tracking,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<RemittanceHeroContent>(slug, section, () => ({
+      headline,
+      subtext,
+      slides,
+      tracking,
+    }));
 
   function updateTracking(next: Partial<RemittanceHeroContent['tracking']>) {
     setTracking((current) => ({ ...current, ...next }));
@@ -96,10 +91,10 @@ export default function RemittanceHeroEditor({
                   key={`${slide.media_id ?? 'slide'}-${index}`}
                   src={slide.src}
                   alt={slide.alt}
-                  isUploading={isUploading}
-                  onReplace={(file) =>
-                    uploadImage(file, (media) => replaceSlide(index, media))
-                  }
+                  onReplace={(picked) => {
+                    const media = toSectionMedia(picked);
+                    return replaceSlide(index, media);
+                  }}
                   onRemove={() =>
                     setSlides(slides.filter((_, i) => i !== index))
                   }
@@ -108,12 +103,10 @@ export default function RemittanceHeroEditor({
             </div>
           )}
           <ImageDropzone
-            isUploading={isUploading}
-            onFileSelected={(file) =>
-              uploadImage(file, (media) =>
-                setSlides((current) => [...current, media]),
-              )
-            }
+            onMediaSelected={(picked) => {
+              const media = toSectionMedia(picked);
+              return setSlides((current) => [...current, media]);
+            }}
           />
         </div>
       </FieldLabel>

@@ -118,8 +118,8 @@ export default function LocationTypesModal({
         )}
 
         <p className="text-[12px] text-neutral-700/68">
-          Renaming a type updates it everywhere it appears on the website.
-          Your locations stay linked to it, so nothing breaks.
+          Renaming a type updates it everywhere it appears on the website. Your
+          locations stay linked to it, so nothing breaks.
         </p>
       </div>
     </Modal>

@@ -29,18 +29,12 @@ export default function ContentHeroEditor({
   const [buttonLabel, setButtonLabel] = useState(content.button?.label ?? '');
   const [buttonHref, setButtonHref] = useState(content.button?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<ContentHeroContent>(slug, section, () => ({
-    heading,
-    image,
-    button: { label: buttonLabel, href: buttonHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<ContentHeroContent>(slug, section, () => ({
+      heading,
+      image,
+      button: { label: buttonLabel, href: buttonHref },
+    }));
 
   return (
     <SectionEditorShell
@@ -64,8 +58,7 @@ export default function ContentHeroEditor({
       <MediaField
         label="Background image"
         media={image}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setImage)}
+        onSelect={setImage}
         onRemove={() => setImage(undefined)}
       />
 

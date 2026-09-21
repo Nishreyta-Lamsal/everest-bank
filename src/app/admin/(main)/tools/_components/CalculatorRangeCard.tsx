@@ -61,7 +61,7 @@ export default function CalculatorRangeCard({
                 onChange(field.key, Number(event.target.value))
               }
               rightIcon={
-                <span className="text-paragraph-sm text-neutral-700 shrink-0">
+                <span className="text-paragraph-sm shrink-0 text-neutral-700">
                   {unit}
                 </span>
               }

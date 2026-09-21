@@ -209,8 +209,8 @@ export default function LocationEditDrawer({
           />
         </FieldLabel>
         <p className="-mt-2 text-[12px] text-neutral-700/68">
-          In Google Maps use Share, then Embed a map, and paste the whole
-          thing. Only the map address is kept.
+          In Google Maps use Share, then Embed a map, and paste the whole thing.
+          Only the map address is kept.
         </p>
 
         {draft.map_embed_url?.startsWith('http') && (

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import SectionEditorShell from './SectionEditorShell';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -32,18 +33,12 @@ export default function TrustBannerEditor({
   const [description, setDescription] = useState(content.description ?? '');
   const [images, setImages] = useState<SectionMedia[]>(content.images ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<TrustContent>(slug, section, () => ({
-    title,
-    description,
-    images,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<TrustContent>(slug, section, () => ({
+      title,
+      description,
+      images,
+    }));
 
   return (
     <SectionEditorShell
@@ -84,18 +79,15 @@ export default function TrustBannerEditor({
                   onRemove={() =>
                     setImages(images.filter((_, i) => i !== index))
                   }
-                  isUploading={isUploading}
                 />
               ))}
             </div>
           )}
           <ImageDropzone
-            isUploading={isUploading}
-            onFileSelected={(file) =>
-              uploadImage(file, (media) =>
-                setImages((current) => [...current, media]),
-              )
-            }
+            onMediaSelected={(picked) => {
+              const media = toSectionMedia(picked);
+              return setImages((current) => [...current, media]);
+            }}
           />
         </div>
       </FieldLabel>

@@ -42,19 +42,13 @@ export default function RemittanceOpenAccountEditor({
   const [ctaLabel, setCtaLabel] = useState(content.cta?.label ?? '');
   const [ctaHref, setCtaHref] = useState(content.cta?.href ?? '');
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<RemittanceOpenAccountContent>(slug, section, () => ({
-    heading,
-    video: { src: videoSrc, poster },
-    features,
-    cta: { label: ctaLabel, href: ctaHref },
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<RemittanceOpenAccountContent>(slug, section, () => ({
+      heading,
+      video: { src: videoSrc, poster },
+      features,
+      cta: { label: ctaLabel, href: ctaHref },
+    }));
 
   function updateFeature(index: number, next: Feature) {
     setFeatures(features.map((feature, i) => (i === index ? next : feature)));
@@ -91,8 +85,7 @@ export default function RemittanceOpenAccountEditor({
       <MediaField
         label="Video poster"
         media={poster}
-        isUploading={isUploading}
-        onUpload={(file) => uploadImage(file, setPoster)}
+        onSelect={setPoster}
         onRemove={() => setPoster(undefined)}
       />
 

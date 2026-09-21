@@ -11,7 +11,7 @@ import { Input } from '@/components/admin/ui/input';
 import { useUploadMedia } from '@/hooks/api/admin/use-media';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import type { FormBanner, FormSidebarCard } from '@/types/admin';
+import type { FormBanner, FormSidebarCard, SectionMedia } from '@/types/admin';
 
 type FormBannerCardProps = {
   banner: FormBanner | null;
@@ -53,10 +53,10 @@ export default function FormBannerCard({
     onDraftChange(next);
   }
 
-  async function upload(file: File, onDone: (mediaId: number) => void) {
-    const media = await uploadMedia.mutateAsync({ file, alt_text: file.name });
+  function pickMediaId(media: SectionMedia, onDone: (mediaId: number) => void) {
+    if (media.media_id === undefined) return;
 
-    onDone(media.id);
+    onDone(media.media_id);
   }
 
   function updateCard(index: number, patch: Partial<FormSidebarCard>) {
@@ -76,8 +76,7 @@ export default function FormBannerCard({
             ? { src: banner.file_url, alt: banner.alt_text }
             : undefined
         }
-        isUploading={uploadMedia.isPending}
-        onUpload={(file) => upload(file, onBannerChange)}
+        onSelect={(media) => pickMediaId(media, onBannerChange)}
         onRemove={() => onBannerChange(null)}
       />
 
@@ -146,12 +145,12 @@ export default function FormBannerCard({
                   ? { src: card.image_url, alt: card.title }
                   : undefined
               }
-              isUploading={uploadMedia.isPending}
-              onUpload={(file) =>
-                upload(file, (mediaId) =>
-                  // image_url is filled in by the server on the next read;
-                  // clearing it here avoids showing the previous image.
-                  updateCard(index, { image_id: mediaId, image_url: null }),
+              onSelect={(media) =>
+                pickMediaId(media, (mediaId) =>
+                  updateCard(index, {
+                    image_id: mediaId,
+                    image_url: media.src,
+                  }),
                 )
               }
               onRemove={() =>

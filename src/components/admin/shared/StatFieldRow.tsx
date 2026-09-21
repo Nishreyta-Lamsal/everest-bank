@@ -31,18 +31,14 @@ export default function StatFieldRow({
           size="medium"
           placeholder={valuePlaceholder}
           value={stat.value}
-          onChange={(event) =>
-            onChange({ ...stat, value: event.target.value })
-          }
+          onChange={(event) => onChange({ ...stat, value: event.target.value })}
         />
         <Input
           variant="default"
           size="medium"
           placeholder={titlePlaceholder}
           value={stat.title}
-          onChange={(event) =>
-            onChange({ ...stat, title: event.target.value })
-          }
+          onChange={(event) => onChange({ ...stat, title: event.target.value })}
         />
       </div>
       <button
