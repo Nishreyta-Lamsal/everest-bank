@@ -37,9 +37,27 @@ export const otherNavItems: SidebarNavItemData[] = [
   },
 ];
 
+export const toolsNavItems: SidebarNavItemData[] = [
+  {
+    href: ADMIN_ROUTE.EMI_CALCULATOR,
+    label: 'EMI Calculator',
+    icon: icon.percent,
+  },
+  {
+    href: ADMIN_ROUTE.FD_CALCULATOR,
+    label: 'FD Calculator',
+    icon: icon.percent,
+  },
+  {
+    href: ADMIN_ROUTE.ELIGIBILITY_CHECKER,
+    label: 'Eligibility Checker',
+    icon: icon.percent,
+  },
+];
+
 export const sidebarNavGroups: SidebarNavGroupData[] = [
   { title: 'Content', items: contentNavItems },
   { title: 'Other', items: otherNavItems },
-  { title: 'Tools' },
+  { title: 'Tools', items: toolsNavItems },
   { title: 'Settings' },
 ];

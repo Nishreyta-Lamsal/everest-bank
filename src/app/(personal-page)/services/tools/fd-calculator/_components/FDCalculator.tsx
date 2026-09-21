@@ -4,49 +4,51 @@ import { useState } from 'react';
 
 import { icon } from '@/components/icons';
 import SliderField from '../../_components/SliderField';
-import CompoundingSelector from './CompoundingSelector';
+import CalculatorUnavailable from '../../_components/CalculatorUnavailable';
 import FDResultSummary from './FDResultSummary';
 
 import { calculateMaturityValue } from '@/utils/calculator';
+import { usePublicCalculator } from '@/hooks/api/use-calculators';
 
 import {
-  compoundingOptions,
-  depositAmountRange,
-  fdCalculatorDefaults,
-  interestRateRange,
-  tenureRanges,
+  fdCalculatorFallback,
+  periodsPerYear,
+  toSliderRange,
+  toTenureRanges,
   tenureUnitOptions,
 } from '../_data/fd-calculator';
 
-import type { CompoundingFrequency, TenureUnit } from '../_data/fd-calculator';
+import type { TenureUnit } from '../_data/fd-calculator';
 
 export default function FDCalculator() {
+  const { data: calculator, isPending } = usePublicCalculator('fd');
+  const config = calculator?.config ?? fdCalculatorFallback;
+
+  const depositAmountRange = toSliderRange(config.deposit_amount, 10000);
+  const interestRateRange = toSliderRange(config.interest_rate, 0.1);
+  const tenureRanges = toTenureRanges(config.tenure_years);
+
   const [depositAmount, setDepositAmount] = useState(
-    fdCalculatorDefaults.depositAmount,
+    config.deposit_amount.default,
   );
   const [interestRate, setInterestRate] = useState(
-    fdCalculatorDefaults.interestRate,
+    config.interest_rate.default,
   );
-  const [tenure, setTenure] = useState(fdCalculatorDefaults.tenure);
-  const [tenureUnit, setTenureUnit] = useState<TenureUnit>(
-    fdCalculatorDefaults.tenureUnit,
-  );
-  const [compounding, setCompounding] = useState<CompoundingFrequency>(
-    fdCalculatorDefaults.compounding,
-  );
+  const [tenure, setTenure] = useState(config.tenure_years.default);
+  const [tenureUnit, setTenureUnit] = useState<TenureUnit>('years');
 
   const tenureRange = tenureRanges[tenureUnit];
 
-  const compoundingOption =
-    compoundingOptions.find((option) => option.value === compounding) ??
-    compoundingOptions[0];
+  if (!isPending && !calculator) {
+    return <CalculatorUnavailable />;
+  }
 
   const years = tenureUnit === 'years' ? tenure : tenure / 12;
   const maturityValue = calculateMaturityValue(
     depositAmount,
     interestRate,
     years,
-    compoundingOption.periodsPerYear,
+    periodsPerYear,
   );
   const interestEarned = Math.max(maturityValue - depositAmount, 0);
 
@@ -119,13 +121,6 @@ export default function FDCalculator() {
             </div>
           }
         />
-
-        <div className="border-cream-75 w-full border-t" />
-
-        <CompoundingSelector
-          value={compounding}
-          onValueChange={setCompounding}
-        />
       </div>
 
       <FDResultSummary
@@ -133,7 +128,6 @@ export default function FDCalculator() {
         principal={depositAmount}
         interestEarned={interestEarned}
         tenureLabel={tenureLabel}
-        compoundingLabel={compoundingOption.label.toLowerCase()}
       />
     </div>
   );
