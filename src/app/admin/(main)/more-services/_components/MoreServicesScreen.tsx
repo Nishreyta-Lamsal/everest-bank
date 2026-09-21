@@ -8,7 +8,10 @@ import { Card } from '@/components/admin/ui/card';
 import MoreServicePanel from './MoreServicePanel';
 import CardEditDrawer from './CardEditDrawer';
 
-import { useMoreServices } from '@/hooks/api/admin/use-more-services';
+import {
+  useMoreService,
+  useMoreServices,
+} from '@/hooks/api/admin/use-more-services';
 
 import { cn } from '@/lib/utils';
 
@@ -19,6 +22,8 @@ export default function MoreServicesScreen() {
   const { data: groups, isPending, isError, refetch } = useMoreServices();
 
   const selected = activeSlug ?? groups?.[0]?.slug ?? null;
+
+  const { data: group } = useMoreService(selected ?? '');
 
   const canAdd = Boolean(groups && groups.length > 0 && selected);
 
@@ -99,10 +104,11 @@ export default function MoreServicesScreen() {
         <>
           <MoreServicePanel slug={selected} />
 
-          {isAddOpen && (
+          {isAddOpen && group && (
             <CardEditDrawer
               groupSlug={selected}
               card={null}
+              screens={group.available_screens}
               isOpen={isAddOpen}
               onClose={() => setIsAddOpen(false)}
             />

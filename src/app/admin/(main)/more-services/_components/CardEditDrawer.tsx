@@ -15,12 +15,13 @@ import {
 } from '@/hooks/api/admin/use-more-services';
 
 import type { CardWritePayload } from '@/api/services/admin/more-service.service';
-import type { Card, SectionMedia } from '@/types/admin';
+import type { Card, CardScreen, SectionMedia } from '@/types/admin';
 
 type CardEditDrawerProps = {
   groupSlug: string;
   /** Null means the drawer is creating a new card. */
   card: Card | null;
+  screens: CardScreen[];
   isOpen: boolean;
   onClose: () => void;
 };
@@ -28,6 +29,7 @@ type CardEditDrawerProps = {
 export default function CardEditDrawer({
   groupSlug,
   card,
+  screens,
   isOpen,
   onClose,
 }: CardEditDrawerProps) {
@@ -159,6 +161,41 @@ export default function CardEditDrawer({
           onChange={(event) => set('cta_label', event.target.value)}
         />
       </FieldLabel>
+
+      <div className="flex w-full flex-col gap-2 border-t border-black/5 pt-4">
+        <p className="text-[13px] text-neutral-900">Shown on</p>
+        <p className="text-[12px] text-neutral-700/68">
+          Tick nothing to show this card on every page.
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {screens.map((screen) => {
+            const checked = (draft.screens ?? []).includes(screen.key);
+
+            return (
+              <label
+                key={screen.key}
+                className="flex cursor-pointer items-center gap-2 text-[13px] text-neutral-800"
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() =>
+                    set(
+                      'screens',
+                      checked
+                        ? (draft.screens ?? []).filter(
+                            (key) => key !== screen.key,
+                          )
+                        : [...(draft.screens ?? []), screen.key],
+                    )
+                  }
+                />
+                {screen.label}
+              </label>
+            );
+          })}
+        </div>
+      </div>
 
       <div className="flex items-center justify-between gap-3 border-t border-black/5 pt-4">
         <div className="flex flex-col">
