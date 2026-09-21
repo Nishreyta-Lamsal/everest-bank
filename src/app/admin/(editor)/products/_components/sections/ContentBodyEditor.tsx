@@ -14,6 +14,7 @@ import { localizedContent } from '@/lib/admin/section-content';
 import type {
   ContentBodyContent,
   ContentImagesBlock,
+  ContentQuoteBlock,
   ContentTextBlock,
   PageSectionRead,
 } from '@/types/admin';
@@ -27,6 +28,10 @@ type BodyBlock = NonNullable<ContentBodyContent['blocks']>[number];
 
 function isImagesBlock(block: BodyBlock): block is ContentImagesBlock {
   return block.type === 'images';
+}
+
+function isQuoteBlock(block: BodyBlock): block is ContentQuoteBlock {
+  return block.type === 'quote';
 }
 
 export default function ContentBodyEditor({
@@ -86,6 +91,26 @@ export default function ContentBodyEditor({
                 }
               />
             ))}
+          </div>
+        ) : isQuoteBlock(block) ? (
+          <div
+            key={index}
+            className="flex w-full flex-col gap-3 rounded-[6px] border border-[#e6ecf4] p-3"
+          >
+            <p className="min-w-0 truncate text-[13px] font-semibold text-neutral-900">
+              Block {index + 1} · Quote
+            </p>
+
+            <FieldLabel label="Quote">
+              <Textarea
+                variant="filled"
+                size="medium"
+                value={block.title ?? ''}
+                onChange={(event) =>
+                  updateBlock(index, { ...block, title: event.target.value })
+                }
+              />
+            </FieldLabel>
           </div>
         ) : (
           <div

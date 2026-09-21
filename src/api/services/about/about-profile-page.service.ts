@@ -1,5 +1,7 @@
 import { axiosClient } from '@/lib/api/axios-client';
 
+import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
+
 import type {
   LinkAction,
   MediaWithAlt,
@@ -107,6 +109,7 @@ export type AboutProfilePageSection =
 
 type AboutProfilePageData = Omit<PageData, 'sections'> & {
   sections: AboutProfilePageSection[];
+  related_pages: ContentSidebarLink[];
 };
 
 export type AboutProfilePageResponse = Omit<PageResponse, 'data'> & {

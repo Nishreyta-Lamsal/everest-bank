@@ -14,6 +14,7 @@ import { getSectionContent } from '@/lib/get-section-content';
 
 import { ROUTE } from '@/constants';
 
+import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutCorporateMissionAndVisionPageSection } from '@/api/services/about/about-corporate-mission-and-vision-page.service';
 
 export const aboutCorporateMissionAndVisionPageQueryKey = [
@@ -29,6 +30,7 @@ export default async function CorporateMissionAndVisionPage() {
   const queryClient = getQueryClient();
 
   let sections: AboutCorporateMissionAndVisionPageSection[] | undefined;
+  let relatedPages: ContentSidebarLink[] | undefined;
 
   try {
     const { data } = await queryClient.fetchQuery({
@@ -37,8 +39,10 @@ export default async function CorporateMissionAndVisionPage() {
         aboutCorporateMissionAndVisionPageService.getAboutCorporateMissionAndVisionPageData,
     });
     sections = data.sections;
+    relatedPages = data.related_pages;
   } catch {
     sections = undefined;
+    relatedPages = undefined;
   }
 
   const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
@@ -54,7 +58,10 @@ export default async function CorporateMissionAndVisionPage() {
         <Breadcrumbs items={breadcrumbItems} />
         <CorporateMissionAndVisionHeroSection sections={sections} />
         <CorporateMissionAndVisionStatsSection sections={sections} />
-        <CorporateMissionAndVisionContentSection sections={sections} />
+        <CorporateMissionAndVisionContentSection
+          sections={sections}
+          relatedPages={relatedPages}
+        />
         <NewsSection />
         <ContactSection />
       </main>

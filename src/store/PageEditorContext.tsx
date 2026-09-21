@@ -24,12 +24,13 @@ type SectionDraft = {
 };
 
 type PageEditorContextValue = {
-
   previewSlug: string;
   setPreviewSlug: (slug: string) => void;
 
   focusedSectionType: string;
   setFocusedSectionType: (sectionType: string) => void;
+  focusedItemId: string;
+  setFocusedItemId: (itemId: string) => void;
   registerSectionDraft: (sectionId: number, draft: SectionDraft | null) => void;
   publish: () => Promise<void>;
   isPublishing: boolean;
@@ -53,6 +54,7 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
   const draftsRef = useRef<Map<number, SectionDraft>>(new Map());
   const [previewSlug, setPreviewSlug] = useState('');
   const [focusedSectionType, setFocusedSectionType] = useState('');
+  const [focusedItemId, setFocusedItemId] = useState('');
   const [isPublishing, setIsPublishing] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
   const [publishError, setPublishError] = useState<unknown>(null);
@@ -136,6 +138,8 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
         setPreviewSlug,
         focusedSectionType,
         setFocusedSectionType,
+        focusedItemId,
+        setFocusedItemId,
         registerSectionDraft,
         publish,
         isPublishing,

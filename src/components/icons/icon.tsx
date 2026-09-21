@@ -20,11 +20,13 @@ import { ChevronLeftSmallIcon } from './ChevronLeftSmallIcon';
 import { ChevronRightIcon } from './ChevronRightIcon';
 import { ChevronRightSmallIcon } from './ChevronRightSmallIcon';
 import { CircleCheckIcon } from './CircleCheckIcon';
+import { ClockIcon } from './ClockIcon';
 import { CloseIcon } from './CloseIcon';
 import { CourtIcon } from './CourtIcon';
 import { CursorIcon } from './CursorIcon';
 import { DevicesIcon } from './DevicesIcon';
 import { EllipsisIcon } from './EllipsisIcon';
+import { EmailIcon } from './EmailIcon';
 import { EnvelopeIcon } from './EnvelopeIcon';
 import { EyeIcon } from './EyeIcon';
 import { FacebookIcon } from './FacebookIcon';
@@ -59,6 +61,7 @@ import { PieChartIcon } from './PieChartIcon';
 import { PiggyBankIcon } from './PiggyBankIcon';
 import { PlayIcon } from './PlayIcon';
 import { PlusIcon } from './PlusIcon';
+import { PrinterIcon } from './PrinterIcon';
 import { ResetIcon } from './ResetIcon';
 import { RouteIcon } from './RouteIcon';
 import { SafeIcon } from './SafeIcon';
@@ -106,11 +109,13 @@ export const icon = {
   chevronRight: ChevronRightIcon,
   chevronRightSmall: ChevronRightSmallIcon,
   circleCheck: CircleCheckIcon,
+  clock: ClockIcon,
   close: CloseIcon,
   court: CourtIcon,
   cursor: CursorIcon,
   devices: DevicesIcon,
   ellipsis: EllipsisIcon,
+  email: EmailIcon,
   envelope: EnvelopeIcon,
   eye: EyeIcon,
   facebook: FacebookIcon,
@@ -145,6 +150,7 @@ export const icon = {
   piggyBank: PiggyBankIcon,
   play: PlayIcon,
   plus: PlusIcon,
+  printer: PrinterIcon,
   reset: ResetIcon,
   route: RouteIcon,
   safe: SafeIcon,

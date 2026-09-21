@@ -14,6 +14,7 @@ import { getSectionContent } from '@/lib/get-section-content';
 
 import { ROUTE } from '@/constants';
 
+import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutProfilePageSection } from '@/api/services/about/about-profile-page.service';
 
 export const aboutProfilePageQueryKey = ['about-profile-page'] as const;
@@ -27,6 +28,7 @@ export default async function ProfilePage() {
   const queryClient = getQueryClient();
 
   let sections: AboutProfilePageSection[] | undefined;
+  let relatedPages: ContentSidebarLink[] | undefined;
 
   try {
     const { data } = await queryClient.fetchQuery({
@@ -34,8 +36,10 @@ export default async function ProfilePage() {
       queryFn: aboutProfilePageService.getAboutProfilePageData,
     });
     sections = data.sections;
+    relatedPages = data.related_pages;
   } catch {
     sections = undefined;
+    relatedPages = undefined;
   }
 
   const breadcrumbsContent = getSectionContent(sections, 'content_breadcrumbs');
@@ -51,7 +55,10 @@ export default async function ProfilePage() {
         <Breadcrumbs items={breadcrumbItems} />
         <ProfileHeroSection sections={sections} />
         <ProfileStatsSection sections={sections} />
-        <ProfileContentSection sections={sections} />
+        <ProfileContentSection
+          sections={sections}
+          relatedPages={relatedPages}
+        />
         <NewsSection />
         <ContactSection />
       </main>
