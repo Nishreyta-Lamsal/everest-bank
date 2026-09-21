@@ -19,6 +19,12 @@ import type { DepositPageSection } from '@/api/services/personal/deposit-account
 
 export const depositPageQueryKey = ['deposit-page'] as const;
 
+/**
+ * Sections on this page are CMS-managed, so it is rebuilt at most once a
+ * minute instead of being prerendered once at build time.
+ */
+export const revalidate = 60;
+
 const fallbackBreadcrumbItems = [
   { label: 'Accounts' },
   { label: 'Deposit Accounts' },
@@ -57,7 +63,7 @@ export default async function DepositAccountsPage() {
         <DepositRecommendationSection sections={sections} />
         <DepositOpenAccountSection sections={sections} />
         <DepositFaqsSection sections={sections} />
-        <ExploreServicesSection />
+        <ExploreServicesSection screen="deposit-accounts" />
       </main>
     </HydrationBoundary>
   );

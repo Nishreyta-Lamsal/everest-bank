@@ -3,6 +3,8 @@
 import DatePickerField from '@/components/ui/inputs/DatePickerField';
 import SelectField from '@/components/ui/inputs/SelectField';
 
+import { todayIsoDate } from '@/lib/forex-rates';
+
 import type { SelectFieldOption } from '@/components/ui/inputs/SelectField';
 
 type ForexFilterBarProps = {
@@ -27,6 +29,7 @@ export default function ForexFilterBar({
         variant="secondary"
         value={date}
         onChange={(event) => onDateChange(event.target.value)}
+        max={todayIsoDate()}
         className="lg:w-[320px]"
       />
 

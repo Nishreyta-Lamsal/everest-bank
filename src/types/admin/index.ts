@@ -9,3 +9,4 @@ export * from './forex';
 export * from './footer';
 export * from './location';
 export * from './calculator';
+export * from './card-group';

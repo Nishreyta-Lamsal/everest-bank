@@ -13,6 +13,12 @@ import { loanStats, loanStatsImage } from './_data/stats';
 import { idealLoanImage, idealLoanRows } from './_data/ideal-loan';
 import { loanFaqs } from './_data/faqs';
 
+/**
+ * Sections on this page are CMS-managed, so it is rebuilt at most once a
+ * minute instead of being prerendered once at build time.
+ */
+export const revalidate = 60;
+
 const breadcrumbItems = [{ label: 'Loan Services' }];
 
 export default function LoanServicesPage() {
@@ -54,7 +60,7 @@ export default function LoanServicesPage() {
       />
       <OpenAccountSection />
       <FaqSection heading="Quick FAQs for Loan Services" items={loanFaqs} />
-      <ExploreServicesSection />
+      <ExploreServicesSection screen="loans" />
     </main>
   );
 }

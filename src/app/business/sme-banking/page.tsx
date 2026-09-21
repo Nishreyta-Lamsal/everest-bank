@@ -21,6 +21,12 @@ import type { SmePageSection } from '@/api/services/business/sme-page.service';
 
 export const smePageQueryKey = ['sme-page'] as const;
 
+/**
+ * Sections on this page are CMS-managed, so it is rebuilt at most once a
+ * minute instead of being prerendered once at build time.
+ */
+export const revalidate = 60;
+
 const fallbackBreadcrumbItems = [
   { label: 'Business', href: ROUTE.BUSINESS },
   { label: 'SME Banking' },
@@ -59,7 +65,7 @@ export default async function SMEBankingPage() {
         <SmeFinancingSection sections={sections} />
         <SmeOpenAccountSection sections={sections} />
         <SmeFaqsSection sections={sections} />
-        <ExploreServicesSection />
+        <ExploreServicesSection screen="sme-banking" />
       </main>
     </HydrationBoundary>
   );

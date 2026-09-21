@@ -15,4 +15,5 @@ export const ADMIN_ROUTE = {
   EMI_CALCULATOR: '/admin/tools/emi-calculator',
   FD_CALCULATOR: '/admin/tools/fd-calculator',
   ELIGIBILITY_CHECKER: '/admin/tools/eligibility-checker',
+  CARD_GROUPS: '/admin/card-groups',
 };

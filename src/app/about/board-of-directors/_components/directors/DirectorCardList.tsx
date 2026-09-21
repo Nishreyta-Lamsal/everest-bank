@@ -3,10 +3,26 @@ import DirectorCard from './DirectorCard';
 import type { Director } from '../../_data/directors';
 
 type DirectorCardListProps = {
-  rows: Director[][];
+  directors: Director[];
 };
 
-export default function DirectorCardList({ rows }: DirectorCardListProps) {
+function groupByPosition(directors: Director[]) {
+  const groups = directors.reduce<Record<number, Director[]>>((acc, item) => {
+    const key = item.position;
+
+    if (!acc[key]) acc[key] = [];
+
+    acc[key].push(item);
+
+    return acc;
+  }, {});
+
+  return Object.values(groups);
+}
+
+export default function DirectorCardList({ directors }: DirectorCardListProps) {
+  const rows = groupByPosition(directors);
+
   return (
     <div className="flex w-full flex-col items-start gap-4">
       {rows.map((row) => (
