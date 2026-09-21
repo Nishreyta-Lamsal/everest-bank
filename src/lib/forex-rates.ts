@@ -1,11 +1,21 @@
 import type { ForexRowRead } from '@/types/admin';
 import type { ForexRate } from '@/app/(personal-page)/forex-rates/_types/forex';
 
-/** Only these currencies ship with a flag asset; the rest render a placeholder. */
-const CURRENCY_FLAGS: Record<string, string> = {
-  AUD: '/images/flags/aud.svg',
-  JPY: '/images/flags/japan.png',
+const FLAG_CODE_OVERRIDES: Record<string, string> = {
+  XCD: 'ag',
+  XOF: 'sn',
+  XAF: 'cm',
 };
+
+export function toCurrencyFlag(currencyCode: string) {
+  const code = currencyCode.trim().toUpperCase();
+
+  if (code.length !== 3) return null;
+
+  const countryCode = FLAG_CODE_OVERRIDES[code] ?? code.slice(0, 2);
+
+  return `https://flagcdn.com/${countryCode.toLowerCase()}.svg`;
+}
 
 function toNumber(value: string | undefined) {
   const parsed = Number(value);
@@ -18,7 +28,7 @@ export function toForexRates(rows: ForexRowRead[]): ForexRate[] {
     code: row.currency_code,
     // The table shows "Name (CODE)", which the API splits across two fields.
     name: `${row.currency_name} (${row.currency_code})`,
-    flag: CURRENCY_FLAGS[row.currency_code] ?? null,
+    flag: toCurrencyFlag(row.currency_code),
     unit: row.unit ?? 1,
     cashPurchase: toNumber(row.cash_purchase),
     docAndCashPurchase: toNumber(row.doc_cash_purchase),

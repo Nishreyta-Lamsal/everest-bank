@@ -62,6 +62,7 @@ export default function ForexRatesTable({ rates }: ForexRatesTableProps) {
                       alt=""
                       width={14}
                       height={14}
+                      unoptimized
                       className="size-[14px] shrink-0 rounded-[2px] object-cover"
                     />
                   ) : (

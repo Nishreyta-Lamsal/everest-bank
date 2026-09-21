@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: upstream.port,
         pathname: '/media/**',
       },
+      {
+        // Currency flags, keyed by the country code inside each currency code.
+        protocol: 'https',
+        hostname: 'flagcdn.com',
+        pathname: '/**',
+      },
     ],
   },
   async rewrites() {
