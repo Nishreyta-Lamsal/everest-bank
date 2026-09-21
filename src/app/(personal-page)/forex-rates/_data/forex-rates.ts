@@ -1,3 +1,5 @@
+import { toCurrencyFlag } from '@/lib/forex-rates';
+
 import type { SelectFieldOption } from '@/components/ui/inputs/SelectField';
 import type { ForexColumn, ForexRate } from '../_types/forex';
 
@@ -29,11 +31,10 @@ export const forexTimeOptions: SelectFieldOption[] = [
   { label: '15:00:00', value: '15:00:00' },
 ];
 
-export const forexRates: ForexRate[] = [
+const forexRateRows: Omit<ForexRate, 'flag'>[] = [
   {
     code: 'AUD',
     name: 'Australian Dollar (AUD)',
-    flag: '/images/flags/aud.svg',
     unit: 1,
     cashPurchase: 87.42,
     docAndCashPurchase: 88.15,
@@ -42,7 +43,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'USD',
     name: 'US Dollar (USD)',
-    flag: null,
     unit: 1,
     cashPurchase: 132.65,
     docAndCashPurchase: 133.4,
@@ -51,7 +51,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'EUR',
     name: 'European Euro (EUR)',
-    flag: null,
     unit: 1,
     cashPurchase: 154.12,
     docAndCashPurchase: 155.02,
@@ -60,7 +59,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'GBP',
     name: 'UK Pound Sterling (GBP)',
-    flag: null,
     unit: 1,
     cashPurchase: 178.34,
     docAndCashPurchase: 179.25,
@@ -69,7 +67,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'CHF',
     name: 'Swiss Franc (CHF)',
-    flag: null,
     unit: 1,
     cashPurchase: 162.48,
     docAndCashPurchase: 163.3,
@@ -78,7 +75,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'CAD',
     name: 'Canadian Dollar (CAD)',
-    flag: null,
     unit: 1,
     cashPurchase: 96.71,
     docAndCashPurchase: 97.42,
@@ -87,7 +83,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'SGD',
     name: 'Singapore Dollar (SGD)',
-    flag: null,
     unit: 1,
     cashPurchase: 101.55,
     docAndCashPurchase: 102.31,
@@ -96,7 +91,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'JPY',
     name: 'Japanese Yen (JPY)',
-    flag: '/images/flags/japan.png',
     unit: 10,
     cashPurchase: 8.94,
     docAndCashPurchase: 9.02,
@@ -105,7 +99,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'CNY',
     name: 'Chinese Yuan (CNY)',
-    flag: null,
     unit: 1,
     cashPurchase: 18.42,
     docAndCashPurchase: 18.61,
@@ -114,7 +107,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'SAR',
     name: 'Saudi Arabian Riyal (SAR)',
-    flag: null,
     unit: 1,
     cashPurchase: 35.36,
     docAndCashPurchase: 35.71,
@@ -123,7 +115,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'QAR',
     name: 'Qatari Riyal (QAR)',
-    flag: null,
     unit: 1,
     cashPurchase: 36.44,
     docAndCashPurchase: 36.81,
@@ -132,7 +123,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'AED',
     name: 'UAE Dirham (AED)',
-    flag: null,
     unit: 1,
     cashPurchase: 36.12,
     docAndCashPurchase: 36.48,
@@ -141,7 +131,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'MYR',
     name: 'Malaysian Ringgit (MYR)',
-    flag: null,
     unit: 1,
     cashPurchase: 31.28,
     docAndCashPurchase: 31.6,
@@ -150,7 +139,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'KRW',
     name: 'South Korean Won (KRW)',
-    flag: null,
     unit: 100,
     cashPurchase: 9.86,
     docAndCashPurchase: 9.96,
@@ -159,7 +147,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'SEK',
     name: 'Swedish Kroner (SEK)',
-    flag: null,
     unit: 1,
     cashPurchase: 13.71,
     docAndCashPurchase: 13.85,
@@ -168,7 +155,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'DKK',
     name: 'Danish Kroner (DKK)',
-    flag: null,
     unit: 1,
     cashPurchase: 20.66,
     docAndCashPurchase: 20.87,
@@ -177,7 +163,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'HKD',
     name: 'Hong Kong Dollar (HKD)',
-    flag: null,
     unit: 1,
     cashPurchase: 17.02,
     docAndCashPurchase: 17.19,
@@ -186,7 +171,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'THB',
     name: 'Thai Baht (THB)',
-    flag: null,
     unit: 1,
     cashPurchase: 4.08,
     docAndCashPurchase: 4.12,
@@ -195,7 +179,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'KWD',
     name: 'Kuwaiti Dinar (KWD)',
-    flag: null,
     unit: 1,
     cashPurchase: 432.18,
     docAndCashPurchase: 436.5,
@@ -204,7 +187,6 @@ export const forexRates: ForexRate[] = [
   {
     code: 'BHD',
     name: 'Bahraini Dinar (BHD)',
-    flag: null,
     unit: 1,
     cashPurchase: 351.74,
     docAndCashPurchase: 355.26,
@@ -213,10 +195,14 @@ export const forexRates: ForexRate[] = [
   {
     code: 'INR',
     name: 'Indian Rupee (INR)',
-    flag: null,
     unit: 100,
     cashPurchase: 160.0,
     docAndCashPurchase: 160.0,
     documentSales: 160.15,
   },
 ];
+
+export const forexRates: ForexRate[] = forexRateRows.map((row) => ({
+  ...row,
+  flag: toCurrencyFlag(row.code),
+}));

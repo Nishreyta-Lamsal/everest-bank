@@ -9,7 +9,10 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { pageSectionService } from '@/api/services/admin/page-section.service';
+import { pageQueryKey } from '@/hooks/api/admin/use-pages';
 
 import type { BulkUpdatePageSectionItem } from '@/api/services/admin/page-section.service';
 
@@ -45,6 +48,7 @@ const PageEditorContext = createContext<PageEditorContextValue | null>(null);
 
 export function PageEditorProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const draftsRef = useRef<Map<number, SectionDraft>>(new Map());
   const [previewSlug, setPreviewSlug] = useState('');
@@ -105,6 +109,12 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
       for (const [slug, items] of bySlug) {
         await pageSectionService.bulkUpdate(slug, items);
       }
+
+      await Promise.all(
+        [...bySlug.keys()].map((slug) =>
+          queryClient.invalidateQueries({ queryKey: pageQueryKey(slug) }),
+        ),
+      );
 
       // Saved content now comes back from the server, so local drafts would
       // only shadow it with the same values.
