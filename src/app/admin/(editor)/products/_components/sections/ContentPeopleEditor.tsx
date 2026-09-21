@@ -36,17 +36,11 @@ export default function ContentPeopleEditor({
 
   const [people, setPeople] = useState<Person[]>(content.people ?? []);
 
-  const {
-    shownOnPage,
-    setShownOnPage,
-    uploadImage,
-    isUploading,
-    isError,
-    error,
-  } = useSectionEditor<ContentPeopleContent>(slug, section, () => ({
-    category: content.category ?? 'board',
-    people,
-  }));
+  const { shownOnPage, setShownOnPage, isError, error } =
+    useSectionEditor<ContentPeopleContent>(slug, section, () => ({
+      category: content.category ?? 'board',
+      people,
+    }));
 
   function updatePerson(index: number, next: Person) {
     setPeople(people.map((person, i) => (i === index ? next : person)));
@@ -129,11 +123,8 @@ export default function ContentPeopleEditor({
                 <MediaField
                   label="Photo"
                   media={person.image}
-                  isUploading={isUploading}
-                  onUpload={(file) =>
-                    uploadImage(file, (image) =>
-                      updatePerson(index, { ...person, image }),
-                    )
+                  onSelect={(image) =>
+                    updatePerson(index, { ...person, image })
                   }
                 />
               </AccordionPanel>
