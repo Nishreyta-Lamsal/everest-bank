@@ -27,11 +27,12 @@ import {
   type NoticeFormValues,
 } from '@/schemas/admin/notice-schema';
 
+import type { NoticesAndNewsTab } from '../notices-and-news-filters/NoticesAndNewsFilterTabs';
 import type { Media, NoticesAndNewsEntry } from '@/types/admin';
 
 type NoticesAndNewsEditDrawerProps = {
   entry: NoticesAndNewsEntry | null;
-  kind: 'notice' | 'news';
+  kind: NoticesAndNewsTab;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -44,6 +45,12 @@ const STATUS_OPTIONS = [
   { label: 'Draft', value: 'draft' },
   { label: 'Published', value: 'published' },
 ];
+
+const drawerLabels: Record<NoticesAndNewsTab, string> = {
+  notice: 'notice',
+  news: 'news article',
+  'auction-notice': 'auction notice',
+};
 
 function readApiError(error: unknown) {
   const fallback = 'Could not save changes.';
@@ -112,8 +119,8 @@ export default function NoticesAndNewsEditDrawer({
 
   const isSaving = mutation.isPending || uploadMedia.isPending;
 
-  // Only notices carry an attachment; news articles are text-only.
-  const hasMedia = kind === 'notice';
+  // Notices and auction notices carry an attachment; news articles are text-only.
+  const hasMedia = kind !== 'news';
 
   /**
    * The notice endpoints take a media id, and the picker only ever hands back
@@ -132,15 +139,28 @@ export default function NoticesAndNewsEditDrawer({
     const media = resolveMediaId();
 
     if (isCreating) {
-      const create = kind === 'news' ? createNews : createNotice;
+      if (kind === 'news') {
+        createNews.mutate(
+          {
+            title: values.title,
+            date: values.date,
+            content: { description: values.description },
+            status: values.status,
+          },
+          { onSuccess: onClose },
+        );
 
-      create.mutate(
+        return;
+      }
+
+      createNotice.mutate(
         {
           title: values.title,
           date: values.date,
           content: { description: values.description },
           status: values.status,
           ...(media === undefined ? {} : { media }),
+          ...(kind === 'auction-notice' ? { notice_type: kind } : {}),
         },
         { onSuccess: onClose },
       );
@@ -171,15 +191,7 @@ export default function NoticesAndNewsEditDrawer({
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      title={
-        isCreating
-          ? kind === 'news'
-            ? 'Add news article'
-            : 'Add notice'
-          : kind === 'news'
-            ? 'Edit news article'
-            : 'Edit notice'
-      }
+      title={`${isCreating ? 'Add' : 'Edit'} ${drawerLabels[kind]}`}
       className="max-w-[900px]"
       footer={
         <>
@@ -240,7 +252,7 @@ export default function NoticesAndNewsEditDrawer({
         </FieldLabel>
 
         {hasMedia && (
-          <FieldLabel label="Media">
+          <FieldLabel label="Thumbnail">
             <NoticeMediaField
               existing={entry?.media ?? null}
               value={pickedMedia}

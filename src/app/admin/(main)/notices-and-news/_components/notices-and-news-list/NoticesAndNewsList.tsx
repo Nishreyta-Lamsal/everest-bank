@@ -1,10 +1,11 @@
 import NoticesAndNewsListRow from './NoticesAndNewsListRow';
 
+import type { NoticesAndNewsTab } from '../notices-and-news-filters/NoticesAndNewsFilterTabs';
 import type { NoticesAndNewsEntry } from '@/types/admin';
 
 type NoticesAndNewsListProps = {
   items: NoticesAndNewsEntry[];
-  kind: 'notice' | 'news';
+  kind: NoticesAndNewsTab;
   isPending?: boolean;
   isError?: boolean;
   emptyLabel?: string;
