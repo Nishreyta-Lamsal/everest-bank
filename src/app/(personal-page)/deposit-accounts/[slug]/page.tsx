@@ -57,8 +57,8 @@ export default async function DepositAccountDetailsPage({
     ? stepsContent.steps.map((step) => ({
         number: step.number,
         title: step.title,
-        image: step.image.src,
-        alt: step.image.alt,
+        image: step.image?.src || '/placeholder.png',
+        alt: step.image?.alt || step.title,
       }))
     : savingAccountSteps;
 

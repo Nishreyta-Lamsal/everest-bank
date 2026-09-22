@@ -25,8 +25,8 @@ export default function AboutLeadershipSection({
     content?.people.map((person) => ({
       name: person.name,
       role: person.role,
-      image: person.image.src,
-      alt: person.image.alt,
+      image: person.image?.src || '/placeholder.png',
+      alt: person.image?.alt || person.name,
     })) || aboutLeaders;
 
   return (

@@ -32,8 +32,8 @@ export default function LoanGlanceSection({
           <div className="flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:gap-33">
             <div className="relative order-1 h-[201px] w-full overflow-hidden rounded-lg md:h-[489px] lg:order-2 lg:w-[513px] lg:rounded-3xl lg:rounded-tl-[192px]">
               <Image
-                src={image.src}
-                alt={image.alt}
+                src={image?.src || '/placeholder.png'}
+                alt={image?.alt || heading}
                 fill
                 className="object-cover"
               />

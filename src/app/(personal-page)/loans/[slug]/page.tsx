@@ -61,8 +61,8 @@ export default async function LoansPage({ params }: LoansPageProps) {
             steps={applyChecklist.items}
             ctaLabel="Apply for the loan"
             ctaHref={applyChecklist.apply_href}
-            image={applyChecklist.image.src}
-            imageAlt={applyChecklist.image.alt}
+            image={applyChecklist.image?.src || '/placeholder.png'}
+            imageAlt={applyChecklist.image?.alt || applyChecklist.heading}
           />
         )}
         <LoanFinancingSection sections={sections} />
@@ -72,8 +72,8 @@ export default async function LoansPage({ params }: LoansPageProps) {
             steps={process.steps.map((step) => ({
               number: step.number,
               title: step.title,
-              image: step.image.src,
-              alt: step.image.alt,
+              image: step.image?.src || '/placeholder.png',
+              alt: step.image?.alt || step.title,
             }))}
             ctaLabel="Apply for loan"
             ctaHref={process.apply_href}

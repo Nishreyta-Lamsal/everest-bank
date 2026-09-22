@@ -25,7 +25,7 @@ export default function LoansSection({ sections }: LoansSectionProps) {
   const cards =
     content?.cards.map((card) => ({
       href: card.href,
-      image: card.image.src,
+      image: card.image?.src || '/placeholder.png',
       title: card.title,
     })) || loanCards;
 

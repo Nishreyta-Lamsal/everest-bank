@@ -19,8 +19,8 @@ export default function AboutLinksSection({
     content?.cards.map((card) => ({
       title: card.title,
       href: card.href,
-      image: card.image.src,
-      imageAlt: card.image.alt,
+      image: card.image?.src || '/placeholder.png',
+      imageAlt: card.image?.alt || card.title,
     })) || aboutLinkCards;
 
   return (

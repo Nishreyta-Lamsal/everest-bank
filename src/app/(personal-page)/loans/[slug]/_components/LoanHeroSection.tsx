@@ -23,8 +23,8 @@ export default function LoanHeroSection({ sections }: LoanHeroSectionProps) {
   return (
     <section className="relative h-[312px] w-full overflow-hidden bg-[#d9d9d9] lg:h-[528px] lg:bg-[#fff5ed]">
       <Image
-        src={image.src}
-        alt={image.alt}
+        src={image?.src || '/placeholder.png'}
+        alt={image?.alt || title}
         fill
         priority
         className="object-cover"

@@ -30,8 +30,8 @@ export default function BusinessFinancingSection({
   const mediaCard = content?.media_card
     ? {
         label: content.media_card.label,
-        image: content.media_card.image.src,
-        imageAlt: content.media_card.image.alt,
+        image: content.media_card.image?.src || '/placeholder.png',
+        imageAlt: content.media_card.image?.alt || content.media_card.label,
         href: content.media_card.href,
       }
     : businessFinancingMediaCard;
@@ -39,8 +39,8 @@ export default function BusinessFinancingSection({
     content?.content_cards.map((card) => ({
       title: card.title,
       description: card.description,
-      image: card.image.src,
-      imageAlt: card.image.alt,
+      image: card.image?.src || '/placeholder.png',
+      imageAlt: card.image?.alt || card.title,
       linkLabel: card.link_label,
       href: card.href,
     })) || businessFinancingContentCards;

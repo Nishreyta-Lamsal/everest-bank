@@ -25,8 +25,8 @@ export default function BusinessRelationshipManagerSection({
     content?.managers.map((manager) => ({
       name: manager.name,
       role: manager.role,
-      image: manager.image.src,
-      alt: manager.image.alt,
+      image: manager.image?.src || '/placeholder.png',
+      alt: manager.image?.alt || manager.name,
     })) || relationshipManagers;
 
   return (

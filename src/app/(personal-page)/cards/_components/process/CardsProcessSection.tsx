@@ -30,8 +30,8 @@ export default function CardsProcessSection({
         number: step.number,
         title: step.title,
         description: step.description,
-        image: step.image.src,
-        alt: step.image.alt,
+        image: step.image?.src || '/placeholder.png',
+        alt: step.image?.alt || step.title,
       }))
     : cardProcessSteps;
 

@@ -40,7 +40,7 @@ export default function LoanFinancingSection({
           <ImageLinkCard
             key={card.title}
             href={card.href}
-            image={card.image.src}
+            image={card.image?.src || '/placeholder.png'}
             title={card.title}
           />
         ))}
