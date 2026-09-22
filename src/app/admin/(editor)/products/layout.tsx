@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 
 import ProductEditorShell from './_components/ProductEditorShell';
-import PersonalPage from '@/app/(personal-page)/page';
 
 type ProductEditorLayoutProps = {
   children: ReactNode;
@@ -10,9 +9,5 @@ type ProductEditorLayoutProps = {
 export default function ProductEditorLayout({
   children,
 }: ProductEditorLayoutProps) {
-  return (
-    <ProductEditorShell preview={<PersonalPage />}>
-      {children}
-    </ProductEditorShell>
-  );
+  return <ProductEditorShell>{children}</ProductEditorShell>;
 }

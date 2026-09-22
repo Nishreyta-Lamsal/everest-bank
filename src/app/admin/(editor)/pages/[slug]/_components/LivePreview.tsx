@@ -9,11 +9,13 @@ const FRAME_WIDTH = 1400;
 
 type LivePreviewProps = {
   hasPreview?: boolean;
+  emptyMessage?: string;
   children: ReactNode;
 };
 
 export default function LivePreview({
   hasPreview,
+  emptyMessage = 'No live preview available for this page yet.',
   children,
 }: LivePreviewProps) {
   const showPreview = hasPreview ?? Boolean(children);
@@ -86,7 +88,7 @@ export default function LivePreview({
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <p className="text-[12px] text-neutral-700 opacity-[0.72]">
-              No live preview available for this page yet.
+              {emptyMessage}
             </p>
           </div>
         )}

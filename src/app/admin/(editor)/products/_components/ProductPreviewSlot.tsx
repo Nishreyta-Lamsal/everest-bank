@@ -1,7 +1,5 @@
 'use client';
 
-import type { ReactNode } from 'react';
-
 import ProductPagePreview from './ProductPagePreview';
 import SavingPagePreview from './SavingPagePreview';
 import ContentPagePreview from './ContentPagePreview';
@@ -13,21 +11,16 @@ import { usePage } from '@/hooks/api/admin/use-pages';
 
 type ProductPreviewSlotProps = {
   slug?: string;
-  /** Shown until a product exists to preview, so the panel is never empty. */
-  fallback: ReactNode;
 };
 
-export default function ProductPreviewSlot({
-  slug,
-  fallback,
-}: ProductPreviewSlotProps) {
+export default function ProductPreviewSlot({ slug }: ProductPreviewSlotProps) {
   const { previewSlug } = usePageEditor();
 
   const activeSlug = slug || previewSlug;
 
   return (
-    <LivePreview>
-      {activeSlug ? <ProductPreview slug={activeSlug} /> : fallback}
+    <LivePreview emptyMessage="No page replicated to show live preview yet.">
+      {activeSlug ? <ProductPreview slug={activeSlug} /> : null}
     </LivePreview>
   );
 }

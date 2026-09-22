@@ -11,12 +11,10 @@ import { PageEditorProvider } from '@/store/PageEditorContext';
 import { ADMIN_ROUTE } from '@/constants/admin';
 
 type ProductEditorShellProps = {
-  preview: ReactNode;
   children: ReactNode;
 };
 
 export default function ProductEditorShell({
-  preview,
   children,
 }: ProductEditorShellProps) {
   const params = useParams<{ slug?: string }>();
@@ -35,7 +33,7 @@ export default function ProductEditorShell({
           <main className="flex min-h-0 min-w-0 flex-1 gap-4 p-4">
             <div className="min-w-0 flex-2 overflow-y-auto">{children}</div>
             <div className="hidden min-h-0 w-[600px] shrink-0 xl:block">
-              <ProductPreviewSlot slug={params?.slug} fallback={preview} />
+              <ProductPreviewSlot slug={params?.slug} />
             </div>
           </main>
         </div>
