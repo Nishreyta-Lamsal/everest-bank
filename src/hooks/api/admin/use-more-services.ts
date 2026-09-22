@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { moreServiceService } from '@/api/services/admin/more-service.service';
 
 import type {
@@ -38,6 +40,10 @@ export function useCreateMoreService() {
       moreServiceService.create(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: moreServicesQueryKey() });
+      toast.success('Service group created.');
+    },
+    onError: () => {
+      toast.error('Could not create the service group. Please try again.');
     },
   });
 }
@@ -51,6 +57,10 @@ export function useUpdateMoreService(slug: string) {
     onSuccess: (group) => {
       queryClient.setQueryData(moreServiceQueryKey(slug), group);
       queryClient.invalidateQueries({ queryKey: moreServicesQueryKey() });
+      toast.success('Service group updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the service group. Please try again.');
     },
   });
 }
@@ -62,6 +72,10 @@ export function useDeleteMoreService() {
     mutationFn: (slug: string) => moreServiceService.remove(slug),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: moreServicesQueryKey() });
+      toast.success('Service group deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the service group. Please try again.');
     },
   });
 }
@@ -81,7 +95,13 @@ export function useCreateCard(slug: string) {
   return useMutation({
     mutationFn: (payload: CardWritePayload) =>
       moreServiceService.createCard(slug, payload),
-    onSuccess: () => invalidateMoreService(queryClient, slug),
+    onSuccess: () => {
+      invalidateMoreService(queryClient, slug);
+      toast.success('Card added.');
+    },
+    onError: () => {
+      toast.error('Could not add the card. Please try again.');
+    },
   });
 }
 
@@ -96,7 +116,13 @@ export function useUpdateCard(slug: string) {
       cardId: number;
       payload: Partial<CardWritePayload>;
     }) => moreServiceService.updateCard(slug, cardId, payload),
-    onSuccess: () => invalidateMoreService(queryClient, slug),
+    onSuccess: () => {
+      invalidateMoreService(queryClient, slug);
+      toast.success('Card updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the card. Please try again.');
+    },
   });
 }
 
@@ -105,7 +131,13 @@ export function useDeleteCard(slug: string) {
 
   return useMutation({
     mutationFn: (cardId: number) => moreServiceService.removeCard(slug, cardId),
-    onSuccess: () => invalidateMoreService(queryClient, slug),
+    onSuccess: () => {
+      invalidateMoreService(queryClient, slug);
+      toast.success('Card removed.');
+    },
+    onError: () => {
+      toast.error('Could not remove the card. Please try again.');
+    },
   });
 }
 
@@ -116,5 +148,8 @@ export function useReorderCards(slug: string) {
     mutationFn: (cardIds: number[]) =>
       moreServiceService.reorderCards(slug, cardIds),
     onSuccess: () => invalidateMoreService(queryClient, slug),
+    onError: () => {
+      toast.error('Could not reorder cards. Please try again.');
+    },
   });
 }

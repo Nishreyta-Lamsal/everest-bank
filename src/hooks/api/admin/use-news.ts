@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { newsService } from '@/api/services/admin/news.service';
 
 import type {
@@ -26,6 +28,10 @@ export function useCreateNews() {
     mutationFn: (payload: CreateNewsPayload) => newsService.create(payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['news'] });
+      toast.success('News article created.');
+    },
+    onError: () => {
+      toast.error('Could not create the news article. Please try again.');
     },
   });
 }
@@ -38,6 +44,10 @@ export function useUpdateNews(newsId: number) {
       newsService.update(newsId, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['news'] });
+      toast.success('News article updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the news article. Please try again.');
     },
   });
 }
@@ -49,6 +59,10 @@ export function useDeleteNews() {
     mutationFn: (id: number) => newsService.remove(id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['news'] });
+      toast.success('News article deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the news article. Please try again.');
     },
   });
 }

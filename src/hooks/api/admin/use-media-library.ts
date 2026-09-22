@@ -5,6 +5,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { mediaService } from '@/api/services/admin/media.service';
 
 import type {
@@ -63,6 +65,9 @@ export function useFaceSearch() {
   return useMutation({
     mutationFn: (payload: FaceSearchPayload) =>
       mediaService.faceSearch(payload),
+    onError: () => {
+      toast.error('Could not search by face. Please try again.');
+    },
   });
 }
 
@@ -104,6 +109,8 @@ export function useMediaFolders() {
 
 function useMediaMutation<TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>,
+  successMessage: string,
+  errorMessage: string,
 ) {
   const queryClient = useQueryClient();
 
@@ -111,36 +118,59 @@ function useMediaMutation<TVariables, TData>(
     mutationFn,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: MEDIA_KEY });
+      toast.success(successMessage);
+    },
+    onError: () => {
+      toast.error(errorMessage);
     },
   });
 }
 
 export function useUpdateMedia(id: number) {
-  return useMediaMutation((payload: UpdateMediaPayload) =>
-    mediaService.update(id, payload),
+  return useMediaMutation(
+    (payload: UpdateMediaPayload) => mediaService.update(id, payload),
+    'Media updated.',
+    'Could not update media. Please try again.',
   );
 }
 
 export function useDeleteMedia() {
-  return useMediaMutation((id: number) => mediaService.remove(id));
+  return useMediaMutation(
+    (id: number) => mediaService.remove(id),
+    'Media deleted.',
+    'Could not delete media. Please try again.',
+  );
 }
 
 export function useMoveMedia() {
-  return useMediaMutation((payload: MoveMediaPayload) =>
-    mediaService.move(payload),
+  return useMediaMutation(
+    (payload: MoveMediaPayload) => mediaService.move(payload),
+    'Media moved.',
+    'Could not move media. Please try again.',
   );
 }
 
 export function useCreateMediaFolder() {
-  return useMediaMutation((name: string) => mediaService.createFolder(name));
+  return useMediaMutation(
+    (name: string) => mediaService.createFolder(name),
+    'Folder created.',
+    'Could not create the folder. Please try again.',
+  );
 }
 
 export function useRenameMediaFolder() {
-  return useMediaMutation(({ id, name }: { id: number; name: string }) =>
-    mediaService.renameFolder(id, name),
+  return useMediaMutation(
+    ({ id, name }: { id: number; name: string }) =>
+      mediaService.renameFolder(id, name),
+    'Folder renamed.',
+    'Could not rename the folder. Please try again.',
   );
 }
 
 export function useDeleteMediaFolder() {
-  return useMediaMutation((id: number) => mediaService.removeFolder(id));
+  return useMediaMutation(
+    (id: number) => mediaService.removeFolder(id),
+    'Folder deleted.',
+    'Could not delete the folder. Please try again.',
+  );
 }

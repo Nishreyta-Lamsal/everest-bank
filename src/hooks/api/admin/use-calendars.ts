@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { calendarService } from '@/api/services/admin/calendar.service';
 
 import type {
@@ -25,6 +27,10 @@ export function useCreateCalendar() {
     mutationFn: (payload: CalendarWrite) => calendarService.create(payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['calendars'] });
+      toast.success('Calendar created.');
+    },
+    onError: () => {
+      toast.error('Could not create the calendar. Please try again.');
     },
   });
 }
@@ -37,6 +43,10 @@ export function useUpdateCalendar(calendarId: number) {
       calendarService.update(calendarId, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['calendars'] });
+      toast.success('Calendar updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the calendar. Please try again.');
     },
   });
 }
@@ -48,6 +58,10 @@ export function useDeleteCalendar() {
     mutationFn: (id: number) => calendarService.remove(id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['calendars'] });
+      toast.success('Calendar deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the calendar. Please try again.');
     },
   });
 }

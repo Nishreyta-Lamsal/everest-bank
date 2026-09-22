@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { formService } from '@/api/services/admin/form.service';
 
 import type {
@@ -51,6 +53,10 @@ export function useCreateForm() {
     mutationFn: (payload: FormWritePayload) => formService.create(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['forms', 'list'] });
+      toast.success('Form created.');
+    },
+    onError: () => {
+      toast.error('Could not create the form. Please try again.');
     },
   });
 }
@@ -64,6 +70,10 @@ export function useUpdateForm(slug: string) {
     onSuccess: (form) => {
       queryClient.setQueryData(formQueryKey(slug), form);
       queryClient.invalidateQueries({ queryKey: ['forms', 'list'] });
+      toast.success('Form updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the form. Please try again.');
     },
   });
 }
@@ -75,6 +85,10 @@ export function useDeleteForm() {
     mutationFn: (slug: string) => formService.remove(slug),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['forms', 'list'] });
+      toast.success('Form deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the form. Please try again.');
     },
   });
 }
@@ -87,6 +101,10 @@ export function usePublishForm(slug: string) {
     onSuccess: (form) => {
       queryClient.setQueryData(formQueryKey(slug), form);
       queryClient.invalidateQueries({ queryKey: ['forms', 'list'] });
+      toast.success('Form published.');
+    },
+    onError: () => {
+      toast.error('Could not publish the form. Please try again.');
     },
   });
 }
@@ -114,7 +132,13 @@ export function useCreateFormField(slug: string) {
   return useMutation({
     mutationFn: (payload: FormFieldWritePayload) =>
       formService.createField(slug, payload),
-    onSuccess: () => invalidateFields(queryClient, slug),
+    onSuccess: () => {
+      invalidateFields(queryClient, slug);
+      toast.success('Field added.');
+    },
+    onError: () => {
+      toast.error('Could not add the field. Please try again.');
+    },
   });
 }
 
@@ -129,7 +153,13 @@ export function useUpdateFormField(slug: string) {
       fieldId: number;
       payload: Partial<FormFieldWritePayload>;
     }) => formService.updateField(slug, fieldId, payload),
-    onSuccess: () => invalidateFields(queryClient, slug),
+    onSuccess: () => {
+      invalidateFields(queryClient, slug);
+      toast.success('Field updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the field. Please try again.');
+    },
   });
 }
 
@@ -138,7 +168,13 @@ export function useDeleteFormField(slug: string) {
 
   return useMutation({
     mutationFn: (fieldId: number) => formService.removeField(slug, fieldId),
-    onSuccess: () => invalidateFields(queryClient, slug),
+    onSuccess: () => {
+      invalidateFields(queryClient, slug);
+      toast.success('Field removed.');
+    },
+    onError: () => {
+      toast.error('Could not remove the field. Please try again.');
+    },
   });
 }
 
@@ -150,6 +186,9 @@ export function useReorderFormFields(slug: string) {
       formService.reorderFields(slug, fieldIds),
     onSuccess: (fields) => {
       queryClient.setQueryData(formFieldsQueryKey(slug), fields);
+    },
+    onError: () => {
+      toast.error('Could not reorder fields. Please try again.');
     },
   });
 }
@@ -200,6 +239,10 @@ export function useExportSubmissions(slug: string) {
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
+      toast.success('Submissions exported.');
+    },
+    onError: () => {
+      toast.error('Could not export submissions. Please try again.');
     },
   });
 }
@@ -219,6 +262,10 @@ export function useUpdateSubmissionStatus(slug: string) {
       queryClient.invalidateQueries({
         queryKey: ['forms', 'submissions', slug],
       });
+      toast.success('Submission status updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the submission status. Please try again.');
     },
   });
 }

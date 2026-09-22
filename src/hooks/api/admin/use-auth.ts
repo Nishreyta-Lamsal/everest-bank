@@ -2,6 +2,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { authService } from '@/api/services/admin/auth.service';
 
 import type { LoginRequest } from '@/api/services/admin/auth.service';
@@ -34,7 +36,11 @@ export function useLogout() {
     mutationFn: () => authService.logout(),
     onSuccess: () => {
       queryClient.clear();
+      toast.success('Logged out successfully.');
       router.replace(ADMIN_ROUTE.LOGIN);
+    },
+    onError: () => {
+      toast.error('Could not log out. Please try again.');
     },
   });
 }

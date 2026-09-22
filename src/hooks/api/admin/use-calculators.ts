@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { calculatorService } from '@/api/services/admin/calculator.service';
 
 import type { CalculatorConfigWrite, CalculatorSlug } from '@/types/admin';
@@ -35,6 +37,10 @@ export function useUpdateCalculator<S extends CalculatorSlug>(slug: S) {
       calculatorService.update(slug, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: calculatorsQueryKey() });
+      toast.success('Calculator updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the calculator. Please try again.');
     },
   });
 }
