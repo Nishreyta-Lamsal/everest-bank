@@ -35,6 +35,7 @@ export const otherNavItems: SidebarNavItemData[] = [
     label: 'More Services',
     icon: icon.images,
   },
+  { href: ADMIN_ROUTE.CALENDARS, label: 'Calendars', icon: icon.calendar },
 ];
 
 export const toolsNavItems: SidebarNavItemData[] = [

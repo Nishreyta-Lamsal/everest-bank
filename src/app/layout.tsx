@@ -9,6 +9,7 @@ import BottomNavigationBar from '@/components/layouts/navbar/BottomNavigationBar
 import SideFixedMenu from '@/components/shared/SideFixedMenu';
 
 import { getMainNavItems } from '@/lib/get-main-nav-items';
+import { getLatestCalendar } from '@/lib/get-latest-calendar';
 
 import './globals.css';
 
@@ -67,7 +68,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
-  const mainNavItems = await getMainNavItems();
+  const [mainNavItems, calendar] = await Promise.all([
+    getMainNavItems(),
+    getLatestCalendar(),
+  ]);
 
   return (
     <html
@@ -77,7 +81,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
       <body className="flex min-h-full flex-col pb-14.5 lg:pb-0">
         <Providers>
           <SiteChrome>
-            <Navbar items={mainNavItems} />
+            <Navbar items={mainNavItems} calendar={calendar} />
           </SiteChrome>
 
           {children}

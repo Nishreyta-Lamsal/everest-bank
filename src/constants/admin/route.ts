@@ -11,6 +11,7 @@ export const ADMIN_ROUTE = {
   ASSETS: '/admin/assets',
   FOOTER: '/admin/footer',
   LOCATIONS: '/admin/locations',
+  CALENDARS: '/admin/calendars',
   TOOLS: '/admin/tools',
   EMI_CALCULATOR: '/admin/tools/emi-calculator',
   FD_CALCULATOR: '/admin/tools/fd-calculator',

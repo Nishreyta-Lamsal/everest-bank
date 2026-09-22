@@ -5,15 +5,21 @@ import { useState } from 'react';
 import Modal from '@/components/ui/modal/Modal';
 import { icon } from '@/components/icons';
 
-const CALENDAR_PDF_URL = '/docs/EBL-E-Calendar-2083.pdf';
-const CALENDAR_PDF_EMBED_URL = `${CALENDAR_PDF_URL}#toolbar=0&navpanes=1`;
+import type { CalendarRead } from '@/api/services/calendar.service';
 
 type CalendarProps = {
   label: string;
+  calendar: CalendarRead | null;
 };
 
-export default function Calendar({ label }: CalendarProps) {
+export default function Calendar({ label, calendar }: CalendarProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  if (!calendar) return null;
+  if (!calendar.file_url) return null;
+
+  const embedUrl = `${calendar.file_url}#toolbar=0&navpanes=1`;
+  const displayLabel = `${label} ${calendar.year}`;
 
   return (
     <>
@@ -23,22 +29,18 @@ export default function Calendar({ label }: CalendarProps) {
         className="text-body-4-desktop flex cursor-pointer items-center gap-1 rounded py-2 text-red-500 transition-colors hover:text-red-600"
       >
         <icon.calendar className="size-[16px] shrink-0" />
-        {label}
+        {displayLabel}
       </button>
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title={label}
+        title={displayLabel}
         className="h-[90vh]"
       >
-        <iframe
-          src={CALENDAR_PDF_EMBED_URL}
-          title={label}
-          className="w-full flex-1"
-        />
+        <iframe src={embedUrl} title={displayLabel} className="w-full flex-1" />
         <div className="border-grey-50 flex justify-end border-t px-6 py-3">
           <a
-            href={CALENDAR_PDF_URL}
+            href={calendar.file_url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-body-4-desktop-md flex items-center gap-1 text-red-500 transition-colors hover:text-red-600"
