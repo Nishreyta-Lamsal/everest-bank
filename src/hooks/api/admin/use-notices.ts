@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { noticeService } from '@/api/services/admin/notice.service';
 
 import type {
@@ -26,6 +28,10 @@ export function useCreateNotice() {
     mutationFn: (payload: CreateNoticePayload) => noticeService.create(payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['notices'] });
+      toast.success('Notice created.');
+    },
+    onError: () => {
+      toast.error('Could not create the notice. Please try again.');
     },
   });
 }
@@ -38,6 +44,10 @@ export function useUpdateNotice(noticeId: number) {
       noticeService.update(noticeId, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['notices'] });
+      toast.success('Notice updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the notice. Please try again.');
     },
   });
 }
@@ -49,6 +59,10 @@ export function useDeleteNotice() {
     mutationFn: (id: number) => noticeService.remove(id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['notices'] });
+      toast.success('Notice deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the notice. Please try again.');
     },
   });
 }

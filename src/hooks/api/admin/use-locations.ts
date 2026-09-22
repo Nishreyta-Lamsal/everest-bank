@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { locationService } from '@/api/services/admin/location.service';
 
 import type {
@@ -57,7 +59,13 @@ export function useCreateLocation() {
   return useMutation({
     mutationFn: (payload: LocationWritePayload) =>
       locationService.create(payload),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location added.');
+    },
+    onError: () => {
+      toast.error('Could not add the location. Please try again.');
+    },
   });
 }
 
@@ -72,7 +80,13 @@ export function useUpdateLocation() {
       id: number;
       payload: Partial<LocationWritePayload>;
     }) => locationService.update(id, payload),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the location. Please try again.');
+    },
   });
 }
 
@@ -81,7 +95,13 @@ export function useDeleteLocation() {
 
   return useMutation({
     mutationFn: (id: number) => locationService.remove(id),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the location. Please try again.');
+    },
   });
 }
 
@@ -91,7 +111,13 @@ export function useCreateLocationType() {
   return useMutation({
     mutationFn: (payload: LocationTypeWritePayload) =>
       locationService.createType(payload),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location type added.');
+    },
+    onError: () => {
+      toast.error('Could not add the location type. Please try again.');
+    },
   });
 }
 
@@ -106,7 +132,13 @@ export function useUpdateLocationType() {
       slug: string;
       payload: Partial<LocationTypeWritePayload>;
     }) => locationService.updateType(slug, payload),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location type updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the location type. Please try again.');
+    },
   });
 }
 
@@ -115,6 +147,12 @@ export function useDeleteLocationType() {
 
   return useMutation({
     mutationFn: (slug: string) => locationService.removeType(slug),
-    onSuccess: () => invalidateLocations(queryClient),
+    onSuccess: () => {
+      invalidateLocations(queryClient);
+      toast.success('Location type deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the location type. Please try again.');
+    },
   });
 }

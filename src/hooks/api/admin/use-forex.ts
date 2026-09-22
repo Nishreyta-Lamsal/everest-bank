@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { forexService } from '@/api/services/admin/forex.service';
 
 import type { ForexRowsPayload } from '@/api/services/admin/forex.service';
@@ -25,6 +27,10 @@ export function useUpdateForexRates(date: string, time?: string) {
       forexService.update(date, payload, time),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['forex'] });
+      toast.success('Forex rates updated.');
+    },
+    onError: () => {
+      toast.error('Could not update forex rates. Please try again.');
     },
   });
 }
@@ -37,6 +43,10 @@ export function useImportForexRates() {
       forexService.import(variables.date, variables.time),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['forex'] });
+      toast.success('Forex rates imported.');
+    },
+    onError: () => {
+      toast.error('Could not import forex rates. Please try again.');
     },
   });
 }
@@ -49,6 +59,10 @@ export function usePublishForexRates() {
       forexService.publish(variables.date, variables.time),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['forex'] });
+      toast.success('Forex rates published.');
+    },
+    onError: () => {
+      toast.error('Could not publish forex rates. Please try again.');
     },
   });
 }

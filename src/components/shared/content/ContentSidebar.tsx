@@ -1,23 +1,42 @@
+'use client';
+
 import Link from 'next/link';
 
-import type { FooterSocialLink } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+
+import { icon } from '@/components/icons';
+
+import { socialLinksService } from '@/api/services/social-links.service';
+
+import { socialIconMap } from '@/constants/social-icon-map';
 
 export type ContentSidebarLink = {
   title: string;
   href: string;
 };
 
+export const footerSocialLinksQueryKey = ['footer-social-links'] as const;
+
 type ContentSidebarProps = {
   heading?: string;
   links: ContentSidebarLink[];
-  socialLinks?: FooterSocialLink[];
 };
 
 export default function ContentSidebar({
   heading = 'Related Pages',
   links,
-  socialLinks,
 }: ContentSidebarProps) {
+  const { data } = useQuery({
+    queryKey: footerSocialLinksQueryKey,
+    queryFn: () => socialLinksService.getSocialLinks(),
+  });
+
+  const socialLinks = data?.data.map((link) => ({
+    label: link.label,
+    href: link.href,
+    icon: socialIconMap[link.slug] ?? icon.x,
+  }));
+
   return (
     <aside className="sticky top-30 w-full max-lg:hidden lg:max-w-[405px]">
       <div className="flex flex-col items-start gap-4">

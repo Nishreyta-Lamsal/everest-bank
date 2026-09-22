@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { pageSectionService } from '@/api/services/admin/page-section.service';
 import { pageQueryKey } from '@/hooks/api/admin/use-pages';
 
@@ -123,9 +125,11 @@ export function PageEditorProvider({ children }: { children: ReactNode }) {
       setDrafts({});
       setDraftVisibilityMap({});
 
+      toast.success('Changes published.');
       router.refresh();
     } catch (error) {
       setPublishError(error);
+      toast.error('Could not publish changes. Please try again.');
     } finally {
       setIsPublishing(false);
     }

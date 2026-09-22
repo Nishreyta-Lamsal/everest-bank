@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { pageService } from '@/api/services/admin/page.service';
 
 import type {
@@ -71,6 +73,8 @@ export function useReorderPages(params?: ListPagesParams) {
       if (context?.previous) {
         queryClient.setQueryData(queryKey, context.previous);
       }
+
+      toast.error('Could not reorder pages. Please try again.');
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ['pages'] });
@@ -86,6 +90,10 @@ export function useUpdatePage(slug: string) {
       pageService.update(slug, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['pages'] });
+      toast.success('Page updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the page. Please try again.');
     },
   });
 }
@@ -97,6 +105,10 @@ export function useDeletePage(slug: string) {
     mutationFn: () => pageService.destroy(slug),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['pages'] });
+      toast.success('Page deleted.');
+    },
+    onError: () => {
+      toast.error('Could not delete the page. Please try again.');
     },
   });
 }

@@ -6,12 +6,8 @@ import { getSectionContent } from '@/lib/get-section-content';
 
 import { corporateMissionAndVisionBodyBlocks } from '../_data/body-blocks';
 
-import { socialIconMap } from '@/constants';
-import { socialLinks } from '@/data';
-
 import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutCorporateMissionAndVisionPageSection } from '@/api/services/about/about-corporate-mission-and-vision-page.service';
-import type { FooterSocialLink } from '@/types';
 
 type ContentTextBlock = {
   type?: undefined;
@@ -53,7 +49,6 @@ export default function CorporateMissionAndVisionContentSection({
   relatedPages,
 }: CorporateMissionAndVisionContentSectionProps) {
   const bodyContent = getSectionContent(sections, 'content_body');
-  const sidebarContent = getSectionContent(sections, 'content_sidebar');
 
   const apiBlocks: CorporateMissionAndVisionBodyBlock[] =
     bodyContent?.blocks?.flatMap(
@@ -106,19 +101,6 @@ export default function CorporateMissionAndVisionContentSection({
 
   const links = relatedPages ?? [];
 
-  const apiSocialLinks: FooterSocialLink[] =
-    sidebarContent?.social_links?.flatMap((link) => {
-      const Icon = link?.slug ? socialIconMap[link.slug] : undefined;
-
-      return Icon && link.href
-        ? [{ label: link.label ?? link.slug, href: link.href, icon: Icon }]
-        : [];
-    }) ?? [];
-
-  const sidebarSocialLinks = apiSocialLinks.length
-    ? apiSocialLinks
-    : socialLinks;
-
   return (
     <section className="w-full py-16 lg:py-24">
       <LayoutWrapper>
@@ -136,7 +118,7 @@ export default function CorporateMissionAndVisionContentSection({
             ))}
           </article>
 
-          <ContentSidebar links={links} socialLinks={sidebarSocialLinks} />
+          <ContentSidebar links={links} />
         </div>
       </LayoutWrapper>
     </section>

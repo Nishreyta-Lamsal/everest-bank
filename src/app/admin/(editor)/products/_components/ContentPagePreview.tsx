@@ -1,33 +1,30 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-
 import Breadcrumbs from '@/components/ui/navigation/Breadcrumbs';
 import ProfileHeroSection from '@/app/about/profile/_components/ProfileHeroSection';
 import ProfileStatsSection from '@/app/about/profile/_components/ProfileStatsSection';
 import ProfileContentSection from '@/app/about/profile/_components/ProfileContentSection';
 import BoardOfDirectorsHeroSection from '@/app/about/board-of-directors/_components/BoardOfDirectorsHeroSection';
 import BoardOfDirectorsContentSection from '@/app/about/board-of-directors/_components/BoardOfDirectorsContentSection';
+import OrganizationStructureContentSection from '@/app/about/organization-structure/_components/OrganizationStructureContentSection';
+import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
 import MountainHeroSection from '@/components/shared/MountainHeroSection';
 import CareersJobsSection from '@/app/about/careers/_components/CareersJobsSection';
 import RepresentativesSection from '@/app/remittance/representatives-worldwide/_components/RepresentativesSection';
 import PreviewNewsSection from '../../pages/[slug]/_components/PreviewNewsSection';
 import ContactSection from '@/components/shared/content/ContactSection';
 import PreviewSectionHighlight from '@/components/admin/shared/PreviewSectionHighlight';
-import { icon } from '@/components/icons';
 import { usePageEditor } from '@/store/PageEditorContext';
 
 import { usePage } from '@/hooks/api/admin/use-pages';
-import { socialLinksService } from '@/api/services/social-links.service';
 import { toPreviewSections } from '@/lib/admin/preview-sections';
 import { getSectionContent } from '@/lib/get-section-content';
-
-import { socialIconMap } from '@/constants/social-icon-map';
 
 import { ROUTE } from '@/constants';
 
 import type { AboutProfilePageSection } from '@/api/services/about/about-profile-page.service';
 import type { AboutBoardOfDirectorsPageSection } from '@/api/services/about/about-board-of-directors-page.service';
+import type { AboutOrganizationStructurePageSection } from '@/api/services/about/about-organization-structure-page.service';
 import type { AboutCareersPageSection } from '@/api/services/about/about-careers-page.service';
 import type { RemittanceRepresentativesWorldwidePageSection } from '@/api/services/remittance/remittance-representatives-worldwide-page.service';
 
@@ -40,21 +37,10 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
     usePageEditor();
   const { data: page } = usePage(slug);
 
-  const isBoardOfDirectors = slug.includes('board-of-directors');
   const isCareers = slug.includes('careers');
   const isRepresentatives = slug.includes('representatives');
-
-  const { data: socialLinksData } = useQuery({
-    queryKey: ['footer-social-links'],
-    queryFn: () => socialLinksService.getSocialLinks(),
-    enabled: isBoardOfDirectors,
-  });
-
-  const socialLinks = socialLinksData?.data.map((link) => ({
-    label: link.label,
-    href: link.href,
-    icon: socialIconMap[link.slug] ?? icon.x,
-  }));
+  const isBoardOfDirectors = slug.includes('board-of-directors');
+  const isOrganizationStructure = slug.includes('organization-structure');
 
   const rawSections = toPreviewSections(
     page?.sections,
@@ -169,8 +155,45 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
         <BoardOfDirectorsContentSection
           sections={boardSections}
           relatedPages={page?.related_pages}
-          socialLinks={socialLinks}
           activeDirectorId={focusedItemId}
+        />
+      </main>
+    );
+  }
+
+  if (isOrganizationStructure) {
+    const organizationStructureSections = rawSections as
+      AboutOrganizationStructurePageSection[] | undefined;
+
+    const heroContent = getSectionContent(
+      organizationStructureSections,
+      'content_hero',
+    );
+
+    return (
+      <main className="relative">
+        {breadcrumbsNode}
+        <PreviewSectionHighlight
+          sectionType="content_hero"
+          activeSectionType={focusedSectionType}
+        >
+          <ContentHeroSection
+            image={
+              heroContent?.image?.src || '/images/about/profile/hero-bg.png'
+            }
+            imageAlt={
+              heroContent?.image?.alt ||
+              'Signage on the exterior of an Everest Bank branch'
+            }
+            heading={heroContent?.heading || 'Organizational Structure'}
+            buttonLabel={heroContent?.button?.label || 'Contact Near Branch'}
+            buttonHref={heroContent?.button?.href || ROUTE.BRANCHES}
+          />
+        </PreviewSectionHighlight>
+        <OrganizationStructureContentSection
+          sections={organizationStructureSections}
+          relatedPages={page?.related_pages}
+          activeBlockId={focusedItemId}
         />
       </main>
     );

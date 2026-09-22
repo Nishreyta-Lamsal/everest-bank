@@ -1,3 +1,5 @@
+import { Toaster } from 'sonner';
+
 import { QueryProvider } from './query-provider';
 import ProductsProvider from '@/store/ProductsProvider';
 
@@ -11,6 +13,7 @@ export default function Providers({ children }: ProviderProps) {
   return (
     <QueryProvider>
       <ProductsProvider>{children}</ProductsProvider>
+      <Toaster richColors position="top-right" />
     </QueryProvider>
   );
 }

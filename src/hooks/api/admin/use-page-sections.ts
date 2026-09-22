@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'sonner';
+
 import { pageSectionService } from '@/api/services/admin/page-section.service';
 import { pageQueryKey } from './use-pages';
 
@@ -30,6 +32,10 @@ export function useUpdatePageSection(slug: string, sectionId: number) {
           queryKey: pageSectionQueryKey(slug, sectionId),
         }),
       ]);
+      toast.success('Section updated.');
+    },
+    onError: () => {
+      toast.error('Could not update the section. Please try again.');
     },
   });
 }

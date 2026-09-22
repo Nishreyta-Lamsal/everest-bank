@@ -28,4 +28,6 @@ export const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   savings: icon.savings,
   eye: icon.eye,
   target: icon.targetArrow,
+  court: icon.court,
+  starBadge: icon.starBadge,
 };
