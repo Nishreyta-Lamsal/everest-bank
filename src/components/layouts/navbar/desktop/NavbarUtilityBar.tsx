@@ -8,7 +8,13 @@ import { utilityNavItems } from '@/data';
 
 import { ROUTE } from '@/constants';
 
-export default function NavbarUtilityBar() {
+import type { CalendarRead } from '@/api/services/calendar.service';
+
+type NavbarUtilityBarProps = {
+  calendar: CalendarRead | null;
+};
+
+export default function NavbarUtilityBar({ calendar }: NavbarUtilityBarProps) {
   return (
     <div className="border-grey-25 flex items-center justify-between border-b px-4 py-2 md:px-10 xl:px-22">
       <Link href={ROUTE.PERSONAL}>
@@ -25,8 +31,8 @@ export default function NavbarUtilityBar() {
         className="text-body-4-desktop flex items-center gap-4"
       >
         {utilityNavItems.map((item) =>
-          item.label === 'Calendar 2026' ? (
-            <Calendar key={item.label} label={item.label} />
+          item.label === 'Calendar' ? (
+            <Calendar key={item.label} label={item.label} calendar={calendar} />
           ) : (
             <NavbarUtilityLink key={item.label} {...item} />
           ),

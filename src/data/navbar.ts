@@ -16,7 +16,7 @@ export const utilityNavItems: UtilityNavItem[] = [
     href: ROUTE.AUCTION_NOTICE,
     icon: icon.gavel,
   },
-  { label: 'Calendar 2026', href: '#', icon: icon.calendar },
+  { label: 'Calendar', href: '#', icon: icon.calendar },
   { label: 'Forex Rates', href: ROUTE.FOREX_RATES, icon: icon.trendingUp },
   { label: 'Cyber Security', href: '#', icon: icon.shieldCheck },
   { label: 'ATM/Branch', href: ROUTE.ATM, icon: icon.mapPin },

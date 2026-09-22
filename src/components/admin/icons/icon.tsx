@@ -3,6 +3,7 @@ import { ArrowRightIcon } from './ArrowRightIcon';
 import { ArrowUpRightIcon } from './ArrowUpRightIcon';
 import { BankIcon } from './BankIcon';
 import { BellIcon } from './BellIcon';
+import { CalendarIcon } from './CalendarIcon';
 import { CheckmarkIcon } from './CheckmarkIcon';
 import { ChevronDownIcon } from './ChevronDownIcon';
 import { ChevronRightIcon } from './ChevronRightIcon';
@@ -38,6 +39,7 @@ export const icon = {
   arrowUpRight: ArrowUpRightIcon,
   bank: BankIcon,
   bell: BellIcon,
+  calendar: CalendarIcon,
   checkmark: CheckmarkIcon,
   chevronDown: ChevronDownIcon,
   chevronRight: ChevronRightIcon,
