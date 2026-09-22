@@ -26,6 +26,19 @@ export function useLogin() {
   });
 }
 
+export function useLogout() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => authService.logout(),
+    onSuccess: () => {
+      queryClient.clear();
+      router.replace(ADMIN_ROUTE.LOGIN);
+    },
+  });
+}
+
 export function meQueryKey() {
   return ['auth', 'me'] as const;
 }

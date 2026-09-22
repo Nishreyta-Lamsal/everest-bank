@@ -3,119 +3,220 @@ import Image from 'next/image';
 import LayoutWrapper from '@/components/layouts/wrapper/LayoutWrapper';
 import ContentSidebar from '@/components/shared/content/ContentSidebar';
 import ContentQuote from '@/components/shared/content/ContentQuote';
+import PreviewSectionHighlight from '@/components/admin/shared/PreviewSectionHighlight';
 import { icon } from '@/components/icons';
 import InfoListRow from './InfoListRow';
 import LeaderListRow from './LeaderListRow';
+import OrganizationStructureGroupBlock from './OrganizationStructureGroupBlock';
 
-import { relatedPages } from '../_data/related-pages';
+import { getSectionContent } from '@/lib/get-section-content';
+
+import { relatedPages as fallbackRelatedPages } from '../_data/related-pages';
 import { boardCommittees } from '../_data/governance';
 import { chiefOfficers, executiveLeadership } from '../_data/leadership';
 
-import { socialLinks } from '@/data';
+import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
+import type {
+  AboutOrganizationStructurePageSection,
+  ContentBlock,
+  ContentGroupBlock,
+} from '@/api/services/about/about-organization-structure-page.service';
 
-export default function OrganizationStructureContentSection() {
+type OrganizationStructureContentSectionProps = {
+  sections?: AboutOrganizationStructurePageSection[];
+  relatedPages?: ContentSidebarLink[];
+  activeBlockId?: string;
+};
+
+function isGroupBlock(block: ContentBlock): block is ContentGroupBlock {
+  return block.type === 'group' && Boolean(block.cards?.length);
+}
+
+export default function OrganizationStructureContentSection({
+  sections,
+  relatedPages,
+  activeBlockId,
+}: OrganizationStructureContentSectionProps) {
+  const bodyContent = getSectionContent(sections, 'content_body');
+  const rawBlocks = bodyContent?.blocks ?? [];
+
+  const groupBlocks = rawBlocks
+    .map((block, blockIndex) => ({ block, blockIndex }))
+    .filter(
+      (entry): entry is { block: ContentGroupBlock; blockIndex: number } =>
+        isGroupBlock(entry.block),
+    );
+
+  const imageBlockIndex = rawBlocks.findIndex(
+    (block) => block.type === 'images',
+  );
+  const imageBlock = rawBlocks[imageBlockIndex] as
+    Extract<ContentBlock, { type: 'images' }> | undefined;
+
+  const quoteBlockIndex = rawBlocks.findIndex(
+    (block) => block.type === 'quote',
+  );
+  const quoteBlock = rawBlocks[quoteBlockIndex] as
+    Extract<ContentBlock, { type: 'quote' }> | undefined;
+
+  const links = relatedPages?.length ? relatedPages : fallbackRelatedPages;
+
   return (
     <section className="w-full py-16 lg:py-24">
       <LayoutWrapper>
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           <article className="flex w-full max-w-[750px] flex-col items-start gap-10 lg:gap-13.5">
-            <div className="flex w-full flex-col items-start gap-12">
-              <div className="flex w-full flex-col items-start gap-6">
-                <div className="flex flex-col items-start gap-3 lg:gap-2">
-                  <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
-                    Governance
-                  </p>
-                  <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
-                    Board & board-level committees
-                  </h2>
-                </div>
-
-                <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
-                  <div className="flex items-center gap-2">
-                    <icon.court className="size-6 text-orange-500 lg:size-7" />
-                    <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
-                      Board of Directors
-                    </h3>
-                  </div>
-                  <div className="flex w-full flex-col items-start">
-                    {boardCommittees.map((committee, index) => (
-                      <InfoListRow
-                        key={committee.name}
-                        name={committee.name}
-                        badge={committee.abbreviation}
-                        isLast={index === boardCommittees.length - 1}
+            {groupBlocks.length > 0 ? (
+              <>
+                <div className="flex w-full flex-col items-start gap-12">
+                  {groupBlocks.map(({ block, blockIndex }) => (
+                    <PreviewSectionHighlight
+                      key={block.heading}
+                      sectionType={`block-${blockIndex}`}
+                      activeSectionType={activeBlockId ?? ''}
+                    >
+                      <OrganizationStructureGroupBlock
+                        label={block.label}
+                        heading={block.heading}
+                        cards={block.cards}
                       />
-                    ))}
+                    </PreviewSectionHighlight>
+                  ))}
+                </div>
+
+                <PreviewSectionHighlight
+                  sectionType={`block-${imageBlockIndex}`}
+                  activeSectionType={activeBlockId ?? ''}
+                >
+                  <div className="relative h-[201px] w-full overflow-hidden rounded-lg lg:h-[340px]">
+                    <Image
+                      src={
+                        imageBlock?.images?.[0]?.src ||
+                        '/images/about/organization-structure/team-photo.png'
+                      }
+                      alt={
+                        imageBlock?.images?.[0]?.alt ||
+                        'Everest Bank staff and partners at a branch opening ceremony'
+                      }
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                </div>
-              </div>
+                </PreviewSectionHighlight>
 
-              <div className="flex w-full flex-col items-start gap-6">
-                <div className="flex flex-col items-start gap-3 lg:gap-2">
-                  <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
-                    Executive Leadership
-                  </p>
-                  <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
-                    The team running the bank
-                  </h2>
-                </div>
-
-                <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
-                  <div className="flex w-full flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-2">
-                      <icon.starBadge className="size-6 text-orange-500 lg:size-7" />
-                      <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
-                        Chief Executive Officer
-                      </h3>
+                <PreviewSectionHighlight
+                  sectionType={`block-${quoteBlockIndex}`}
+                  activeSectionType={activeBlockId ?? ''}
+                >
+                  <ContentQuote
+                    title={
+                      quoteBlock?.title ||
+                      '“Consistent, strong and dependable: दिगो, दरिलो, विश्वासिलो.”'
+                    }
+                  />
+                </PreviewSectionHighlight>
+              </>
+            ) : (
+              <>
+                <div className="flex w-full flex-col items-start gap-12">
+                  <div className="flex w-full flex-col items-start gap-6">
+                    <div className="flex flex-col items-start gap-3 lg:gap-2">
+                      <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
+                        Governance
+                      </p>
+                      <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+                        Board & board-level committees
+                      </h2>
                     </div>
-                    <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500 pl-8 sm:pl-0">
-                      Leads overall strategy & operations
-                    </p>
+
+                    <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
+                      <div className="flex items-center gap-2">
+                        <icon.court className="size-6 text-orange-500 lg:size-7" />
+                        <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+                          Board of Directors
+                        </h3>
+                      </div>
+                      <div className="flex w-full flex-col items-start">
+                        {boardCommittees.map((committee, index) => (
+                          <InfoListRow
+                            key={committee.name}
+                            name={committee.name}
+                            badge={committee.abbreviation}
+                            isLast={index === boardCommittees.length - 1}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex w-full flex-col items-start">
-                    {executiveLeadership.map((member, index) => (
-                      <LeaderListRow
-                        key={member.name}
-                        name={member.name}
-                        departments={member.departments}
-                        role={member.role}
-                        isLast={index === executiveLeadership.length - 1}
-                      />
-                    ))}
+
+                  <div className="flex w-full flex-col items-start gap-6">
+                    <div className="flex flex-col items-start gap-3 lg:gap-2">
+                      <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500">
+                        Executive Leadership
+                      </p>
+                      <h2 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+                        The team running the bank
+                      </h2>
+                    </div>
+
+                    <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
+                      <div className="flex w-full flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex items-center gap-2">
+                          <icon.starBadge className="size-6 text-orange-500 lg:size-7" />
+                          <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+                            Chief Executive Officer
+                          </h3>
+                        </div>
+                        <p className="text-body-3-mobile lg:text-body-3-desktop text-grey-500 pl-8 sm:pl-0">
+                          Leads overall strategy & operations
+                        </p>
+                      </div>
+                      <div className="flex w-full flex-col items-start">
+                        {executiveLeadership.map((member, index) => (
+                          <LeaderListRow
+                            key={member.name}
+                            name={member.name}
+                            departments={member.departments}
+                            role={member.role}
+                            isLast={index === executiveLeadership.length - 1}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
+                      <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
+                        Chief Officers
+                      </h3>
+                      <div className="flex w-full flex-col items-start">
+                        {chiefOfficers.map((officer, index) => (
+                          <LeaderListRow
+                            key={officer.name}
+                            name={officer.name}
+                            role={officer.role}
+                            isLast={index === chiefOfficers.length - 1}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-cream-25 flex w-full flex-col items-start gap-6 rounded-2xl p-4 lg:p-6">
-                  <h3 className="font-heading text-title-0-mobile-md lg:text-heading-h4-desktop-md text-grey-500">
-                    Chief Officers
-                  </h3>
-                  <div className="flex w-full flex-col items-start">
-                    {chiefOfficers.map((officer, index) => (
-                      <LeaderListRow
-                        key={officer.name}
-                        name={officer.name}
-                        role={officer.role}
-                        isLast={index === chiefOfficers.length - 1}
-                      />
-                    ))}
-                  </div>
+                <div className="relative h-[201px] w-full overflow-hidden rounded-lg lg:h-[340px]">
+                  <Image
+                    src="/images/about/organization-structure/team-photo.png"
+                    alt="Everest Bank staff and partners at a branch opening ceremony"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-              </div>
-            </div>
 
-            <div className="relative h-[201px] w-full overflow-hidden rounded-lg lg:h-[340px]">
-              <Image
-                src="/images/about/organization-structure/team-photo.png"
-                alt="Everest Bank staff and partners at a branch opening ceremony"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            <ContentQuote title="“Consistent, strong and dependable: दिगो, दरिलो, विश्वासिलो.”" />
+                <ContentQuote title="“Consistent, strong and dependable: दिगो, दरिलो, विश्वासिलो.”" />
+              </>
+            )}
           </article>
 
-          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
+          <ContentSidebar links={links} />
         </div>
       </LayoutWrapper>
     </section>

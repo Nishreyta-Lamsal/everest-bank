@@ -12,7 +12,6 @@ import CardSafetyTipsSection from './CardSafetyTipsSection';
 
 import { getSectionContent } from '@/lib/get-section-content';
 
-import { socialLinks } from '@/data';
 import { relatedPages } from '../_data';
 
 import type { CardDetailsPageSection } from '@/api/services/personal/card/card-details-page.service';
@@ -94,7 +93,7 @@ export default function CardDetailSection({
             <CardSafetyTipsSection data={selectedVariant.safety_tips} />
           </div>
 
-          <ContentSidebar links={relatedPages} socialLinks={socialLinks} />
+          <ContentSidebar links={relatedPages} />
         </div>
       </LayoutWrapper>
     </section>

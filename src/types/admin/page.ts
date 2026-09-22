@@ -197,8 +197,34 @@ export type ContentQuoteBlock = {
   title: string;
 };
 
+export type ContentGroupCardItem = {
+  name: string;
+  badge?: string;
+  role?: string;
+  departments?: string;
+};
+
+export type ContentGroupCard = {
+  icon?: string;
+  heading: string;
+  description?: string;
+  items: ContentGroupCardItem[];
+};
+
+export type ContentGroupBlock = {
+  type: 'group';
+  label: string;
+  heading: string;
+  cards: ContentGroupCard[];
+};
+
 export type ContentBodyContent = {
-  blocks?: (ContentTextBlock | ContentImagesBlock | ContentQuoteBlock)[];
+  blocks?: (
+    | ContentTextBlock
+    | ContentImagesBlock
+    | ContentQuoteBlock
+    | ContentGroupBlock
+  )[];
 };
 
 export type ContentSidebarContent = {
