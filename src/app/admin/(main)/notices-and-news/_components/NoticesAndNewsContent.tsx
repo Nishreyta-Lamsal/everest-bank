@@ -11,18 +11,34 @@ import { useNotices } from '@/hooks/api/admin/use-notices';
 
 import type { NoticesAndNewsTab } from './notices-and-news-filters/NoticesAndNewsFilterTabs';
 
+const emptyLabels: Record<NoticesAndNewsTab, string> = {
+  notice: 'No notices yet.',
+  news: 'No news articles yet.',
+  'auction-notice': 'No auction notices yet.',
+};
+
 export default function NoticesAndNewsContent() {
   const [activeTab, setActiveTab] = useState<NoticesAndNewsTab>('notice');
   const [isAddOpen, setIsAddOpen] = useState(false);
 
   const notices = useNotices({ page_size: 100 });
+  const auctionNotices = useNotices({
+    page_size: 100,
+    notice_type: 'auction-notice',
+  });
   const news = useNews({ page_size: 100 });
 
-  const active = activeTab === 'notice' ? notices : news;
+  const active =
+    activeTab === 'notice'
+      ? notices
+      : activeTab === 'news'
+        ? news
+        : auctionNotices;
 
-  const counts = {
+  const counts: Record<NoticesAndNewsTab, number> = {
     notice: notices.data?.count ?? 0,
     news: news.data?.count ?? 0,
+    'auction-notice': auctionNotices.data?.count ?? 0,
   };
 
   return (
@@ -38,9 +54,7 @@ export default function NoticesAndNewsContent() {
         kind={activeTab}
         isPending={active.isPending}
         isError={active.isError}
-        emptyLabel={
-          activeTab === 'notice' ? 'No notices yet.' : 'No news articles yet.'
-        }
+        emptyLabel={emptyLabels[activeTab]}
       />
 
       {isAddOpen && (

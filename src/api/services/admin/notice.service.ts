@@ -13,6 +13,7 @@ export type ListNoticesParams = {
   date_from?: string;
   date_to?: string;
   is_pinned?: boolean;
+  notice_type?: string;
   ordering?: string;
   page_size?: number;
   search?: string;
@@ -45,6 +46,7 @@ export type CreateNoticePayload = {
   document?: number | null;
   status?: NewsStatus;
   is_pinned?: boolean;
+  notice_type?: string;
 };
 
 export const noticeService = {

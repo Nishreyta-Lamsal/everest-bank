@@ -5,7 +5,7 @@ import { Button } from '@/components/admin/ui/button';
 
 import { cn } from '@/lib/utils';
 
-export type NoticesAndNewsTab = 'notice' | 'news';
+export type NoticesAndNewsTab = 'notice' | 'news' | 'auction-notice';
 
 type NoticesAndNewsFilterTabsProps = {
   activeTab: NoticesAndNewsTab;
@@ -17,11 +17,13 @@ type NoticesAndNewsFilterTabsProps = {
 const tabs: { label: string; tab: NoticesAndNewsTab }[] = [
   { label: 'Notice', tab: 'notice' },
   { label: 'News', tab: 'news' },
+  { label: 'Auction Notice', tab: 'auction-notice' },
 ];
 
 const addLabels: Record<NoticesAndNewsTab, string> = {
   notice: 'Add notice',
   news: 'Add news',
+  'auction-notice': 'Add auction notice',
 };
 
 export default function NoticesAndNewsFilterTabs({

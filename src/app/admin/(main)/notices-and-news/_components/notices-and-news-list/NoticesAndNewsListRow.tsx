@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { formatUpdatedLabel } from '@/lib/admin/format-updated-label';
 import { readApiError } from '@/lib/admin/read-api-error';
 
+import type { NoticesAndNewsTab } from '../notices-and-news-filters/NoticesAndNewsFilterTabs';
 import type { NewsStatus, NoticesAndNewsEntry } from '@/types/admin';
 
 const statusStyles: Record<NewsStatus, string> = {
@@ -20,9 +21,15 @@ const statusStyles: Record<NewsStatus, string> = {
   draft: 'bg-[#edf2f7] text-[#65738a]',
 };
 
+const deleteTitles: Record<NoticesAndNewsTab, string> = {
+  notice: 'Delete notice?',
+  news: 'Delete news article?',
+  'auction-notice': 'Delete auction notice?',
+};
+
 type NoticesAndNewsListRowProps = {
   entry: NoticesAndNewsEntry;
-  kind: 'notice' | 'news';
+  kind: NoticesAndNewsTab;
   openMenuUpward?: boolean;
 };
 
@@ -167,7 +174,7 @@ export default function NoticesAndNewsListRow({
             onSuccess: () => setIsDeleteOpen(false),
           })
         }
-        title={kind === 'news' ? 'Delete news article?' : 'Delete notice?'}
+        title={deleteTitles[kind]}
         description={
           <>
             <span className="font-medium text-neutral-900">{entry.title}</span>

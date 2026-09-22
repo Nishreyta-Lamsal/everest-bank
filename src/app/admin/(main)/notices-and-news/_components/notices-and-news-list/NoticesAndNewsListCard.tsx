@@ -1,11 +1,12 @@
 import { Card } from '@/components/admin/ui/card';
 import NoticesAndNewsList from './NoticesAndNewsList';
 
+import type { NoticesAndNewsTab } from '../notices-and-news-filters/NoticesAndNewsFilterTabs';
 import type { NoticesAndNewsEntry } from '@/types/admin';
 
 type NoticesAndNewsListCardProps = {
   items: NoticesAndNewsEntry[];
-  kind: 'notice' | 'news';
+  kind: NoticesAndNewsTab;
   isPending?: boolean;
   isError?: boolean;
   emptyLabel?: string;
