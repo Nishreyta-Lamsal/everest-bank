@@ -25,7 +25,13 @@ export default function EditorSidebar({
 }: EditorSidebarProps) {
   const searchParams = useSearchParams();
   const sectionParam = searchParams.get('section');
-  const activeSectionId = sectionParam ? Number(sectionParam) : undefined;
+  const requestedSectionId = sectionParam ? Number(sectionParam) : undefined;
+
+  const fallbackSectionId = page?.sections?.length
+    ? [...page.sections].sort((a, b) => a.position - b.position)[0].id
+    : undefined;
+  const activeSectionId = requestedSectionId ?? fallbackSectionId;
+
   const { data } = usePages();
   const otherPages = (data?.pages ?? []).filter(
     (entry) => entry.slug !== activeSlug,
