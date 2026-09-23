@@ -10,3 +10,4 @@ export * from './footer';
 export * from './location';
 export * from './calculator';
 export * from './more-service';
+export * from './youtube';
