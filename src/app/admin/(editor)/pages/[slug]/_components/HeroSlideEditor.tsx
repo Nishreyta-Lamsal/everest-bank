@@ -73,12 +73,18 @@ export default function HeroSlideEditor({
         : null,
     );
 
+  const hasHighlights = section.section_type === 'business_hero';
+
   const [highlights, setHighlights] = useState<string[]>(
     content.highlights ?? [],
   );
   const [newHighlight, setNewHighlight] = useState('');
 
   const hasVideoChip = Boolean(content.video_chip);
+
+  const [video, setVideo] = useState<SectionMedia | null>(
+    content.video?.src ? content.video : null,
+  );
 
   const [videoChipText, setVideoChipText] = useState(
     content.video_chip?.text ?? '',
@@ -143,7 +149,7 @@ export default function HeroSlideEditor({
         .map((line) => line.trim())
         .filter(Boolean),
       subtext: supportingText,
-      highlights,
+      ...(hasHighlights ? { highlights } : {}),
       ...(primaryButton
         ? {
             primary_button: {
@@ -162,6 +168,7 @@ export default function HeroSlideEditor({
         : {}),
       ...(hasVideoChip
         ? {
+            ...(video ? { video } : {}),
             video_chip: {
               text: videoChipText,
               link_label: videoChipLink.label,
@@ -200,6 +207,7 @@ export default function HeroSlideEditor({
     slides,
     primaryButton,
     secondaryButton,
+    video,
     videoChipText,
     videoChipLink,
   ]);
@@ -215,7 +223,11 @@ export default function HeroSlideEditor({
         <div className="flex w-full flex-col gap-3">
           <SlideEditorHeader
             title={section.label}
-            description="Headline, supporting text, highlights, CTAs and carousel images"
+            description={
+              hasHighlights
+                ? 'Headline, supporting text, highlights, CTAs and carousel images'
+                : 'Headline, supporting text, CTAs and carousel images'
+            }
             shownOnPage={shownOnPage}
             onShownOnPageChange={setShownOnPage}
           />
@@ -236,47 +248,49 @@ export default function HeroSlideEditor({
                 onChange={(event) => setSupportingText(event.target.value)}
               />
             </FieldLabel>
-            <FieldLabel label="Highlights">
-              <div className="flex w-full flex-col gap-3">
-                {highlights.length > 0 && (
-                  <div className="flex w-full flex-wrap items-center gap-2">
-                    {highlights.map((highlight, index) => (
-                      <Pill
-                        key={`${highlight}-${index}`}
-                        onRemove={() => removeHighlight(index)}
-                        removeLabel={`Remove ${highlight}`}
-                      >
-                        {highlight}
-                      </Pill>
-                    ))}
+            {hasHighlights && (
+              <FieldLabel label="Highlights">
+                <div className="flex w-full flex-col gap-3">
+                  {highlights.length > 0 && (
+                    <div className="flex w-full flex-wrap items-center gap-2">
+                      {highlights.map((highlight, index) => (
+                        <Pill
+                          key={`${highlight}-${index}`}
+                          onRemove={() => removeHighlight(index)}
+                          removeLabel={`Remove ${highlight}`}
+                        >
+                          {highlight}
+                        </Pill>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex w-full items-center gap-4">
+                    <Input
+                      variant="default"
+                      size="medium"
+                      placeholder="Account opening in 1–2 days"
+                      value={newHighlight}
+                      onChange={(event) => setNewHighlight(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                          event.preventDefault();
+                          addHighlight();
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="large"
+                      className="shrink-0"
+                      onClick={addHighlight}
+                    >
+                      Add
+                    </Button>
                   </div>
-                )}
-                <div className="flex w-full items-center gap-4">
-                  <Input
-                    variant="default"
-                    size="medium"
-                    placeholder="Account opening in 1–2 days"
-                    value={newHighlight}
-                    onChange={(event) => setNewHighlight(event.target.value)}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter') {
-                        event.preventDefault();
-                        addHighlight();
-                      }
-                    }}
-                  />
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="large"
-                    className="shrink-0"
-                    onClick={addHighlight}
-                  >
-                    Add
-                  </Button>
                 </div>
-              </div>
-            </FieldLabel>
+              </FieldLabel>
+            )}
 
             <div className="flex w-full flex-col gap-2">
               <p className="text-[12px] font-medium text-slate-950">
@@ -354,6 +368,18 @@ export default function HeroSlideEditor({
               </p>
             </div>
             <div className="flex w-full flex-col gap-3">
+              <FieldLabel label="Video">
+                <ImageDropzone
+                  mediaType="video"
+                  pickerTitle="Choose a video"
+                  onMediaSelected={(picked) => setVideo(toSectionMedia(picked))}
+                  onRemove={() => setVideo(null)}
+                  selectedId={video?.media_id}
+                  preview={
+                    video ? { src: video.src, alt: video.alt } : undefined
+                  }
+                />
+              </FieldLabel>
               <FieldLabel label="Chip text">
                 <Textarea
                   variant="filled"

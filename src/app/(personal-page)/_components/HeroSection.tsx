@@ -64,7 +64,7 @@ export default function HeroSection({ sections }: HeroSectionProps) {
               </div>
             </div>
             <div className="flex w-full items-center gap-6">
-              <HeroVideoPlayer />
+              <HeroVideoPlayer src={content?.video?.src} />
               <div className="flex flex-col items-start gap-4 lg:h-[160px] lg:w-[405px] lg:shrink-0 lg:justify-between lg:gap-0 lg:bg-white lg:p-4">
                 <p className="font-heading text-heading-h5-mobile text-grey-500 lg:text-heading-h5-desktop w-[240px] lg:w-[333px]">
                   {videoChipText}

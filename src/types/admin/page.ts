@@ -153,6 +153,7 @@ export type SectionLink = {
 export type HeroContent = {
   slides?: SectionMedia[];
   image?: SectionMedia;
+  video?: SectionMedia;
   subtext?: string;
   headline_lines?: string[];
   highlights?: string[];

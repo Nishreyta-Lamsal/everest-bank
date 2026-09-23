@@ -6,7 +6,11 @@ import { icon } from '@/components/icons';
 
 import { cn } from '@/lib/utils';
 
-export default function HeroVideoPlayer() {
+type HeroVideoPlayerProps = {
+  src?: string;
+};
+
+export default function HeroVideoPlayer({ src }: HeroVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -55,7 +59,10 @@ export default function HeroVideoPlayer() {
     >
       <video
         ref={videoRef}
-        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        src={
+          src ||
+          'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+        }
         poster="/images/hero/savings-video-thumbnail.png"
         muted
         loop
