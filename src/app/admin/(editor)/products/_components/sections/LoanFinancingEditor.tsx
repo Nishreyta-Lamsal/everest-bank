@@ -4,8 +4,10 @@ import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -84,11 +86,23 @@ export default function LoanFinancingEditor({
             />
           </FieldLabel>
 
-          <MediaField
-            label="Image"
-            media={card.image}
-            onSelect={(image) => updateCard(index, { ...card, image })}
-          />
+          <FieldLabel label="Image">
+            {card.image?.src ? (
+              <ImagePreview
+                src={card.image.src}
+                alt={card.image.alt}
+                onReplace={(picked) =>
+                  updateCard(index, { ...card, image: toSectionMedia(picked) })
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  updateCard(index, { ...card, image: toSectionMedia(picked) })
+                }
+              />
+            )}
+          </FieldLabel>
 
           <FieldLabel label="Links to">
             <LinkTargetSelect

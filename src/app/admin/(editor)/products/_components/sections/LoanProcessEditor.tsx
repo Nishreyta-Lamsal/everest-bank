@@ -3,8 +3,10 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -93,11 +95,23 @@ export default function LoanProcessEditor({
             />
           </FieldLabel>
 
-          <MediaField
-            label="Image"
-            media={step.image}
-            onSelect={(image) => updateStep(index, { ...step, image })}
-          />
+          <FieldLabel label="Image">
+            {step.image?.src ? (
+              <ImagePreview
+                src={step.image.src}
+                alt={step.image.alt}
+                onReplace={(picked) =>
+                  updateStep(index, { ...step, image: toSectionMedia(picked) })
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  updateStep(index, { ...step, image: toSectionMedia(picked) })
+                }
+              />
+            )}
+          </FieldLabel>
         </div>
       ))}
 

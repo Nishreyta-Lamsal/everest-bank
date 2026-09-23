@@ -3,8 +3,10 @@
 // import { icon } from '@/components/admin/icons';
 import { Input } from '@/components/admin/ui/input';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 
 import type { ProductCard, SectionMedia } from '@/types/admin';
 
@@ -77,13 +79,22 @@ export default function ProductCardFieldGroup({
         </FieldLabel>
 
         {showMedia && (
-          <MediaField
-            label="Card image"
-            media={card.decoration_src}
-            onSelect={(media) => onMediaSelect?.(media)}
-            onRemove={onMediaRemove}
-            previewSize="small"
-          />
+          <FieldLabel label="Card image">
+            {card.decoration_src?.src ? (
+              <ImagePreview
+                src={card.decoration_src.src}
+                alt={card.decoration_src.alt}
+                onReplace={(picked) => onMediaSelect?.(toSectionMedia(picked))}
+                onRemove={onMediaRemove}
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  onMediaSelect?.(toSectionMedia(picked))
+                }
+              />
+            )}
+          </FieldLabel>
         )}
       </div>
     </div>

@@ -3,8 +3,11 @@
 import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
 import FieldPairRow from '@/components/admin/shared/FieldPairRow';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 
@@ -51,12 +54,20 @@ export default function SavingDocumentsEditor({
       isError={isError}
       error={error}
     >
-      <MediaField
-        label="Image"
-        media={image}
-        onSelect={setImage}
-        onRemove={() => setImage(undefined)}
-      />
+      <FieldLabel label="Image">
+        {image?.src ? (
+          <ImagePreview
+            src={image.src}
+            alt={image.alt}
+            onReplace={(picked) => setImage(toSectionMedia(picked))}
+            onRemove={() => setImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       {steps.map((step, index) => (
         <FieldPairRow

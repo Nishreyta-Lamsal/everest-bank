@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import { icon } from '@/components/admin/icons';
 import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
@@ -69,16 +71,24 @@ export default function FormBannerCard({
     <div className="flex w-full flex-col gap-5">
       <p className="text-paragraph-lg-bold text-neutral-900">Page sections</p>
 
-      <MediaField
-        label="Hero image (optional)"
-        media={
-          banner?.file_url
-            ? { src: banner.file_url, alt: banner.alt_text }
-            : undefined
-        }
-        onSelect={(media) => pickMediaId(media, onBannerChange)}
-        onRemove={() => onBannerChange(null)}
-      />
+      <FieldLabel label="Hero image (optional)">
+        {banner?.file_url ? (
+          <ImagePreview
+            src={banner.file_url}
+            alt={banner.alt_text}
+            onReplace={(picked) =>
+              pickMediaId(toSectionMedia(picked), onBannerChange)
+            }
+            onRemove={() => onBannerChange(null)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) =>
+              pickMediaId(toSectionMedia(picked), onBannerChange)
+            }
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3 border-t border-black/5 pt-4">
         <div className="flex items-center justify-between">
@@ -138,25 +148,40 @@ export default function FormBannerCard({
               />
             </FieldLabel>
 
-            <MediaField
-              label="Image"
-              media={
-                card.image_url
-                  ? { src: card.image_url, alt: card.title }
-                  : undefined
-              }
-              onSelect={(media) =>
-                pickMediaId(media, (mediaId) =>
-                  updateCard(index, {
-                    image_id: mediaId,
-                    image_url: media.src,
-                  }),
-                )
-              }
-              onRemove={() =>
-                updateCard(index, { image_id: null, image_url: null })
-              }
-            />
+            <FieldLabel label="Image">
+              {card.image_url ? (
+                <ImagePreview
+                  src={card.image_url}
+                  alt={card.title}
+                  onReplace={(picked) => {
+                    const media = toSectionMedia(picked);
+
+                    pickMediaId(media, (mediaId) =>
+                      updateCard(index, {
+                        image_id: mediaId,
+                        image_url: media.src,
+                      }),
+                    );
+                  }}
+                  onRemove={() =>
+                    updateCard(index, { image_id: null, image_url: null })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) => {
+                    const media = toSectionMedia(picked);
+
+                    pickMediaId(media, (mediaId) =>
+                      updateCard(index, {
+                        image_id: mediaId,
+                        image_url: media.src,
+                      }),
+                    );
+                  }}
+                />
+              )}
+            </FieldLabel>
           </div>
         ))}
 

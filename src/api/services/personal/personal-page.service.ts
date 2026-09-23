@@ -51,6 +51,7 @@ type CardsPreviewContent = {
   cta: LinkAction;
   tiles: {
     href: string;
+    image: MediaWithAlt;
     title: string;
     rounded_corner: 'left' | 'right';
   }[];

@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import ProductSectionCard from './ProductSectionCard';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
 import { icon } from '@/components/admin/icons';
@@ -53,12 +55,26 @@ export default function BuiltForSectionCard() {
                 }
               />
             </FieldLabel>
-            <MediaField
-              label="Right-Side Image"
-              media={item.image}
-              onSelect={(image) => selectImage(index, image)}
-              onRemove={() => updateItem(index, { ...item, image: undefined })}
-            />
+            <FieldLabel label="Right-Side Image">
+              {item.image?.src ? (
+                <ImagePreview
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  onReplace={(picked) =>
+                    selectImage(index, toSectionMedia(picked))
+                  }
+                  onRemove={() =>
+                    updateItem(index, { ...item, image: undefined })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    selectImage(index, toSectionMedia(picked))
+                  }
+                />
+              )}
+            </FieldLabel>
           </div>
           <button
             type="button"

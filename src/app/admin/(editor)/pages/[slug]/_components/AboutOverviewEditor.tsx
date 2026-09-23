@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import StatFieldRow from '@/components/admin/shared/StatFieldRow';
 import SectionEditorShell from './SectionEditorShell';
@@ -72,12 +74,20 @@ export default function AboutOverviewEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Center image"
-        media={centerImage}
-        onSelect={setCenterImage}
-        onRemove={() => setCenterImage(undefined)}
-      />
+      <FieldLabel label="Center image">
+        {centerImage?.src ? (
+          <ImagePreview
+            src={centerImage.src}
+            alt={centerImage.alt}
+            onReplace={(picked) => setCenterImage(toSectionMedia(picked))}
+            onRemove={() => setCenterImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setCenterImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3">
         <p className="text-[16px] font-semibold text-neutral-900">Stats</p>

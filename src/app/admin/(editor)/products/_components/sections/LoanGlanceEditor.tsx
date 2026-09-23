@@ -3,8 +3,10 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import StatFieldRow from '@/components/admin/shared/StatFieldRow';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -65,12 +67,20 @@ export default function LoanGlanceEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Image"
-        media={image}
-        onSelect={setImage}
-        onRemove={() => setImage(undefined)}
-      />
+      <FieldLabel label="Image">
+        {image?.src ? (
+          <ImagePreview
+            src={image.src}
+            alt={image.alt}
+            onReplace={(picked) => setImage(toSectionMedia(picked))}
+            onRemove={() => setImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       {items.map((item, index) => (
         <StatFieldRow

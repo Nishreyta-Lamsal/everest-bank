@@ -6,9 +6,7 @@ import FieldLabel from '@/components/admin/shared/FieldLabel';
 import ImageDropzone from '@/components/admin/shared/ImageDropzone';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField, {
-  toSectionMedia,
-} from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -73,12 +71,20 @@ export default function RemittanceTrustEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Image"
-        media={image}
-        onSelect={setImage}
-        onRemove={() => setImage(undefined)}
-      />
+      <FieldLabel label="Image">
+        {image?.src ? (
+          <ImagePreview
+            src={image.src}
+            alt={image.alt}
+            onReplace={(picked) => setImage(toSectionMedia(picked))}
+            onRemove={() => setImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <FieldLabel label="Customer count label">
         <Input

@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { usePageEditor } from '@/store/PageEditorContext';
@@ -146,13 +148,29 @@ export default function ContentPeopleEditor({
                     />
                   </FieldLabel>
 
-                  <MediaField
-                    label="Photo"
-                    media={person.image}
-                    onSelect={(image) =>
-                      updatePerson(index, { ...person, image })
-                    }
-                  />
+                  <FieldLabel label="Photo">
+                    {person.image?.src ? (
+                      <ImagePreview
+                        src={person.image.src}
+                        alt={person.image.alt}
+                        onReplace={(picked) =>
+                          updatePerson(index, {
+                            ...person,
+                            image: toSectionMedia(picked),
+                          })
+                        }
+                      />
+                    ) : (
+                      <ImageDropzone
+                        onMediaSelected={(picked) =>
+                          updatePerson(index, {
+                            ...person,
+                            image: toSectionMedia(picked),
+                          })
+                        }
+                      />
+                    )}
+                  </FieldLabel>
                 </AccordionPanel>
               </AccordionItem>
 

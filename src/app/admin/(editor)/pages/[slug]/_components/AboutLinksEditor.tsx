@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -68,11 +70,29 @@ export default function AboutLinksEditor({
               />
             </FieldLabel>
 
-            <MediaField
-              label="Image"
-              media={card.image}
-              onSelect={(image) => updateCard(index, { ...card, image })}
-            />
+            <FieldLabel label="Image">
+              {card.image?.src ? (
+                <ImagePreview
+                  src={card.image.src}
+                  alt={card.image.alt}
+                  onReplace={(picked) =>
+                    updateCard(index, {
+                      ...card,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    updateCard(index, {
+                      ...card,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              )}
+            </FieldLabel>
 
             <FieldLabel label="Links to">
               <LinkTargetSelect

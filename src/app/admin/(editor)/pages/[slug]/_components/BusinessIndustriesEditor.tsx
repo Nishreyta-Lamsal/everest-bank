@@ -5,7 +5,9 @@ import { useState } from 'react';
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import FieldPairRow from '@/components/admin/shared/FieldPairRow';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -80,12 +82,20 @@ export default function BusinessIndustriesEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Side image"
-        media={sideImage}
-        onSelect={setSideImage}
-        onRemove={() => setSideImage(undefined)}
-      />
+      <FieldLabel label="Side image">
+        {sideImage?.src ? (
+          <ImagePreview
+            src={sideImage.src}
+            alt={sideImage.alt}
+            onReplace={(picked) => setSideImage(toSectionMedia(picked))}
+            onRemove={() => setSideImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setSideImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3">
         <p className="text-[16px] font-semibold text-neutral-900">

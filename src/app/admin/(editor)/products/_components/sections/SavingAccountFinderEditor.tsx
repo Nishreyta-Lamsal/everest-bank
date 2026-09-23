@@ -3,8 +3,10 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
-import MediaField from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -127,16 +129,29 @@ export default function SavingAccountFinderEditor({
                   />
                 </FieldLabel>
 
-                <MediaField
-                  label="Image"
-                  media={account.image}
-                  onSelect={(image) =>
-                    updateAccount(categoryIndex, accountIndex, {
-                      ...account,
-                      image,
-                    })
-                  }
-                />
+                <FieldLabel label="Image">
+                  {account.image?.src ? (
+                    <ImagePreview
+                      src={account.image.src}
+                      alt={account.image.alt}
+                      onReplace={(picked) =>
+                        updateAccount(categoryIndex, accountIndex, {
+                          ...account,
+                          image: toSectionMedia(picked),
+                        })
+                      }
+                    />
+                  ) : (
+                    <ImageDropzone
+                      onMediaSelected={(picked) =>
+                        updateAccount(categoryIndex, accountIndex, {
+                          ...account,
+                          image: toSectionMedia(picked),
+                        })
+                      }
+                    />
+                  )}
+                </FieldLabel>
 
                 <FieldLabel label="Links to">
                   <LinkTargetSelect

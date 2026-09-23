@@ -5,7 +5,9 @@ import { useState } from 'react';
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
 import FieldPairRow from '@/components/admin/shared/FieldPairRow';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -92,11 +94,23 @@ export default function BusinessFinancingEditor({
           />
         </FieldLabel>
 
-        <MediaField
-          label="Image"
-          media={mediaCard?.image}
-          onSelect={(image) => updateMediaCard({ image })}
-        />
+        <FieldLabel label="Image">
+          {mediaCard?.image?.src ? (
+            <ImagePreview
+              src={mediaCard.image.src}
+              alt={mediaCard.image.alt}
+              onReplace={(picked) =>
+                updateMediaCard({ image: toSectionMedia(picked) })
+              }
+            />
+          ) : (
+            <ImageDropzone
+              onMediaSelected={(picked) =>
+                updateMediaCard({ image: toSectionMedia(picked) })
+              }
+            />
+          )}
+        </FieldLabel>
 
         <FieldLabel label="Links to">
           <LinkTargetSelect
@@ -133,11 +147,29 @@ export default function BusinessFinancingEditor({
               removeLabel={`Remove card ${index + 1}`}
             />
 
-            <MediaField
-              label="Image"
-              media={card.image}
-              onSelect={(image) => updateCard(index, { ...card, image })}
-            />
+            <FieldLabel label="Image">
+              {card.image?.src ? (
+                <ImagePreview
+                  src={card.image.src}
+                  alt={card.image.alt}
+                  onReplace={(picked) =>
+                    updateCard(index, {
+                      ...card,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    updateCard(index, {
+                      ...card,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              )}
+            </FieldLabel>
 
             <FieldLabel label="Link label">
               <Input

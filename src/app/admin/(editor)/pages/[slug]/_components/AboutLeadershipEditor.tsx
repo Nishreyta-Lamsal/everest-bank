@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -109,11 +111,29 @@ export default function AboutLeadershipEditor({
               />
             </FieldLabel>
 
-            <MediaField
-              label="Portrait"
-              media={person.image}
-              onSelect={(image) => updatePerson(index, { ...person, image })}
-            />
+            <FieldLabel label="Portrait">
+              {person.image?.src ? (
+                <ImagePreview
+                  src={person.image.src}
+                  alt={person.image.alt}
+                  onReplace={(picked) =>
+                    updatePerson(index, {
+                      ...person,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    updatePerson(index, {
+                      ...person,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              )}
+            </FieldLabel>
           </div>
         ))}
       </div>
