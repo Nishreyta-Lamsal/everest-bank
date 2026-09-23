@@ -5,7 +5,6 @@ import ContentHeroEditor from '../../../pages/[slug]/_components/ContentHeroEdit
 import ContentStatsEditor from './ContentStatsEditor';
 import ContentBodyEditor from './ContentBodyEditor';
 import ContentEditorEditor from './ContentEditorEditor';
-import ContentSidebarEditor from './ContentSidebarEditor';
 import ContentPeopleEditor from './ContentPeopleEditor';
 import ContentJobsEditor from './ContentJobsEditor';
 import RemittanceRepresentativesEditor from './RemittanceRepresentativesEditor';
@@ -54,8 +53,9 @@ export default function ProductSectionEditor({
       return <ContentBodyEditor slug={slug} section={section} />;
     case 'content_editor':
       return <ContentEditorEditor slug={slug} section={section} />;
+    // Shown in the live preview only — not editable here.
     case 'content_sidebar':
-      return <ContentSidebarEditor slug={slug} section={section} />;
+      return null;
     case 'content_people':
       return <ContentPeopleEditor slug={slug} section={section} />;
     case 'content_jobs':
