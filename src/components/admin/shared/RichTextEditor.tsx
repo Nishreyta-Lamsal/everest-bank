@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 
-import { EditorContent, useEditor } from '@tiptap/react';
+import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Image from '@tiptap/extension-image';
@@ -12,7 +12,6 @@ import { icon } from '@/components/admin/icons';
 import { RichTextVideo } from './RichTextVideo';
 import { Select } from '@/components/admin/ui/select';
 import MediaPickerDialog from './media-picker/MediaPickerDialog';
-
 
 import { cn } from '@/lib/utils';
 
@@ -40,6 +39,20 @@ const ALIGN_OPTIONS = [
   { label: 'Right', value: 'right' },
 ];
 
+const DEFAULT_TOOLBAR_STATE = {
+  block: 'paragraph',
+  align: 'left',
+  canUndo: false,
+  canRedo: false,
+  isBold: false,
+  isItalic: false,
+  isUnderline: false,
+  isStrike: false,
+  isBlockquote: false,
+  isLink: false,
+  isBulletList: false,
+  isOrderedList: false,
+};
 
 type ToolbarButtonProps = {
   onClick: () => void;
@@ -103,14 +116,11 @@ export default function RichTextEditor({
   placeholder,
   className,
 }: RichTextEditorProps) {
-  const [pickerKind, setPickerKind] = useState<'image' | 'video' | null>(
-    null,
-  );
+  const [pickerKind, setPickerKind] = useState<'image' | 'video' | null>(null);
   const selectionRef = useRef<{ from: number; to: number } | null>(null);
 
   const [isLinkOpen, setIsLinkOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
-
 
   const editor = useEditor({
     extensions: [
@@ -131,6 +141,33 @@ export default function RichTextEditor({
     },
     onUpdate: ({ editor: current }) => onChange(current.getHTML()),
   });
+
+  // Tiptap v3 doesn't re-render on transactions, and the editor instance is
+  // stable (so React Compiler caches isActive() calls) — subscribe explicitly.
+  // The snapshot stays null until the first transaction after the editor is
+  // created, so fall back to defaults rather than blocking the render.
+  const toolbarState =
+    useEditorState({
+      editor,
+      selector: ({ editor: current }) => {
+        if (!current) return DEFAULT_TOOLBAR_STATE;
+
+        return {
+          block: activeBlockValue(current),
+          align: activeAlignValue(current),
+          canUndo: current.can().undo(),
+          canRedo: current.can().redo(),
+          isBold: current.isActive('bold'),
+          isItalic: current.isActive('italic'),
+          isUnderline: current.isActive('underline'),
+          isStrike: current.isActive('strike'),
+          isBlockquote: current.isActive('blockquote'),
+          isLink: current.isActive('link'),
+          isBulletList: current.isActive('bulletList'),
+          isOrderedList: current.isActive('orderedList'),
+        };
+      },
+    }) ?? DEFAULT_TOOLBAR_STATE;
 
   if (!editor) {
     return (
@@ -211,14 +248,14 @@ export default function RichTextEditor({
       <div className="flex flex-wrap items-center gap-1 border-b border-black/8 px-2 py-2">
         <ToolbarButton
           label="Undo"
-          disabled={!editor.can().undo()}
+          disabled={!toolbarState.canUndo}
           onClick={() => editor.chain().focus().undo().run()}
         >
           <icon.arrowLeft className="size-4" />
         </ToolbarButton>
         <ToolbarButton
           label="Redo"
-          disabled={!editor.can().redo()}
+          disabled={!toolbarState.canRedo}
           onClick={() => editor.chain().focus().redo().run()}
         >
           <icon.arrowRight className="size-4" />
@@ -238,7 +275,7 @@ export default function RichTextEditor({
             variant="default"
             size="small"
             options={BLOCK_OPTIONS}
-            value={activeBlockValue(editor)}
+            value={toolbarState.block}
             onValueChange={setBlock}
           />
         </div>
@@ -247,42 +284,42 @@ export default function RichTextEditor({
 
         <ToolbarButton
           label="Bold"
-          isActive={editor.isActive('bold')}
+          isActive={toolbarState.isBold}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           <span className="font-bold">B</span>
         </ToolbarButton>
         <ToolbarButton
           label="Italic"
-          isActive={editor.isActive('italic')}
+          isActive={toolbarState.isItalic}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           <span className="font-serif italic">I</span>
         </ToolbarButton>
         <ToolbarButton
           label="Underline"
-          isActive={editor.isActive('underline')}
+          isActive={toolbarState.isUnderline}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
           <span className="underline">U</span>
         </ToolbarButton>
         <ToolbarButton
           label="Strikethrough"
-          isActive={editor.isActive('strike')}
+          isActive={toolbarState.isStrike}
           onClick={() => editor.chain().focus().toggleStrike().run()}
         >
           <span className="line-through">S</span>
         </ToolbarButton>
         <ToolbarButton
           label="Quote"
-          isActive={editor.isActive('blockquote')}
+          isActive={toolbarState.isBlockquote}
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
         >
           <span className="font-serif">&rdquo;</span>
         </ToolbarButton>
         <ToolbarButton
           label="Insert link"
-          isActive={editor.isActive('link')}
+          isActive={toolbarState.isLink}
           onClick={openLinkForm}
         >
           <span className="font-mono text-[12px]">&lt;/&gt;</span>
@@ -300,14 +337,14 @@ export default function RichTextEditor({
 
         <ToolbarButton
           label="Bullet list"
-          isActive={editor.isActive('bulletList')}
+          isActive={toolbarState.isBulletList}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
         >
           <span className="text-[12px]">&bull;&#8212;</span>
         </ToolbarButton>
         <ToolbarButton
           label="Numbered list"
-          isActive={editor.isActive('orderedList')}
+          isActive={toolbarState.isOrderedList}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
           <span className="text-[12px]">1.</span>
@@ -334,7 +371,7 @@ export default function RichTextEditor({
           <ToolbarButton
             key={option.value}
             label={`Align ${option.label.toLowerCase()}`}
-            isActive={activeAlignValue(editor) === option.value}
+            isActive={toolbarState.align === option.value}
             onClick={() =>
               editor.chain().focus().setTextAlign(option.value).run()
             }
