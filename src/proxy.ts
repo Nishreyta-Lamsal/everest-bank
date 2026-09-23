@@ -42,6 +42,7 @@ export const config = {
     '/admin/pages/:path*',
     '/admin/products/:path*',
     '/admin/notices-and-news/:path*',
+    '/admin/youtube/:path*',
     '/admin/forex-rates/:path*',
     '/admin/forms/:path*',
     '/admin/assets/:path*',

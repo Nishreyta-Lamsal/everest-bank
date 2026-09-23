@@ -36,6 +36,7 @@ export const otherNavItems: SidebarNavItemData[] = [
     icon: icon.images,
   },
   { href: ADMIN_ROUTE.CALENDARS, label: 'Calendars', icon: icon.calendar },
+  { href: ADMIN_ROUTE.YOUTUBE, label: 'YouTube', icon: icon.video },
 ];
 
 export const toolsNavItems: SidebarNavItemData[] = [

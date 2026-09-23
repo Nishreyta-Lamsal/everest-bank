@@ -26,6 +26,7 @@ import { PageTextIcon } from './PageTextIcon';
 import { PercentIcon } from './PercentIcon';
 import { PhotosIcon } from './PhotosIcon';
 import { PlusIcon } from './PlusIcon';
+import { RefreshIcon } from './RefreshIcon';
 import { SearchIcon } from './SearchIcon';
 import { SettingsIcon } from './SettingsIcon';
 import { TextBlockIcon } from './TextBlockIcon';
@@ -62,6 +63,7 @@ export const icon = {
   percent: PercentIcon,
   photos: PhotosIcon,
   plus: PlusIcon,
+  refresh: RefreshIcon,
   search: SearchIcon,
   settings: SettingsIcon,
   textBlock: TextBlockIcon,
