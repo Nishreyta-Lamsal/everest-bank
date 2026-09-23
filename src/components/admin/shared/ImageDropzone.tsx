@@ -47,15 +47,15 @@ export default function ImageDropzone({
 
   return (
     <div className="flex w-full flex-col gap-2">
-      {/* The dropzone stays available below, so the thumbnail only needs to
-          show the current image and offer removal. */}
       {preview && (
         <ImagePreview
           src={preview.src}
           alt={preview.alt}
           size={previewSize}
+          onReplace={onMediaSelected}
           onRemove={onRemove}
           isUploading={isUploading}
+          mediaType={mediaType}
         />
       )}
       <button

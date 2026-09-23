@@ -12,6 +12,7 @@ import type {
 
 export type HeroContent = {
   slides: MediaWithAlt[];
+  video?: MediaWithAlt;
   subtext: string;
   video_chip: {
     text: string;

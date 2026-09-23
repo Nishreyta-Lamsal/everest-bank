@@ -37,7 +37,17 @@ export default function ImagePreview({
 }: ImagePreviewProps) {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-  const image = (
+  const isVideo = mediaType === 'video';
+  const label = isVideo ? 'video' : 'image';
+  const image = isVideo ? (
+    <video
+      src={src}
+      muted
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 size-full object-cover"
+    />
+  ) : (
     <Image
       src={src}
       alt={alt ?? ''}
@@ -59,7 +69,7 @@ export default function ImagePreview({
           type="button"
           disabled={isUploading}
           onClick={() => setIsPickerOpen(true)}
-          aria-label="Replace image"
+          aria-label={`Replace ${label}`}
           className="absolute inset-0 block cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
         >
           {image}
@@ -82,7 +92,7 @@ export default function ImagePreview({
           onClose={() => setIsPickerOpen(false)}
           onSelect={onReplace}
           mediaType={mediaType}
-          title="Replace image"
+          title={`Replace ${label}`}
         />
       )}
 
@@ -91,7 +101,7 @@ export default function ImagePreview({
           type="button"
           disabled={isUploading}
           onClick={onRemove}
-          aria-label="Remove image"
+          aria-label={`Remove ${label}`}
           className="absolute top-1 right-1 z-10 flex size-5 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-60"
         >
           <icon.trash className="size-3" />
