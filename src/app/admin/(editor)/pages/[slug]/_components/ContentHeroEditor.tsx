@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Textarea } from '@/components/admin/ui/textarea';
@@ -55,12 +57,20 @@ export default function ContentHeroEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Background image"
-        media={image}
-        onSelect={setImage}
-        onRemove={() => setImage(undefined)}
-      />
+      <FieldLabel label="Background image">
+        {image?.src ? (
+          <ImagePreview
+            src={image.src}
+            alt={image.alt}
+            onReplace={(picked) => setImage(toSectionMedia(picked))}
+            onRemove={() => setImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <ButtonFieldGroup
         label="Hero button"

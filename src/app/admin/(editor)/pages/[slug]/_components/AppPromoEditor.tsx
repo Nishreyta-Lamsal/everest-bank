@@ -3,9 +3,7 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField, {
-  toSectionMedia,
-} from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
@@ -138,14 +136,30 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         </Button> */}
       </div>
 
-      <MediaField
-        label="QR code image"
-        media={qrCode}
-        onSelect={(media) =>
-          setQrCode({ ...media, caption_lines: qrCode?.caption_lines })
-        }
-        onRemove={() => setQrCode(undefined)}
-      />
+      <FieldLabel label="QR code image">
+        {qrCode?.src ? (
+          <ImagePreview
+            src={qrCode.src}
+            alt={qrCode.alt}
+            onReplace={(picked) =>
+              setQrCode({
+                ...toSectionMedia(picked),
+                caption_lines: qrCode?.caption_lines,
+              })
+            }
+            onRemove={() => setQrCode(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) =>
+              setQrCode({
+                ...toSectionMedia(picked),
+                caption_lines: qrCode?.caption_lines,
+              })
+            }
+          />
+        )}
+      </FieldLabel>
 
       <FieldLabel label="QR caption (one line per row)">
         <Textarea
@@ -156,19 +170,35 @@ export default function AppPromoEditor({ slug, section }: AppPromoEditorProps) {
         />
       </FieldLabel>
 
-      <MediaField
-        label="Hero image"
-        media={heroImage}
-        onSelect={setHeroImage}
-        onRemove={() => setHeroImage(undefined)}
-      />
+      <FieldLabel label="Hero image">
+        {heroImage?.src ? (
+          <ImagePreview
+            src={heroImage.src}
+            alt={heroImage.alt}
+            onReplace={(picked) => setHeroImage(toSectionMedia(picked))}
+            onRemove={() => setHeroImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setHeroImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
-      <MediaField
-        label="Phone mockup"
-        media={phoneMockup}
-        onSelect={setPhoneMockup}
-        onRemove={() => setPhoneMockup(undefined)}
-      />
+      <FieldLabel label="Phone mockup">
+        {phoneMockup?.src ? (
+          <ImagePreview
+            src={phoneMockup.src}
+            alt={phoneMockup.alt}
+            onReplace={(picked) => setPhoneMockup(toSectionMedia(picked))}
+            onRemove={() => setPhoneMockup(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setPhoneMockup(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-2">
         <p className="text-[12px] font-medium text-slate-950 opacity-[0.68]">

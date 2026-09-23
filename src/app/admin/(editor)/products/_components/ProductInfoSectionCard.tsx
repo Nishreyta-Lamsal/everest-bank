@@ -4,8 +4,11 @@ import { useState } from 'react';
 
 import ProductSectionCard from './ProductSectionCard';
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
+import FieldLabel from '@/components/admin/shared/FieldLabel';
 import FieldPairRow from '@/components/admin/shared/FieldPairRow';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import { Button } from '@/components/admin/ui/button';
 import { icon } from '@/components/admin/icons';
 
@@ -40,12 +43,20 @@ export default function ProductInfoSectionCard() {
   return (
     <ProductSectionCard title="Product info">
       <div className="border-black-alpha-5 flex w-full flex-col gap-3 border-b pb-4">
-        <MediaField
-          label="Right-Side Image"
-          media={image}
-          onSelect={setImage}
-          onRemove={() => setImage(undefined)}
-        />
+        <FieldLabel label="Right-Side Image">
+          {image?.src ? (
+            <ImagePreview
+              src={image.src}
+              alt={image.alt}
+              onReplace={(picked) => setImage(toSectionMedia(picked))}
+              onRemove={() => setImage(undefined)}
+            />
+          ) : (
+            <ImageDropzone
+              onMediaSelected={(picked) => setImage(toSectionMedia(picked))}
+            />
+          )}
+        </FieldLabel>
 
         {rows.map((row, index) => (
           <FieldPairRow

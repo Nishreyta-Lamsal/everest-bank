@@ -25,12 +25,14 @@ export default function CardsSection({ sections }: CardsSectionProps) {
   ];
   const ctaHref = content?.cta?.href || '#';
   const ctaLabel = content?.cta?.label || 'Know more about the cards';
-  const backgroundImageSrc =
-    content?.background_image?.src || '/images/cards/card-showcase-bg.png';
   const tiles =
     content?.tiles.map((tile) => ({
       href: tile.href,
       title: tile.title,
+      image:
+        tile.image?.src ||
+        content?.background_image?.src ||
+        '/images/cards/card-showcase-bg.png',
       roundedCorner: tile.rounded_corner,
     })) || cardTiles;
 
@@ -67,7 +69,7 @@ export default function CardsSection({ sections }: CardsSectionProps) {
                 )}
               >
                 <Image
-                  src={backgroundImageSrc}
+                  src={card.image}
                   alt=""
                   fill
                   className="object-cover object-bottom transition-transform duration-300 group-hover:scale-105"

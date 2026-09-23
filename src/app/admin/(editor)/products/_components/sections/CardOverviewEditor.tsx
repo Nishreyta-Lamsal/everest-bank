@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import CardTableFieldGroup from './CardTableFieldGroup';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -138,11 +140,29 @@ export default function CardOverviewEditor({
             />
           </FieldLabel>
 
-          <MediaField
-            label="Card face"
-            media={variant.face}
-            onSelect={(face) => updateVariant(index, { ...variant, face })}
-          />
+          <FieldLabel label="Card face">
+            {variant.face?.src ? (
+              <ImagePreview
+                src={variant.face.src}
+                alt={variant.face.alt}
+                onReplace={(picked) =>
+                  updateVariant(index, {
+                    ...variant,
+                    face: toSectionMedia(picked),
+                  })
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  updateVariant(index, {
+                    ...variant,
+                    face: toSectionMedia(picked),
+                  })
+                }
+              />
+            )}
+          </FieldLabel>
 
           <FieldLabel label="Features heading">
             <Input

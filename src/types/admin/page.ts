@@ -694,6 +694,7 @@ export type LoansPreviewContent = {
 export type CardsPreviewTile = {
   title?: string;
   href?: string;
+  image?: SectionMedia;
   rounded_corner?: string;
 };
 

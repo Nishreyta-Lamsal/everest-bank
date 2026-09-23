@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { usePageEditor } from '@/store/PageEditorContext';
@@ -130,14 +132,33 @@ export default function ContentBodyEditor({
             </p>
 
             {block.images.map((image, imageIndex) => (
-              <MediaField
-                key={imageIndex}
-                label={`Image ${imageIndex + 1}`}
-                media={image}
-                onSelect={(uploaded) =>
-                  updateImage(index, block, imageIndex, uploaded)
-                }
-              />
+              <FieldLabel key={imageIndex} label={`Image ${imageIndex + 1}`}>
+                {image.src ? (
+                  <ImagePreview
+                    src={image.src}
+                    alt={image.alt}
+                    onReplace={(picked) =>
+                      updateImage(
+                        index,
+                        block,
+                        imageIndex,
+                        toSectionMedia(picked),
+                      )
+                    }
+                  />
+                ) : (
+                  <ImageDropzone
+                    onMediaSelected={(picked) =>
+                      updateImage(
+                        index,
+                        block,
+                        imageIndex,
+                        toSectionMedia(picked),
+                      )
+                    }
+                  />
+                )}
+              </FieldLabel>
             ))}
           </div>
         ) : isQuoteBlock(block) ? (

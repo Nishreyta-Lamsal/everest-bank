@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -118,11 +120,29 @@ export default function BusinessRelationshipManagersEditor({
               />
             </FieldLabel>
 
-            <MediaField
-              label="Portrait"
-              media={manager.image}
-              onSelect={(image) => updateManager(index, { ...manager, image })}
-            />
+            <FieldLabel label="Portrait">
+              {manager.image?.src ? (
+                <ImagePreview
+                  src={manager.image.src}
+                  alt={manager.image.alt}
+                  onReplace={(picked) =>
+                    updateManager(index, {
+                      ...manager,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    updateManager(index, {
+                      ...manager,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              )}
+            </FieldLabel>
           </div>
         ))}
       </div>

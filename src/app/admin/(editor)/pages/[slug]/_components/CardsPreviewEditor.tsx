@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
@@ -63,7 +65,7 @@ export default function CardsPreviewEditor({
   return (
     <SectionEditorShell
       title={section.label}
-      description="Heading, tiles, background image and the section link"
+      description="Heading, tiles with their own images, the fallback background image and the section link"
       shownOnPage={shownOnPage}
       onShownOnPageChange={setShownOnPage}
       isError={isError}
@@ -78,12 +80,20 @@ export default function CardsPreviewEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Background image"
-        media={background}
-        onSelect={setBackground}
-        onRemove={() => setBackground(undefined)}
-      />
+      <FieldLabel label="Background image (fallback for tiles without their own image)">
+        {background?.src ? (
+          <ImagePreview
+            src={background.src}
+            alt={background.alt}
+            onReplace={(picked) => setBackground(toSectionMedia(picked))}
+            onRemove={() => setBackground(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setBackground(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3">
         <p className="text-[16px] font-semibold text-neutral-900">Tiles</p>
@@ -117,6 +127,33 @@ export default function CardsPreviewEditor({
                   updateTile(index, { ...tile, title: event.target.value })
                 }
               />
+            </FieldLabel>
+
+            <FieldLabel label="Tile image">
+              {tile.image?.src ? (
+                <ImagePreview
+                  src={tile.image.src}
+                  alt={tile.image.alt}
+                  onReplace={(picked) =>
+                    updateTile(index, {
+                      ...tile,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                  onRemove={() =>
+                    updateTile(index, { ...tile, image: undefined })
+                  }
+                />
+              ) : (
+                <ImageDropzone
+                  onMediaSelected={(picked) =>
+                    updateTile(index, {
+                      ...tile,
+                      image: toSectionMedia(picked),
+                    })
+                  }
+                />
+              )}
             </FieldLabel>
 
             <FieldLabel label="Links to">

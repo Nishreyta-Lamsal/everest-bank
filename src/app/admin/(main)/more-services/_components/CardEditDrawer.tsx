@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import { Button } from '@/components/admin/ui/button';
 import { Drawer } from '@/components/admin/ui/drawer';
 import { Input } from '@/components/admin/ui/input';
@@ -132,15 +134,23 @@ export default function CardEditDrawer({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Image"
-        media={image ?? undefined}
-        onSelect={selectImage}
-        onRemove={() => {
-          setImage(null);
-          set('image', null);
-        }}
-      />
+      <FieldLabel label="Image">
+        {image?.src ? (
+          <ImagePreview
+            src={image.src}
+            alt={image.alt}
+            onReplace={(picked) => selectImage(toSectionMedia(picked))}
+            onRemove={() => {
+              setImage(null);
+              set('image', null);
+            }}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => selectImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <FieldLabel label="Links to">
         <Input

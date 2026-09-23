@@ -3,9 +3,7 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField, {
-  toSectionMedia,
-} from '@/components/admin/shared/MediaField';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import LinkTargetSelect from '@/components/admin/shared/LinkTargetSelect';
 import SectionEditorShell from './SectionEditorShell';
 import ImagePreview from '@/components/admin/shared/ImagePreview';
@@ -91,12 +89,20 @@ export default function CsrSectionEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Main image"
-        media={mainImage}
-        onSelect={setMainImage}
-        onRemove={() => setMainImage(undefined)}
-      />
+      <FieldLabel label="Main image">
+        {mainImage?.src ? (
+          <ImagePreview
+            src={mainImage.src}
+            alt={mainImage.alt}
+            onReplace={(picked) => setMainImage(toSectionMedia(picked))}
+            onRemove={() => setMainImage(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setMainImage(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3">
         <p className="text-[16px] font-semibold text-neutral-900">Cards</p>

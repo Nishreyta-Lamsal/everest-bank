@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import { Card } from '@/components/admin/ui/card';
 import { Input } from '@/components/admin/ui/input';
 import { Textarea } from '@/components/admin/ui/textarea';
@@ -69,6 +71,13 @@ export default function FooterSettingsCard() {
 
   const value = { ...settings, ...draft };
 
+  const logoImage = imageFor('logo_media', settings.logo_url);
+  const appQrImage = imageFor('app_qr_media', settings.app_qr_url);
+  const mountainBannerImage = imageFor(
+    'mountain_banner_media',
+    settings.mountain_banner_url,
+  );
+
   return (
     <Card className="w-full">
       <div className="flex w-full flex-col gap-4">
@@ -82,24 +91,57 @@ export default function FooterSettingsCard() {
         </div>
 
         <div className="grid w-full gap-4 md:grid-cols-3">
-          <MediaField
-            label="Logo"
-            media={imageFor('logo_media', settings.logo_url)}
-            onSelect={(media) => selectImage('logo_media', media)}
-          />
-          <MediaField
-            label="App QR code"
-            media={imageFor('app_qr_media', settings.app_qr_url)}
-            onSelect={(media) => selectImage('app_qr_media', media)}
-          />
-          <MediaField
-            label="Mountain banner"
-            media={imageFor(
-              'mountain_banner_media',
-              settings.mountain_banner_url,
+          <FieldLabel label="Logo">
+            {logoImage?.src ? (
+              <ImagePreview
+                src={logoImage.src}
+                alt={logoImage.alt}
+                onReplace={(picked) =>
+                  selectImage('logo_media', toSectionMedia(picked))
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  selectImage('logo_media', toSectionMedia(picked))
+                }
+              />
             )}
-            onSelect={(media) => selectImage('mountain_banner_media', media)}
-          />
+          </FieldLabel>
+          <FieldLabel label="App QR code">
+            {appQrImage?.src ? (
+              <ImagePreview
+                src={appQrImage.src}
+                alt={appQrImage.alt}
+                onReplace={(picked) =>
+                  selectImage('app_qr_media', toSectionMedia(picked))
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  selectImage('app_qr_media', toSectionMedia(picked))
+                }
+              />
+            )}
+          </FieldLabel>
+          <FieldLabel label="Mountain banner">
+            {mountainBannerImage?.src ? (
+              <ImagePreview
+                src={mountainBannerImage.src}
+                alt={mountainBannerImage.alt}
+                onReplace={(picked) =>
+                  selectImage('mountain_banner_media', toSectionMedia(picked))
+                }
+              />
+            ) : (
+              <ImageDropzone
+                onMediaSelected={(picked) =>
+                  selectImage('mountain_banner_media', toSectionMedia(picked))
+                }
+              />
+            )}
+          </FieldLabel>
         </div>
 
         <FieldLabel label="App promo label">

@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import ButtonFieldGroup from '@/components/admin/shared/ButtonFieldGroup';
 import FieldLabel from '@/components/admin/shared/FieldLabel';
-import MediaField from '@/components/admin/shared/MediaField';
+import ImageDropzone from '@/components/admin/shared/ImageDropzone';
+import ImagePreview from '@/components/admin/shared/ImagePreview';
+import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from './SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
@@ -82,12 +84,20 @@ export default function RemittanceOpenAccountEditor({
         />
       </FieldLabel>
 
-      <MediaField
-        label="Video poster"
-        media={poster}
-        onSelect={setPoster}
-        onRemove={() => setPoster(undefined)}
-      />
+      <FieldLabel label="Video poster">
+        {poster?.src ? (
+          <ImagePreview
+            src={poster.src}
+            alt={poster.alt}
+            onReplace={(picked) => setPoster(toSectionMedia(picked))}
+            onRemove={() => setPoster(undefined)}
+          />
+        ) : (
+          <ImageDropzone
+            onMediaSelected={(picked) => setPoster(toSectionMedia(picked))}
+          />
+        )}
+      </FieldLabel>
 
       <div className="flex w-full flex-col gap-3">
         <p className="text-[16px] font-semibold text-neutral-900">Features</p>
