@@ -1,7 +1,19 @@
-export type InvestmentBodyBlock = {
+type InvestmentTextBlock = {
+  type?: undefined;
   heading: string;
   paragraphs: string[];
 };
+
+type InvestmentImagesBlock = {
+  type: 'images';
+  layout?: 'full_width';
+  images: {
+    src: string;
+    alt: string;
+  }[];
+};
+
+export type InvestmentBodyBlock = InvestmentTextBlock | InvestmentImagesBlock;
 
 export const investmentBodyBlocks: InvestmentBodyBlock[] = [
   {

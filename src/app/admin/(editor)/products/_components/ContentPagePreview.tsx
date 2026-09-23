@@ -7,6 +7,7 @@ import ProfileContentSection from '@/app/about/profile/_components/ProfileConten
 import BoardOfDirectorsHeroSection from '@/app/about/board-of-directors/_components/BoardOfDirectorsHeroSection';
 import BoardOfDirectorsContentSection from '@/app/about/board-of-directors/_components/BoardOfDirectorsContentSection';
 import OrganizationStructureContentSection from '@/app/about/organization-structure/_components/OrganizationStructureContentSection';
+import InvestmentContentSection from '@/app/(personal-page)/investments/[slug]/_components/InvestmentContentSection';
 import ContentHeroSection from '@/components/shared/content/ContentHeroSection';
 import MountainHeroSection from '@/components/shared/MountainHeroSection';
 import CareersJobsSection from '@/app/about/careers/_components/CareersJobsSection';
@@ -27,6 +28,7 @@ import type { AboutBoardOfDirectorsPageSection } from '@/api/services/about/abou
 import type { AboutOrganizationStructurePageSection } from '@/api/services/about/about-organization-structure-page.service';
 import type { AboutCareersPageSection } from '@/api/services/about/about-careers-page.service';
 import type { RemittanceRepresentativesWorldwidePageSection } from '@/api/services/remittance/remittance-representatives-worldwide-page.service';
+import type { InvestmentPageSection } from '@/api/services/personal/investment-page.service';
 
 type ContentPagePreviewProps = {
   slug: string;
@@ -41,6 +43,7 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
   const isRepresentatives = slug.includes('representatives');
   const isBoardOfDirectors = slug.includes('board-of-directors');
   const isOrganizationStructure = slug.includes('organization-structure');
+  const isInvestments = page?.parent_slug === 'personal-investments';
 
   const rawSections = toPreviewSections(
     page?.sections,
@@ -57,7 +60,7 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
     breadcrumbsContent?.items?.filter((item) => Boolean(item?.label)) ?? [];
 
   const isBodyFocused =
-    focusedSectionType === 'content_body' ||
+    focusedSectionType === 'content_editor' ||
     focusedSectionType === 'content_sidebar';
 
   const breadcrumbsNode = (
@@ -199,6 +202,44 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
     );
   }
 
+  if (isInvestments) {
+    const investmentSections = rawSections as
+      InvestmentPageSection[] | undefined;
+
+    const heroContent = getSectionContent(investmentSections, 'content_hero');
+
+    return (
+      <main className="relative">
+        {breadcrumbsNode}
+        <PreviewSectionHighlight
+          sectionType="content_hero"
+          activeSectionType={focusedSectionType}
+        >
+          <ContentHeroSection
+            image={heroContent?.image?.src || '/placeholder.png'}
+            imageAlt={heroContent?.image?.alt || ''}
+            heading={heroContent?.heading || page?.title || ''}
+            buttonLabel={
+              heroContent?.button?.label || 'Contact your nearest branch'
+            }
+            buttonHref={heroContent?.button?.href || ROUTE.BRANCHES}
+          />
+        </PreviewSectionHighlight>
+        <PreviewSectionHighlight
+          sectionType="content_editor"
+          activeSectionType={
+            isBodyFocused ? 'content_editor' : focusedSectionType
+          }
+        >
+          <InvestmentContentSection
+            sections={investmentSections}
+            relatedPages={page?.related_pages}
+          />
+        </PreviewSectionHighlight>
+      </main>
+    );
+  }
+
   return (
     <main className="relative">
       {breadcrumbsNode}
@@ -215,8 +256,10 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
         <ProfileStatsSection sections={sections} />
       </PreviewSectionHighlight>
       <PreviewSectionHighlight
-        sectionType="content_body"
-        activeSectionType={isBodyFocused ? 'content_body' : focusedSectionType}
+        sectionType="content_editor"
+        activeSectionType={
+          isBodyFocused ? 'content_editor' : focusedSectionType
+        }
       >
         <ProfileContentSection sections={sections} />
       </PreviewSectionHighlight>

@@ -4,6 +4,7 @@ import ContentBreadcrumbsEditor from './ContentBreadcrumbsEditor';
 import ContentHeroEditor from '../../../pages/[slug]/_components/ContentHeroEditor';
 import ContentStatsEditor from './ContentStatsEditor';
 import ContentBodyEditor from './ContentBodyEditor';
+import ContentEditorEditor from './ContentEditorEditor';
 import ContentSidebarEditor from './ContentSidebarEditor';
 import ContentPeopleEditor from './ContentPeopleEditor';
 import ContentJobsEditor from './ContentJobsEditor';
@@ -51,6 +52,8 @@ export default function ProductSectionEditor({
       return <ContentStatsEditor slug={slug} section={section} />;
     case 'content_body':
       return <ContentBodyEditor slug={slug} section={section} />;
+    case 'content_editor':
+      return <ContentEditorEditor slug={slug} section={section} />;
     case 'content_sidebar':
       return <ContentSidebarEditor slug={slug} section={section} />;
     case 'content_people':

@@ -75,6 +75,7 @@ export type SectionType =
   | 'content_hero'
   | 'content_stats'
   | 'content_body'
+  | 'content_editor'
   | 'content_sidebar'
   | 'content_people'
   | 'content_jobs'
@@ -107,6 +108,7 @@ export type PageDetail = {
   path: string;
   title: string;
   title_ne: string;
+  parent_slug: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -226,6 +228,18 @@ export type ContentBodyContent = {
     | ContentQuoteBlock
     | ContentGroupBlock
   )[];
+};
+
+/** A single rich-text field, authored with the same editor as the
+ * notices/news description. */
+export type ContentEditorContent = {
+  body?: string;
+  /**
+   * Legacy shape some sections still carry (headed paragraphs + a separate
+   * images block). Only read once, to seed `body`, for pages saved before
+   * this section type moved to a single rich-text field.
+   */
+  blocks?: (ContentTextBlock | ContentImagesBlock)[];
 };
 
 export type ContentSidebarContent = {

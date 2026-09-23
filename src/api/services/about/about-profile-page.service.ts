@@ -44,8 +44,10 @@ type ContentImagesBlock = {
 
 type ContentBlock = ContentTextBlock | ContentImagesBlock;
 
-type ContentBodyContent = {
-  blocks: ContentBlock[];
+type ContentEditorContent = {
+  body?: string;
+  /** Legacy shape from before this section moved to a single rich-text body. */
+  blocks?: ContentBlock[];
 };
 
 type ContentSidebarContent = {
@@ -87,7 +89,7 @@ type ContentBreadcrumbsSection = SectionOf<
 >;
 type ContentHeroSection = SectionOf<'content_hero', ContentHeroContent>;
 type ContentStatsSection = SectionOf<'content_stats', ContentStatsContent>;
-type ContentBodySection = SectionOf<'content_body', ContentBodyContent>;
+type ContentEditorSection = SectionOf<'content_editor', ContentEditorContent>;
 type ContentSidebarSection = SectionOf<
   'content_sidebar',
   ContentSidebarContent
@@ -102,7 +104,7 @@ export type AboutProfilePageSection =
   | ContentBreadcrumbsSection
   | ContentHeroSection
   | ContentStatsSection
-  | ContentBodySection
+  | ContentEditorSection
   | ContentSidebarSection
   | ContentNewsSection
   | ContentContactSection;
