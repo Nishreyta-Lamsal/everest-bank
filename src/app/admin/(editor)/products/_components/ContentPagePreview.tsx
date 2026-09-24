@@ -261,7 +261,10 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
           isBodyFocused ? 'content_editor' : focusedSectionType
         }
       >
-        <ProfileContentSection sections={sections} />
+        <ProfileContentSection
+          sections={sections}
+          relatedPages={page?.related_pages}
+        />
       </PreviewSectionHighlight>
     </main>
   );
