@@ -10,6 +10,8 @@ import { toSectionMedia } from '@/components/admin/shared/MediaField';
 import SectionEditorShell from '../../../pages/[slug]/_components/SectionEditorShell';
 import { useSectionEditor } from '@/hooks/admin/use-section-editor';
 import { Input } from '@/components/admin/ui/input';
+import { Button } from '@/components/admin/ui/button';
+import { icon } from '@/components/admin/icons';
 
 import { localizedContent } from '@/lib/admin/section-content';
 
@@ -66,6 +68,27 @@ export default function SavingAccountFinderEditor({
     });
   }
 
+  function addAccount(categoryIndex: number) {
+    const category = categories[categoryIndex];
+
+    updateCategory(categoryIndex, {
+      ...category,
+      accounts: [
+        ...(category.accounts ?? []),
+        { title: '', href: '', image: { src: '', alt: '' } },
+      ],
+    });
+  }
+
+  function removeAccount(categoryIndex: number, accountIndex: number) {
+    const category = categories[categoryIndex];
+
+    updateCategory(categoryIndex, {
+      ...category,
+      accounts: (category.accounts ?? []).filter((_, i) => i !== accountIndex),
+    });
+  }
+
   return (
     <SectionEditorShell
       title={section.label}
@@ -110,10 +133,20 @@ export default function SavingAccountFinderEditor({
                 key={accountIndex}
                 className="flex w-full flex-col gap-3 rounded-[6px] border border-[#e6ecf4] p-3"
               >
-                <p className="min-w-0 truncate text-[13px] font-semibold text-neutral-900">
-                  Account {accountIndex + 1}
-                  {account.title ? ` · ${account.title}` : ''}
-                </p>
+                <div className="flex w-full items-center justify-between gap-2">
+                  <p className="min-w-0 truncate text-[13px] font-semibold text-neutral-900">
+                    Account {accountIndex + 1}
+                    {account.title ? ` · ${account.title}` : ''}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => removeAccount(categoryIndex, accountIndex)}
+                    aria-label={`Remove ${account.title || `account ${accountIndex + 1}`}`}
+                    className="shrink-0 cursor-pointer text-slate-600"
+                  >
+                    <icon.trash className="size-4" />
+                  </button>
+                </div>
 
                 <FieldLabel label="Title">
                   <Input
@@ -171,6 +204,17 @@ export default function SavingAccountFinderEditor({
               No accounts in this category yet.
             </p>
           )}
+
+          <Button
+            type="button"
+            variant="secondary"
+            size="large"
+            className="w-full"
+            onClick={() => addAccount(categoryIndex)}
+          >
+            <icon.plus />
+            Add account
+          </Button>
         </div>
       ))}
     </SectionEditorShell>

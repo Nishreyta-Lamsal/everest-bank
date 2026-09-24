@@ -218,7 +218,10 @@ export default function ContentPagePreview({ slug }: ContentPagePreviewProps) {
         sectionType="content_body"
         activeSectionType={isBodyFocused ? 'content_body' : focusedSectionType}
       >
-        <ProfileContentSection sections={sections} />
+        <ProfileContentSection
+          sections={sections}
+          relatedPages={page?.related_pages}
+        />
       </PreviewSectionHighlight>
     </main>
   );
