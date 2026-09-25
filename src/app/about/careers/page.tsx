@@ -14,6 +14,8 @@ import { ROUTE } from '@/constants';
 
 import type { AboutCareersPageSection } from '@/api/services/about/about-careers-page.service';
 
+export const revalidate = 60;
+
 export const aboutCareersPageQueryKey = ['about-careers-page'] as const;
 
 const fallbackBreadcrumbItems = [
