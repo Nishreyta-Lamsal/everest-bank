@@ -17,6 +17,8 @@ import { businessPageService } from '@/api/services/business/business-page.servi
 
 import type { BusinessPageSection } from '@/api/services/business/business-page.service';
 
+export const revalidate = 60;
+
 export const businessPageQueryKey = ['business-page'] as const;
 
 export default async function BusinessPage() {

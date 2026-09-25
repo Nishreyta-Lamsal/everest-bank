@@ -16,6 +16,8 @@ import { getSectionContent } from '@/lib/get-section-content';
 import { savingAccountSteps } from './_data/steps';
 import { accountDocuments, accountDocumentsImage } from './_data/documents';
 
+export const revalidate = 60;
+
 type DepositAccountDetailsPageProps = {
   params: Promise<{ slug: string }>;
 };

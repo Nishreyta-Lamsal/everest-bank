@@ -11,6 +11,8 @@ import { cardDetailsPageService } from '@/api/services/personal/card/card-detail
 import { getQueryClient } from '@/lib/get-query-client';
 import { getSectionContent } from '@/lib/get-section-content';
 
+export const revalidate = 60;
+
 type CardsDetailsPageProps = {
   params: Promise<{ slug: string }>;
 };

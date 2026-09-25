@@ -17,6 +17,8 @@ import { ROUTE } from '@/constants';
 import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutCorporateMissionAndVisionPageSection } from '@/api/services/about/about-corporate-mission-and-vision-page.service';
 
+export const revalidate = 60;
+
 export const aboutCorporateMissionAndVisionPageQueryKey = [
   'about-corporate-mission-and-vision-page',
 ] as const;

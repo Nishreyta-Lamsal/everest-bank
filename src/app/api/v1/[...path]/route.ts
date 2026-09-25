@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextRequest } from 'next/server';
 
 import { PRIVATE_ENV } from '@/config/env';
@@ -10,6 +11,30 @@ const STRIPPED_RESPONSE_HEADERS = [
   'content-length',
   'transfer-encoding',
 ];
+
+const READ_METHODS = ['GET', 'HEAD', 'OPTIONS'];
+
+/**
+ * Prefixes that write something a reader never sees, so they must not purge
+ * the page cache: `public/` is the reader's own traffic (a contact form post
+ * would otherwise let anyone clear the cache at will), and `auth/` is login
+ * and the token refresh that runs on a timer behind every editor session.
+ */
+const NON_CONTENT_PREFIXES = ['/api/v1/public/', '/api/v1/auth/'];
+
+/**
+ * Whether this request changed something a public page renders.
+ *
+ * Every CMS write leaves the editor through this proxy - the browser talks to
+ * `/api/v1/*` same-origin so its session cookie stays first-party - so Next
+ * learns about the edit here and needs no webhook back from Django.
+ */
+function isContentWrite(method: string, pathname: string, status: number) {
+  if (READ_METHODS.includes(method)) return false;
+  if (status >= 400) return false;
+
+  return !NON_CONTENT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
 
 function rewriteSetCookie(cookie: string) {
   return cookie
@@ -37,6 +62,17 @@ async function handler(request: NextRequest) {
     // Required by undici when streaming a request body.
     ...(hasBody ? { duplex: 'half' } : {}),
   } as RequestInit);
+
+  // ponytail: one edit clears every page rather than mapping each endpoint to
+  // the pages it feeds. The site is ~30 cached marketing pages and staff edit
+  // it a handful of times a day, so a rebuilt page costs less than a mapping
+  // that silently misses a route. Narrow it if the edit rate ever climbs.
+  //
+  // In a Route Handler this only marks the paths stale; each one re-renders on
+  // its next visit, so an edit does not rebuild the site at once.
+  if (isContentWrite(request.method, pathname, upstreamResponse.status)) {
+    revalidatePath('/', 'layout');
+  }
 
   const responseHeaders = new Headers(upstreamResponse.headers);
   STRIPPED_RESPONSE_HEADERS.forEach((name) => responseHeaders.delete(name));
