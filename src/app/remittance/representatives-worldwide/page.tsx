@@ -15,6 +15,8 @@ import { ROUTE } from '@/constants';
 
 import type { RemittanceRepresentativesWorldwidePageSection } from '@/api/services/remittance/remittance-representatives-worldwide-page.service';
 
+export const revalidate = 60;
+
 export const remittanceRepresentativesWorldwidePageQueryKey = [
   'remittance-representatives-worldwide-page',
 ] as const;

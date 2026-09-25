@@ -6,6 +6,8 @@ import ContactSection from '@/components/shared/content/ContactSection';
 
 import { ROUTE } from '@/constants';
 
+export const revalidate = 60;
+
 const breadcrumbItems = [{ label: 'Auction Notice' }];
 
 export default function AuctionNoticePage() {

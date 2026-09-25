@@ -18,6 +18,8 @@ import {
 
 import { getQueryClient } from '@/lib/get-query-client';
 
+export const revalidate = 60;
+
 export const personalPageQueryKey = ['personal-page'] as const;
 
 export default async function PersonalPage() {

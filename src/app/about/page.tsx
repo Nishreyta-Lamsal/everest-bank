@@ -17,6 +17,8 @@ import { getQueryClient } from '@/lib/get-query-client';
 
 import type { AboutPageSection } from '@/api/services/about/about-page.service';
 
+export const revalidate = 60;
+
 export const aboutPageQueryKey = ['about-page'] as const;
 
 const breadcrumbItems = [{ label: 'About' }];

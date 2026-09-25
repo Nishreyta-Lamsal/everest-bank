@@ -6,6 +6,8 @@ import DynamicForm from '@/components/shared/dynamic-form/DynamicForm';
 
 import { formService } from '@/api/services/form.service';
 
+export const revalidate = 60;
+
 type FormPageProps = {
   params: Promise<{ slug: string }>;
 };

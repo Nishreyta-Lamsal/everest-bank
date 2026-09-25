@@ -17,6 +17,8 @@ import { loanPageService } from '@/api/services/personal/loan-page.service';
 import { getQueryClient } from '@/lib/get-query-client';
 import { getSectionContent } from '@/lib/get-section-content';
 
+export const revalidate = 60;
+
 type LoansPageProps = {
   params: Promise<{ slug: string }>;
 };

@@ -13,6 +13,8 @@ import { investmentPageService } from '@/api/services/personal/investment-page.s
 import { getQueryClient } from '@/lib/get-query-client';
 import { getSectionContent } from '@/lib/get-section-content';
 
+export const revalidate = 60;
+
 type InvestmentsDetailsPageProps = {
   params: Promise<{ slug: string }>;
 };

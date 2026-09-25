@@ -17,6 +17,8 @@ import { ROUTE } from '@/constants';
 import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutProfilePageSection } from '@/api/services/about/about-profile-page.service';
 
+export const revalidate = 60;
+
 export const aboutProfilePageQueryKey = ['about-profile-page'] as const;
 
 const fallbackBreadcrumbItems = [

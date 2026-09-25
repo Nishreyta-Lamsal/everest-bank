@@ -17,6 +17,8 @@ import { remittanceFaqs } from './_data/remittance-faqs';
 
 import type { RemittancePageSection } from '@/api/services/remittance/remittance-page.service';
 
+export const revalidate = 60;
+
 export const remittancePageQueryKey = ['remittance-page'] as const;
 
 export default async function RemittancePage() {

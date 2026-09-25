@@ -17,6 +17,8 @@ import { ROUTE } from '@/constants';
 import type { ContentSidebarLink } from '@/components/shared/content/ContentSidebar';
 import type { AboutOrganizationStructurePageSection } from '@/api/services/about/about-organization-structure-page.service';
 
+export const revalidate = 60;
+
 export const aboutOrganizationStructurePageQueryKey = [
   'about-organization-structure-page',
 ] as const;
