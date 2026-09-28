@@ -67,6 +67,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 60;
+
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
   const [mainNavItems, calendar] = await Promise.all([
     getMainNavItems(),

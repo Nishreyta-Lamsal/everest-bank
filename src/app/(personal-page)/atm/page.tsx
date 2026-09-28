@@ -13,7 +13,7 @@ import { atmLocations } from './_data/atm-locations';
  * without a deploy while visitors still get a cached page. Without this the
  * page is prerendered once at build time and CMS edits never show.
  */
-export const revalidate = 60;
+// export const revalidate = 60;
 
 const breadcrumbItems = [{ label: 'ATM' }];
 
